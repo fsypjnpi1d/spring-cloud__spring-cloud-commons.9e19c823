@@ -72,9 +72,9 @@ public class EnableDiscoveryClientImportSelector extends SpringFactoryImportSele
 		return getEnvironment().getProperty("spring.cloud.discovery.enabled", Boolean.class, Boolean.TRUE);
 	}
 
- @Override
- protected boolean hasDefaultFactory() {
- 	return false;
- }
+	@Override
+	protected boolean hasDefaultFactory() {
+		return true;
+	}
 
 }
