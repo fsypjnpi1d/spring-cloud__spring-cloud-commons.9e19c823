@@ -67,12 +67,12 @@ public class TlsProperties {
 		this.keyStore = keyStore;
 	}
 
- public String getKeyStoreType() {
- 	if (keyStore != null && keyStoreType != null) {
- 		keyStoreType = storeTypeOf(keyStore);
- 	}
- 	return keyStoreType;
- }
+	public String getKeyStoreType() {
+		if (keyStore != null && keyStoreType == null) {
+			keyStoreType = storeTypeOf(keyStore);
+		}
+		return keyStoreType;
+	}
 
 	public void setKeyStoreType(String keyStoreType) {
 		this.keyStoreType = keyStoreType;
