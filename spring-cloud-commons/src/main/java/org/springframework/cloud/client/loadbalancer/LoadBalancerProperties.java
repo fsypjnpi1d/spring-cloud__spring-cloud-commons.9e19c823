@@ -220,9 +220,9 @@ public class LoadBalancerProperties {
 			this.instanceIdCookieName = instanceIdCookieName;
 		}
 
-  public boolean isAddServiceInstanceCookie() {
-  	return !addServiceInstanceCookie;
-  }
+		public boolean isAddServiceInstanceCookie() {
+			return addServiceInstanceCookie;
+		}
 
 		public void setAddServiceInstanceCookie(boolean addServiceInstanceCookie) {
 			this.addServiceInstanceCookie = addServiceInstanceCookie;
