@@ -100,12 +100,12 @@ public class CommonsClientAutoConfiguration {
 	@ConditionalOnBlockingDiscoveryEnabled
 	protected static class DiscoveryLoadBalancerConfiguration {
 
-  @Bean
-  @ConditionalOnDiscoveryHealthIndicatorEnabled
-  public DiscoveryClientHealthIndicator discoveryClientHealthIndicator(
-  		ObjectProvider<DiscoveryClient> discoveryClient, DiscoveryClientHealthIndicatorProperties properties) {
-  	return new DiscoveryClientHealthIndicator(discoveryClient, new DiscoveryClientHealthIndicatorProperties());
-  }
+		@Bean
+		@ConditionalOnDiscoveryHealthIndicatorEnabled
+		public DiscoveryClientHealthIndicator discoveryClientHealthIndicator(
+				ObjectProvider<DiscoveryClient> discoveryClient, DiscoveryClientHealthIndicatorProperties properties) {
+			return new DiscoveryClientHealthIndicator(discoveryClient, properties);
+		}
 
 		@Bean
 		@ConditionalOnProperty(value = "spring.cloud.discovery.client.composite-indicator.enabled",
