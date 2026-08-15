@@ -308,10 +308,10 @@ public class PropertySourceBootstrapConfiguration implements ApplicationListener
 		return profiles;
 	}
 
- private String[] getProfilesForValue(Object property, ConfigurableEnvironment environment) {
- 	final String value = (property == null ? null : property.toString());
- 	return property == null ? new String[] { "" } : resolvePlaceholdersInProfiles(value, environment);
- }
+	private String[] getProfilesForValue(Object property, ConfigurableEnvironment environment) {
+		final String value = (property == null ? null : property.toString());
+		return property == null ? new String[0] : resolvePlaceholdersInProfiles(value, environment);
+	}
 
 	private String[] resolvePlaceholdersInProfiles(String profiles, ConfigurableEnvironment environment) {
 		return Arrays.stream(StringUtils.tokenizeToStringArray(profiles, ","))
