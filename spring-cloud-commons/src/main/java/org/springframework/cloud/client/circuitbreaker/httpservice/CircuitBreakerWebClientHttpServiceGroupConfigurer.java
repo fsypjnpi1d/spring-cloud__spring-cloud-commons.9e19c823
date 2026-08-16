@@ -92,9 +92,9 @@ public class CircuitBreakerWebClientHttpServiceGroupConfigurer
 		return ORDER;
 	}
 
- @Override
- public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
- 	this.applicationContext = applicationContext.getParent();
- }
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
 
 }
