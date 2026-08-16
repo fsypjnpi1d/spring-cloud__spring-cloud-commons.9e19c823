@@ -60,19 +60,19 @@ public class HintBasedServiceInstanceListSupplier extends DelegatingServiceInsta
 		return delegate.get(request).map(instances -> filteredByHint(instances, getHint(request.getContext())));
 	}
 
- private @Nullable String getHint(@Nullable Object requestContext) {
- 	if (requestContext == null) {
- 		return null;
- 	}
- 	String hint = null;
- 	if (requestContext instanceof RequestDataContext) {
- 		hint = getHintFromHeader((RequestDataContext) requestContext);
- 	}
- 	if (StringUtils.hasText(hint) && requestContext instanceof HintRequestContext) {
- 		hint = ((HintRequestContext) requestContext).getHint();
- 	}
- 	return hint;
- }
+	private @Nullable String getHint(@Nullable Object requestContext) {
+		if (requestContext == null) {
+			return null;
+		}
+		String hint = null;
+		if (requestContext instanceof RequestDataContext) {
+			hint = getHintFromHeader((RequestDataContext) requestContext);
+		}
+		if (!StringUtils.hasText(hint) && requestContext instanceof HintRequestContext) {
+			hint = ((HintRequestContext) requestContext).getHint();
+		}
+		return hint;
+	}
 
 	private @Nullable String getHintFromHeader(RequestDataContext context) {
 		if (context.getClientRequest() != null) {
