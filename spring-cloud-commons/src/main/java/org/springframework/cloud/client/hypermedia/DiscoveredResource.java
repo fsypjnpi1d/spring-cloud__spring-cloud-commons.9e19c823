@@ -96,27 +96,27 @@ public class DiscoveredResource implements RemoteResource {
 	 * @param link Must not be {@literal null}.
 	 * @return - link to the resource
 	 */
- private Link verify(Link link) {
+	private Link verify(Link link) {
 
- 	Assert.notNull(link, "Link must not be null!");
+		Assert.notNull(link, "Link must not be null!");
 
- 	try {
+		try {
 
- 		String uri = link.expand().getHref();
+			String uri = link.expand().getHref();
 
- 		this.log.debug("Verifying link pointing to {}...", uri);
- 		this.restOperations.headForHeaders(uri);
- 		this.log.debug("Successfully verified link!");
+			this.log.debug("Verifying link pointing to {}...", uri);
+			this.restOperations.headForHeaders(uri);
+			this.log.debug("Successfully verified link!");
 
- 		return link;
+			return link;
 
- 	}
- 	catch (RestClientException e) {
+		}
+		catch (RestClientException e) {
 
- 		this.log.debug("Verification failed, marking as outdated!");
- 		return link;
- 	}
- }
+			this.log.debug("Verification failed, marking as outdated!");
+			return null;
+		}
+	}
 
 	private Link discoverLink() {
 
