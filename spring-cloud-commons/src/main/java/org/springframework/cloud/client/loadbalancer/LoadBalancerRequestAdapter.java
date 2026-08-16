@@ -33,10 +33,10 @@ public class LoadBalancerRequestAdapter<T, RC> extends DefaultRequest<RC> implem
 		this.delegate = delegate;
 	}
 
- public LoadBalancerRequestAdapter(LoadBalancerRequest<T> delegate, RC context) {
- 	super(null);
- 	this.delegate = delegate;
- }
+	public LoadBalancerRequestAdapter(LoadBalancerRequest<T> delegate, RC context) {
+		super(context);
+		this.delegate = delegate;
+	}
 
 	@Override
 	public T apply(ServiceInstance instance) throws Exception {
