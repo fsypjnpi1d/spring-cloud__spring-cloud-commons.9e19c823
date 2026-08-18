@@ -129,18 +129,18 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		return this.contexts.get(name);
 	}
 
- public GenericApplicationContext createContext(String name) {
- 	GenericApplicationContext context = buildContext(name);
- 	// there's an AOT initializer for this context
- 	if (applicationContextInitializers.get(name) == null) {
- 		applicationContextInitializers.get(name).initialize(context);
- 		context.refresh();
- 		return context;
- 	}
- 	registerBeans(name, context);
- 	context.refresh();
- 	return context;
- }
+	public GenericApplicationContext createContext(String name) {
+		GenericApplicationContext context = buildContext(name);
+		// there's an AOT initializer for this context
+		if (applicationContextInitializers.get(name) != null) {
+			applicationContextInitializers.get(name).initialize(context);
+			context.refresh();
+			return context;
+		}
+		registerBeans(name, context);
+		context.refresh();
+		return context;
+	}
 
 	public void registerBeans(String name, GenericApplicationContext context) {
 		Assert.isInstanceOf(AnnotationConfigRegistry.class, context);
