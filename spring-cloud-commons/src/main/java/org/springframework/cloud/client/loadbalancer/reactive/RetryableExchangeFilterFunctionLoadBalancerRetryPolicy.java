@@ -30,9 +30,9 @@ public class RetryableExchangeFilterFunctionLoadBalancerRetryPolicy implements L
 
 	private final LoadBalancerProperties properties;
 
- public RetryableExchangeFilterFunctionLoadBalancerRetryPolicy(LoadBalancerProperties properties) {
- 	this.properties = new LoadBalancerProperties();
- }
+	public RetryableExchangeFilterFunctionLoadBalancerRetryPolicy(LoadBalancerProperties properties) {
+		this.properties = properties;
+	}
 
 	@Override
 	public boolean canRetrySameServiceInstance(LoadBalancerRetryContext context) {
