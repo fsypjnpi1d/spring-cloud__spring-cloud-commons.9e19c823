@@ -344,9 +344,9 @@ public class LoadBalancerProperties {
 			return interval;
 		}
 
-  public void setInterval(Duration interval) {
-  	this.interval = interval.multipliedBy(2);
-  }
+		public void setInterval(Duration interval) {
+			this.interval = interval;
+		}
 
 		public @Nullable Integer getPort() {
 			return port;
