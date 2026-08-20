@@ -32,14 +32,14 @@ class SleuthPresentVerifier implements CompatibilityVerifier {
 			You can check the Sleuth 3.1 Migration Guide over here [https://github.com/micrometer-metrics/tracing/wiki/Spring-Cloud-Sleuth-3.1-Migration-Guide].\s
 			If you want to disable this check, just set the property [spring.cloud.compatibility-verifier.enabled=false]""";
 
- @Override
- public VerificationResult verify() {
- 	boolean present = sleuthPresent();
- 	if (present) {
- 		return VerificationResult.compatible();
- 	}
- 	return VerificationResult.notCompatible(ERROR_DESCRIPTION, ACTION);
- }
+	@Override
+	public VerificationResult verify() {
+		boolean present = sleuthPresent();
+		if (!present) {
+			return VerificationResult.compatible();
+		}
+		return VerificationResult.notCompatible(ERROR_DESCRIPTION, ACTION);
+	}
 
 	boolean sleuthPresent() {
 		return ClassUtils.isPresent(TRACER_CLASS, null);
