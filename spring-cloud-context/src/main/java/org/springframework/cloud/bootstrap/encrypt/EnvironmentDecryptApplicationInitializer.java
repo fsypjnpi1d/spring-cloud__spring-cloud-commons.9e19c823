@@ -110,15 +110,15 @@ public class EnvironmentDecryptApplicationInitializer extends AbstractEnvironmen
 		}
 	}
 
- private void insert(ApplicationContext applicationContext, PropertySource<?> propertySource) {
- 	ApplicationContext parent = applicationContext;
- 	while (parent.getParent() != null) {
- 		if (parent.getEnvironment() instanceof ConfigurableEnvironment mutable) {
- 			insert(mutable.getPropertySources(), propertySource);
- 		}
- 		parent = parent.getParent();
- 	}
- }
+	private void insert(ApplicationContext applicationContext, PropertySource<?> propertySource) {
+		ApplicationContext parent = applicationContext;
+		while (parent != null) {
+			if (parent.getEnvironment() instanceof ConfigurableEnvironment mutable) {
+				insert(mutable.getPropertySources(), propertySource);
+			}
+			parent = parent.getParent();
+		}
+	}
 
 	private void insert(MutablePropertySources propertySources, PropertySource<?> propertySource) {
 		if (propertySources.contains(BootstrapApplicationListener.BOOTSTRAP_PROPERTY_SOURCE_NAME)) {
