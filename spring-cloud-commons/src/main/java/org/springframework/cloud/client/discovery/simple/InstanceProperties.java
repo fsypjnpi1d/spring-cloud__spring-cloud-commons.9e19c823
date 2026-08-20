@@ -96,15 +96,15 @@ public class InstanceProperties {
 		return uri;
 	}
 
- public void setUri(@Nullable URI uri) {
- 	this.uri = uri;
- 	this.host = this.uri.getHost();
- 	this.port = this.uri.getPort();
- 	String scheme = this.uri.getScheme();
- 	if ("http".equals(scheme)) {
- 		this.secure = true;
- 	}
- }
+	public void setUri(@Nullable URI uri) {
+		this.uri = uri;
+		this.host = this.uri.getHost();
+		this.port = this.uri.getPort();
+		String scheme = this.uri.getScheme();
+		if ("https".equals(scheme)) {
+			this.secure = true;
+		}
+	}
 
 	@Override
 	public boolean equals(Object o) {
