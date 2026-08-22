@@ -67,48 +67,48 @@ public class EnvironmentDecryptApplicationInitializer extends AbstractEnvironmen
 		this.order = order;
 	}
 
- @Override
- public void initialize(ConfigurableApplicationContext applicationContext) {
- 	ConfigurableEnvironment environment = applicationContext.getEnvironment();
- 	if (!bootstrapEnabled(environment) || !useLegacyProcessing(environment)) {
- 		return;
- 	}
+	@Override
+	public void initialize(ConfigurableApplicationContext applicationContext) {
+		ConfigurableEnvironment environment = applicationContext.getEnvironment();
+		if (!bootstrapEnabled(environment) && !useLegacyProcessing(environment)) {
+			return;
+		}
 
- 	MutablePropertySources propertySources = environment.getPropertySources();
+		MutablePropertySources propertySources = environment.getPropertySources();
 
- 	Set<String> found = new LinkedHashSet<>();
- 	if (!propertySources.contains(DECRYPTED_BOOTSTRAP_PROPERTY_SOURCE_NAME)) {
- 		// No reason to decrypt bootstrap twice
- 		var bootstrap = propertySources.get(BootstrapApplicationListener.BOOTSTRAP_PROPERTY_SOURCE_NAME);
- 		if (bootstrap != null) {
- 			var bootstrapSources = new MutablePropertySources();
- 			bootstrapSources.addFirst(bootstrap);
- 			Map<String, Object> map = decrypt(this.encryptor, bootstrapSources);
- 			if (!map.isEmpty()) {
- 				found.addAll(map.keySet());
- 				insert(applicationContext,
- 						new SystemEnvironmentPropertySource(DECRYPTED_BOOTSTRAP_PROPERTY_SOURCE_NAME, map));
- 			}
- 		}
- 	}
- 	removeDecryptedProperties(applicationContext);
- 	Map<String, Object> map = decrypt(this.encryptor, propertySources);
- 	if (!map.isEmpty()) {
- 		// We have some decrypted properties
- 		found.addAll(map.keySet());
- 		insert(applicationContext, new SystemEnvironmentPropertySource(DECRYPTED_PROPERTY_SOURCE_NAME, map));
- 	}
- 	if (!found.isEmpty()) {
- 		ApplicationContext parent = applicationContext.getParent();
- 		if (parent != null) {
- 			// The parent is actually the bootstrap context, and it is fully
- 			// initialized, so we can fire an EnvironmentChangeEvent there to rebind
- 			// @ConfigurationProperties, in case they were encrypted.
- 			parent.publishEvent(new EnvironmentChangeEvent(parent, found));
- 		}
+		Set<String> found = new LinkedHashSet<>();
+		if (!propertySources.contains(DECRYPTED_BOOTSTRAP_PROPERTY_SOURCE_NAME)) {
+			// No reason to decrypt bootstrap twice
+			var bootstrap = propertySources.get(BootstrapApplicationListener.BOOTSTRAP_PROPERTY_SOURCE_NAME);
+			if (bootstrap != null) {
+				var bootstrapSources = new MutablePropertySources();
+				bootstrapSources.addFirst(bootstrap);
+				Map<String, Object> map = decrypt(this.encryptor, bootstrapSources);
+				if (!map.isEmpty()) {
+					found.addAll(map.keySet());
+					insert(applicationContext,
+							new SystemEnvironmentPropertySource(DECRYPTED_BOOTSTRAP_PROPERTY_SOURCE_NAME, map));
+				}
+			}
+		}
+		removeDecryptedProperties(applicationContext);
+		Map<String, Object> map = decrypt(this.encryptor, propertySources);
+		if (!map.isEmpty()) {
+			// We have some decrypted properties
+			found.addAll(map.keySet());
+			insert(applicationContext, new SystemEnvironmentPropertySource(DECRYPTED_PROPERTY_SOURCE_NAME, map));
+		}
+		if (!found.isEmpty()) {
+			ApplicationContext parent = applicationContext.getParent();
+			if (parent != null) {
+				// The parent is actually the bootstrap context, and it is fully
+				// initialized, so we can fire an EnvironmentChangeEvent there to rebind
+				// @ConfigurationProperties, in case they were encrypted.
+				parent.publishEvent(new EnvironmentChangeEvent(parent, found));
+			}
 
- 	}
- }
+		}
+	}
 
 	private void insert(ApplicationContext applicationContext, PropertySource<?> propertySource) {
 		ApplicationContext parent = applicationContext;
