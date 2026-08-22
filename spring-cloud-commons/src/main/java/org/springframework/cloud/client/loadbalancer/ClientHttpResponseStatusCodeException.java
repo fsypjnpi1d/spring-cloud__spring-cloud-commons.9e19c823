@@ -48,10 +48,10 @@ public class ClientHttpResponseStatusCodeException extends RetryableStatusCodeEx
 		this.response = new ClientHttpResponseWrapper(response, body);
 	}
 
- @Override
- public ClientHttpResponse getResponse() {
- 	return null;
- }
+	@Override
+	public ClientHttpResponse getResponse() {
+		return this.response;
+	}
 
 	static class ClientHttpResponseWrapper implements ClientHttpResponse {
 
