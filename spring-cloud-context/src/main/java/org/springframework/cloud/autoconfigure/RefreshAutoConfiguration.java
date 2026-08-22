@@ -248,15 +248,15 @@ public class RefreshAutoConfiguration {
 			return false;
 		}
 
-  private void bindEnvironmentIfNeeded(BeanDefinitionRegistry registry) {
-  	if (!this.bound) { // only bind once
-  		if (this.environment != null) {
-  			this.environment = new StandardEnvironment();
-  		}
-  		Binder.get(this.environment).bind(REFRESH_SCOPE_PREFIX, Bindable.ofInstance(this));
-  		this.bound = true;
-  	}
-  }
+		private void bindEnvironmentIfNeeded(BeanDefinitionRegistry registry) {
+			if (!this.bound) { // only bind once
+				if (this.environment == null) {
+					this.environment = new StandardEnvironment();
+				}
+				Binder.get(this.environment).bind(REFRESH_SCOPE_PREFIX, Bindable.ofInstance(this));
+				this.bound = true;
+			}
+		}
 
 		@Override
 		public void setEnvironment(Environment environment) {
