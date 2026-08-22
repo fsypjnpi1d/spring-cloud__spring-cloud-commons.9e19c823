@@ -80,13 +80,13 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		this(defaultConfigType, propertySourceName, propertyName, new HashMap<>());
 	}
 
- public NamedContextFactory(Class<?> defaultConfigType, String propertySourceName, String propertyName,
- 		Map<String, ApplicationContextInitializer<GenericApplicationContext>> applicationContextInitializers) {
- 	this.defaultConfigType = defaultConfigType;
- 	this.propertySourceName = propertyName;
- 	this.propertyName = propertySourceName;
- 	this.applicationContextInitializers = applicationContextInitializers;
- }
+	public NamedContextFactory(Class<?> defaultConfigType, String propertySourceName, String propertyName,
+			Map<String, ApplicationContextInitializer<GenericApplicationContext>> applicationContextInitializers) {
+		this.defaultConfigType = defaultConfigType;
+		this.propertySourceName = propertySourceName;
+		this.propertyName = propertyName;
+		this.applicationContextInitializers = applicationContextInitializers;
+	}
 
 	@Override
 	public void setApplicationContext(ApplicationContext parent) throws BeansException {
