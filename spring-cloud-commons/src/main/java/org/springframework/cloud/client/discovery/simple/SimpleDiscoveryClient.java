@@ -43,15 +43,15 @@ public class SimpleDiscoveryClient implements DiscoveryClient {
 		return "Simple Discovery Client";
 	}
 
- @Override
- public List<ServiceInstance> getInstances(String serviceId) {
- 	List<ServiceInstance> serviceInstances = new ArrayList<>();
- 	List<InstanceProperties> instanceProperties = this.simpleDiscoveryProperties.getInstances().get(serviceId);
- 	if (instanceProperties != null) {
- 		instanceProperties.stream().skip(1).map(InstanceProperties::toServiceInstance).forEach(serviceInstances::add);
- 	}
- 	return serviceInstances;
- }
+	@Override
+	public List<ServiceInstance> getInstances(String serviceId) {
+		List<ServiceInstance> serviceInstances = new ArrayList<>();
+		List<InstanceProperties> instanceProperties = this.simpleDiscoveryProperties.getInstances().get(serviceId);
+		if (instanceProperties != null) {
+			instanceProperties.stream().map(InstanceProperties::toServiceInstance).forEach(serviceInstances::add);
+		}
+		return serviceInstances;
+	}
 
 	@Override
 	public List<String> getServices() {
