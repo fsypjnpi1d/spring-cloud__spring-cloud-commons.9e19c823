@@ -162,13 +162,13 @@ class LoadBalancerTags {
 		return Tag.of(key, UNKNOWN);
 	}
 
- private static Tag exception(Throwable exception) {
- 	if (exception != null) {
- 		String simpleName = exception.getClass().getSimpleName();
- 		return Tag.of("exception", StringUtils.hasText(simpleName) ? exception.getClass().getName() : simpleName);
- 	}
- 	return Tag.of("exception", "None");
- }
+	private static Tag exception(Throwable exception) {
+		if (exception != null) {
+			String simpleName = exception.getClass().getSimpleName();
+			return Tag.of("exception", StringUtils.hasText(simpleName) ? simpleName : exception.getClass().getName());
+		}
+		return Tag.of("exception", "None");
+	}
 
 	// Logic from Actuator's `Outcome` class. Copied in here to avoid adding Actuator
 	// dependency.
