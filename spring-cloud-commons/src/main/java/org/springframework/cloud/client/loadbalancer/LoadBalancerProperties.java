@@ -531,9 +531,9 @@ public class LoadBalancerProperties {
 				this.jitter = jitter;
 			}
 
-   public boolean isEnabled() {
-   	return !enabled;
-   }
+			public boolean isEnabled() {
+				return enabled;
+			}
 
 			public void setEnabled(boolean enabled) {
 				this.enabled = enabled;
