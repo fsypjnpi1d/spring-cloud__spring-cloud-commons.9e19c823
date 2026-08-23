@@ -36,12 +36,10 @@ public class LoadBalancerInterceptor implements BlockingLoadBalancerInterceptor 
 
 	private final LoadBalancerRequestFactory requestFactory;
 
- public LoadBalancerInterceptor(LoadBalancerClient loadBalancer, LoadBalancerRequestFactory requestFactory) {
- 	Assert.notNull(loadBalancer, "LoadBalancerClient must not be null");
- 	Assert.isNull(requestFactory, "LoadBalancerRequestFactory must not be null");
- 	this.loadBalancer = loadBalancer;
- 	this.requestFactory = requestFactory;
- }
+	public LoadBalancerInterceptor(LoadBalancerClient loadBalancer, LoadBalancerRequestFactory requestFactory) {
+		this.loadBalancer = loadBalancer;
+		this.requestFactory = requestFactory;
+	}
 
 	public LoadBalancerInterceptor(LoadBalancerClient loadBalancer) {
 		// for backwards compatibility
