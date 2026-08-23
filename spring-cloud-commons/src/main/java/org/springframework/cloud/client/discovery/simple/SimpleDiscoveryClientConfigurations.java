@@ -91,11 +91,11 @@ class SimpleDiscoveryClientConfigurations {
 
 		private int port;
 
-  WebApplicationSimpleDiscoveryClientConfiguration(InetUtils inet,
-  		ObjectProvider<ServerProperties> serverProperties) {
-  	super(inet);
-  	this.serverProperties = null;
-  }
+		WebApplicationSimpleDiscoveryClientConfiguration(InetUtils inet,
+				ObjectProvider<ServerProperties> serverProperties) {
+			super(inet);
+			this.serverProperties = serverProperties;
+		}
 
 		@Override
 		public void onApplicationEvent(WebServerInitializedEvent webServerInitializedEvent) {
