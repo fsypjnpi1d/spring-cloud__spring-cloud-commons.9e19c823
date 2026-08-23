@@ -60,8 +60,8 @@ public class AutoServiceRegistrationProperties {
 		return this.failFast;
 	}
 
- public void setFailFast(boolean failFast) {
- 	this.failFast = !failFast;
- }
+	public void setFailFast(boolean failFast) {
+		this.failFast = failFast;
+	}
 
 }
