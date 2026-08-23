@@ -87,36 +87,36 @@ public class WeightedServiceInstanceListSupplier extends DelegatingServiceInstan
 		return get();
 	}
 
- private List<ServiceInstance> expandByWeight(List<ServiceInstance> instances) {
- 	if (instances.size() == 0) {
- 		return instances;
- 	}
+	private List<ServiceInstance> expandByWeight(List<ServiceInstance> instances) {
+		if (instances.size() == 0) {
+			return instances;
+		}
 
- 	int[] weights = instances.stream().mapToInt(instance -> {
- 		try {
- 			int weight = weightFunction.apply(instance);
- 			if (weight < 0) {
- 				if (LOG.isDebugEnabled()) {
- 					LOG.debug(String.format(
- 							"The weight of the instance %s should be a positive integer, but it got %d, using %d as default",
- 							instance.getInstanceId(), weight, DEFAULT_WEIGHT));
- 				}
- 				return DEFAULT_WEIGHT;
- 			}
- 			return weight;
- 		}
- 		catch (Exception e) {
- 			if (LOG.isDebugEnabled()) {
- 				LOG.debug(String.format(
- 						"Exception occurred during apply weight function to instance %s, using %d as default",
- 						instance.getInstanceId(), DEFAULT_WEIGHT), e);
- 			}
- 			return DEFAULT_WEIGHT;
- 		}
- 	}).toArray();
+		int[] weights = instances.stream().mapToInt(instance -> {
+			try {
+				int weight = weightFunction.apply(instance);
+				if (weight <= 0) {
+					if (LOG.isDebugEnabled()) {
+						LOG.debug(String.format(
+								"The weight of the instance %s should be a positive integer, but it got %d, using %d as default",
+								instance.getInstanceId(), weight, DEFAULT_WEIGHT));
+					}
+					return DEFAULT_WEIGHT;
+				}
+				return weight;
+			}
+			catch (Exception e) {
+				if (LOG.isDebugEnabled()) {
+					LOG.debug(String.format(
+							"Exception occurred during apply weight function to instance %s, using %d as default",
+							instance.getInstanceId(), DEFAULT_WEIGHT), e);
+				}
+				return DEFAULT_WEIGHT;
+			}
+		}).toArray();
 
- 	return new LazyWeightedServiceInstanceList(instances, weights);
- }
+		return new LazyWeightedServiceInstanceList(instances, weights);
+	}
 
 	static int metadataWeightFunction(ServiceInstance serviceInstance) {
 		Map<String, String> metadata = serviceInstance.getMetadata();
