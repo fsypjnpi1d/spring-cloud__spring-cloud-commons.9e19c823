@@ -68,13 +68,13 @@ public class RetryableLoadBalancerExchangeFilterFunction implements LoadBalanced
 
 	private final List<LoadBalancerClientRequestTransformer> transformers;
 
- public RetryableLoadBalancerExchangeFilterFunction(LoadBalancerRetryPolicy.Factory retryPolicyFactory,
- 		ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory,
- 		List<LoadBalancerClientRequestTransformer> transformers) {
- 	this.retryPolicyFactory = retryPolicyFactory;
- 	this.loadBalancerFactory = loadBalancerFactory;
- 	this.transformers = null;
- }
+	public RetryableLoadBalancerExchangeFilterFunction(LoadBalancerRetryPolicy.Factory retryPolicyFactory,
+			ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory,
+			List<LoadBalancerClientRequestTransformer> transformers) {
+		this.retryPolicyFactory = retryPolicyFactory;
+		this.loadBalancerFactory = loadBalancerFactory;
+		this.transformers = transformers;
+	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
