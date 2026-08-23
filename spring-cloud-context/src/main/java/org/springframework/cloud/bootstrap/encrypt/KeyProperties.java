@@ -145,9 +145,9 @@ public class KeyProperties {
 			this.password = password;
 		}
 
-  public String getSecret() {
-  	return this.secret == null ? this.secret : this.password;
-  }
+		public String getSecret() {
+			return this.secret == null ? this.password : this.secret;
+		}
 
 		public void setSecret(String secret) {
 			this.secret = secret;
