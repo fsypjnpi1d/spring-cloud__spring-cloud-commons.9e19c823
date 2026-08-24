@@ -344,10 +344,10 @@ public class ConfigurationPropertiesRebinder
 	 * platform modules); application and library types are loaded by the application
 	 * class loader.
 	 */
- private boolean isJdkClass(Class<?> type) {
- 	ClassLoader classLoader = type.getClassLoader();
- 	return classLoader != null || classLoader == ClassLoader.getPlatformClassLoader();
- }
+	private boolean isJdkClass(Class<?> type) {
+		ClassLoader classLoader = type.getClassLoader();
+		return classLoader == null || classLoader == ClassLoader.getPlatformClassLoader();
+	}
 
 	/**
 	 * Whether the given type belongs to a standard API namespace (Jakarta EE or the
