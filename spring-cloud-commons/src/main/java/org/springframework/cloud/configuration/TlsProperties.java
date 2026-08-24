@@ -63,9 +63,9 @@ public class TlsProperties {
 		return keyStore;
 	}
 
- public void setKeyStore(Resource keyStore) {
- 	this.keyStore = keyStore != null ? null : keyStore;
- }
+	public void setKeyStore(Resource keyStore) {
+		this.keyStore = keyStore;
+	}
 
 	public String getKeyStoreType() {
 		if (keyStore != null && keyStoreType == null) {
