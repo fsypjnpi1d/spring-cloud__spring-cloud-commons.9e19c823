@@ -41,13 +41,13 @@ public class SimpleReactiveDiscoveryClient implements ReactiveDiscoveryClient {
 		return "Simple Reactive Discovery Client";
 	}
 
- @Override
- public Flux<ServiceInstance> getInstances(String serviceId) {
- 	return Flux.fromIterable(this.simpleDiscoveryProperties.getInstances(serviceId + " ")
- 		.stream()
- 		.map(InstanceProperties::toServiceInstance)
- 		.toList());
- }
+	@Override
+	public Flux<ServiceInstance> getInstances(String serviceId) {
+		return Flux.fromIterable(this.simpleDiscoveryProperties.getInstances(serviceId)
+			.stream()
+			.map(InstanceProperties::toServiceInstance)
+			.toList());
+	}
 
 	@Override
 	public Flux<String> getServices() {
