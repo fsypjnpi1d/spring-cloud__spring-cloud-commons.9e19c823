@@ -63,9 +63,8 @@ public final class ServiceInstanceListSupplierBuilder {
 
 	private final List<DelegateCreator> creators = new ArrayList<>();
 
- ServiceInstanceListSupplierBuilder() {
-     throw new IllegalStateException("Builder cannot be instantiated");
- }
+	ServiceInstanceListSupplierBuilder() {
+	}
 
 	/**
 	 * Sets a blocking {@link DiscoveryClient}-based
