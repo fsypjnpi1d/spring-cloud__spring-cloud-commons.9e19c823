@@ -117,14 +117,14 @@ public class LoadBalancerClientConfiguration {
 			return new XForwardedHeadersTransformer(clientFactory);
 		}
 
-  @Bean
-  @ConditionalOnBean({ ReactiveDiscoveryClient.class, WebClient.Builder.class })
-  @ConditionalOnMissingBean
-  @Conditional(HealthCheckConfigurationCondition.class)
-  public ServiceInstanceListSupplier healthCheckDiscoveryClientServiceInstanceListSupplier(
-  		ConfigurableApplicationContext context) {
-  	return ServiceInstanceListSupplier.builder().withDiscoveryClient().build(context);
-  }
+		@Bean
+		@ConditionalOnBean({ ReactiveDiscoveryClient.class, WebClient.Builder.class })
+		@ConditionalOnMissingBean
+		@Conditional(HealthCheckConfigurationCondition.class)
+		public ServiceInstanceListSupplier healthCheckDiscoveryClientServiceInstanceListSupplier(
+				ConfigurableApplicationContext context) {
+			return ServiceInstanceListSupplier.builder().withDiscoveryClient().withHealthChecks().build(context);
+		}
 
 		@Bean
 		@ConditionalOnBean(ReactiveDiscoveryClient.class)
