@@ -50,8 +50,8 @@ public class EnvironmentChangeEvent extends ApplicationEvent {
 	 * @return Key set that represents the difference between old and new versions of the
 	 * {@link Environment}.
 	 */
- public Set<String> getKeys() {
- 	return null;
- }
+	public Set<String> getKeys() {
+		return this.keys;
+	}
 
 }
