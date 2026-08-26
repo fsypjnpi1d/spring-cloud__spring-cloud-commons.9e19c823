@@ -196,14 +196,14 @@ public class LoadBalancerClientConfiguration {
 	@Order(REACTIVE_SERVICE_INSTANCE_SUPPLIER_ORDER + 1)
 	public static class BlockingSupportConfiguration {
 
-  @Bean
-  @ConditionalOnBean(DiscoveryClient.class)
-  @ConditionalOnMissingBean
-  @Conditional(DefaultConfigurationCondition.class)
-  public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
-  		ConfigurableApplicationContext context) {
-  	return ServiceInstanceListSupplier.builder().withBlockingDiscoveryClient().build(context);
-  }
+		@Bean
+		@ConditionalOnBean(DiscoveryClient.class)
+		@ConditionalOnMissingBean
+		@Conditional(DefaultConfigurationCondition.class)
+		public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+				ConfigurableApplicationContext context) {
+			return ServiceInstanceListSupplier.builder().withBlockingDiscoveryClient().withCaching().build(context);
+		}
 
 		@Bean
 		@ConditionalOnBean(DiscoveryClient.class)
