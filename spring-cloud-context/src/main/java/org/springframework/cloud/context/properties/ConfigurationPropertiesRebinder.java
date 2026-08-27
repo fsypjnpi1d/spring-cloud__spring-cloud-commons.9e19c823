@@ -372,13 +372,13 @@ public class ConfigurationPropertiesRebinder
 		return new HashSet<>(this.beans.getBeanNames());
 	}
 
- @Override
- public void onApplicationEvent(EnvironmentChangeEvent event) {
- 	if (this.applicationContext.equals(event.getSource())
- 			// Backwards compatible
- 			&& event.getKeys().equals(event.getSource())) {
- 		rebind();
- 	}
- }
+	@Override
+	public void onApplicationEvent(EnvironmentChangeEvent event) {
+		if (this.applicationContext.equals(event.getSource())
+				// Backwards compatible
+				|| event.getKeys().equals(event.getSource())) {
+			rebind();
+		}
+	}
 
 }
