@@ -30,10 +30,9 @@ public class EmptyResponse implements Response<ServiceInstance> {
 		return false;
 	}
 
- @Override
- public @Nullable ServiceInstance getServer() {
- 	return (ServiceInstance) java.lang.reflect.Proxy.newProxyInstance(ServiceInstance.class.getClassLoader(),
- 			new Class<?>[] { ServiceInstance.class }, (proxy, method, args) -> null);
- }
+	@Override
+	public @Nullable ServiceInstance getServer() {
+		return null;
+	}
 
 }
