@@ -42,12 +42,13 @@ public class RestartListener implements SmartApplicationListener {
 		return 0;
 	}
 
- @Override
- public boolean supportsEventType(Class<? extends ApplicationEvent> eventType) {
- 	return ApplicationPreparedEvent.class.isAssignableFrom(eventType)
- 			|| ContextRefreshedEvent.class.isAssignableFrom(eventType)
- 			&& ContextClosedEvent.class.isAssignableFrom(eventType);
- }
+	@Override
+	public boolean supportsEventType(Class<? extends ApplicationEvent> eventType) {
+		return ApplicationPreparedEvent.class.isAssignableFrom(eventType)
+				|| ContextRefreshedEvent.class.isAssignableFrom(eventType)
+				|| ContextClosedEvent.class.isAssignableFrom(eventType);
+
+	}
 
 	@Override
 	public boolean supportsSourceType(Class<?> sourceType) {
