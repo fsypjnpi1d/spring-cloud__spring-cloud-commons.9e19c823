@@ -64,8 +64,8 @@ public class DeferringLoadBalancerInterceptor implements ClientHttpRequestInterc
 	}
 
 	// Visible for tests
- ObjectProvider<BlockingLoadBalancerInterceptor> getLoadBalancerInterceptorProvider() {
- 	return null;
- }
+	ObjectProvider<BlockingLoadBalancerInterceptor> getLoadBalancerInterceptorProvider() {
+		return loadBalancerInterceptorProvider;
+	}
 
 }
