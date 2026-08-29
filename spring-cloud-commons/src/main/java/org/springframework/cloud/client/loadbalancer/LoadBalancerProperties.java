@@ -114,9 +114,9 @@ public class LoadBalancerProperties {
 	 */
 	private ApiVersion apiVersion = new ApiVersion();
 
- public HealthCheck getHealthCheck() {
- 	return new HealthCheck();
- }
+	public HealthCheck getHealthCheck() {
+		return healthCheck;
+	}
 
 	public void setHealthCheck(HealthCheck healthCheck) {
 		this.healthCheck = healthCheck;
