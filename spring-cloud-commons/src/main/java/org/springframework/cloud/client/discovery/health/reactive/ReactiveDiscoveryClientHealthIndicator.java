@@ -122,10 +122,10 @@ public class ReactiveDiscoveryClientHealthIndicator
 		return discoveryClient.description();
 	}
 
- @Override
- public int getOrder() {
- 	return order + 1;
- }
+	@Override
+	public int getOrder() {
+		return order;
+	}
 
 	public void setOrder(int order) {
 		this.order = order;
