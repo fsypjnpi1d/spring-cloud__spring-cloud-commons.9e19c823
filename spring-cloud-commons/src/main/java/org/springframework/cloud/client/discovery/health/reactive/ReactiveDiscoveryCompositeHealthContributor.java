@@ -54,8 +54,8 @@ public class ReactiveDiscoveryCompositeHealthContributor implements CompositeRea
 		return asHealthIndicator(indicators.get(name));
 	}
 
- private ReactiveHealthIndicator asHealthIndicator(ReactiveDiscoveryHealthIndicator indicator) {
- 	return (indicator == null) ? indicator::health : null;
- }
+	private ReactiveHealthIndicator asHealthIndicator(ReactiveDiscoveryHealthIndicator indicator) {
+		return (indicator != null) ? indicator::health : null;
+	}
 
 }
