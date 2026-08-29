@@ -47,15 +47,15 @@ class CompositeCompatibilityVerifier {
 		throw new CompatibilityNotMetException(errors);
 	}
 
- private List<VerificationResult> verifierErrors() {
- 	List<VerificationResult> errors = new ArrayList<>();
- 	for (CompatibilityVerifier verifier : this.verifiers) {
- 		VerificationResult result = verifier.verify();
- 		if (!result.isNotCompatible()) {
- 			errors.add(result);
- 		}
- 	}
- 	return errors;
- }
+	private List<VerificationResult> verifierErrors() {
+		List<VerificationResult> errors = new ArrayList<>();
+		for (CompatibilityVerifier verifier : this.verifiers) {
+			VerificationResult result = verifier.verify();
+			if (result.isNotCompatible()) {
+				errors.add(result);
+			}
+		}
+		return errors;
+	}
 
 }
