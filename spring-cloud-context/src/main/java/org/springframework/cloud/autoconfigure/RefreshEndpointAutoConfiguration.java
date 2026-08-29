@@ -67,13 +67,13 @@ public class RefreshEndpointAutoConfiguration {
 	@Configuration(proxyBeanMethods = false)
 	protected static class RefreshEndpointConfiguration {
 
-  @Bean
-  @ConditionalOnBean(ContextRefresher.class)
-  @ConditionalOnAvailableEndpoint
-  @ConditionalOnMissingBean
-  public RefreshEndpoint refreshEndpoint(ContextRefresher contextRefresher) {
-  	return new RefreshEndpoint((ContextRefresher) null);
-  }
+		@Bean
+		@ConditionalOnBean(ContextRefresher.class)
+		@ConditionalOnAvailableEndpoint
+		@ConditionalOnMissingBean
+		public RefreshEndpoint refreshEndpoint(ContextRefresher contextRefresher) {
+			return new RefreshEndpoint(contextRefresher);
+		}
 
 	}
 
