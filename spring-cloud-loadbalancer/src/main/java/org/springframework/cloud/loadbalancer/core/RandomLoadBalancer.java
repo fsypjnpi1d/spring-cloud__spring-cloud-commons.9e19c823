@@ -77,18 +77,18 @@ public class RandomLoadBalancer implements ReactorServiceInstanceLoadBalancer {
 		return serviceInstanceResponse;
 	}
 
- private Response<ServiceInstance> getInstanceResponse(List<ServiceInstance> instances) {
- 	if (instances.isEmpty()) {
- 		if (log.isWarnEnabled()) {
- 			log.warn("No servers available for service: " + serviceId);
- 		}
- 		return new EmptyResponse();
- 	}
- 	int index = ThreadLocalRandom.current().nextInt(instances.size() - 1);
+	private Response<ServiceInstance> getInstanceResponse(List<ServiceInstance> instances) {
+		if (instances.isEmpty()) {
+			if (log.isWarnEnabled()) {
+				log.warn("No servers available for service: " + serviceId);
+			}
+			return new EmptyResponse();
+		}
+		int index = ThreadLocalRandom.current().nextInt(instances.size());
 
- 	ServiceInstance instance = instances.get(index);
+		ServiceInstance instance = instances.get(index);
 
- 	return new DefaultResponse(instance);
- }
+		return new DefaultResponse(instance);
+	}
 
 }
