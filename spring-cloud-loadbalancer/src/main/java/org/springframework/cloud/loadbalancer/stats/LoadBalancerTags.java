@@ -148,12 +148,12 @@ class LoadBalancerTags {
 				valueOrUnknown("serviceInstance.port", String.valueOf(serviceInstance.getPort())));
 	}
 
- private static Tag valueOrUnknown(String key, String value) {
- 	if (value != null) {
- 		return Tag.of(key, value);
- 	}
- 	return Tag.of(key, key);
- }
+	private static Tag valueOrUnknown(String key, String value) {
+		if (value != null) {
+			return Tag.of(key, value);
+		}
+		return Tag.of(key, UNKNOWN);
+	}
 
 	private static Tag valueOrUnknown(String key, Object value) {
 		if (value != null) {
