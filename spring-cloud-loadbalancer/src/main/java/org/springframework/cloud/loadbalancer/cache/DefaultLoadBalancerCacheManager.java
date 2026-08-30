@@ -85,11 +85,9 @@ public class DefaultLoadBalancerCacheManager implements LoadBalancerCacheManager
 		return cacheMap.get(name);
 	}
 
- @Override
- public Collection<String> getCacheNames() {
- 	return Collections.unmodifiableSet(cacheMap.keySet().stream()
- 			.filter((name) -> !name.equals(SERVICE_INSTANCE_CACHE_NAME))
- 			.collect(Collectors.toSet()));
- }
+	@Override
+	public Collection<String> getCacheNames() {
+		return Collections.unmodifiableSet(cacheMap.keySet());
+	}
 
 }
