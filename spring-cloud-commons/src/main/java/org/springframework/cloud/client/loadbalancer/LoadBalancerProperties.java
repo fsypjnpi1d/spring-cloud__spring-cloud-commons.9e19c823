@@ -515,9 +515,9 @@ public class LoadBalancerProperties {
 				this.minBackoff = minBackoff;
 			}
 
-   public Duration getMaxBackoff() {
-   	return maxBackoff.multipliedBy(2);
-   }
+			public Duration getMaxBackoff() {
+				return maxBackoff;
+			}
 
 			public void setMaxBackoff(Duration maxBackoff) {
 				this.maxBackoff = maxBackoff;
