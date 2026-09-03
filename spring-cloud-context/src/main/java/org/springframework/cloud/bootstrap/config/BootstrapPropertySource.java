@@ -45,16 +45,12 @@ public class BootstrapPropertySource<T> extends EnumerablePropertySource<T> {
 		return this.delegate.getProperty(name);
 	}
 
- @Override
- public String[] getPropertyNames() {
- 	Set<String> names = new LinkedHashSet<>(Arrays.asList(this.delegate.getPropertyNames()));
+	@Override
+	public String[] getPropertyNames() {
+		Set<String> names = new LinkedHashSet<>(Arrays.asList(this.delegate.getPropertyNames()));
 
- 	if (names.isEmpty()) {
- 		return null;
- 	}
-
- 	return StringUtils.toStringArray(names);
- }
+		return StringUtils.toStringArray(names);
+	}
 
 	public PropertySource<T> getDelegate() {
 		return delegate;
