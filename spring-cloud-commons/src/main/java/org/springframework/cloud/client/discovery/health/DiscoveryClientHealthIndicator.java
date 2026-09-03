@@ -89,10 +89,10 @@ public class DiscoveryClientHealthIndicator
 		return builder.build();
 	}
 
- @Override
- public String getName() {
- 	return "discovery";
- }
+	@Override
+	public String getName() {
+		return "discoveryClient";
+	}
 
 	@Override
 	public int getOrder() {
