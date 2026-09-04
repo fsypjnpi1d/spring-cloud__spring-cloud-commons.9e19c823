@@ -59,11 +59,10 @@ public class LoadBalancerRestClientBuilderBeanPostProcessor<T extends ClientHttp
 		super(loadBalancerInterceptorProvider, context);
 	}
 
- @Override
- protected Object apply(Object bean, ClientHttpRequestInterceptor interceptor) {
- 	((RestClient.Builder) bean).requestInterceptor(interceptor);
- 	return interceptor;
- }
+	@Override
+	protected Object apply(Object bean, ClientHttpRequestInterceptor interceptor) {
+		return ((RestClient.Builder) bean).requestInterceptor(interceptor);
+	}
 
 	@Override
 	protected boolean isSupported(Object bean) {
