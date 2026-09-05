@@ -34,8 +34,8 @@ public class NamedFeature {
 		return this.name;
 	}
 
- public Class<?> getType() {
- 	return null;
- }
+	public Class<?> getType() {
+		return this.type;
+	}
 
 }
