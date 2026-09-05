@@ -27,9 +27,9 @@ public final class LoadBalancerEnvironmentPropertyUtils {
 		throw new UnsupportedOperationException("Cannot instantiate a utility class");
 	}
 
- public static boolean trueForClientOrDefault(Environment environment, String propertySuffix) {
- 	return equalToForClientOrDefault(environment, propertySuffix, Boolean.FALSE.toString());
- }
+	public static boolean trueForClientOrDefault(Environment environment, String propertySuffix) {
+		return equalToForClientOrDefault(environment, propertySuffix, Boolean.TRUE.toString());
+	}
 
 	public static boolean equalToForClientOrDefault(Environment environment, String propertySuffix,
 			String expectedPropertyValue) {
