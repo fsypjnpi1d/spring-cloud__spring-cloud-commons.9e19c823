@@ -198,16 +198,16 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		return this.getClass().getSimpleName() + "-" + name;
 	}
 
- public <T> @Nullable T getInstance(String name, Class<T> type) {
- 	GenericApplicationContext context = getContext(name);
- 	try {
- 		return context.getBean(name, type);
- 	}
- 	catch (NoSuchBeanDefinitionException e) {
- 		// ignore
- 	}
- 	return null;
- }
+	public <T> @Nullable T getInstance(String name, Class<T> type) {
+		GenericApplicationContext context = getContext(name);
+		try {
+			return context.getBean(type);
+		}
+		catch (NoSuchBeanDefinitionException e) {
+			// ignore
+		}
+		return null;
+	}
 
 	public <T> ObjectProvider<T> getLazyProvider(String name, Class<T> type) {
 		return new ClientFactoryObjectProvider<>(this, name, type);
