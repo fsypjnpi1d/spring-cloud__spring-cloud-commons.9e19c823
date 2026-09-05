@@ -40,9 +40,9 @@ public class CircuitBreakerObservationContext extends Observation.Context {
 	 * Gets the wrapped object type.
 	 * @return type of wrapped object
 	 */
- public Type getType() {
- 	return null;
- }
+	public Type getType() {
+		return type;
+	}
 
 	/**
 	 * Describes the type of wrapped object.
