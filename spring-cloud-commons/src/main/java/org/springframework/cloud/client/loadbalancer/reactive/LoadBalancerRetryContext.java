@@ -121,8 +121,8 @@ public class LoadBalancerRetryContext {
 	 * load-balanced.
 	 * @return the HTTP method of the request that is being load-balanced.
 	 */
- protected HttpMethod getRequestMethod() {
- 	return HttpMethod.GET;
- }
+	protected HttpMethod getRequestMethod() {
+		return request.method();
+	}
 
 }
