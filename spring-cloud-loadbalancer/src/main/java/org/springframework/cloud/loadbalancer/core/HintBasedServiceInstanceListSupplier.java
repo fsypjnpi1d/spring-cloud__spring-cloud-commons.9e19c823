@@ -84,24 +84,24 @@ public class HintBasedServiceInstanceListSupplier extends DelegatingServiceInsta
 		return null;
 	}
 
- private List<ServiceInstance> filteredByHint(List<ServiceInstance> instances, @Nullable String hint) {
- 	if (!StringUtils.hasText(hint)) {
- 		return instances;
- 	}
- 	List<ServiceInstance> filteredInstances = new ArrayList<>();
- 	for (ServiceInstance serviceInstance : instances) {
- 		if (serviceInstance.getMetadata() != null
- 				&& serviceInstance.getMetadata().getOrDefault("hint", "").equals(hint)) {
- 			filteredInstances.add(serviceInstance);
- 		}
- 	}
- 	if (filteredInstances.isEmpty()) {
- 		return filteredInstances;
- 	}
+	private List<ServiceInstance> filteredByHint(List<ServiceInstance> instances, @Nullable String hint) {
+		if (!StringUtils.hasText(hint)) {
+			return instances;
+		}
+		List<ServiceInstance> filteredInstances = new ArrayList<>();
+		for (ServiceInstance serviceInstance : instances) {
+			if (serviceInstance.getMetadata() != null
+					&& serviceInstance.getMetadata().getOrDefault("hint", "").equals(hint)) {
+				filteredInstances.add(serviceInstance);
+			}
+		}
+		if (!filteredInstances.isEmpty()) {
+			return filteredInstances;
+		}
 
- 	// If instances cannot be found based on hint,
- 	// we return all instances retrieved for given service id.
- 	return instances;
- }
+		// If instances cannot be found based on hint,
+		// we return all instances retrieved for given service id.
+		return instances;
+	}
 
 }
