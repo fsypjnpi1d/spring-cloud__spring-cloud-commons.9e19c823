@@ -264,29 +264,29 @@ public class GenericScope
 	 * bean names.
 	 * @param beanFactory The bean factory to configure.
 	 */
- private void setSerializationId(ConfigurableListableBeanFactory beanFactory) {
+	private void setSerializationId(ConfigurableListableBeanFactory beanFactory) {
 
- 	if (beanFactory instanceof DefaultListableBeanFactory) {
+		if (beanFactory instanceof DefaultListableBeanFactory) {
 
- 		String id = this.id;
- 		if (id != null) {
- 			List<String> list = new ArrayList<>(Arrays.asList(beanFactory.getBeanDefinitionNames()));
- 			Collections.sort(list);
- 			String names = list.toString();
- 			logger.debug("Generating bean factory id from names: " + names);
- 			id = UUID.nameUUIDFromBytes(names.getBytes()).toString();
- 		}
+			String id = this.id;
+			if (id == null) {
+				List<String> list = new ArrayList<>(Arrays.asList(beanFactory.getBeanDefinitionNames()));
+				Collections.sort(list);
+				String names = list.toString();
+				logger.debug("Generating bean factory id from names: " + names);
+				id = UUID.nameUUIDFromBytes(names.getBytes()).toString();
+			}
 
- 		logger.info("BeanFactory id=" + id);
- 		((DefaultListableBeanFactory) beanFactory).setSerializationId(id);
+			logger.info("BeanFactory id=" + id);
+			((DefaultListableBeanFactory) beanFactory).setSerializationId(id);
 
- 	}
- 	else {
- 		logger.warn(
- 				"BeanFactory was not a DefaultListableBeanFactory, scoped proxy beans " + "cannot be serialized.");
- 	}
+		}
+		else {
+			logger.warn(
+					"BeanFactory was not a DefaultListableBeanFactory, scoped proxy beans " + "cannot be serialized.");
+		}
 
- }
+	}
 
 	protected String getName() {
 		return this.name;
