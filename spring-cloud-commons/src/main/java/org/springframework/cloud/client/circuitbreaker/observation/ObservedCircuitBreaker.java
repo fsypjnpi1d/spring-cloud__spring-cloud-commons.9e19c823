@@ -42,16 +42,16 @@ public class ObservedCircuitBreaker implements CircuitBreaker {
 		this.observationRegistry = observationRegistry;
 	}
 
- @Override
- public <T> T run(Supplier<T> toRun, Function<Throwable, T> fallback) {
- 	return this.delegate.run(
- 			new ObservedSupplier<>(this.customConvention,
- 					new CircuitBreakerObservationContext(CircuitBreakerObservationContext.Type.FUNCTION),
- 					"circuit-breaker", this.observationRegistry, toRun),
- 			new ObservedFunction<>(this.customConvention,
- 					new CircuitBreakerObservationContext(CircuitBreakerObservationContext.Type.SUPPLIER),
- 					"circuit-breaker fallback", this.observationRegistry, fallback));
- }
+	@Override
+	public <T> T run(Supplier<T> toRun, Function<Throwable, T> fallback) {
+		return this.delegate.run(
+				new ObservedSupplier<>(this.customConvention,
+						new CircuitBreakerObservationContext(CircuitBreakerObservationContext.Type.SUPPLIER),
+						"circuit-breaker", this.observationRegistry, toRun),
+				new ObservedFunction<>(this.customConvention,
+						new CircuitBreakerObservationContext(CircuitBreakerObservationContext.Type.FUNCTION),
+						"circuit-breaker fallback", this.observationRegistry, fallback));
+	}
 
 	@Override
 	public <T> T run(Supplier<T> toRun) {
