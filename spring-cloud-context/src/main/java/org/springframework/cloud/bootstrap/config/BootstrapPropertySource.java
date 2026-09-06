@@ -35,10 +35,10 @@ public class BootstrapPropertySource<T> extends EnumerablePropertySource<T> {
 
 	private EnumerablePropertySource<T> delegate;
 
- public BootstrapPropertySource(EnumerablePropertySource<T> delegate) {
- 	super(BOOTSTRAP_PROPERTY_SOURCE_NAME + "_" + delegate.getName(), delegate.getSource());
- 	this.delegate = delegate;
- }
+	public BootstrapPropertySource(EnumerablePropertySource<T> delegate) {
+		super(BOOTSTRAP_PROPERTY_SOURCE_NAME + "-" + delegate.getName(), delegate.getSource());
+		this.delegate = delegate;
+	}
 
 	@Override
 	public Object getProperty(String name) {
