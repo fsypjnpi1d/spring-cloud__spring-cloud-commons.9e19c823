@@ -34,9 +34,9 @@ public interface ServiceInstanceListSupplier extends Supplier<Flux<List<ServiceI
 
 	String getServiceId();
 
- default Flux<List<ServiceInstance>> get(Request request) {
- 	return Flux.empty();
- }
+	default Flux<List<ServiceInstance>> get(Request request) {
+		return get();
+	}
 
 	static ServiceInstanceListSupplierBuilder builder() {
 		return new ServiceInstanceListSupplierBuilder();
