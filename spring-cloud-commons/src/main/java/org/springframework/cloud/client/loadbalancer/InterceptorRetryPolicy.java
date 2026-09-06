@@ -71,10 +71,10 @@ public class InterceptorRetryPolicy implements RetryPolicy {
 		return new LoadBalancedRetryContext(parent, request);
 	}
 
- @Override
- public void close(RetryContext context) {
- 	policy.close(null);
- }
+	@Override
+	public void close(RetryContext context) {
+		policy.close((LoadBalancedRetryContext) context);
+	}
 
 	@Override
 	public void registerThrowable(RetryContext context, Throwable throwable) {
