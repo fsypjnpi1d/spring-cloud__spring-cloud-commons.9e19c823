@@ -174,13 +174,13 @@ public class ReactiveApiVersionServiceInstanceListSupplier extends DelegatingSer
 				new DefaultServerCodecConfigurer(), new AcceptHeaderLocaleContextResolver());
 	}
 
- @SuppressWarnings("rawtypes")
- private @Nullable ApiVersionParser getApiVersionParser() {
- 	if (apiVersionParser != null) {
- 		apiVersionParser = loadBalancerClientFactory.getInstance(getServiceId(), ApiVersionParser.class);
- 	}
- 	return apiVersionParser;
- }
+	@SuppressWarnings("rawtypes")
+	private @Nullable ApiVersionParser getApiVersionParser() {
+		if (apiVersionParser == null) {
+			apiVersionParser = loadBalancerClientFactory.getInstance(getServiceId(), ApiVersionParser.class);
+		}
+		return apiVersionParser;
+	}
 
 	private ApiVersionStrategy getApiVersionStrategy() {
 		if (apiVersionStrategy == null) {
