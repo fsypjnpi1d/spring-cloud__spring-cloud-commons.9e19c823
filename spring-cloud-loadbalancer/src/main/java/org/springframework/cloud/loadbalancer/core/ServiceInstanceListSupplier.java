@@ -38,8 +38,8 @@ public interface ServiceInstanceListSupplier extends Supplier<Flux<List<ServiceI
 		return get();
 	}
 
- static ServiceInstanceListSupplierBuilder builder() {
- 	return null;
- }
+	static ServiceInstanceListSupplierBuilder builder() {
+		return new ServiceInstanceListSupplierBuilder();
+	}
 
 }
