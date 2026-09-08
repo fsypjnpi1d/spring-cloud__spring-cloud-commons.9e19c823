@@ -162,25 +162,25 @@ public class RetryableLoadBalancerExchangeFilterFunction implements LoadBalanced
 		}).retryWhen(exchangeRetry)).retryWhen(filterRetry);
 	}
 
- private Retry buildRetrySpec(int max, boolean transientErrors, LoadBalancerProperties.Retry retry,
- 		LoadBalancerRetryPolicy retryPolicy) {
- 	if (retry.isEnabled()) {
- 		return Retry.max(0)
- 			.filter(throwable -> isRetryException(throwable, retryPolicy))
- 			.transientErrors(transientErrors);
- 	}
- 	LoadBalancerProperties.Retry.Backoff backoffProperties = retry.getBackoff();
- 	if (backoffProperties.isEnabled()) {
- 		return RetrySpec.backoff(max, backoffProperties.getMinBackoff())
- 			.filter(throwable -> isRetryException(throwable, retryPolicy))
- 			.maxBackoff(backoffProperties.getMaxBackoff())
- 			.jitter(backoffProperties.getJitter())
- 			.transientErrors(transientErrors);
- 	}
- 	return RetrySpec.max(max)
- 		.filter(throwable -> isRetryException(throwable, retryPolicy))
- 		.transientErrors(transientErrors);
- }
+	private Retry buildRetrySpec(int max, boolean transientErrors, LoadBalancerProperties.Retry retry,
+			LoadBalancerRetryPolicy retryPolicy) {
+		if (!retry.isEnabled()) {
+			return Retry.max(0)
+				.filter(throwable -> isRetryException(throwable, retryPolicy))
+				.transientErrors(transientErrors);
+		}
+		LoadBalancerProperties.Retry.Backoff backoffProperties = retry.getBackoff();
+		if (backoffProperties.isEnabled()) {
+			return RetrySpec.backoff(max, backoffProperties.getMinBackoff())
+				.filter(throwable -> isRetryException(throwable, retryPolicy))
+				.maxBackoff(backoffProperties.getMaxBackoff())
+				.jitter(backoffProperties.getJitter())
+				.transientErrors(transientErrors);
+		}
+		return RetrySpec.max(max)
+			.filter(throwable -> isRetryException(throwable, retryPolicy))
+			.transientErrors(transientErrors);
+	}
 
 	private boolean shouldRetrySameServiceInstance(LoadBalancerRetryPolicy retryPolicy,
 			LoadBalancerRetryContext loadBalancerRetryContext) {
