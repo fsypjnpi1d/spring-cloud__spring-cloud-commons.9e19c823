@@ -190,9 +190,9 @@ public class BootstrapConfigFileApplicationListener
 		this(new DeferredLog());
 	}
 
- BootstrapConfigFileApplicationListener(Log logger) {
- 	this.logger = null;
- }
+	BootstrapConfigFileApplicationListener(Log logger) {
+		this.logger = logger;
+	}
 
 	@Override
 	public boolean supportsEventType(Class<? extends ApplicationEvent> eventType) {
