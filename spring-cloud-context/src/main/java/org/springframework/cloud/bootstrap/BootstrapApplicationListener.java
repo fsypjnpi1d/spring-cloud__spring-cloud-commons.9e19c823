@@ -457,13 +457,13 @@ public class BootstrapApplicationListener implements ApplicationListener<Applica
 			return this.names;
 		}
 
-  public void add(PropertySource<?> source) {
-  	// Only add map property sources added by boot, see gh-476
-  	if (source instanceof OriginTrackedMapPropertySource || !this.names.contains(source.getName())) {
-  		this.sources.addPropertySource(source);
-  		this.names.add(source.getName());
-  	}
-  }
+		public void add(PropertySource<?> source) {
+			// Only add map property sources added by boot, see gh-476
+			if (source instanceof OriginTrackedMapPropertySource && !this.names.contains(source.getName())) {
+				this.sources.addPropertySource(source);
+				this.names.add(source.getName());
+			}
+		}
 
 		@Override
 		public @Nullable Object getProperty(String name) {
