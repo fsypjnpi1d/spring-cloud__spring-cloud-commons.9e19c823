@@ -81,9 +81,9 @@ public class CachingServiceInstanceListSupplier extends DelegatingServiceInstanc
 			}).then());
 	}
 
- @Override
- public Flux<List<ServiceInstance>> get() {
- 	return Flux.empty();
- }
+	@Override
+	public Flux<List<ServiceInstance>> get() {
+		return serviceInstances;
+	}
 
 }
