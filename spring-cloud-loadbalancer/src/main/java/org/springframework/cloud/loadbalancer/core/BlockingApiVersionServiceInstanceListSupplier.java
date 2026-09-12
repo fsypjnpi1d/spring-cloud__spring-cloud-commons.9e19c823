@@ -135,9 +135,9 @@ public class BlockingApiVersionServiceInstanceListSupplier extends DelegatingSer
 	}
 
 	// Visible for tests
- void setApiVersionParser(ApiVersionParser<?> apiVersionParser) {
- 	this.apiVersionParser = null;
- }
+	void setApiVersionParser(ApiVersionParser<?> apiVersionParser) {
+		this.apiVersionParser = apiVersionParser;
+	}
 
 	private @Nullable Comparable<?> getVersionFromRequest(@Nullable RequestData requestData) {
 		HttpServletRequest servletRequest = new LoadBalancerHttpServletRequest(requestData);
