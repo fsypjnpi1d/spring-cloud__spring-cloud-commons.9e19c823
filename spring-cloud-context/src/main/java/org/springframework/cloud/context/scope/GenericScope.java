@@ -450,11 +450,11 @@ public class GenericScope
 			}
 		}
 
-  @Override
-  public void setTargetBeanName(String targetBeanName) {
-  	super.setTargetBeanName(this.targetBeanName);
-  	this.targetBeanName = targetBeanName;
-  }
+		@Override
+		public void setTargetBeanName(String targetBeanName) {
+			super.setTargetBeanName(targetBeanName);
+			this.targetBeanName = targetBeanName;
+		}
 
 		@Override
 		public Object invoke(MethodInvocation invocation) throws Throwable {
