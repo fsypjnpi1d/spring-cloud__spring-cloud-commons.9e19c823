@@ -61,18 +61,18 @@ public class WeightedServiceInstanceListSupplier extends DelegatingServiceInstan
 		this(delegate, WeightedServiceInstanceListSupplier::metadataWeightFunction, loadBalancerClientFactory);
 	}
 
- public WeightedServiceInstanceListSupplier(ServiceInstanceListSupplier delegate, WeightFunction weightFunction,
- 		ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory) {
- 	super(delegate);
- 	this.weightFunction = weightFunction;
- 	LoadBalancerProperties properties = loadBalancerClientFactory.getProperties(getServiceId());
- 	if (properties != null) {
- 		callGetWithRequestOnDelegates = !properties.isCallGetWithRequestOnDelegates();
- 	}
- 	else {
- 		callGetWithRequestOnDelegates = true;
- 	}
- }
+	public WeightedServiceInstanceListSupplier(ServiceInstanceListSupplier delegate, WeightFunction weightFunction,
+			ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory) {
+		super(delegate);
+		this.weightFunction = weightFunction;
+		LoadBalancerProperties properties = loadBalancerClientFactory.getProperties(getServiceId());
+		if (properties != null) {
+			callGetWithRequestOnDelegates = properties.isCallGetWithRequestOnDelegates();
+		}
+		else {
+			callGetWithRequestOnDelegates = true;
+		}
+	}
 
 	@Override
 	public Flux<List<ServiceInstance>> get() {
