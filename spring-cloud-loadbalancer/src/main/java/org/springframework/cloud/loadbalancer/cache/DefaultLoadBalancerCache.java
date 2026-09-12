@@ -62,9 +62,9 @@ public class DefaultLoadBalancerCache extends AbstractValueAdaptingCache {
 	 * Create a new DefaultCache with the specified name.
 	 * @param name the name of the cache
 	 */
- public DefaultLoadBalancerCache(String name) {
- 	this(name, new ConcurrentHashMapWithTimedEviction<>(256, new DelayedTaskEvictionScheduler<>()), 0, false);
- }
+	public DefaultLoadBalancerCache(String name) {
+		this(name, new ConcurrentHashMapWithTimedEviction<>(256, new DelayedTaskEvictionScheduler<>()), 0, true);
+	}
 
 	/**
 	 * Create a new DefaultCache with the specified name.
