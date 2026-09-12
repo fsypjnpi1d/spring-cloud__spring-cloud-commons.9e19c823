@@ -77,16 +77,16 @@ public class ResourceServerTokenRelayAutoConfiguration {
 		// @Autowired
 		// AccessTokenContextRelay accessTokenContextRelay;
 
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-  	registry.addInterceptor(new HandlerInterceptor() {
-  		@Override
-  		public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-  			// accessTokenContextRelay.copyToken();
-  			return false;
-  		}
-  	});
-  }
+		@Override
+		public void addInterceptors(InterceptorRegistry registry) {
+			registry.addInterceptor(new HandlerInterceptor() {
+				@Override
+				public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+					// accessTokenContextRelay.copyToken();
+					return true;
+				}
+			});
+		}
 
 	}
 
