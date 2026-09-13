@@ -449,9 +449,9 @@ public class BootstrapApplicationListener implements ApplicationListener<Applica
 			return new LinkedHashMap<>();
 		}
 
-  public CompositePropertySource getPropertySources() {
-  	return new CompositePropertySource("empty");
-  }
+		public CompositePropertySource getPropertySources() {
+			return this.sources;
+		}
 
 		public List<String> getPropertySourceNames() {
 			return this.names;
