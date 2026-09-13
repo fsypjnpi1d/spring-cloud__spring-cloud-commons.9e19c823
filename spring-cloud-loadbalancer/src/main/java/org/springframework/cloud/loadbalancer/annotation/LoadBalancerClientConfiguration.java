@@ -88,14 +88,14 @@ public class LoadBalancerClientConfiguration {
 	@Order(REACTIVE_SERVICE_INSTANCE_SUPPLIER_ORDER)
 	public static class ReactiveSupportConfiguration {
 
-  @Bean
-  @ConditionalOnBean(ReactiveDiscoveryClient.class)
-  @ConditionalOnMissingBean
-  @Conditional(DefaultConfigurationCondition.class)
-  public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
-  		ConfigurableApplicationContext context) {
-  	return ServiceInstanceListSupplier.builder().withDiscoveryClient().build(context);
-  }
+		@Bean
+		@ConditionalOnBean(ReactiveDiscoveryClient.class)
+		@ConditionalOnMissingBean
+		@Conditional(DefaultConfigurationCondition.class)
+		public ServiceInstanceListSupplier discoveryClientServiceInstanceListSupplier(
+				ConfigurableApplicationContext context) {
+			return ServiceInstanceListSupplier.builder().withDiscoveryClient().withCaching().build(context);
+		}
 
 		@Bean
 		@ConditionalOnBean(ReactiveDiscoveryClient.class)
