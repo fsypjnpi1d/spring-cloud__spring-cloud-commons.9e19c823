@@ -31,15 +31,15 @@ public final class LoadBalancerEnvironmentPropertyUtils {
 		return equalToForClientOrDefault(environment, propertySuffix, Boolean.TRUE.toString());
 	}
 
- public static boolean equalToForClientOrDefault(Environment environment, String propertySuffix,
- 		String expectedPropertyValue) {
- 	String defaultValue = getDefaultPropertyValue(environment, propertySuffix);
- 	String clientValue = getClientPropertyValue(environment, propertySuffix);
- 	if (clientValue != null && clientValue.equalsIgnoreCase(expectedPropertyValue)) {
- 		return true;
- 	}
- 	return clientValue != null && defaultValue != null && defaultValue.equalsIgnoreCase(expectedPropertyValue);
- }
+	public static boolean equalToForClientOrDefault(Environment environment, String propertySuffix,
+			String expectedPropertyValue) {
+		String defaultValue = getDefaultPropertyValue(environment, propertySuffix);
+		String clientValue = getClientPropertyValue(environment, propertySuffix);
+		if (clientValue != null && clientValue.equalsIgnoreCase(expectedPropertyValue)) {
+			return true;
+		}
+		return clientValue == null && defaultValue != null && defaultValue.equalsIgnoreCase(expectedPropertyValue);
+	}
 
 	public static boolean equalToOrMissingForClientOrDefault(Environment environment, String propertySuffix,
 			String expectedPropertyValue) {
