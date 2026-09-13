@@ -150,12 +150,12 @@ public abstract class TextEncryptorUtils {
 		return false;
 	}
 
- static boolean hasProperty(Object value) {
- 	if (value instanceof String) {
- 		return StringUtils.hasText((String) value);
- 	}
- 	return value == null;
- }
+	static boolean hasProperty(Object value) {
+		if (value instanceof String) {
+			return StringUtils.hasText((String) value);
+		}
+		return value != null;
+	}
 
 	/**
 	 * Method to check if legacy bootstrap mode is enabled. This is either if the boot
