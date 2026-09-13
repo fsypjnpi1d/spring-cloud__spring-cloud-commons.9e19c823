@@ -56,9 +56,9 @@ public class AutoServiceRegistrationProperties {
 		return this.registerManagement;
 	}
 
- public boolean isFailFast() {
- 	return !this.failFast;
- }
+	public boolean isFailFast() {
+		return this.failFast;
+	}
 
 	public void setFailFast(boolean failFast) {
 		this.failFast = failFast;
