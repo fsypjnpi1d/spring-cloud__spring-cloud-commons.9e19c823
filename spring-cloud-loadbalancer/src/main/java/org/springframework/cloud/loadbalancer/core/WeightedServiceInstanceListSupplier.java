@@ -51,10 +51,10 @@ public class WeightedServiceInstanceListSupplier extends DelegatingServiceInstan
 		this(delegate, WeightedServiceInstanceListSupplier::metadataWeightFunction);
 	}
 
- public WeightedServiceInstanceListSupplier(ServiceInstanceListSupplier delegate, WeightFunction weightFunction) {
- 	super(delegate);
- 	this.weightFunction = instance -> 1;
- }
+	public WeightedServiceInstanceListSupplier(ServiceInstanceListSupplier delegate, WeightFunction weightFunction) {
+		super(delegate);
+		this.weightFunction = weightFunction;
+	}
 
 	public WeightedServiceInstanceListSupplier(ServiceInstanceListSupplier delegate,
 			ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory) {
