@@ -205,18 +205,9 @@ public class RefreshAutoConfiguration {
 			this.refreshables.addAll(refreshables);
 		}
 
-  @Override
-  public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-      if (beanFactory instanceof BeanDefinitionRegistry) {
-          BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
-          for (String beanName : registry.getBeanDefinitionNames()) {
-              BeanDefinition beanDefinition = registry.getBeanDefinition(beanName);
-              if ("refresh".equals(beanDefinition.getScope())) {
-                  beanDefinition.setScope("singleton");
-              }
-          }
-      }
-  }
+		@Override
+		public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		}
 
 		@Override
 		public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
