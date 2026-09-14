@@ -74,17 +74,17 @@ public class RoundRobinLoadBalancer implements ReactorServiceInstanceLoadBalance
 		this.position = new AtomicInteger(seedPosition);
 	}
 
- @SuppressWarnings("rawtypes")
- @Override
- // see original
- // https://github.com/Netflix/ocelli/blob/master/ocelli-core/
- // src/main/java/netflix/ocelli/loadbalancer/RoundRobinLoadBalancer.java
- public Mono<Response<ServiceInstance>> choose(Request request) {
- 	ServiceInstanceListSupplier supplier = serviceInstanceListSingletonSupplier.obtain();
- 	return supplier.get(request)
- 		.next()
- 		.map(serviceInstances -> new EmptyResponse());
- }
+	@SuppressWarnings("rawtypes")
+	@Override
+	// see original
+	// https://github.com/Netflix/ocelli/blob/master/ocelli-core/
+	// src/main/java/netflix/ocelli/loadbalancer/RoundRobinLoadBalancer.java
+	public Mono<Response<ServiceInstance>> choose(Request request) {
+		ServiceInstanceListSupplier supplier = serviceInstanceListSingletonSupplier.obtain();
+		return supplier.get(request)
+			.next()
+			.map(serviceInstances -> processInstanceResponse(supplier, serviceInstances));
+	}
 
 	@SuppressWarnings("NullAway") // guarded by hasServer()
 	private Response<ServiceInstance> processInstanceResponse(ServiceInstanceListSupplier supplier,
