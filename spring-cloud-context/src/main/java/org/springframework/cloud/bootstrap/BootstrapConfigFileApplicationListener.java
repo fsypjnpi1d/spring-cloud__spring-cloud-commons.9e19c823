@@ -205,12 +205,12 @@ public class BootstrapConfigFileApplicationListener
 		// do nothing
 	}
 
- @Override
- public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
- 	if (!PropertyUtils.bootstrapEnabled(environment)) {
- 		addPropertySources(environment, application.getResourceLoader());
- 	}
- }
+	@Override
+	public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+		if (PropertyUtils.bootstrapEnabled(environment)) {
+			addPropertySources(environment, application.getResourceLoader());
+		}
+	}
 
 	/**
 	 * Add config file property sources to the specified environment.
