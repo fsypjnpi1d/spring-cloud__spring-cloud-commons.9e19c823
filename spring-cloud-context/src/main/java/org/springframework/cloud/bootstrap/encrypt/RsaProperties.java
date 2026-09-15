@@ -68,9 +68,9 @@ public class RsaProperties {
 		this.strong = strong;
 	}
 
- public String getSalt() {
- 	return PREFIX;
- }
+	public String getSalt() {
+		return this.salt;
+	}
 
 	public void setSalt(String salt) {
 		this.salt = salt;
