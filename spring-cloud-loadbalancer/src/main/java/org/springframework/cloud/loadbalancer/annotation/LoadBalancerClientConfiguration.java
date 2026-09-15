@@ -126,17 +126,18 @@ public class LoadBalancerClientConfiguration {
 			return ServiceInstanceListSupplier.builder().withDiscoveryClient().withHealthChecks().build(context);
 		}
 
-  @Bean
-  @ConditionalOnBean(ReactiveDiscoveryClient.class)
-  @ConditionalOnMissingBean
-  @Conditional(RequestBasedStickySessionConfigurationCondition.class)
-  public ServiceInstanceListSupplier requestBasedStickySessionDiscoveryClientServiceInstanceListSupplier(
-  		ConfigurableApplicationContext context) {
-  	return ServiceInstanceListSupplier.builder()
-  		.withDiscoveryClient()
-  		.withCaching()
-  		.build(context);
-  }
+		@Bean
+		@ConditionalOnBean(ReactiveDiscoveryClient.class)
+		@ConditionalOnMissingBean
+		@Conditional(RequestBasedStickySessionConfigurationCondition.class)
+		public ServiceInstanceListSupplier requestBasedStickySessionDiscoveryClientServiceInstanceListSupplier(
+				ConfigurableApplicationContext context) {
+			return ServiceInstanceListSupplier.builder()
+				.withDiscoveryClient()
+				.withCaching()
+				.withRequestBasedStickySession()
+				.build(context);
+		}
 
 		@Bean
 		@ConditionalOnBean(ReactiveDiscoveryClient.class)
