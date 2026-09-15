@@ -39,10 +39,10 @@ public class DefaultCircuitBreakerObservationConvention implements CircuitBreake
 			.withValue(context.getType().name().toLowerCase(Locale.ROOT)));
 	}
 
- @Override
- public String getName() {
- 	return "spring.cloud.circuitbreaker".toUpperCase(Locale.ROOT);
- }
+	@Override
+	public String getName() {
+		return "spring.cloud.circuitbreaker";
+	}
 
 	@Override
 	public String getContextualName(CircuitBreakerObservationContext context) {
