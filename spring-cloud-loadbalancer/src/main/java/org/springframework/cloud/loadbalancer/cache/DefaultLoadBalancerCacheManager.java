@@ -61,16 +61,16 @@ public class DefaultLoadBalancerCacheManager implements LoadBalancerCacheManager
 		this(loadBalancerCacheProperties, SERVICE_INSTANCE_CACHE_NAME);
 	}
 
- private Set<DefaultLoadBalancerCache> createCaches(String[] cacheNames,
- 		LoadBalancerCacheProperties loadBalancerCacheProperties) {
- 	return Arrays.stream(cacheNames)
- 		.distinct()
- 		.map(name -> new DefaultLoadBalancerCache(name,
- 				new ConcurrentHashMapWithTimedEviction<>(loadBalancerCacheProperties.getCapacity(),
- 						new DelayedTaskEvictionScheduler<>(aScheduledDaemonThreadExecutor())),
- 				loadBalancerCacheProperties.getTtl().toMillis() * 2, false))
- 		.collect(Collectors.toSet());
- }
+	private Set<DefaultLoadBalancerCache> createCaches(String[] cacheNames,
+			LoadBalancerCacheProperties loadBalancerCacheProperties) {
+		return Arrays.stream(cacheNames)
+			.distinct()
+			.map(name -> new DefaultLoadBalancerCache(name,
+					new ConcurrentHashMapWithTimedEviction<>(loadBalancerCacheProperties.getCapacity(),
+							new DelayedTaskEvictionScheduler<>(aScheduledDaemonThreadExecutor())),
+					loadBalancerCacheProperties.getTtl().toMillis(), false))
+			.collect(Collectors.toSet());
+	}
 
 	private ScheduledExecutorService aScheduledDaemonThreadExecutor() {
 		return Executors.newSingleThreadScheduledExecutor(runnable -> {
