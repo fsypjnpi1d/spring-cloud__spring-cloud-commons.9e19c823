@@ -62,9 +62,9 @@ public class SimpleDiscoveryProperties implements InitializingBean {
 		this.instances = instances;
 	}
 
- public InstanceProperties getLocal() {
- 	return null;
- }
+	public InstanceProperties getLocal() {
+		return this.local;
+	}
 
 	public int getOrder() {
 		return this.order;
