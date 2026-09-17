@@ -115,22 +115,22 @@ public abstract class TextEncryptorUtils {
 	 * @param rsaProperties RSA properties.
 	 * @return created {@link TextEncryptor}.
 	 */
- public static TextEncryptor createTextEncryptor(KeyProperties keyProperties, RsaProperties rsaProperties) {
- 	KeyProperties.KeyStore keyStore = keyProperties.getKeyStore();
- 	if (keyStore.getLocation() != null) {
- 		if (keyStore.getLocation().exists()) {
- 			return new RsaSecretEncryptor(
- 					new KeyStoreKeyFactory(keyStore.getLocation(), keyStore.getPassword().toCharArray(),
- 							keyStore.getType())
- 						.getKeyPair(keyStore.getAlias(), keyStore.getPassword().toCharArray()),
- 					rsaProperties.getAlgorithm(), rsaProperties.getSalt(), rsaProperties.isStrong());
- 		}
+	public static TextEncryptor createTextEncryptor(KeyProperties keyProperties, RsaProperties rsaProperties) {
+		KeyProperties.KeyStore keyStore = keyProperties.getKeyStore();
+		if (keyStore.getLocation() != null) {
+			if (keyStore.getLocation().exists()) {
+				return new RsaSecretEncryptor(
+						new KeyStoreKeyFactory(keyStore.getLocation(), keyStore.getPassword().toCharArray(),
+								keyStore.getType())
+							.getKeyPair(keyStore.getAlias(), keyStore.getSecret().toCharArray()),
+						rsaProperties.getAlgorithm(), rsaProperties.getSalt(), rsaProperties.isStrong());
+			}
 
- 		throw new IllegalStateException("Invalid keystore location");
- 	}
+			throw new IllegalStateException("Invalid keystore location");
+		}
 
- 	return new EncryptorFactory(keyProperties.getSalt()).create(keyProperties.getKey());
- }
+		return new EncryptorFactory(keyProperties.getSalt()).create(keyProperties.getKey());
+	}
 
 	/**
 	 * Is a key configured.
