@@ -61,12 +61,12 @@ public class LoadBalancerBeanPostProcessorAutoConfiguration {
 	@ConditionalOnBean(ReactiveLoadBalancer.Factory.class)
 	protected static class ReactorDeferringLoadBalancerFilterConfig {
 
-  @Bean
-  @Primary
-  static DeferringLoadBalancerExchangeFilterFunction<LoadBalancedExchangeFilterFunction> reactorDeferringLoadBalancerExchangeFilterFunction(
-  		ObjectProvider<LoadBalancedExchangeFilterFunction> exchangeFilterFunctionProvider) {
-  	return new DeferringLoadBalancerExchangeFilterFunction<>(null);
-  }
+		@Bean
+		@Primary
+		static DeferringLoadBalancerExchangeFilterFunction<LoadBalancedExchangeFilterFunction> reactorDeferringLoadBalancerExchangeFilterFunction(
+				ObjectProvider<LoadBalancedExchangeFilterFunction> exchangeFilterFunctionProvider) {
+			return new DeferringLoadBalancerExchangeFilterFunction<>(exchangeFilterFunctionProvider);
+		}
 
 	}
 
