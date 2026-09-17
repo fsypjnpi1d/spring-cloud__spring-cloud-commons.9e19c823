@@ -143,22 +143,22 @@ public class RetryLoadBalancerInterceptor implements BlockingLoadBalancerInterce
 		});
 	}
 
- private RetryTemplate createRetryTemplate(String serviceName, HttpRequest request,
- 		@Nullable LoadBalancedRetryPolicy retryPolicy) {
- 	RetryTemplate template = new RetryTemplate();
- 	BackOffPolicy backOffPolicy = lbRetryFactory.createBackOffPolicy(serviceName);
- 	template.setBackOffPolicy(backOffPolicy == null ? new NoBackOffPolicy() : backOffPolicy);
- 	template.setThrowLastExceptionOnExhausted(true);
- 	RetryListener[] retryListeners = lbRetryFactory.createRetryListeners(serviceName);
- 	if (retryListeners != null && retryListeners.length != 0) {
- 		template.setListeners(retryListeners);
- 	}
- 	LoadBalancerProperties properties = loadBalancerFactory.getProperties(serviceName);
- 	boolean retryEnabled = properties == null || properties.getRetry().isEnabled();
- 	template.setRetryPolicy(!retryEnabled && retryPolicy == null ? new NeverRetryPolicy()
- 			: new InterceptorRetryPolicy(request, retryPolicy, loadBalancer, serviceName));
- 	return template;
- }
+	private RetryTemplate createRetryTemplate(String serviceName, HttpRequest request,
+			@Nullable LoadBalancedRetryPolicy retryPolicy) {
+		RetryTemplate template = new RetryTemplate();
+		BackOffPolicy backOffPolicy = lbRetryFactory.createBackOffPolicy(serviceName);
+		template.setBackOffPolicy(backOffPolicy == null ? new NoBackOffPolicy() : backOffPolicy);
+		template.setThrowLastExceptionOnExhausted(true);
+		RetryListener[] retryListeners = lbRetryFactory.createRetryListeners(serviceName);
+		if (retryListeners != null && retryListeners.length != 0) {
+			template.setListeners(retryListeners);
+		}
+		LoadBalancerProperties properties = loadBalancerFactory.getProperties(serviceName);
+		boolean retryEnabled = properties == null || properties.getRetry().isEnabled();
+		template.setRetryPolicy(!retryEnabled || retryPolicy == null ? new NeverRetryPolicy()
+				: new InterceptorRetryPolicy(request, retryPolicy, loadBalancer, serviceName));
+		return template;
+	}
 
 	private String getHint(String serviceId) {
 		LoadBalancerProperties properties = loadBalancerFactory.getProperties(serviceId);
