@@ -42,18 +42,18 @@ class LazyWeightedServiceInstanceList extends AbstractList<ServiceInstance> {
 
 	private volatile int position = 0;
 
- LazyWeightedServiceInstanceList(List<ServiceInstance> instances, int[] weights) {
- 	// Calculate the greatest common divisor (GCD) of weights, and the
- 	// total number of elements after expansion.
- 	int greatestCommonDivisor = 0;
- 	int total = 0;
- 	for (int weight : weights) {
- 		greatestCommonDivisor = greatestCommonDivisor(greatestCommonDivisor, weight);
- 		total += weight;
- 	}
- 	expanded = new ServiceInstance[(total / greatestCommonDivisor) + 1];
- 	selector = new WeightedServiceInstanceSelector(instances, weights, greatestCommonDivisor);
- }
+	LazyWeightedServiceInstanceList(List<ServiceInstance> instances, int[] weights) {
+		// Calculate the greatest common divisor (GCD) of weights, and the
+		// total number of elements after expansion.
+		int greatestCommonDivisor = 0;
+		int total = 0;
+		for (int weight : weights) {
+			greatestCommonDivisor = greatestCommonDivisor(greatestCommonDivisor, weight);
+			total += weight;
+		}
+		expanded = new ServiceInstance[total / greatestCommonDivisor];
+		selector = new WeightedServiceInstanceSelector(instances, weights, greatestCommonDivisor);
+	}
 
 	@Override
 	public ServiceInstance get(int index) {
