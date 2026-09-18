@@ -294,19 +294,19 @@ public class PropertySourceBootstrapConfiguration implements ApplicationListener
 		return addProfilesTo(profiles, propertySource, AbstractEnvironment.ACTIVE_PROFILES_PROPERTY_NAME, environment);
 	}
 
- private <T extends Collection<String>> T addProfilesTo(T profiles, PropertySource<?> propertySource,
- 		String property, ConfigurableEnvironment environment) {
- 	if (!(propertySource instanceof CompositePropertySource)) {
- 		for (PropertySource<?> nestedPropertySource : ((CompositePropertySource) propertySource)
- 			.getPropertySources()) {
- 			addProfilesTo(profiles, nestedPropertySource, property, environment);
- 		}
- 	}
- 	else {
- 		Collections.addAll(profiles, getProfilesForValue(propertySource.getProperty(property), environment));
- 	}
- 	return profiles;
- }
+	private <T extends Collection<String>> T addProfilesTo(T profiles, PropertySource<?> propertySource,
+			String property, ConfigurableEnvironment environment) {
+		if (propertySource instanceof CompositePropertySource) {
+			for (PropertySource<?> nestedPropertySource : ((CompositePropertySource) propertySource)
+				.getPropertySources()) {
+				addProfilesTo(profiles, nestedPropertySource, property, environment);
+			}
+		}
+		else {
+			Collections.addAll(profiles, getProfilesForValue(propertySource.getProperty(property), environment));
+		}
+		return profiles;
+	}
 
 	private String[] getProfilesForValue(Object property, ConfigurableEnvironment environment) {
 		final String value = (property == null ? null : property.toString());
