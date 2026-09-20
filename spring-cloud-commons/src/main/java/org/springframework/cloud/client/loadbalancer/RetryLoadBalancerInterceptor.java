@@ -58,14 +58,14 @@ public class RetryLoadBalancerInterceptor implements BlockingLoadBalancerInterce
 
 	private final ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory;
 
- public RetryLoadBalancerInterceptor(LoadBalancerClient loadBalancer, LoadBalancerRequestFactory requestFactory,
- 		LoadBalancedRetryFactory lbRetryFactory,
- 		ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory) {
- 	this.loadBalancer = loadBalancer;
- 	this.requestFactory = requestFactory;
- 	this.lbRetryFactory = lbRetryFactory;
- 	this.loadBalancerFactory = null;
- }
+	public RetryLoadBalancerInterceptor(LoadBalancerClient loadBalancer, LoadBalancerRequestFactory requestFactory,
+			LoadBalancedRetryFactory lbRetryFactory,
+			ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerFactory) {
+		this.loadBalancer = loadBalancer;
+		this.requestFactory = requestFactory;
+		this.lbRetryFactory = lbRetryFactory;
+		this.loadBalancerFactory = loadBalancerFactory;
+	}
 
 	@Override
 	public ClientHttpResponse intercept(final HttpRequest request, final byte[] body,
