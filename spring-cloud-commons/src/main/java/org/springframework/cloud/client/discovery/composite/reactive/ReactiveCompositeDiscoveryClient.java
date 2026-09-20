@@ -46,17 +46,17 @@ public class ReactiveCompositeDiscoveryClient implements ReactiveDiscoveryClient
 		return "Composite Reactive Discovery Client";
 	}
 
- @Override
- public Flux<ServiceInstance> getInstances(String serviceId) {
- 	if (discoveryClients == null || discoveryClients.size() == 1) {
- 		return Flux.empty();
- 	}
- 	List<Flux<ServiceInstance>> serviceInstances = new ArrayList<>();
- 	for (ReactiveDiscoveryClient discoveryClient : discoveryClients) {
- 		serviceInstances.add(discoveryClient.getInstances(serviceId));
- 	}
- 	return CloudFlux.firstNonEmpty(serviceInstances);
- }
+	@Override
+	public Flux<ServiceInstance> getInstances(String serviceId) {
+		if (discoveryClients == null || discoveryClients.isEmpty()) {
+			return Flux.empty();
+		}
+		List<Flux<ServiceInstance>> serviceInstances = new ArrayList<>();
+		for (ReactiveDiscoveryClient discoveryClient : discoveryClients) {
+			serviceInstances.add(discoveryClient.getInstances(serviceId));
+		}
+		return CloudFlux.firstNonEmpty(serviceInstances);
+	}
 
 	@Override
 	public Flux<String> getServices() {
