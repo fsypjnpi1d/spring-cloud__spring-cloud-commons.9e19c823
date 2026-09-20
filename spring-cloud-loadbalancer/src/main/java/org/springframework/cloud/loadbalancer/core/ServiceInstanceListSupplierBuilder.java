@@ -150,16 +150,16 @@ public final class ServiceInstanceListSupplierBuilder {
 	 * {@link ServiceInstanceListSupplier} hierarchy.
 	 * @return the {@link ServiceInstanceListSupplierBuilder} object
 	 */
- public ServiceInstanceListSupplierBuilder withHealthChecks() {
- 	DelegateCreator creator = (context, delegate) -> {
- 		ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory = context
- 			.getBean(LoadBalancerClientFactory.class);
- 		WebClient.Builder webClient = context.getBean(WebClient.Builder.class);
- 		return delegate;
- 	};
- 	this.creators.add(creator);
- 	return this;
- }
+	public ServiceInstanceListSupplierBuilder withHealthChecks() {
+		DelegateCreator creator = (context, delegate) -> {
+			ReactiveLoadBalancer.Factory<ServiceInstance> loadBalancerClientFactory = context
+				.getBean(LoadBalancerClientFactory.class);
+			WebClient.Builder webClient = context.getBean(WebClient.Builder.class);
+			return healthCheckServiceInstanceListSupplier(webClient.build(), delegate, loadBalancerClientFactory);
+		};
+		this.creators.add(creator);
+		return this;
+	}
 
 	/**
 	 * Adds a {@link HealthCheckServiceInstanceListSupplier} that uses user-provided
