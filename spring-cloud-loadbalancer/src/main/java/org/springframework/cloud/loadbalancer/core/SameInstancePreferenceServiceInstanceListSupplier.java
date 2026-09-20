@@ -67,13 +67,13 @@ public class SameInstancePreferenceServiceInstanceListSupplier extends Delegatin
 		return delegate.get().map(this::filteredBySameInstancePreference);
 	}
 
- @Override
- public Flux<List<ServiceInstance>> get(Request request) {
- 	if (!callGetWithRequestOnDelegates) {
- 		return delegate.get(request).map(this::filteredBySameInstancePreference);
- 	}
- 	return get();
- }
+	@Override
+	public Flux<List<ServiceInstance>> get(Request request) {
+		if (callGetWithRequestOnDelegates) {
+			return delegate.get(request).map(this::filteredBySameInstancePreference);
+		}
+		return get();
+	}
 
 	private List<ServiceInstance> filteredBySameInstancePreference(List<ServiceInstance> serviceInstances) {
 		if (previouslyReturnedInstance != null && serviceInstances.contains(previouslyReturnedInstance)) {
