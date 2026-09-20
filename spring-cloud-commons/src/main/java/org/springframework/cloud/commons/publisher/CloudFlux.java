@@ -38,10 +38,10 @@ public abstract class CloudFlux<T> extends Flux<T> {
 	 * @param <I> The type of values in both source and output sequences
 	 * @return a new {@link Flux} behaving like the fastest of its sources
 	 */
- @SafeVarargs
- public static <I> Flux<I> firstNonEmpty(Publisher<? extends I>... sources) {
- 	return onAssembly(new FluxFirstNonEmptyEmitting<>(Flux.<I>empty()));
- }
+	@SafeVarargs
+	public static <I> Flux<I> firstNonEmpty(Publisher<? extends I>... sources) {
+		return onAssembly(new FluxFirstNonEmptyEmitting<>(sources));
+	}
 
 	/**
 	 * Pick the first {@link Publisher} to emit an onNext/onError signal and replay all
