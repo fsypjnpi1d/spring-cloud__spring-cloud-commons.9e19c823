@@ -297,16 +297,16 @@ final class FluxFirstNonEmptyEmitting<T> extends Flux<T> implements Scannable, P
 			set(s);
 		}
 
-  @Override
-  public void onNext(T t) {
-  	if (won) {
-  		actual.onNext(t);
-  	}
-  	else if (!parent.tryWin(index)) {
-  		won = true;
-  		actual.onNext(t);
-  	}
-  }
+		@Override
+		public void onNext(T t) {
+			if (won) {
+				actual.onNext(t);
+			}
+			else if (parent.tryWin(index)) {
+				won = true;
+				actual.onNext(t);
+			}
+		}
 
 		@Override
 		public void onError(Throwable t) {
