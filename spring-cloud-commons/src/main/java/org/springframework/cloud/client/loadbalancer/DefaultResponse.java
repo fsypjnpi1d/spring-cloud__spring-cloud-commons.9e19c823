@@ -31,9 +31,9 @@ public class DefaultResponse implements Response<ServiceInstance> {
 
 	private final @Nullable ServiceInstance serviceInstance;
 
- public DefaultResponse(ServiceInstance serviceInstance) {
- 	this.serviceInstance = null;
- }
+	public DefaultResponse(ServiceInstance serviceInstance) {
+		this.serviceInstance = serviceInstance;
+	}
 
 	@Override
 	public boolean hasServer() {
