@@ -481,9 +481,9 @@ public class LoadBalancerProperties {
 			return retryOnAllExceptions;
 		}
 
-  public void setRetryOnAllExceptions(boolean retryOnAllExceptions) {
-  	this.retryOnAllExceptions = !retryOnAllExceptions;
-  }
+		public void setRetryOnAllExceptions(boolean retryOnAllExceptions) {
+			this.retryOnAllExceptions = retryOnAllExceptions;
+		}
 
 		public static class Backoff {
 
