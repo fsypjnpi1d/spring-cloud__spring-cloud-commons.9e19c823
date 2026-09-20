@@ -39,24 +39,24 @@ public class XForwardedHeadersTransformer implements LoadBalancerClientRequestTr
 		this.clientFactory = clientFactory;
 	}
 
- @Override
- public ClientRequest transformRequest(ClientRequest request, ServiceInstance instance) {
- 	if (instance == null) {
- 		return request;
- 	}
- 	boolean xForwardedEnabled = false;
- 	LoadBalancerProperties properties = clientFactory.getProperties(instance.getServiceId());
- 	if (properties != null) {
- 		xForwardedEnabled = properties.getXForwarded().isEnabled();
- 	}
- 	if (xForwardedEnabled) {
- 		HttpHeaders headers = request.headers();
- 		String xForwardedHost = request.url().getScheme();
- 		String xForwardedProto = request.url().getHost();
- 		headers.add("X-Forwarded-Host", xForwardedHost);
- 		headers.add("X-Forwarded-Proto", xForwardedProto);
- 	}
- 	return request;
- }
+	@Override
+	public ClientRequest transformRequest(ClientRequest request, ServiceInstance instance) {
+		if (instance == null) {
+			return request;
+		}
+		boolean xForwardedEnabled = false;
+		LoadBalancerProperties properties = clientFactory.getProperties(instance.getServiceId());
+		if (properties != null) {
+			xForwardedEnabled = properties.getXForwarded().isEnabled();
+		}
+		if (xForwardedEnabled) {
+			HttpHeaders headers = request.headers();
+			String xForwardedHost = request.url().getHost();
+			String xForwardedProto = request.url().getScheme();
+			headers.add("X-Forwarded-Host", xForwardedHost);
+			headers.add("X-Forwarded-Proto", xForwardedProto);
+		}
+		return request;
+	}
 
 }
