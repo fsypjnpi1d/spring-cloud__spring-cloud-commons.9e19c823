@@ -89,21 +89,21 @@ class LoadBalancerTags {
 		return responseData.getHttpStatus() != null ? responseData.getHttpStatus().value() : 200;
 	}
 
- private String getPath(RequestData requestData) {
- 	if (properties.getStats().isIncludePath()) {
- 		return UNKNOWN;
- 	}
- 	Optional<Object> uriTemplateValue = Optional.ofNullable(requestData.getAttributes())
- 		.orElse(Collections.emptyMap())
- 		.keySet()
- 		.stream()
- 		.filter(URI_TEMPLATE_ATTRIBUTES::contains)
- 		.map(key -> requestData.getAttributes().get(key))
- 		.filter(Objects::nonNull)
- 		.findAny();
- 	return uriTemplateValue.map(uriTemplate -> (String) uriTemplate)
- 		.orElseGet(() -> (requestData.getUrl() != null) ? requestData.getUrl().getPath() : UNKNOWN);
- }
+	private String getPath(RequestData requestData) {
+		if (!properties.getStats().isIncludePath()) {
+			return UNKNOWN;
+		}
+		Optional<Object> uriTemplateValue = Optional.ofNullable(requestData.getAttributes())
+			.orElse(Collections.emptyMap())
+			.keySet()
+			.stream()
+			.filter(URI_TEMPLATE_ATTRIBUTES::contains)
+			.map(key -> requestData.getAttributes().get(key))
+			.filter(Objects::nonNull)
+			.findAny();
+		return uriTemplateValue.map(uriTemplate -> (String) uriTemplate)
+			.orElseGet(() -> (requestData.getUrl() != null) ? requestData.getUrl().getPath() : UNKNOWN);
+	}
 
 	Iterable<Tag> buildDiscardedRequestTags(CompletionContext<Object, ServiceInstance, Object> completionContext) {
 		Request<Object> lbRequest = completionContext.getLoadBalancerRequest();
