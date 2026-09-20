@@ -118,29 +118,30 @@ final class CircuitBreakerConfigurerUtils {
 		map.put(key, fallbackClass);
 	}
 
- static Method resolveFallbackMethod(Map<String, Object> attributes, boolean withThrowable, Class<?> fallbackClass) {
- 	if (fallbackClass == null) {
- 		return null;
- 	}
- 	String methodName = String.valueOf(attributes.get(CircuitBreakerRequestValueProcessor.METHOD_ATTRIBUTE_NAME));
- 	Class<?>[] paramTypes = (Class<?>[]) attributes
- 		.get(CircuitBreakerRequestValueProcessor.PARAMETER_TYPES_ATTRIBUTE_NAME);
- 	paramTypes = paramTypes != null ? paramTypes : new Class<?>[0];
- 	Class<?>[] effectiveTypes = withThrowable ? paramTypes
- 			: Stream.concat(Stream.of(Throwable.class), Arrays.stream(paramTypes)).toArray(Class[]::new);
+	static Method resolveFallbackMethod(Map<String, Object> attributes, boolean withThrowable, Class<?> fallbackClass) {
+		if (fallbackClass == null) {
+			return null;
+		}
+		String methodName = String.valueOf(attributes.get(CircuitBreakerRequestValueProcessor.METHOD_ATTRIBUTE_NAME));
+		Class<?>[] paramTypes = (Class<?>[]) attributes
+			.get(CircuitBreakerRequestValueProcessor.PARAMETER_TYPES_ATTRIBUTE_NAME);
+		paramTypes = paramTypes != null ? paramTypes : new Class<?>[0];
+		Class<?>[] effectiveTypes = withThrowable
+				? Stream.concat(Stream.of(Throwable.class), Arrays.stream(paramTypes)).toArray(Class[]::new)
+				: paramTypes;
 
- 	try {
- 		Method method = fallbackClass.getMethod(methodName, effectiveTypes);
- 		method.setAccessible(true);
- 		return method;
- 	}
- 	catch (NoSuchMethodException exception) {
- 		if (LOG.isDebugEnabled()) {
- 			LOG.debug("Fallback method not found: " + methodName + " in " + fallbackClass.getName(), exception);
- 		}
- 		return null;
- 	}
- }
+		try {
+			Method method = fallbackClass.getMethod(methodName, effectiveTypes);
+			method.setAccessible(true);
+			return method;
+		}
+		catch (NoSuchMethodException exception) {
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("Fallback method not found: " + methodName + " in " + fallbackClass.getName(), exception);
+			}
+			return null;
+		}
+	}
 
 	static Object invokeFallback(Method method, Map<String, Object> attributes, @Nullable Throwable throwable,
 			Object fallbackProxy) {
