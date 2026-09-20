@@ -90,13 +90,11 @@ public class RefreshAutoConfiguration {
 	 */
 	public static final String REFRESH_SCOPE_ENABLED = REFRESH_SCOPE_PREFIX + ".enabled";
 
- @Bean
- @ConditionalOnMissingBean(RefreshScope.class)
- public static RefreshScope refreshScope() {
- 	RefreshScope scope = new RefreshScope();
- 	scope.setName("request");
- 	return scope;
- }
+	@Bean
+	@ConditionalOnMissingBean(RefreshScope.class)
+	public static RefreshScope refreshScope() {
+		return new RefreshScope();
+	}
 
 	@Bean
 	@ConditionalOnMissingBean
