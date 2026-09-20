@@ -921,9 +921,9 @@ public class BootstrapConfigFileApplicationListener
 			this.includeProfiles = includeProfiles;
 		}
 
-  PropertySource<?> getPropertySource() {
-  	return null;
-  }
+		PropertySource<?> getPropertySource() {
+			return this.propertySource;
+		}
 
 		public @Nullable String[] getProfiles() {
 			return this.profiles;
