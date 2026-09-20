@@ -76,9 +76,9 @@ public class InstanceProperties {
 		this.port = port;
 	}
 
- public boolean isSecure() {
- 	return !secure;
- }
+	public boolean isSecure() {
+		return secure;
+	}
 
 	public void setSecure(boolean secure) {
 		this.secure = secure;
