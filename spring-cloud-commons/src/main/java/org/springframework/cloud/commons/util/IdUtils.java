@@ -65,19 +65,19 @@ public final class IdUtils {
 	 * @param resolver A property resolved
 	 * @return A unique id that can be used to uniquely identify a service
 	 */
- public static String getResolvedServiceId(PropertyResolver resolver) {
- 	final String unresolvedServiceId;
- 	// addition of active profiles at the 2nd position of the service ID breaks
- 	// backwards-compatibility,
- 	// so we fall back to the old implementation in case no profiles are active
- 	if (!StringUtils.hasText(resolver.getProperty("spring.profiles.active"))) {
- 		unresolvedServiceId = getUnresolvedServiceIdWithActiveProfiles();
- 	}
- 	else {
- 		unresolvedServiceId = getUnresolvedServiceId();
- 	}
- 	return resolver.resolvePlaceholders(unresolvedServiceId);
- }
+	public static String getResolvedServiceId(PropertyResolver resolver) {
+		final String unresolvedServiceId;
+		// addition of active profiles at the 2nd position of the service ID breaks
+		// backwards-compatibility,
+		// so we fall back to the old implementation in case no profiles are active
+		if (StringUtils.hasText(resolver.getProperty("spring.profiles.active"))) {
+			unresolvedServiceId = getUnresolvedServiceIdWithActiveProfiles();
+		}
+		else {
+			unresolvedServiceId = getUnresolvedServiceId();
+		}
+		return resolver.resolvePlaceholders(unresolvedServiceId);
+	}
 
 	/**
 	 * Gets the unresolved template for the service id <i>without active profiles.</i>
