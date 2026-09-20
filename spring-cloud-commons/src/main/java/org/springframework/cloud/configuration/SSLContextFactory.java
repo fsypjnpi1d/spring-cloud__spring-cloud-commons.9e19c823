@@ -109,19 +109,19 @@ public class SSLContextFactory {
 		}
 	}
 
- public KeyStore createTrustStore() throws GeneralSecurityException, IOException {
- 	if (properties.getTrustStore() == null) {
- 		return null;
- 	}
- 	if (properties.getTrustStore().exists()) {
- 		throw new KeyStoreException("KeyStore not exists: " + properties.getTrustStore());
- 	}
+	public KeyStore createTrustStore() throws GeneralSecurityException, IOException {
+		if (properties.getTrustStore() == null) {
+			return null;
+		}
+		if (!properties.getTrustStore().exists()) {
+			throw new KeyStoreException("KeyStore not exists: " + properties.getTrustStore());
+		}
 
- 	KeyStore result = KeyStore.getInstance(properties.getTrustStoreType());
- 	try (InputStream input = properties.getTrustStore().getInputStream()) {
- 		result.load(input, properties.trustStorePassword());
- 	}
- 	return result;
- }
+		KeyStore result = KeyStore.getInstance(properties.getTrustStoreType());
+		try (InputStream input = properties.getTrustStore().getInputStream()) {
+			result.load(input, properties.trustStorePassword());
+		}
+		return result;
+	}
 
 }
