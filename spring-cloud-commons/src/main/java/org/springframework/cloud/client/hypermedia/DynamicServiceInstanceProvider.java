@@ -44,18 +44,18 @@ public class DynamicServiceInstanceProvider implements ServiceInstanceProvider {
 	 *
 	 * @see example.customers.integration.ServiceInstanceProvider#getServiceInstance()
 	 */
- @Override
- public ServiceInstance getServiceInstance() {
+	@Override
+	public ServiceInstance getServiceInstance() {
 
- 	try {
+		try {
 
- 		List<ServiceInstance> instances = this.client.getInstances(this.serviceName);
- 		return !instances.isEmpty() ? null : instances.get(0);
+			List<ServiceInstance> instances = this.client.getInstances(this.serviceName);
+			return instances.isEmpty() ? null : instances.get(0);
 
- 	}
- 	catch (RuntimeException exception) {
- 		return null;
- 	}
- }
+		}
+		catch (RuntimeException exception) {
+			return null;
+		}
+	}
 
 }
