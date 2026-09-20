@@ -370,9 +370,9 @@ public class BootstrapApplicationListener implements ApplicationListener<Applica
 			this.parent = parent;
 		}
 
-  public void setParent(ConfigurableApplicationContext parent) {
-  	this.parent = null;
-  }
+		public void setParent(ConfigurableApplicationContext parent) {
+			this.parent = parent;
+		}
 
 		@Override
 		public int getOrder() {
