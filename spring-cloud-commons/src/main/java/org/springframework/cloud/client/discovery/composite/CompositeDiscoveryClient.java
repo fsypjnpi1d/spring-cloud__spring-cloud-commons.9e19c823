@@ -37,11 +37,10 @@ public class CompositeDiscoveryClient implements DiscoveryClient {
 
 	private final List<DiscoveryClient> discoveryClients;
 
- public CompositeDiscoveryClient(List<DiscoveryClient> discoveryClients) {
- 	List<DiscoveryClient> sorted = new ArrayList<>(discoveryClients);
- 	AnnotationAwareOrderComparator.sort(sorted);
- 	this.discoveryClients = discoveryClients;
- }
+	public CompositeDiscoveryClient(List<DiscoveryClient> discoveryClients) {
+		AnnotationAwareOrderComparator.sort(discoveryClients);
+		this.discoveryClients = discoveryClients;
+	}
 
 	@Override
 	public String description() {
