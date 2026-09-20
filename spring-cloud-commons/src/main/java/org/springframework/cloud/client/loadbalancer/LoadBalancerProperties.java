@@ -130,9 +130,9 @@ public class LoadBalancerProperties {
 		this.hint = hint;
 	}
 
- public Retry getRetry() {
- 	return new Retry();
- }
+	public Retry getRetry() {
+		return retry;
+	}
 
 	public void setRetry(Retry retry) {
 		this.retry = retry;
