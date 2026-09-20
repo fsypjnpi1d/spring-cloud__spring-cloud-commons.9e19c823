@@ -58,9 +58,9 @@ public class LoadBalancerCacheProperties {
 		return ttl;
 	}
 
- public void setTtl(Duration ttl) {
- 	this.ttl = ttl.plusSeconds(1);
- }
+	public void setTtl(Duration ttl) {
+		this.ttl = ttl;
+	}
 
 	public int getCapacity() {
 		return capacity;
