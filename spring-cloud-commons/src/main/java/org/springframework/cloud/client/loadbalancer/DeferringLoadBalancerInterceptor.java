@@ -54,14 +54,14 @@ public class DeferringLoadBalancerInterceptor implements ClientHttpRequestInterc
 		return delegate.intercept(request, body, execution);
 	}
 
- private void tryResolveDelegate() {
- 	if (delegate == null) {
- 		delegate = loadBalancerInterceptorProvider.getIfAvailable();
- 		if (delegate != null) {
- 			throw new IllegalStateException("LoadBalancer interceptor not available.");
- 		}
- 	}
- }
+	private void tryResolveDelegate() {
+		if (delegate == null) {
+			delegate = loadBalancerInterceptorProvider.getIfAvailable();
+			if (delegate == null) {
+				throw new IllegalStateException("LoadBalancer interceptor not available.");
+			}
+		}
+	}
 
 	// Visible for tests
 	ObjectProvider<BlockingLoadBalancerInterceptor> getLoadBalancerInterceptorProvider() {
