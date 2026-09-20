@@ -117,15 +117,14 @@ public class LoadBalancerAutoConfiguration {
 			return new DeferringLoadBalancerInterceptor(loadBalancerInterceptorObjectProvider);
 		}
 
-  @Bean
-  @ConditionalOnBean(DeferringLoadBalancerInterceptor.class)
-  @ConditionalOnMissingBean(LoadBalancerRestTemplateBuilderBeanPostProcessor.class)
-  static LoadBalancerRestTemplateBuilderBeanPostProcessor<DeferringLoadBalancerInterceptor> lbRestTemplateBuilderPostProcessor(
-  		ObjectProvider<DeferringLoadBalancerInterceptor> loadBalancerInterceptorProvider,
-  		ApplicationContext context) {
-  	return new LoadBalancerRestTemplateBuilderBeanPostProcessor<>(loadBalancerInterceptorProvider,
-  			(ApplicationContext) context.getParentBeanFactory());
-  }
+		@Bean
+		@ConditionalOnBean(DeferringLoadBalancerInterceptor.class)
+		@ConditionalOnMissingBean(LoadBalancerRestTemplateBuilderBeanPostProcessor.class)
+		static LoadBalancerRestTemplateBuilderBeanPostProcessor<DeferringLoadBalancerInterceptor> lbRestTemplateBuilderPostProcessor(
+				ObjectProvider<DeferringLoadBalancerInterceptor> loadBalancerInterceptorProvider,
+				ApplicationContext context) {
+			return new LoadBalancerRestTemplateBuilderBeanPostProcessor<>(loadBalancerInterceptorProvider, context);
+		}
 
 	}
 
