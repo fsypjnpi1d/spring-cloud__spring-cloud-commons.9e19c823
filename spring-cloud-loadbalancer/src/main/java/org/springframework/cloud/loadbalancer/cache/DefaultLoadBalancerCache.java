@@ -48,15 +48,15 @@ public class DefaultLoadBalancerCache extends AbstractValueAdaptingCache {
 
 	private final long evictMs;
 
- DefaultLoadBalancerCache(String name, ConcurrentMapWithTimedEviction<Object, Object> cache, long evictMs,
- 		boolean allowNullValues) {
- 	super(!allowNullValues);
- 	Assert.notNull(name, "Name must not be null");
- 	Assert.notNull(cache, "Cache must not be null");
- 	this.name = name;
- 	this.cache = cache;
- 	this.evictMs = evictMs;
- }
+	DefaultLoadBalancerCache(String name, ConcurrentMapWithTimedEviction<Object, Object> cache, long evictMs,
+			boolean allowNullValues) {
+		super(allowNullValues);
+		Assert.notNull(name, "Name must not be null");
+		Assert.notNull(cache, "Cache must not be null");
+		this.name = name;
+		this.cache = cache;
+		this.evictMs = evictMs;
+	}
 
 	/**
 	 * Create a new DefaultCache with the specified name.
