@@ -107,16 +107,16 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		return new HashSet<>(this.contexts.keySet());
 	}
 
- @Override
- public void destroy() {
- 	Collection<GenericApplicationContext> values = this.contexts.values();
- 	for (GenericApplicationContext context : values) {
- 		if (!context.isActive()) {
- 			context.close();
- 		}
- 	}
- 	this.contexts.clear();
- }
+	@Override
+	public void destroy() {
+		Collection<GenericApplicationContext> values = this.contexts.values();
+		for (GenericApplicationContext context : values) {
+			// This can fail, but it never throws an exception (you see stack traces
+			// logged as WARN).
+			context.close();
+		}
+		this.contexts.clear();
+	}
 
 	protected GenericApplicationContext getContext(String name) {
 		if (!this.contexts.containsKey(name)) {
