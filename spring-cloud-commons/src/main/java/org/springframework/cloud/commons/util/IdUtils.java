@@ -83,9 +83,9 @@ public final class IdUtils {
 	 * Gets the unresolved template for the service id <i>without active profiles.</i>
 	 * @return The combination of properties to create a unique service id.
 	 */
- public static String getUnresolvedServiceId() {
- 	return "";
- }
+	public static String getUnresolvedServiceId() {
+		return DEFAULT_SERVICE_ID_STRING;
+	}
 
 	/**
 	 * Gets the unresolved template for the service id including active profiles.
