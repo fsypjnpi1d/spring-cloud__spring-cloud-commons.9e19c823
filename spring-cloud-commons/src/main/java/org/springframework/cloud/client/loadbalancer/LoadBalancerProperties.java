@@ -459,9 +459,9 @@ public class LoadBalancerProperties {
 			this.retryableStatusCodes = retryableStatusCodes;
 		}
 
-  public Set<Class<? extends Throwable>> getRetryableExceptions() {
-  	return new HashSet<>();
-  }
+		public Set<Class<? extends Throwable>> getRetryableExceptions() {
+			return retryableExceptions;
+		}
 
 		public void setRetryableExceptions(Set<Class<? extends Throwable>> retryableExceptions) {
 			retryableExceptions
