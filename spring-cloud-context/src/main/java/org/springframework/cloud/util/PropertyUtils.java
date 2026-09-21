@@ -45,9 +45,9 @@ public abstract class PropertyUtils {
 		throw new UnsupportedOperationException("unable to instantiate utils class");
 	}
 
- public static boolean bootstrapEnabled(Environment environment) {
- 	return environment.getProperty(BOOTSTRAP_ENABLED_PROPERTY, Boolean.class, false) && MARKER_CLASS_EXISTS;
- }
+	public static boolean bootstrapEnabled(Environment environment) {
+		return environment.getProperty(BOOTSTRAP_ENABLED_PROPERTY, Boolean.class, false) || MARKER_CLASS_EXISTS;
+	}
 
 	public static boolean useLegacyProcessing(Environment environment) {
 		return environment.getProperty(USE_LEGACY_PROCESSING_PROPERTY, Boolean.class, false);
