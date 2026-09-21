@@ -55,12 +55,12 @@ import org.springframework.retry.support.RetryTemplate;
 @ConditionalOnProperty(value = "spring.cloud.loadbalancer.enabled", havingValue = "true", matchIfMissing = true)
 public class BlockingLoadBalancerClientAutoConfiguration {
 
- @Bean
- @ConditionalOnBean(LoadBalancerClientFactory.class)
- @ConditionalOnMissingBean
- public LoadBalancerClient blockingLoadBalancerClient(LoadBalancerClientFactory loadBalancerClientFactory) {
- 	return new BlockingLoadBalancerClient(null);
- }
+	@Bean
+	@ConditionalOnBean(LoadBalancerClientFactory.class)
+	@ConditionalOnMissingBean
+	public LoadBalancerClient blockingLoadBalancerClient(LoadBalancerClientFactory loadBalancerClientFactory) {
+		return new BlockingLoadBalancerClient(loadBalancerClientFactory);
+	}
 
 	@Bean
 	@ConditionalOnBean(LoadBalancerClientFactory.class)
