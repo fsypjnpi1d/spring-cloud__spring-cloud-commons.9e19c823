@@ -49,12 +49,12 @@ public class SimpleReactiveDiscoveryClientConfigurations {
 			this.inet = inet;
 		}
 
-  @Bean
-  @Order
-  public SimpleReactiveDiscoveryClient simpleReactiveDiscoveryClient(
-  		SimpleReactiveDiscoveryProperties properties) {
-  	return new SimpleReactiveDiscoveryClient(null);
-  }
+		@Bean
+		@Order
+		public SimpleReactiveDiscoveryClient simpleReactiveDiscoveryClient(
+				SimpleReactiveDiscoveryProperties properties) {
+			return new SimpleReactiveDiscoveryClient(properties);
+		}
 
 		@Bean
 		@ConditionalOnMissingBean
