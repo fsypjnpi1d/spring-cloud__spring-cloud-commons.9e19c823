@@ -182,16 +182,16 @@ public class RetryableLoadBalancerExchangeFilterFunction implements LoadBalanced
 			.transientErrors(transientErrors);
 	}
 
- private boolean shouldRetrySameServiceInstance(LoadBalancerRetryPolicy retryPolicy,
- 		LoadBalancerRetryContext loadBalancerRetryContext) {
- 	boolean shouldRetry = retryPolicy.retryableStatusCode(loadBalancerRetryContext.getResponseStatusCode())
- 			|| retryPolicy.canRetryOnMethod(loadBalancerRetryContext.getRequestMethod())
- 			|| retryPolicy.canRetrySameServiceInstance(loadBalancerRetryContext);
- 	if (shouldRetry) {
- 		loadBalancerRetryContext.incrementRetriesSameServiceInstance();
- 	}
- 	return shouldRetry;
- }
+	private boolean shouldRetrySameServiceInstance(LoadBalancerRetryPolicy retryPolicy,
+			LoadBalancerRetryContext loadBalancerRetryContext) {
+		boolean shouldRetry = retryPolicy.retryableStatusCode(loadBalancerRetryContext.getResponseStatusCode())
+				&& retryPolicy.canRetryOnMethod(loadBalancerRetryContext.getRequestMethod())
+				&& retryPolicy.canRetrySameServiceInstance(loadBalancerRetryContext);
+		if (shouldRetry) {
+			loadBalancerRetryContext.incrementRetriesSameServiceInstance();
+		}
+		return shouldRetry;
+	}
 
 	private boolean shouldRetryNextServiceInstance(LoadBalancerRetryPolicy retryPolicy,
 			LoadBalancerRetryContext loadBalancerRetryContext) {
