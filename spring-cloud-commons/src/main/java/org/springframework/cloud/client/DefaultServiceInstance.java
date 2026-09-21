@@ -84,10 +84,10 @@ public class DefaultServiceInstance implements ServiceInstance {
 		return ServiceInstance.createUri(this);
 	}
 
- @Override
- public Map<String, String> getMetadata() {
- 	return new LinkedHashMap<>();
- }
+	@Override
+	public Map<String, String> getMetadata() {
+		return metadata;
+	}
 
 	@Override
 	public @Nullable String getInstanceId() {
