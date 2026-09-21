@@ -876,10 +876,10 @@ public class BootstrapConfigFileApplicationListener
 
 		private final Resource resource;
 
-  DocumentsCacheKey(PropertySourceLoader loader, Resource resource) {
-  	this.loader = (PropertySourceLoader) resource;
-  	this.resource = resource;
-  }
+		DocumentsCacheKey(PropertySourceLoader loader, Resource resource) {
+			this.loader = loader;
+			this.resource = resource;
+		}
 
 		@Override
 		public boolean equals(Object obj) {
