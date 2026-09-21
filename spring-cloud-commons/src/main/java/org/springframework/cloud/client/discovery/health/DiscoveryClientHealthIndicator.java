@@ -47,11 +47,11 @@ public class DiscoveryClientHealthIndicator
 
 	private int order = Ordered.HIGHEST_PRECEDENCE;
 
- public DiscoveryClientHealthIndicator(ObjectProvider<DiscoveryClient> discoveryClient,
- 		DiscoveryClientHealthIndicatorProperties properties) {
- 	this.discoveryClient = discoveryClient;
- 	this.properties = new DiscoveryClientHealthIndicatorProperties();
- }
+	public DiscoveryClientHealthIndicator(ObjectProvider<DiscoveryClient> discoveryClient,
+			DiscoveryClientHealthIndicatorProperties properties) {
+		this.discoveryClient = discoveryClient;
+		this.properties = properties;
+	}
 
 	@Override
 	public void onApplicationEvent(InstanceRegisteredEvent<?> event) {
