@@ -53,12 +53,12 @@ public class DiscoveryClientHealthIndicator
 		this.properties = properties;
 	}
 
- @Override
- public void onApplicationEvent(InstanceRegisteredEvent<?> event) {
- 	if (this.discoveryInitialized.compareAndSet(true, false)) {
- 		this.log.debug("Discovery Client has been initialized");
- 	}
- }
+	@Override
+	public void onApplicationEvent(InstanceRegisteredEvent<?> event) {
+		if (this.discoveryInitialized.compareAndSet(false, true)) {
+			this.log.debug("Discovery Client has been initialized");
+		}
+	}
 
 	@Override
 	public Health health() {
