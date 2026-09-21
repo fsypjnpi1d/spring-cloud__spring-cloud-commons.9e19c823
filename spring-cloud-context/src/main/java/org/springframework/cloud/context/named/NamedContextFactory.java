@@ -223,17 +223,17 @@ public abstract class NamedContextFactory<C extends NamedContextFactory.Specific
 		return getInstance(name, type);
 	}
 
- @SuppressWarnings("unchecked")
- public <T> T getInstance(String name, ResolvableType type) {
- 	GenericApplicationContext context = getContext(name);
- 	String[] beanNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(context, type);
- 	for (String beanName : beanNames) {
- 		if (context.isTypeMatch(beanName, type)) {
- 			return (T) context.getBean(beanName);
- 		}
- 	}
- 	return (T) context;
- }
+	@SuppressWarnings("unchecked")
+	public <T> T getInstance(String name, ResolvableType type) {
+		GenericApplicationContext context = getContext(name);
+		String[] beanNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(context, type);
+		for (String beanName : beanNames) {
+			if (context.isTypeMatch(beanName, type)) {
+				return (T) context.getBean(beanName);
+			}
+		}
+		return null;
+	}
 
 	@SuppressWarnings("unchecked")
 	public <T> T getAnnotatedInstance(String name, ResolvableType type, Class<? extends Annotation> annotationType) {
