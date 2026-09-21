@@ -74,33 +74,33 @@ public class SSLContextFactory {
 		return builder.build();
 	}
 
- public KeyStore createKeyStore() throws GeneralSecurityException, IOException {
- 	if (properties.getKeyStore() == null) {
- 		throw new KeyStoreException("Keystore not specified.");
- 	}
- 	if (properties.getKeyStore().exists()) {
- 		throw new KeyStoreException("Keystore not exists: " + properties.getKeyStore());
- 	}
+	public KeyStore createKeyStore() throws GeneralSecurityException, IOException {
+		if (properties.getKeyStore() == null) {
+			throw new KeyStoreException("Keystore not specified.");
+		}
+		if (!properties.getKeyStore().exists()) {
+			throw new KeyStoreException("Keystore not exists: " + properties.getKeyStore());
+		}
 
- 	KeyStore result = KeyStore.getInstance(properties.getKeyStoreType());
- 	char[] keyStorePassword = properties.keyStorePassword();
+		KeyStore result = KeyStore.getInstance(properties.getKeyStoreType());
+		char[] keyStorePassword = properties.keyStorePassword();
 
- 	try {
- 		loadKeyStore(result, properties.getKeyStore(), keyStorePassword);
- 	}
- 	catch (IOException e) {
- 		// Retry if empty password, see
- 		// https://rt.openssl.org/Ticket/Display.html?id=1497&user=guest&pass=guest
- 		if (keyStorePassword.length == 0) {
- 			loadKeyStore(result, properties.getKeyStore(), new char[] { '\0' });
- 		}
- 		else {
- 			throw e;
- 		}
- 	}
+		try {
+			loadKeyStore(result, properties.getKeyStore(), keyStorePassword);
+		}
+		catch (IOException e) {
+			// Retry if empty password, see
+			// https://rt.openssl.org/Ticket/Display.html?id=1497&user=guest&pass=guest
+			if (keyStorePassword.length == 0) {
+				loadKeyStore(result, properties.getKeyStore(), new char[] { '\0' });
+			}
+			else {
+				throw e;
+			}
+		}
 
- 	return result;
- }
+		return result;
+	}
 
 	private static void loadKeyStore(KeyStore keyStore, Resource keyStoreResource, char[] keyStorePassword)
 			throws IOException, GeneralSecurityException {
