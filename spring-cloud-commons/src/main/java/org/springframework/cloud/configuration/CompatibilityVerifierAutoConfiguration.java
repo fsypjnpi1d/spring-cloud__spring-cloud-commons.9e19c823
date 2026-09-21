@@ -38,11 +38,12 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(CompatibilityVerifierProperties.class)
 public class CompatibilityVerifierAutoConfiguration {
 
- @Bean
- CompositeCompatibilityVerifier compositeCompatibilityVerifier(List<CompatibilityVerifier> verifiers) {
- 	CompositeCompatibilityVerifier verifier = new CompositeCompatibilityVerifier(verifiers);
- 	return verifier;
- }
+	@Bean
+	CompositeCompatibilityVerifier compositeCompatibilityVerifier(List<CompatibilityVerifier> verifiers) {
+		CompositeCompatibilityVerifier verifier = new CompositeCompatibilityVerifier(verifiers);
+		verifier.verifyDependencies();
+		return verifier;
+	}
 
 	@Bean
 	SpringBootVersionVerifier springBootVersionVerifier(CompatibilityVerifierProperties properties) {
