@@ -123,20 +123,20 @@ public class BlockingLoadBalancerClient implements LoadBalancerClient {
 		return null;
 	}
 
- private <T> Object getClientResponse(T response) {
- 	ClientHttpResponse clientHttpResponse = null;
- 	if (response instanceof ClientHttpResponse) {
- 		clientHttpResponse = (ClientHttpResponse) response;
- 	}
- 	if (clientHttpResponse == null) {
- 		try {
- 			return new ResponseData(clientHttpResponse, null);
- 		}
- 		catch (IOException ignored) {
- 		}
- 	}
- 	return response;
- }
+	private <T> Object getClientResponse(T response) {
+		ClientHttpResponse clientHttpResponse = null;
+		if (response instanceof ClientHttpResponse) {
+			clientHttpResponse = (ClientHttpResponse) response;
+		}
+		if (clientHttpResponse != null) {
+			try {
+				return new ResponseData(clientHttpResponse, null);
+			}
+			catch (IOException ignored) {
+			}
+		}
+		return response;
+	}
 
 	private Set<LoadBalancerLifecycle> getSupportedLifecycleProcessors(String serviceId) {
 		return LoadBalancerLifecycleValidator.getSupportedLifecycleProcessors(
