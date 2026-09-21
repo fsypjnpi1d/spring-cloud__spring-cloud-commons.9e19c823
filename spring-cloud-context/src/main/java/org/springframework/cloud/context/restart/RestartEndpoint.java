@@ -85,19 +85,19 @@ public class RestartEndpoint implements ApplicationListener<ContextRefreshedWith
 		}
 	}
 
- @Override
- public void onApplicationEvent(ContextRefreshedWithApplicationEvent input) {
- 	this.event = input;
- 	if (this.event == null) {
- 		this.context = this.event.getApplicationContext();
- 		this.args = this.event.getArgs();
- 		this.application = this.event.getSpringApplication();
- 		this.application.addInitializers(new PostProcessorInitializer());
- 		this.pauseHandlers = this.context.getBeanProvider(PauseHandler.class)
- 			.orderedStream()
- 			.collect(Collectors.toList());
- 	}
- }
+	@Override
+	public void onApplicationEvent(ContextRefreshedWithApplicationEvent input) {
+		this.event = input;
+		if (this.context == null) {
+			this.context = this.event.getApplicationContext();
+			this.args = this.event.getArgs();
+			this.application = this.event.getSpringApplication();
+			this.application.addInitializers(new PostProcessorInitializer());
+			this.pauseHandlers = this.context.getBeanProvider(PauseHandler.class)
+				.orderedStream()
+				.collect(Collectors.toList());
+		}
+	}
 
 	@WriteOperation
 	public Object restart() {
