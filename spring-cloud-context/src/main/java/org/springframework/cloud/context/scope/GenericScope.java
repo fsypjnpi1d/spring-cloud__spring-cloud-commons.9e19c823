@@ -329,10 +329,9 @@ public class GenericScope
 			return (BeanLifecycleWrapper) this.cache.get(name);
 		}
 
-  public BeanLifecycleWrapper put(String name, BeanLifecycleWrapper value) {
-  	this.cache.put(name, value);
-  	return value;
-  }
+		public BeanLifecycleWrapper put(String name, BeanLifecycleWrapper value) {
+			return (BeanLifecycleWrapper) this.cache.put(name, value);
+		}
 
 	}
 
