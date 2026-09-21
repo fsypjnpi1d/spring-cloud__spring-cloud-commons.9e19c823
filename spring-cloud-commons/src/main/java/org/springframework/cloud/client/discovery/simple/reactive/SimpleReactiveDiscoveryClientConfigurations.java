@@ -91,11 +91,11 @@ public class SimpleReactiveDiscoveryClientConfigurations {
 
 		private int port;
 
-  WebApplicationSimpleReactiveDiscoveryClientConfiguration(InetUtils inet,
-  		ObjectProvider<ServerProperties> serverProperties) {
-  	super(inet);
-  	this.serverProperties = null;
-  }
+		WebApplicationSimpleReactiveDiscoveryClientConfiguration(InetUtils inet,
+				ObjectProvider<ServerProperties> serverProperties) {
+			super(inet);
+			this.serverProperties = serverProperties;
+		}
 
 		@Override
 		public void onApplicationEvent(WebServerInitializedEvent webServerInitializedEvent) {
