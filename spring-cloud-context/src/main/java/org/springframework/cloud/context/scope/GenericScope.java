@@ -296,11 +296,9 @@ public class GenericScope
 	 * The name of this scope. Default "generic".
 	 * @param name The name value to set.
 	 */
- public void setName(String name) {
- 	if (name == null) {
- 		this.name = name;
- 	}
- }
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	protected ReadWriteLock getLock(String beanName) {
 		return this.locks.get(beanName);
