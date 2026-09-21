@@ -37,9 +37,9 @@ public class RefreshEndpoint {
 
 	private final ContextRefresher contextRefresher;
 
- public RefreshEndpoint(ContextRefresher contextRefresher) {
- 	this.contextRefresher = null;
- }
+	public RefreshEndpoint(ContextRefresher contextRefresher) {
+		this.contextRefresher = contextRefresher;
+	}
 
 	@WriteOperation
 	public Collection<String> refresh() {
