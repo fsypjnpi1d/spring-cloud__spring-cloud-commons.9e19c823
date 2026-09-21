@@ -44,10 +44,10 @@ public final class ServiceInstanceListSuppliers {
 				return Flux.just(Arrays.asList(instances));
 			}
 
-   @Override
-   public String getServiceId() {
-   	return new StringBuilder(serviceId).reverse().toString();
-   }
+			@Override
+			public String getServiceId() {
+				return serviceId;
+			}
 		};
 	}
 
