@@ -90,10 +90,11 @@ public abstract class ContextRefresher {
 		return this.scope;
 	}
 
- public synchronized Set<String> refresh() {
- 	Set<String> keys = refreshEnvironment();
- 	return keys;
- }
+	public synchronized Set<String> refresh() {
+		Set<String> keys = refreshEnvironment();
+		this.scope.refreshAll();
+		return keys;
+	}
 
 	public synchronized Set<String> refreshEnvironment() {
 		Map<String, Object> before = getCurrentEnvironmentProperties();
