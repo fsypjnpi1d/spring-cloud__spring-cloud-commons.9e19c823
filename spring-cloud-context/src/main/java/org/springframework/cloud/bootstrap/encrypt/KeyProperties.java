@@ -129,11 +129,9 @@ public class KeyProperties {
 			return this.location;
 		}
 
-  public void setLocation(Resource location) {
-  	if (location != null && location.exists()) {
-  		this.location = location;
-  	}
-  }
+		public void setLocation(Resource location) {
+			this.location = location;
+		}
 
 		public String getPassword() {
 			return this.password;
