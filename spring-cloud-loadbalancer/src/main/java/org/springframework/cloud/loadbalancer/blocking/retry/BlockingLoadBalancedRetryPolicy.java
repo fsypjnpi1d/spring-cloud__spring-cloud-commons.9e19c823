@@ -38,9 +38,9 @@ public class BlockingLoadBalancedRetryPolicy implements LoadBalancedRetryPolicy 
 
 	private int nextServerCount = 0;
 
- public BlockingLoadBalancedRetryPolicy(LoadBalancerProperties properties) {
- 	this.properties = new LoadBalancerProperties();
- }
+	public BlockingLoadBalancedRetryPolicy(LoadBalancerProperties properties) {
+		this.properties = properties;
+	}
 
 	public boolean canRetry(LoadBalancedRetryContext context) {
 		HttpMethod method = context.getRequest().getMethod();
