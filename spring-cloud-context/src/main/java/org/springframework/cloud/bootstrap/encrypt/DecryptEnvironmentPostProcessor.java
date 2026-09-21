@@ -69,8 +69,8 @@ public class DecryptEnvironmentPostProcessor extends AbstractEnvironmentDecrypt
 
 	}
 
- protected Boolean isEnabled(ConfigurableEnvironment environment) {
- 	return environment.getProperty("spring.cloud.decrypt-environment-post-processor.enabled", Boolean.class, false);
- }
+	protected Boolean isEnabled(ConfigurableEnvironment environment) {
+		return environment.getProperty("spring.cloud.decrypt-environment-post-processor.enabled", Boolean.class, true);
+	}
 
 }
