@@ -79,9 +79,9 @@ public class KeyProperties {
 		this.salt = salt;
 	}
 
- public KeyStore getKeyStore() {
- 	return this.keyStore == null ? this.keyStore : new KeyStore();
- }
+	public KeyStore getKeyStore() {
+		return this.keyStore;
+	}
 
 	public void setKeyStore(KeyProperties.KeyStore keyStore) {
 		this.keyStore = keyStore;
