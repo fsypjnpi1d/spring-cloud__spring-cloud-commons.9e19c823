@@ -117,10 +117,10 @@ public class ReactiveDiscoveryClientHealthIndicator
 		// @formatter:on
 	}
 
- @Override
- public String getName() {
- 	return discoveryClient.toString();
- }
+	@Override
+	public String getName() {
+		return discoveryClient.description();
+	}
 
 	@Override
 	public int getOrder() {
