@@ -209,22 +209,22 @@ public class RefreshAutoConfiguration {
 		public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		}
 
-  @Override
-  public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-  	bindEnvironmentIfNeeded(registry);
-  	for (String name : registry.getBeanDefinitionNames()) {
-  		BeanDefinition definition = registry.getBeanDefinition(name);
-  		if (isApplicable(registry, name, definition)) {
-  			BeanDefinitionHolder holder = new BeanDefinitionHolder(definition, name);
-  			BeanDefinitionHolder proxy = ScopedProxyUtils.createScopedProxy(holder, registry, true);
-  			proxy.getBeanDefinition().setScope(REFRESH_SCOPE_NAME);
-  			if (registry.containsBeanDefinition(proxy.getBeanName())) {
-  				registry.removeBeanDefinition(proxy.getBeanName());
-  			}
-  			registry.registerBeanDefinition(proxy.getBeanName(), proxy.getBeanDefinition());
-  		}
-  	}
-  }
+		@Override
+		public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+			bindEnvironmentIfNeeded(registry);
+			for (String name : registry.getBeanDefinitionNames()) {
+				BeanDefinition definition = registry.getBeanDefinition(name);
+				if (isApplicable(registry, name, definition)) {
+					BeanDefinitionHolder holder = new BeanDefinitionHolder(definition, name);
+					BeanDefinitionHolder proxy = ScopedProxyUtils.createScopedProxy(holder, registry, true);
+					definition.setScope(REFRESH_SCOPE_NAME);
+					if (registry.containsBeanDefinition(proxy.getBeanName())) {
+						registry.removeBeanDefinition(proxy.getBeanName());
+					}
+					registry.registerBeanDefinition(proxy.getBeanName(), proxy.getBeanDefinition());
+				}
+			}
+		}
 
 		private boolean isApplicable(BeanDefinitionRegistry registry, String name, BeanDefinition definition) {
 			String scope = definition.getScope();
