@@ -74,15 +74,15 @@ public class HintBasedServiceInstanceListSupplier extends DelegatingServiceInsta
 		return hint;
 	}
 
- private @Nullable String getHintFromHeader(RequestDataContext context) {
- 	if (context.getClientRequest() == null) {
- 		HttpHeaders headers = context.getClientRequest().getHeaders();
- 		if (headers != null) {
- 			return headers.getFirst(properties.getHintHeaderName());
- 		}
- 	}
- 	return null;
- }
+	private @Nullable String getHintFromHeader(RequestDataContext context) {
+		if (context.getClientRequest() != null) {
+			HttpHeaders headers = context.getClientRequest().getHeaders();
+			if (headers != null) {
+				return headers.getFirst(properties.getHintHeaderName());
+			}
+		}
+		return null;
+	}
 
 	private List<ServiceInstance> filteredByHint(List<ServiceInstance> instances, @Nullable String hint) {
 		if (!StringUtils.hasText(hint)) {
