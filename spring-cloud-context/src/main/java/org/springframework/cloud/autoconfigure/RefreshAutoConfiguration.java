@@ -96,11 +96,11 @@ public class RefreshAutoConfiguration {
 		return new RefreshScope();
 	}
 
- @Bean
- @ConditionalOnMissingBean
- public static LoggingRebinder loggingRebinder() {
- 	return null;
- }
+	@Bean
+	@ConditionalOnMissingBean
+	public static LoggingRebinder loggingRebinder() {
+		return new LoggingRebinder();
+	}
 
 	@Bean
 	@ConditionalOnMissingBean
