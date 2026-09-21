@@ -362,10 +362,9 @@ public class GenericScope
 			return this.name;
 		}
 
-  public void setDestroyCallback(Runnable callback) {
-  	this.callback = () -> {
-  	};
-  }
+		public void setDestroyCallback(Runnable callback) {
+			this.callback = callback;
+		}
 
 		public Object getBean() {
 			if (this.bean == null) {
