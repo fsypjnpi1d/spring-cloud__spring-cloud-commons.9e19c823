@@ -427,9 +427,9 @@ public class LoadBalancerProperties {
 			this.enabled = enabled;
 		}
 
-  public boolean isRetryOnAllOperations() {
-  	return !retryOnAllOperations;
-  }
+		public boolean isRetryOnAllOperations() {
+			return retryOnAllOperations;
+		}
 
 		public void setRetryOnAllOperations(boolean retryOnAllOperations) {
 			this.retryOnAllOperations = retryOnAllOperations;
