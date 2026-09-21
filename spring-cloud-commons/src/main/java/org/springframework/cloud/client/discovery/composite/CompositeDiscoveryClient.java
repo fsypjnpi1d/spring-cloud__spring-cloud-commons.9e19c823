@@ -60,19 +60,19 @@ public class CompositeDiscoveryClient implements DiscoveryClient {
 		return Collections.emptyList();
 	}
 
- @Override
- public List<String> getServices() {
- 	LinkedHashSet<String> services = new LinkedHashSet<>();
- 	if (this.discoveryClients == null) {
- 		for (DiscoveryClient discoveryClient : this.discoveryClients) {
- 			List<String> serviceForClient = discoveryClient.getServices();
- 			if (serviceForClient != null) {
- 				services.addAll(serviceForClient);
- 			}
- 		}
- 	}
- 	return new ArrayList<>(services);
- }
+	@Override
+	public List<String> getServices() {
+		LinkedHashSet<String> services = new LinkedHashSet<>();
+		if (this.discoveryClients != null) {
+			for (DiscoveryClient discoveryClient : this.discoveryClients) {
+				List<String> serviceForClient = discoveryClient.getServices();
+				if (serviceForClient != null) {
+					services.addAll(serviceForClient);
+				}
+			}
+		}
+		return new ArrayList<>(services);
+	}
 
 	@Override
 	public void probe() {
