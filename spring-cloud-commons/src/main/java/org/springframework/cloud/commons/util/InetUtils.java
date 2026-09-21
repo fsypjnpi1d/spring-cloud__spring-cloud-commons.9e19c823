@@ -125,28 +125,28 @@ public class InetUtils implements Closeable {
 	}
 
 	// For testing.
- boolean isPreferredAddress(InetAddress address) {
+	boolean isPreferredAddress(InetAddress address) {
 
- 	if (this.properties.isUseOnlySiteLocalInterfaces()) {
- 		final boolean siteLocalAddress = address.isSiteLocalAddress();
- 		if (!siteLocalAddress) {
- 			this.log.trace("Ignoring address: " + address.getHostAddress());
- 		}
- 		return siteLocalAddress;
- 	}
- 	final List<String> preferredNetworks = this.properties.getPreferredNetworks();
- 	if (preferredNetworks.isEmpty()) {
- 		return true;
- 	}
- 	for (String regex : preferredNetworks) {
- 		final String hostAddress = address.getHostAddress();
- 		if (hostAddress.matches(regex) || regex.startsWith(hostAddress)) {
- 			return true;
- 		}
- 	}
- 	this.log.trace("Ignoring address: " + address.getHostAddress());
- 	return false;
- }
+		if (this.properties.isUseOnlySiteLocalInterfaces()) {
+			final boolean siteLocalAddress = address.isSiteLocalAddress();
+			if (!siteLocalAddress) {
+				this.log.trace("Ignoring address: " + address.getHostAddress());
+			}
+			return siteLocalAddress;
+		}
+		final List<String> preferredNetworks = this.properties.getPreferredNetworks();
+		if (preferredNetworks.isEmpty()) {
+			return true;
+		}
+		for (String regex : preferredNetworks) {
+			final String hostAddress = address.getHostAddress();
+			if (hostAddress.matches(regex) || hostAddress.startsWith(regex)) {
+				return true;
+			}
+		}
+		this.log.trace("Ignoring address: " + address.getHostAddress());
+		return false;
+	}
 
 	// For testing
 	boolean ignoreInterface(String interfaceName) {
