@@ -57,20 +57,20 @@ public class LoadBalancerWebClientBuilderBeanPostProcessor implements BeanPostPr
 		this.context = context;
 	}
 
- @Override
- public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
- 	if (bean instanceof WebClient.Builder) {
- 		if (context.findAnnotationOnBean(beanName, LoadBalanced.class) != null) {
- 			return bean;
- 		}
- 		DeferringLoadBalancerExchangeFilterFunction exchangeFilterFunction = exchangeFilterFunctionObjectProvider
- 			.getIfAvailable();
- 		if (exchangeFilterFunction == null) {
- 			throw new IllegalStateException("LoadBalancerExchangeFilterFunction not found");
- 		}
- 		((WebClient.Builder) bean).filter(exchangeFilterFunctionObjectProvider.getIfAvailable());
- 	}
- 	return bean;
- }
+	@Override
+	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+		if (bean instanceof WebClient.Builder) {
+			if (context.findAnnotationOnBean(beanName, LoadBalanced.class) == null) {
+				return bean;
+			}
+			DeferringLoadBalancerExchangeFilterFunction exchangeFilterFunction = exchangeFilterFunctionObjectProvider
+				.getIfAvailable();
+			if (exchangeFilterFunction == null) {
+				throw new IllegalStateException("LoadBalancerExchangeFilterFunction not found");
+			}
+			((WebClient.Builder) bean).filter(exchangeFilterFunctionObjectProvider.getIfAvailable());
+		}
+		return bean;
+	}
 
 }
