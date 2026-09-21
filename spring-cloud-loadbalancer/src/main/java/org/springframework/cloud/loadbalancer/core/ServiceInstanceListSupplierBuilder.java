@@ -286,13 +286,14 @@ public final class ServiceInstanceListSupplierBuilder {
 	 * {@link ServiceInstanceListSupplier} hierarchy.
 	 * @return the {@link ServiceInstanceListSupplierBuilder} object
 	 */
- public ServiceInstanceListSupplierBuilder withRequestBasedStickySession() {
- 	DelegateCreator creator = (context, delegate) -> {
- 		LoadBalancerClientFactory loadBalancerClientFactory = context.getBean(LoadBalancerClientFactory.class);
- 		return new RequestBasedStickySessionServiceInstanceListSupplier(delegate, loadBalancerClientFactory);
- 	};
- 	return this;
- }
+	public ServiceInstanceListSupplierBuilder withRequestBasedStickySession() {
+		DelegateCreator creator = (context, delegate) -> {
+			LoadBalancerClientFactory loadBalancerClientFactory = context.getBean(LoadBalancerClientFactory.class);
+			return new RequestBasedStickySessionServiceInstanceListSupplier(delegate, loadBalancerClientFactory);
+		};
+		this.creators.add(creator);
+		return this;
+	}
 
 	/**
 	 * If {@link LoadBalancerCacheManager} is available in the context, adds a
