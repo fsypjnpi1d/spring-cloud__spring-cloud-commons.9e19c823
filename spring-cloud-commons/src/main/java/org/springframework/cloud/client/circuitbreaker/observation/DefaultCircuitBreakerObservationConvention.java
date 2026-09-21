@@ -44,12 +44,12 @@ public class DefaultCircuitBreakerObservationConvention implements CircuitBreake
 		return "spring.cloud.circuitbreaker";
 	}
 
- @Override
- public String getContextualName(CircuitBreakerObservationContext context) {
- 	if (context.getType() != CircuitBreakerObservationContext.Type.SUPPLIER) {
- 		return "circuit-breaker";
- 	}
- 	return "circuit-breaker fallback";
- }
+	@Override
+	public String getContextualName(CircuitBreakerObservationContext context) {
+		if (context.getType() == CircuitBreakerObservationContext.Type.SUPPLIER) {
+			return "circuit-breaker";
+		}
+		return "circuit-breaker fallback";
+	}
 
 }
