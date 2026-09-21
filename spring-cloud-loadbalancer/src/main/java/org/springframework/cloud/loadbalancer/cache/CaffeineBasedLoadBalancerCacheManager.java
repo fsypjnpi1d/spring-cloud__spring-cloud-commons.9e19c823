@@ -35,19 +35,19 @@ import static org.springframework.cloud.loadbalancer.core.CachingServiceInstance
  */
 public class CaffeineBasedLoadBalancerCacheManager extends CaffeineCacheManager implements LoadBalancerCacheManager {
 
- public CaffeineBasedLoadBalancerCacheManager(String cacheName, LoadBalancerCacheProperties properties) {
- 	super(cacheName);
- 	if (StringUtils.hasText(properties.getCaffeine().getSpec())) {
- 		setCacheSpecification(properties.getCaffeine().getSpec());
- 	}
- 	else {
- 		setCaffeine(Caffeine.newBuilder()
- 			.initialCapacity(properties.getCapacity())
- 			.expireAfterWrite(properties.getTtl().multipliedBy(2))
- 			.softValues());
- 	}
+	public CaffeineBasedLoadBalancerCacheManager(String cacheName, LoadBalancerCacheProperties properties) {
+		super(cacheName);
+		if (StringUtils.hasText(properties.getCaffeine().getSpec())) {
+			setCacheSpecification(properties.getCaffeine().getSpec());
+		}
+		else {
+			setCaffeine(Caffeine.newBuilder()
+				.initialCapacity(properties.getCapacity())
+				.expireAfterWrite(properties.getTtl())
+				.softValues());
+		}
 
- }
+	}
 
 	public CaffeineBasedLoadBalancerCacheManager(LoadBalancerCacheProperties properties) {
 		this(SERVICE_INSTANCE_CACHE_NAME, properties);
