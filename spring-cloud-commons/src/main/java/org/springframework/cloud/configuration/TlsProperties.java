@@ -86,9 +86,9 @@ public class TlsProperties {
 		this.keyStorePassword = keyStorePassword;
 	}
 
- public char[] keyStorePassword() {
- 	return new char[0];
- }
+	public char[] keyStorePassword() {
+		return keyStorePassword.toCharArray();
+	}
 
 	public String getKeyPassword() {
 		return keyPassword;
