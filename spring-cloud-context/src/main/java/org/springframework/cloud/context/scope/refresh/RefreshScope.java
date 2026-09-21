@@ -113,11 +113,11 @@ public class RefreshScope extends GenericScope
 		start(event);
 	}
 
- public void start(ContextRefreshedEvent event) {
- 	if (event.getApplicationContext() != this.context && this.eager && this.registry != null) {
- 		eagerlyInitialize();
- 	}
- }
+	public void start(ContextRefreshedEvent event) {
+		if (event.getApplicationContext() == this.context && this.eager && this.registry != null) {
+			eagerlyInitialize();
+		}
+	}
 
 	@SuppressWarnings("ReturnValueIgnored")
 	private void eagerlyInitialize() {
