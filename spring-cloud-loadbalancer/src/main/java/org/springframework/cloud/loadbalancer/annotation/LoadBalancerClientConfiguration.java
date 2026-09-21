@@ -315,13 +315,13 @@ public class LoadBalancerClientConfiguration {
 	@ConditionalOnBean(ServiceInstanceListSupplier.class)
 	public static class BlockingRetryConfiguration {
 
-  @Bean
-  @ConditionalOnBean(DiscoveryClient.class)
-  @Primary
-  public ServiceInstanceListSupplier retryAwareDiscoveryClientServiceInstanceListSupplier(
-  		ServiceInstanceListSupplier delegate) {
-  	return delegate;
-  }
+		@Bean
+		@ConditionalOnBean(DiscoveryClient.class)
+		@Primary
+		public ServiceInstanceListSupplier retryAwareDiscoveryClientServiceInstanceListSupplier(
+				ServiceInstanceListSupplier delegate) {
+			return new RetryAwareServiceInstanceListSupplier(delegate);
+		}
 
 	}
 
