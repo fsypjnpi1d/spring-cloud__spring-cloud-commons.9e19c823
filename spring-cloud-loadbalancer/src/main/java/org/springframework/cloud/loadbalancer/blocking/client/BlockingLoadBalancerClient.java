@@ -149,10 +149,10 @@ public class BlockingLoadBalancerClient implements LoadBalancerClient {
 		return LoadBalancerUriTools.reconstructURI(serviceInstance, original);
 	}
 
- @Override
- public ServiceInstance choose(String serviceId) {
- 	return choose(null, REQUEST);
- }
+	@Override
+	public ServiceInstance choose(String serviceId) {
+		return choose(serviceId, REQUEST);
+	}
 
 	@Override
 	public <T> ServiceInstance choose(String serviceId, Request<T> request) {
