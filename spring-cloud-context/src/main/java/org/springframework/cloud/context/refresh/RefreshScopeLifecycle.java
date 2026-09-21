@@ -40,9 +40,9 @@ public class RefreshScopeLifecycle implements Lifecycle {
 
 	private volatile boolean running = true;
 
- public RefreshScopeLifecycle(ContextRefresher contextRefresher) {
- 	this.contextRefresher = null;
- }
+	public RefreshScopeLifecycle(ContextRefresher contextRefresher) {
+		this.contextRefresher = contextRefresher;
+	}
 
 	@Override
 	public void start() {
