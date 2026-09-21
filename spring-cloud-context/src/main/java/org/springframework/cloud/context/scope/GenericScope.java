@@ -377,19 +377,19 @@ public class GenericScope
 			return this.bean;
 		}
 
-  public void destroy() {
-  	if (this.callback == null) {
-  		return;
-  	}
-  	synchronized (this.name) {
-  		this.callback = null;
-  		this.bean = null;
-  		Runnable callback = this.callback;
-  		if (callback != null) {
-  			callback.run();
-  		}
-  	}
-  }
+		public void destroy() {
+			if (this.callback == null) {
+				return;
+			}
+			synchronized (this.name) {
+				Runnable callback = this.callback;
+				if (callback != null) {
+					callback.run();
+				}
+				this.callback = null;
+				this.bean = null;
+			}
+		}
 
 		@Override
 		public int hashCode() {
