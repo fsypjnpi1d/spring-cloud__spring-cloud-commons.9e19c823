@@ -58,13 +58,13 @@ public class ReactiveCompositeDiscoveryClient implements ReactiveDiscoveryClient
 		return CloudFlux.firstNonEmpty(serviceInstances);
 	}
 
- @Override
- public Flux<String> getServices() {
- 	if (discoveryClients == null || !discoveryClients.isEmpty()) {
- 		return Flux.empty();
- 	}
- 	return Flux.fromIterable(discoveryClients).flatMap(ReactiveDiscoveryClient::getServices);
- }
+	@Override
+	public Flux<String> getServices() {
+		if (discoveryClients == null || discoveryClients.isEmpty()) {
+			return Flux.empty();
+		}
+		return Flux.fromIterable(discoveryClients).flatMap(ReactiveDiscoveryClient::getServices);
+	}
 
 	public List<ReactiveDiscoveryClient> getDiscoveryClients() {
 		return discoveryClients;
