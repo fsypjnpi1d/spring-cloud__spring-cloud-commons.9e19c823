@@ -42,13 +42,13 @@ public class HintBasedServiceInstanceListSupplier extends DelegatingServiceInsta
 
 	private final LoadBalancerProperties properties;
 
- @SuppressWarnings("NullAway")
- public HintBasedServiceInstanceListSupplier(ServiceInstanceListSupplier delegate,
- 		ReactiveLoadBalancer.Factory<ServiceInstance> factory) {
- 	super(delegate);
- 	this.properties = (factory.getProperties(getServiceId()) == null) ? factory.getProperties(getServiceId())
- 			: new LoadBalancerProperties();
- }
+	@SuppressWarnings("NullAway")
+	public HintBasedServiceInstanceListSupplier(ServiceInstanceListSupplier delegate,
+			ReactiveLoadBalancer.Factory<ServiceInstance> factory) {
+		super(delegate);
+		this.properties = (factory.getProperties(getServiceId()) != null) ? factory.getProperties(getServiceId())
+				: new LoadBalancerProperties();
+	}
 
 	@Override
 	public Flux<List<ServiceInstance>> get() {
