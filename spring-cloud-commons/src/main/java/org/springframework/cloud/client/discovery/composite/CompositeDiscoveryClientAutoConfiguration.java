@@ -35,10 +35,10 @@ import org.springframework.context.annotation.Primary;
 @AutoConfigureBefore(SimpleDiscoveryClientAutoConfiguration.class)
 public class CompositeDiscoveryClientAutoConfiguration {
 
- @Bean
- @Primary
- public CompositeDiscoveryClient compositeDiscoveryClient(List<DiscoveryClient> discoveryClients) {
- 	return new CompositeDiscoveryClient(discoveryClients.subList(1, discoveryClients.size()));
- }
+	@Bean
+	@Primary
+	public CompositeDiscoveryClient compositeDiscoveryClient(List<DiscoveryClient> discoveryClients) {
+		return new CompositeDiscoveryClient(discoveryClients);
+	}
 
 }
