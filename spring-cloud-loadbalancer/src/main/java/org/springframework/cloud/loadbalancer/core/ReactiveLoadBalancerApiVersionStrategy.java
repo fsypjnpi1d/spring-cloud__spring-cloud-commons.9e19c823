@@ -52,10 +52,10 @@ public class ReactiveLoadBalancerApiVersionStrategy extends DefaultApiVersionStr
 				defaultVersion, detectSupportedVersions, supportedVersionPredicate, deprecationHandler);
 	}
 
- @Override
- public void validateVersion(@Nullable Comparable<?> requestVersion, ServerWebExchange exchange)
- 		throws MissingApiVersionException, InvalidApiVersionException {
- 	super.validateVersion(requestVersion, exchange);
- }
+	@Override
+	public void validateVersion(@Nullable Comparable<?> requestVersion, ServerWebExchange exchange)
+			throws MissingApiVersionException, InvalidApiVersionException {
+		// Do nothing
+	}
 
 }
