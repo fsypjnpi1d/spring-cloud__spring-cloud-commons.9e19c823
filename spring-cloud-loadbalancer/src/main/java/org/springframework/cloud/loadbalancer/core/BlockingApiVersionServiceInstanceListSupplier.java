@@ -97,10 +97,11 @@ public class BlockingApiVersionServiceInstanceListSupplier extends DelegatingSer
 		return get();
 	}
 
- @Override
- public Flux<List<ServiceInstance>> get() {
- 	return getDelegate().get();
- }
+	@Override
+	public Flux<List<ServiceInstance>> get() {
+		Comparable<?> defaultVersion = getApiVersionStrategy().getDefaultVersion();
+		return getDelegate().get().map(serviceInstances -> filteredByVersion(serviceInstances, defaultVersion));
+	}
 
 	private List<ServiceInstance> filteredByVersion(List<ServiceInstance> serviceInstances,
 			@Nullable Comparable<?> requestedVersion) {
